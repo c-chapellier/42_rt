@@ -1,6 +1,8 @@
 SRCS =	srcs/main.cpp \
 		srcs/parser/Parser.cpp \
 		srcs/objects/Object.cpp \
+		srcs/objects/Sphere.cpp \
+		srcs/objects/components/Point.cpp \
 
 NAME = rt
 

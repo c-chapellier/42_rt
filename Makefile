@@ -4,10 +4,10 @@ SRCS =	srcs/main.cpp \
 
 NAME = rt
 
-CFLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror
 
 all :
-			g++ -o ${NAME} ${SRCS}
+			g++ ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
 
 clean :
 			rm -f ${NAME}

@@ -15,7 +15,7 @@ std::ostream& operator<< (std::ostream& out, const Sphere& sp)
 {
     out << "Sphere : {" << std::endl
     << "\tradius: " << sp.r << std::endl
-    << "\tcenter: " << *sp.center << std::endl 
+    << "\tcenter: " << *sp.center << std::endl
     << '}' << std::endl;
     return out;
 }

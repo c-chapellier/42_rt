@@ -22,13 +22,13 @@ int main(void) {
     int i;
 
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_WIDTH, 0, &window, &renderer);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    SDL_RenderClear(renderer);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_WIDTH, 0, &window, &renderer); // create window
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0); // set color before drawing
+    SDL_RenderClear(renderer); // draw all the window
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 100); // set color before drawing
     for (i = 0; i < WINDOW_WIDTH; ++i)
-        SDL_RenderDrawPoint(renderer, i, i);
-    SDL_RenderPresent(renderer);
+        SDL_RenderDrawPoint(renderer, i, i); // draw the pixel
+    SDL_RenderPresent(renderer); // render the image
     while (1) {
         if (SDL_PollEvent(&event) && event.type == SDL_QUIT)
             break;

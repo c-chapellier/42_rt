@@ -6,7 +6,7 @@
 class Sphere
 {
     private:
-        const Point *center;
+        Point *center;
         const double r;
     public:
         Sphere(double x, double y, double z, double r);

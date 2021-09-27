@@ -15,4 +15,4 @@ class Plane
         ~Plane();
 
         friend std::ostream& operator<<(std::ostream& out, const Plane& plane);
-}
+};

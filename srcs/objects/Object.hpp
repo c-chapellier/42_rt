@@ -1,14 +1,13 @@
 #pragma once
 
 #include <iostream>
+#include "Line.hpp"
+#include "components/Point.hpp"
 
 class Object
 {
-private:
-    const std::string name;
-public:
-    Object(std::string name);
-    ~Object();
+    private:
 
-    friend std::ostream& operator<<(std::ostream& out, const Object& obj);
+    public:
+        virtual Point *intersect(Line line) = 0;
 };

@@ -8,6 +8,9 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/Object.cpp \
 		srcs/objects/Sphere.cpp \
 		srcs/objects/Plane.cpp \
+		srcs/objects/Cylinder.cpp \
+		srcs/objects/MobiusTape.cpp \
+		srcs/objects/Line.cpp \
 
 NAME = rt
 

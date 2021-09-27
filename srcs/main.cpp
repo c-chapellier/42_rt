@@ -1,5 +1,6 @@
-// #include "parser/Parser.hpp"
-// #include "objects/Object.hpp"
+#include "parser/Parser.hpp"
+#include "objects/Object.hpp"
+#include "objects/Sphere.hpp"
 
 #include <stdlib.h>
 
@@ -8,6 +9,13 @@
 #define WINDOW_WIDTH 600
 
 int main(void) {
+
+	Parser parser("../configs/sphere.json");
+
+    Object obj("sphere");
+
+    std::cout << obj << std::endl;
+
     SDL_Event event;
     SDL_Renderer *renderer;
     SDL_Window *window;
@@ -30,14 +38,3 @@ int main(void) {
     SDL_Quit();
     return EXIT_SUCCESS;
 }
-
-// int main(int argc, char *argv[])
-// {
-//     // Parser parser("../configs/sphere.json");
-
-//     // Object obj("sphere");
-
-//     // std::cout << obj << std::endl;
-
-//     return 0;
-// }

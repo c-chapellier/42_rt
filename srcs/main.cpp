@@ -1,7 +1,8 @@
-#include "window/Window.hpp"
+#include "header.hpp"
 
 int main(void)
 {
+    srand(time(NULL));
     Window win(600, 600);
 
     Pixel pxl(255, 0, 0, 255);
@@ -14,6 +15,11 @@ int main(void)
             pxls[i][j] = pxl;
 
     Image img(600, 600, pxls);
+
+    Object *sp = new Sphere(0, 0, 0, 10);
+    Line *ln = new Line(0, -100, 0, 0, -1, 0);
+    Point *p = sp->intersect(*ln);
+    std::cout << *p << std::endl;
 
     win.load_image("ok", img);
     win.set_image("ok");

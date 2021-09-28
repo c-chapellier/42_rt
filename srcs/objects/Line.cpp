@@ -12,6 +12,15 @@ Line::~Line()
     delete(this->v);
 }
 
+Point *Line::getP()
+{
+    return this->p;
+}
+Vector *Line::getV()
+{
+    return this->v;
+}
+
 std::ostream& operator<< (std::ostream& out, const Line& line)
 {
     out << "Line : {" << std::endl

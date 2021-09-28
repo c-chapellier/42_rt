@@ -3,6 +3,11 @@
 #include "components/Point.hpp"
 #include "components/Vector.hpp"
 
+// Equation:
+// x = x₀ + aλ
+// y = y₀ + bλ
+// z = z₀ + cλ
+
 class Line
 {
     private:
@@ -14,6 +19,8 @@ class Line
 
         Point *getP();
         Vector *getV();
+
+        Point *getPointFor(double t);
 
         friend std::ostream& operator<< (std::ostream& out, const Line& line);
 };

@@ -21,6 +21,11 @@ Vector *Line::getV()
     return this->v;
 }
 
+Point *Line::getPointFor(double t)
+{
+    return new Point(this->p->getX() + (this->v->getX() * t), this->p->getY() + (this->v->getY() * t), this->p->getZ() + (this->v->getZ() * t));
+}
+
 std::ostream& operator<< (std::ostream& out, const Line& line)
 {
     out << "Line : {" << std::endl

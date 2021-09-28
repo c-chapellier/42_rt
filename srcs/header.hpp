@@ -6,6 +6,7 @@
 #include "window/Window.hpp"
 #include "objects/Object.hpp"
 #include "objects/Sphere.hpp"
+#include "objects/Plane.hpp"
 #include "objects/Line.hpp"
 
 #endif

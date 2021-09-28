@@ -16,10 +16,18 @@ int main(void)
 
     Image img(600, 600, pxls);
 
-    Object *sp = new Sphere(0, 0, 0, 10);
+    Point *p;
     Line *ln = new Line(0, -100, 0, 0, -1, 0);
-    Point *p = sp->intersect(*ln);
+
+    Object *sp = new Sphere(0, 0, 0, 10);
+    p = sp->intersect(*ln);
     std::cout << *p << std::endl;
+    delete(p);
+
+    Object *pl = new Plane(0, 5, 0, 0, 1, 0);
+    p = pl->intersect(*ln);
+    std::cout << *p << std::endl;
+    delete(p);
 
     win.load_image("ok", img);
     win.set_image("ok");

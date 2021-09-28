@@ -4,6 +4,9 @@
 #include "components/Point.hpp"
 #include "Object.hpp"
 
+// Equation:
+// (x - x₀)² + (Y - Y₀)² + (Z - Z₀)² = R²
+
 class Sphere : public Object
 {
     private:

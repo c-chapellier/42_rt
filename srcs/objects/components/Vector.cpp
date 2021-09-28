@@ -4,6 +4,10 @@ Vector::Vector(const double x, const double y, const double z) : x(x), y(y), z(z
 {
 }
 
+Vector::Vector(const Vector &vector) : x(vector.x), y(vector.y), z(vector.z)
+{
+}
+
 Vector::~Vector()
 {
 }

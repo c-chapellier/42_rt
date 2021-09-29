@@ -8,5 +8,6 @@
 #include "objects/Sphere.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Line.hpp"
+#include "objects/Quadratic.hpp"
 
 #endif

@@ -17,7 +17,7 @@ class Sphere : public Object
         Sphere(Point p, double r);
         ~Sphere();
 
-        Point *intersect(Line line);
+        Point *intersect(Line *line);
 
         friend std::ostream& operator<<(std::ostream& out, const Sphere& sp);
 };

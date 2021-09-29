@@ -12,6 +12,7 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/Cylinder.cpp \
 		srcs/objects/MobiusTape.cpp \
 		srcs/objects/Line.cpp \
+		srcs/objects/Quadratic.cpp \
 
 NAME = rt
 

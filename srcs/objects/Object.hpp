@@ -10,6 +10,7 @@ class Object
     protected:
         Color *color;
     public:
-        virtual Point *intersect(Line line) = 0;
+        //virtual ~Object();
+        virtual Point *intersect(Line *line) = 0;
         Color *getColor();
 };

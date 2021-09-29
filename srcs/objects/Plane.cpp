@@ -21,7 +21,7 @@ Plane::~Plane()
     delete(this->v);
 }
 
-Point *Plane::intersect(Line line)
+Point *Plane::intersect(Line *line)
 {
     double a, b, c, K;
     a = this->v->getX();
@@ -29,8 +29,8 @@ Point *Plane::intersect(Line line)
     c = this->v->getZ();
     K = ((this->v->getX() * (this->p->getX() * -1)) + (this->v->getY() * (this->p->getY() * -1)) + (this->v->getZ() * (this->p->getZ() * -1))) * -1;
     double t, C;
-    t = (a * line.getV()->getX()) + (b * line.getV()->getY()) + (c * line.getV()->getZ());
-    C = (a * line.getP()->getX()) + (b * line.getP()->getY()) + (c * line.getP()->getZ());
+    t = (a * line->getV()->getX()) + (b * line->getV()->getY()) + (c * line->getV()->getZ());
+    C = (a * line->getP()->getX()) + (b * line->getP()->getY()) + (c * line->getP()->getZ());
     if(t == 0 && C != K){
         // no intersection
         return NULL;
@@ -39,7 +39,7 @@ Point *Plane::intersect(Line line)
         return NULL;
     } else {
         double s1 = (K - C) / t;
-        return line.getPointFor(s1);
+        return line->getPointFor(s1);
     }
 }
 

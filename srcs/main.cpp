@@ -20,14 +20,26 @@ int main(void)
     Line *ln = new Line(0, -100, 0, 0, -1, 0);
 
     Object *sp = new Sphere(0, 0, 0, 10);
-    p = sp->intersect(*ln);
+    p = sp->intersect(ln);
     std::cout << *p << std::endl;
-    delete(p);
+    if(p)
+        delete(p);
 
     Object *pl = new Plane(0, 5, 0, 0, 1, 0);
-    p = pl->intersect(*ln);
+    p = pl->intersect(ln);
     std::cout << *p << std::endl;
-    delete(p);
+    if(p)
+        delete(p);
+
+    Object *qr = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -25); // circle of R = 5
+    p = qr->intersect(ln);
+    std::cout << *p << std::endl;
+    if(p)
+        delete(p);
+
+    // delete(sp);
+    // delete(pl);
+    // delete(qr);
 
     win.load_image("ok", img);
     win.set_image("ok");

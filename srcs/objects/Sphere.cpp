@@ -27,15 +27,15 @@ std::ostream& operator<< (std::ostream& out, const Sphere& sp)
     return out;
 }
 
-Point *Sphere::intersect(Line line)
+Point *Sphere::intersect(Line *line)
 {
     double a1, b1, a2, b2, a3, b3;
-    a1 = line.getV()->getX();
-    b1 = line.getP()->getX() - this->center->getX();
-    a2 = line.getV()->getY();
-    b2 = line.getP()->getY() - this->center->getY();
-    a3 = line.getV()->getZ();
-    b3 = line.getP()->getZ() - this->center->getZ();
+    a1 = line->getV()->getX();
+    b1 = line->getP()->getX() - this->center->getX();
+    a2 = line->getV()->getY();
+    b2 = line->getP()->getY() - this->center->getY();
+    a3 = line->getV()->getZ();
+    b3 = line->getP()->getZ() - this->center->getZ();
     double a, b, c;
     a = pow(a1, 2) + pow(a2, 2) + pow(a3, 2);
     b = (2 * a1 * b1) + (2 * a2 * b2) + (2 * a3 * b3);
@@ -46,24 +46,24 @@ Point *Sphere::intersect(Line line)
     } else if (delta == 0) {
         double s1 = -b / (2 * a);
         double x1, y1, z1;
-        x1 = line.getP()->getX() + (line.getV()->getX() * s1);
-        y1 = line.getP()->getY() + (line.getV()->getY() * s1);
-        z1 = line.getP()->getZ() + (line.getV()->getZ() * s1);
+        x1 = line->getP()->getX() + (line->getV()->getX() * s1);
+        y1 = line->getP()->getY() + (line->getV()->getY() * s1);
+        z1 = line->getP()->getZ() + (line->getV()->getZ() * s1);
         return new Point(x1, y1, z1);
     } else {
         double s1 = (-b + sqrt(delta)) / (2 * a);
         double s2 = (-b - sqrt(delta)) / (2 * a);
         double x1, y1, z1, x2, y2, z2;
-        x1 = line.getP()->getX() + (line.getV()->getX() * s1);
-        y1 = line.getP()->getY() + (line.getV()->getY() * s1);
-        z1 = line.getP()->getZ() + (line.getV()->getZ() * s1);
-        x2 = line.getP()->getX() + (line.getV()->getX() * s2);
-        y2 = line.getP()->getY() + (line.getV()->getY() * s2);
-        z2 = line.getP()->getZ() + (line.getV()->getZ() * s2);
+        x1 = line->getP()->getX() + (line->getV()->getX() * s1);
+        y1 = line->getP()->getY() + (line->getV()->getY() * s1);
+        z1 = line->getP()->getZ() + (line->getV()->getZ() * s1);
+        x2 = line->getP()->getX() + (line->getV()->getX() * s2);
+        y2 = line->getP()->getY() + (line->getV()->getY() * s2);
+        z2 = line->getP()->getZ() + (line->getV()->getZ() * s2);
         Point *p1, *p2;
         p1 = new Point(x1, y1, z1);
         p2 = new Point(x2, y2, z2);
-        if(line.getP()->distWith(*p1) < line.getP()->distWith(*p2)){
+        if(line->getP()->distWith(*p1) < line->getP()->distWith(*p2)){
             delete(p2);
             return p1;
         } else {

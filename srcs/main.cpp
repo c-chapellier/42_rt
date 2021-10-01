@@ -3,6 +3,28 @@
 int main(void)
 {
     srand(time(NULL));
+
+    printf("%f\n", RADIAN(180));
+    printf("%f\n", RADIAN(360));
+
+    printf("%f\n", sin(RADIAN(0)));
+    printf("%f\n", sin(RADIAN(30)));
+    printf("%f\n", sin(RADIAN(45)));
+    printf("%f\n", sin(RADIAN(60)));
+    printf("%f\n", sin(RADIAN(90)));
+    printf("%f\n", sin(RADIAN(180)));
+    printf("%f\n", sin(RADIAN(270)));
+
+    printf("%f\n", DEGREE(asin(sin(RADIAN(0)))));
+    printf("%f\n", DEGREE(asin(sin(RADIAN(30)))));
+    printf("%f\n", DEGREE(asin(sin(RADIAN(45)))));
+    printf("%f\n", DEGREE(asin(sin(RADIAN(60)))));
+    printf("%f\n", DEGREE(asin(sin(RADIAN(90)))));
+    printf("%f\n", DEGREE(asin(sin(RADIAN(180)))));
+    printf("%f\n", DEGREE(asin(sin(RADIAN(270)))));
+
+    Camera c(0, 0, 0, 1, 0, 0, 90);
+    c.getScreen(10, 10);
     Window win(600, 600);
 
     Pixel pxl(255, 0, 0, 255);

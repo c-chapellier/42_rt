@@ -6,6 +6,12 @@ Line::Line(double px, double py, double pz, double vx, double vy, double vz)
     this->v = new Vector(vx, vy, vz);
 }
 
+Line::Line(Point p, Vector v)
+{
+    this->p = new Point(p);
+    this->v = new Vector(v);
+}
+
 Line::~Line()
 {
     delete(this->p);
@@ -23,6 +29,13 @@ Vector *Line::getV()
 
 Point *Line::getPointFor(double t)
 {
+    return new Point(this->p->getX() + (this->v->getX() * t), this->p->getY() + (this->v->getY() * t), this->p->getZ() + (this->v->getZ() * t));
+}
+
+Point *Line::getPointAt(double dist)
+{
+    double l = this->v->getMagnitude();
+    double t = dist / l;
     return new Point(this->p->getX() + (this->v->getX() * t), this->p->getY() + (this->v->getY() * t), this->p->getZ() + (this->v->getZ() * t));
 }
 

@@ -3,6 +3,7 @@ SRCS =	srcs/main.cpp \
 		srcs/pixel/Pixel.cpp \
 		srcs/image/Image.cpp \
 		srcs/parser/Parser.cpp \
+		srcs/visuals/Camera.cpp \
 		srcs/color/Color.cpp \
 		srcs/objects/components/Point.cpp \
 		srcs/objects/components/Vector.cpp \

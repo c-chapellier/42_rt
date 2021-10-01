@@ -21,6 +21,15 @@ Plane::~Plane()
     delete(this->v);
 }
 
+Point *Plane::getP()
+{
+    return this->p;
+}
+Vector *Plane::getV()
+{
+    return this->v;
+}
+
 Point *Plane::intersect(Line *line)
 {
     double a, b, c, K;
@@ -41,6 +50,16 @@ Point *Plane::intersect(Line *line)
         double s1 = (K - C) / t;
         return line->getPointFor(s1);
     }
+}
+
+double Plane::angleWith(Vector *v)
+{
+    return this->v->angleWith(v);
+}
+
+double Plane::angleWith(Plane *p)
+{
+    return this->v->angleWith(p->v);
 }
 
 std::ostream& operator<< (std::ostream& out, const Plane& plane)

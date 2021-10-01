@@ -19,7 +19,12 @@ class Plane : public Object
         Plane(const double px, const double py, const double pz, const double vx, const double vy, const double vz);
         ~Plane();
 
+        Point *getP();
+        Vector *getV();
+
         Point *intersect(Line *line);
+        double angleWith(Vector *v);
+        double angleWith(Plane *p);
 
         friend std::ostream& operator<<(std::ostream& out, const Plane& plane);
 };

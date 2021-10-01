@@ -12,7 +12,6 @@
 #include "objects/Quadratic.hpp"
 #include "visuals/Camera.hpp"
 
-#define RADIAN(n) (n * (2 * M_PI / 360))
-#define DEGREE(n) (n * (360 / (2 * M_PI)))
+#include "./headers/define.hpp"
 
 #endif

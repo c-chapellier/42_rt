@@ -60,7 +60,7 @@ double Vector::scalarProduct(Vector *v)
 //         |a| |b|
 double Vector::angleWith(Vector *v)
 {
-    return acos((this->scalarProduct(v) / (this->getMagnitude() * v->getMagnitude())) * (2 * M_PI / 360));
+    return DEGREE(acos((this->scalarProduct(v) / (this->getMagnitude() * v->getMagnitude()))));
 }
 
 std::ostream& operator<< (std::ostream& out, const Vector& vector)

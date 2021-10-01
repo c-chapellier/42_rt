@@ -3,6 +3,7 @@
 #include <iostream>
 #include <math.h>
 
+#include "./../../headers/define.hpp"
 #include "Point.hpp"
 
 class Point;

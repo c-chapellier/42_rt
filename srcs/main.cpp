@@ -23,7 +23,7 @@ int main(void)
     printf("%f\n", DEGREE(asin(sin(RADIAN(180)))));
     printf("%f\n", DEGREE(asin(sin(RADIAN(270)))));
 
-    Camera c(0, 0, 0, 1, 0, 0, 90);
+    Camera c(0, 0, 0, 0, 1, 0, 90);
     c.getScreen(10, 10);
     Window win(600, 600);
 

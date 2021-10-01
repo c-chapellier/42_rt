@@ -32,7 +32,7 @@ void Camera::getScreen(int width, int height)
     Vector *z_axis = new Vector(0, 0, 1);
 
     double alpha = this->v->angleWith(x_axis);
-    double gama = this->v->angleWith(z_axis);
+    double gama = 90 - this->v->angleWith(z_axis);
 
     double d = double(width / 2) / sin(RADIAN(this->angle / 2));
 
@@ -60,36 +60,65 @@ void Camera::getScreen(int width, int height)
         for (int y = 0; y < width; ++y) {
             Point *new_point;
             Point *ooz = new Point(0, 0, - z + double(height / 2));
-            Vector *v1_tmp = new Vector(*ooz, screen[z][y]);
-
             Point *oyo = new Point(0, y - double(width / 2), 0);
-            Vector *v2_tmp = new Vector(*oyo, screen[z][y]);
 
-            // polar coordinates for x y axis
-            double dist1 = screen[z][y].distWith(*ooz); // dist 
-            double alpha1 = v1_tmp->angleWith(x_axis) + alpha; // angle
-            double dist2 = screen[z][y].distWith(*oyo); // dist 
-            double gama1 = v2_tmp->angleWith(x_axis) + (90 - gama); // angle
+            Vector *p_ooz = new Vector(*ooz, screen[z][y]);
+            Vector *p_oyo = new Vector(*oyo, screen[z][y]);
+            double beta = p_ooz->angleWith(x_axis);
+            double new_angle = beta - alpha;
+            
+
+            double dist1 = screen[z][y].distWith(*ooz); // dist
+            double dist2 = screen[z][y].distWith(*oyo); // dist
             // new coordinates
-            double new_x = sin(RADIAN(alpha1)) * dist1;
-            double new_y = cos(RADIAN(alpha1)) * dist1;
+            double new_x = cos(RADIAN(new_angle)) * dist1;
+            double new_y = -sin(RADIAN(new_angle)) * dist1;
             double new_z = screen[z][y].getZ();
+            std::cout << "dist1: " << dist1 << std::endl;
+            std::cout << "alpha: " << alpha << std::endl;
+            std::cout << "beta: " << beta << std::endl;
+            std::cout << "new_angle: " << new_angle << std::endl;
+            std::cout << "sin: " << sin(RADIAN(new_angle)) << std::endl;
+            std::cout << "cos: " << cos(RADIAN(new_angle)) << std::endl;
+            std::cout << "x: " << new_x << " y: " << new_y << " z: " << new_z << std::endl;
 
             Vector v1(screen[z][y], new_x, new_y, new_z);
             new_point = screen[z][y].applyVector(&v1);
 
+            std::cout << "actual point: " << screen[z][y] << std::endl;
+            std::cout << "v1: " << v1 << std::endl;
+            std::cout << "new point: " << *new_point << std::endl;
+
+            beta = p_oyo->angleWith(x_axis);
+            new_angle = beta - gama;
             // new coordinates
-            new_x = cos(RADIAN(gama1)) * dist2;
+            new_x = cos(RADIAN(new_angle)) * dist2;
             new_y = screen[z][y].getY();
-            new_z = sin(RADIAN(gama1)) * dist2;
+            new_z = sin(RADIAN(new_angle)) * dist2;
+
+            std::cout << "dist2: " << dist2 << std::endl;
+            std::cout << "gama: " << gama << std::endl;
+            std::cout << "beta: " << beta << std::endl;
+            std::cout << "new_angle: " << new_angle << std::endl;
+            std::cout << "sin: " << sin(RADIAN(new_angle)) << std::endl;
+            std::cout << "cos: " << cos(RADIAN(new_angle)) << std::endl;
+            std::cout << "x: " << new_x << " y: " << new_y << " z: " << new_z << std::endl;
 
             Vector v2(screen[z][y], new_x, new_y, new_z);
             new_point = new_point->applyVector(&v2);
+
+            std::cout << "actual point: " << screen[z][y] << std::endl;
+            std::cout << "v2: " << v2 << std::endl;
+            std::cout << "new point: " << *new_point << std::endl;
+
+            std::cout << *new_point << std::endl;
             
             screen[z][y].setX(new_point->getX() + this->p->getX());
             screen[z][y].setY(new_point->getY() + this->p->getY());
             screen[z][y].setZ(new_point->getZ() + this->p->getZ());
+            break;
         }
+        break;
     }
     for (int z = 0; z < height; ++z){
         for (int y = 0; y < width; ++y){

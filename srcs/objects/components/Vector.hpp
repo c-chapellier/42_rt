@@ -20,6 +20,7 @@ class Vector
         Vector(Point &p, const double x, const double y, const double z);
         Vector(const double x, const double y, const double z, Point &p);
         Vector(const Vector &vector);
+        Vector(const Vector &vector, double div);
         ~Vector();
 
         double getX();
@@ -28,7 +29,15 @@ class Vector
 
         double getMagnitude();
         double scalarProduct(Vector *v);
+        double crossProduct(Vector *v);
         double angleWith(Vector *v);
+
+        int directionXY(Vector *v);
+        int directionXZ(Vector *v);
+        double crossProductXY(Vector *v);
+        double crossProductXZ(Vector *v);
+        double scalarProductXY(Vector *v);
+        double scalarProductXZ(Vector *v);
 
         friend std::ostream& operator<<(std::ostream& out, const Vector& vector);
 };

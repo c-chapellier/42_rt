@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdlib.h>
+#include <iostream>
 
 class Color
 {
@@ -27,4 +28,6 @@ class Color
         void setG(int g);
         void setB(int b);
         void setO(int o);
+
+        friend std::ostream& operator<<(std::ostream& out, const Color& color);
 };

@@ -16,6 +16,7 @@ class Line
     public:
         Line(double px, double py, double pz, double vx, double vy, double vz);
         Line(Point p, Vector v);
+        Line(Point a, Point b);
         ~Line();
 
         Point *getP();

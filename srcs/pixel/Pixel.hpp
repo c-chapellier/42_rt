@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "./../color/Color.hpp"
+
 class Pixel
 {
 private:
@@ -13,6 +15,7 @@ private:
 public:
     Pixel();
     Pixel(int red, int green, int blue, int opacity);
+    Pixel(Color *c);
     ~Pixel();
 
     int get_red();

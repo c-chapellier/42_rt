@@ -68,3 +68,14 @@ void Color::generateRandomColor()
     this->g = rand() % 256;
     this->b = rand() % 256;
 }
+
+std::ostream& operator<< (std::ostream& out, const Color& color)
+{
+    out << "Color : {" << std::endl
+    << "\tr: " << color.r << std::endl
+    << "\tg: " << color.g << std::endl
+    << "\tb: " << color.b << std::endl
+    << "\to: " << color.o << std::endl
+    << '}' << std::endl;
+    return out;
+}

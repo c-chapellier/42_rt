@@ -12,6 +12,12 @@ Line::Line(Point p, Vector v)
     this->v = new Vector(v);
 }
 
+Line::Line(Point a, Point b)
+{
+    this->p = new Point(a);
+    this->v = new Vector(a, b);
+}
+
 Line::~Line()
 {
     delete(this->p);

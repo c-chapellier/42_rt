@@ -9,7 +9,10 @@ Image::Image()
 Image::Image(int width, int height)
     : width(width), height(height)
 {
-    
+    pxls.resize(height, std::vector<Pixel>(width));
+    for (int i = 0; i < height; ++i)
+        for (int j = 0; j < width; ++j)
+            pxls[i][j] = Pixel(0, 0, 0, 255);
 }
 
 Image::Image(int width, int height, std::vector< std::vector<Pixel> > pxls)

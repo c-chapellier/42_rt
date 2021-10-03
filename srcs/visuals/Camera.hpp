@@ -19,5 +19,8 @@ class Camera
         Camera(Point p, Vector v, double a);
         ~Camera();
 
-        void getScreen(int width, int height);
+        Point *getP();
+        Vector *getV();
+
+        std::vector< std::vector<Point> > getScreen(int width, int height);
 };

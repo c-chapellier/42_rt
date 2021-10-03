@@ -11,6 +11,14 @@ Pixel::Pixel(int red, int green, int blue, int opacity)
 
 }
 
+Pixel::Pixel(Color *c)
+{
+    this->red = c->getR();
+    this->green = c->getG();
+    this->blue = c->getB();
+    this->opacity = c->getO();
+}
+
 Pixel::~Pixel()
 {
 

@@ -26,13 +26,22 @@ Camera::~Camera()
     delete(this->v);
 }
 
+Point *Camera::getP()
+{
+    return this->p;
+}
+Vector *Camera::getV()
+{
+    return this->v;
+}
+
 // find the distance debtween the camera and the screen : d
 // find the center of the screen as we look in the X direction
 // find all the points of the screen center on X axis
 // apply the rotation for the alpha angle (angle between X axis and camera vector)
 // apply the rotation for the gama angle (angle between Z axis and camera vector)
 // apply the translation (from the point of the camera)
-void Camera::getScreen(int width, int height)
+std::vector< std::vector<Point> > Camera::getScreen(int width, int height)
 {
     // make all the points
     std::vector< std::vector<Point> > screen;
@@ -41,11 +50,11 @@ void Camera::getScreen(int width, int height)
         for (int y = 0; y < width; ++y){
             Point p(double(width / 2) / sin(RADIAN(this->angle / 2)), (double)(y - (double)(width / 2)), - z + double(height / 2));
             screen[z][y] = p;
-            std::cout << screen[z][y] << " ";
+            //std::cout << screen[z][y] << " ";
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
-    std::cout << std::endl;std::cout << std::endl;
+    //std::cout << std::endl;std::cout << std::endl;
 
     // vectors
     Vector *x_axis = new Vector(1, 0, 0); // X axis
@@ -64,7 +73,7 @@ void Camera::getScreen(int width, int height)
 
     for (int z = 0; z < height; ++z) {
         for (int y = 0; y < width; ++y) {
-            std::cout << std::endl << "Point: " << screen[z][y] << std::endl;
+            // std::cout << std::endl << "Point: " << screen[z][y] << std::endl;
             Point *new_point = new Point(screen[z][y]); // res
             double new_x, new_y, new_z, new_angle, beta, dist;
 
@@ -144,10 +153,11 @@ void Camera::getScreen(int width, int height)
         }
         //break;
     }
-    for (int z = 0; z < height; ++z){
-        for (int y = 0; y < width; ++y){
-            std::cout << screen[z][y] << " ";
-        }
-        std::cout << std::endl;
-    }
+    // for (int z = 0; z < height; ++z){
+    //     for (int y = 0; y < width; ++y){
+    //         std::cout << screen[z][y] << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
+    return screen;
 }

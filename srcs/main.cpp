@@ -49,44 +49,68 @@ int main(void)
 
     test();
 
-    
-    Window win(600, 600);
-
-    Pixel pxl(255, 0, 0, 255);
-
-    std::vector< std::vector<Pixel> > pxls;
-    pxls.resize(600, std::vector<Pixel>(600));
-
-    for (int i = 0; i < 600; ++i)
-        for (int j = 0; j < 600; ++j)
-            pxls[i][j] = pxl;
-
-    Image img(600, 600, pxls);
-
     Point *p;
     Line *ln = new Line(0, -100, 0, 0, -1, 0);
 
-    Object *sp = new Sphere(0, 0, 0, 10);
+    Object *sp = new Sphere(0, 0, 100, 50);
     p = sp->intersect(ln);
-    std::cout << *p << std::endl;
-    if(p)
+    if(p){
+        std::cout << *p << std::endl;
         delete(p);
+    } else {
+        std::cout << "does not itersect" << std::endl;
+    }
 
     Object *pl = new Plane(0, 5, 0, 0, 1, 0);
     p = pl->intersect(ln);
     std::cout << *p << std::endl;
-    if(p)
+    if(p){
+        std::cout << *p << std::endl;
         delete(p);
+    } else {
+        std::cout << "does not itersect" << std::endl;
+    }
 
     Object *qr = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -25); // circle of R = 5
     p = qr->intersect(ln);
-    std::cout << *p << std::endl;
-    if(p)
+    if(p){
+        std::cout << *p << std::endl;
         delete(p);
+    } else {
+        std::cout << "does not itersect" << std::endl;
+    }
 
     // delete(sp);
     // delete(pl);
     // delete(qr);
+
+    int size = 600;
+
+    std::cout << "window" << std::endl;
+    Window win(size, size);
+    std::cout << "image" << std::endl;
+    Image img(size, size);
+
+    std::cout << "camera" << std::endl;
+    Camera c(0, 0, 0, 0, 0, 100, 90);
+    std::cout << "screen" << std::endl;
+    std::vector< std::vector<Point> > screen = c.getScreen(size, size);
+
+    std::cout << "intersect" << std::endl;
+    for (int i = 0; i < size; ++i){
+        for (int j = 0; j < size; ++j){
+            //std::cout << i << " " << j << std::endl;
+            Line l(*c.getP(), screen[i][j]);
+            //std::cout << l << std::endl;
+            if(sp->intersect(&l)){
+                // std::cout << "intersect" << std::endl;
+                // std::cout << *sp->getColor() << std::endl;
+                img.set_pixel(i, j, Pixel(sp->getColor()));
+            }
+        }
+    }
+
+    
 
     win.load_image("ok", img);
     win.set_image("ok");

@@ -19,7 +19,6 @@ private:
 
 public:
     Window(int width, int height);
-    Window(int width, int height, std::map<std::string, Image> imgs);
     ~Window();
 
     void clear();

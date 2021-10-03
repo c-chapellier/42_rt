@@ -8,14 +8,6 @@ Window::Window(int width, int height)
     this->clear();
 }
 
-Window::Window(int width, int height, std::map<std::string, Image> imgs)
-    : width(width), height(height), imgs(imgs)
-{
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_CreateWindowAndRenderer(this->height, this->width, 0, &this->window, &this->renderer);
-    this->clear();
-}
-
 Window::~Window()
 {
     SDL_DestroyRenderer(this->renderer);

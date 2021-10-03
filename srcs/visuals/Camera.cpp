@@ -16,6 +16,8 @@ Camera::Camera(Point p, Vector v, double a)
         throw "The camera vector can not be the null vector";
     this->p = new Point(p);
     this->v = new Vector(v);
+    if (a < 60 || a > 120)
+        throw "Bad angle for camera";
     this->angle = a;
 }
 Camera::~Camera()

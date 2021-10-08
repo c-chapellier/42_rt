@@ -52,9 +52,13 @@ Point *Plane::intersect(Line *line)
     }
 }
 
+//          a . b
+// sin θ = -------
+// 
 double Plane::angleWith(Vector *v)
 {
-    return this->v->angleWith(v);
+    return DEGREE(asin((this->v->scalarProduct(v) / (this->v->getMagnitude() * v->getMagnitude()))));
+    //return this->v->angleWith(v);
 }
 
 double Plane::angleWith(Plane *p)

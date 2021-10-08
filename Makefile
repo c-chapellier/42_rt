@@ -14,6 +14,7 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/MobiusTape.cpp \
 		srcs/objects/Line.cpp \
 		srcs/objects/Quadratic.cpp \
+		srcs/headers/define.cpp \
 
 NAME = rt
 

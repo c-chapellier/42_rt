@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include "Vector.hpp"
+#include "./../../headers/define.hpp"
 
 class Vector;
 
@@ -30,6 +31,9 @@ class Point
 
         double distWith(Point p);
         Point *applyVector(Vector *vector);
+        Point *rotateAroundX(double alpha);
+        Point *rotateAroundY(double alpha);
+        Point *rotateAroundZ(double alpha);
 
         friend std::ostream& operator<<(std::ostream& out, const Point& point);
 };

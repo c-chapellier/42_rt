@@ -5,6 +5,10 @@
 #include "Line.hpp"
 #include <math.h>
 
+// Equation:
+// Ax² + By² + Cz² + Dxy + Exz + Fyz + Gx + Hy + Iz + J = 0
+// A(x - x₀)² + B(y - y₀)² + C(z - z₀)² + D(x - x₀)(y - y₀) + E(x - x₀)(z - z₀) + F(y - y₀)(z - z₀) + G(x - x₀) + H(y - y₀) + I(z - z₀) + J = 0
+
 class Quadratic : public Object
 {
     private:

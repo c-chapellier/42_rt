@@ -175,13 +175,20 @@ int main(void)
 
     int size = 600;
 
-    Object *sp = new Sphere(100, -200, -100, 50);
+    //Object *sp = new Sphere(100, -200, -100, 50);
+
+    // https://tutorial.math.lamar.edu/classes/calciii/quadricsurfaces.aspx
+
+    // Object *q = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Sphere
+    // Object *q = new Quadratic(1, 0, 1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Cylinder
+    // Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, 0); // Cone
+    Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Hyperboloid
 
     Window win(size, size);
     Image img(size, size);
 
     std::cout << "camera" << std::endl;
-    Camera c(0, 0, 0, 1, -2, -1, 90);
+    Camera c(-100, 0, 0, 1, 0, 0, 90);
     std::cout << "screen" << std::endl;
     std::vector< std::vector<Point> > screen = c.getScreen(size, size);
 
@@ -191,10 +198,10 @@ int main(void)
             //std::cout << i << " " << j << std::endl;
             Line l(*c.getP(), screen[i][j]);
             //std::cout << l << std::endl;
-            if(sp->intersect(&l)){
+            if(q->intersect(&l)){
                 // std::cout << "intersect" << std::endl;
                 // std::cout << *sp->getColor() << std::endl;
-                img.set_pixel(i, j, Pixel(sp->getColor()));
+                img.set_pixel(i, j, Pixel(q->getColor()));
             }
         }
     }

@@ -15,6 +15,7 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/Line.cpp \
 		srcs/objects/Quadratic.cpp \
 		srcs/headers/define.cpp \
+		srcs/saver/Saver.cpp \
 
 NAME = rt
 

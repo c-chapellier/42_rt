@@ -1,6 +1,12 @@
 #ifndef DEFINE_HPP
 #define DEFINE_HPP
 
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <fstream>
+#include <ios>
+
 #define RADIAN(n) (n * (2 * M_PI / 360))
 #define DEGREE(n) (n * (360 / (2 * M_PI)))
 
@@ -10,5 +16,10 @@
 double neg(double x);
 double pos(double x);
 double mod(double x, double z);
+
+std::string itohex(int n);
+
+void outputHex(std::ofstream *outfile, std::string hex);
+void output(std::ofstream *outfile, std::string str);
 
 #endif

@@ -157,6 +157,13 @@ void test_angle_plane_vector()
     // std::cout << p.angleWith(&v) << std::endl;
 }
 
+void test_saver()
+{
+    // Saver s;
+
+    // s.saveToPng(600, 600);
+}
+
 void test()
 {
     test_radian_degree();
@@ -165,6 +172,7 @@ void test()
     test_shapes();
     test_point_rotation();
     test_angle_plane_vector();
+    test_saver();
 }
 
 int main(void)

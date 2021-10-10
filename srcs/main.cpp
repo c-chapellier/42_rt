@@ -201,9 +201,9 @@ int main(void)
 
     // https://tutorial.math.lamar.edu/classes/calciii/quadricsurfaces.aspx
 
-    Object *q = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(50, 2)); // Sphere
+    // Object *q = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(50, 2)); // Sphere
     // Object *q = new Quadratic(1, 0, 1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Cylinder
-    // Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, 0); // Cone
+    Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, 0); // Cone
     // Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Hyperboloid
 
     Window win(size, size);
@@ -221,7 +221,7 @@ int main(void)
             Point *p = q->intersect(&l);
             if(p){
                 double dist = p->distWith(*c.getP());
-                double pourcentage = (dist / 120);
+                double pourcentage = (dist / 150);
                 img.set_pixel(i, j, Pixel(q->getColor()->reduceOf(pourcentage)));
             }
         }

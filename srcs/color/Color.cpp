@@ -72,9 +72,9 @@ void Color::generateRandomColor()
 Color *Color::reduceOf(double pourcentage)
 {
     double new_r, new_g, new_b;
-    new_r = (double)this->r * pourcentage;
-    new_g = (double)this->g * pourcentage;
-    new_b = (double)this->b * pourcentage;
+    new_r = (double)this->r * (1.0 - pourcentage);
+    new_g = (double)this->g * (1.0 - pourcentage);
+    new_b = (double)this->b * (1.0 - pourcentage);
     return new Color((int)new_r, (int)new_b, (int)new_g);
 }
 

@@ -69,6 +69,15 @@ void Color::generateRandomColor()
     this->b = rand() % 256;
 }
 
+Color *Color::reduceOf(double pourcentage)
+{
+    double new_r, new_g, new_b;
+    new_r = (double)this->r * pourcentage;
+    new_g = (double)this->g * pourcentage;
+    new_b = (double)this->b * pourcentage;
+    return new Color((int)new_r, (int)new_b, (int)new_g);
+}
+
 std::ostream& operator<< (std::ostream& out, const Color& color)
 {
     out << "Color : {" << std::endl

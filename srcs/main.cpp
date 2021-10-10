@@ -201,10 +201,10 @@ int main(void)
 
     // https://tutorial.math.lamar.edu/classes/calciii/quadricsurfaces.aspx
 
-    // Object *q = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Sphere
+    Object *q = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(50, 2)); // Sphere
     // Object *q = new Quadratic(1, 0, 1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Cylinder
     // Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, 0); // Cone
-    Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Hyperboloid
+    // Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Hyperboloid
 
     Window win(size, size);
     Image img(size, size);
@@ -217,13 +217,12 @@ int main(void)
     std::cout << "intersect" << std::endl;
     for (int i = 0; i < size; ++i){
         for (int j = 0; j < size; ++j){
-            //std::cout << i << " " << j << std::endl;
             Line l(*c.getP(), screen[i][j]);
-            //std::cout << l << std::endl;
-            if(q->intersect(&l)){
-                // std::cout << "intersect" << std::endl;
-                // std::cout << *sp->getColor() << std::endl;
-                img.set_pixel(i, j, Pixel(q->getColor()));
+            Point *p = q->intersect(&l);
+            if(p){
+                double dist = p->distWith(*c.getP());
+                double pourcentage = (dist / 120);
+                img.set_pixel(i, j, Pixel(q->getColor()->reduceOf(pourcentage)));
             }
         }
     }

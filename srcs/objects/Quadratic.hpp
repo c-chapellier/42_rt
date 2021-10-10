@@ -3,6 +3,7 @@
 #include "Object.hpp"
 #include "components/Point.hpp"
 #include "Line.hpp"
+#include "Plane.hpp"
 #include <math.h>
 
 // Equation:
@@ -18,4 +19,5 @@ class Quadratic : public Object
         ~Quadratic();
 
         Point *intersect(Line *line);
+        Plane *tangentAt(Point *p);
 };

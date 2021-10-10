@@ -16,6 +16,7 @@ class Plane : public Object
         Vector *v;
     public:
         Plane(Point p, Vector v);
+        Plane(Point *p, double vx, double vy, double vz);
         Plane(const double px, const double py, const double pz, const double vx, const double vy, const double vz);
         ~Plane();
 

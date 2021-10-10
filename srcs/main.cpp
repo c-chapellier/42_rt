@@ -161,7 +161,20 @@ void test_saver()
 {
     // Saver s;
 
-    // s.saveToPng(600, 600);
+    // s.saveToPng(0, 0);
+}
+
+void test_quadratic_tangent()
+{
+    // Quadratic *q = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Sphere
+    // Plane *p = q->tangentAt(new Point(5, 0, 0));
+    // std::cout << *p << std::endl;
+    // p = q->tangentAt(new Point(-5, 0, 0));
+    // std::cout << *p << std::endl;
+    // p = q->tangentAt(new Point(0, 5, 0));
+    // std::cout << *p << std::endl;
+    // p = q->tangentAt(new Point(0, -5, 0));
+    // std::cout << *p << std::endl;
 }
 
 void test()
@@ -173,6 +186,7 @@ void test()
     test_point_rotation();
     test_angle_plane_vector();
     test_saver();
+    test_quadratic_tangent();
 }
 
 int main(void)

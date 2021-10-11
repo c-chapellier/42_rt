@@ -1,12 +1,10 @@
 #include "Quadratic.hpp"
 
-Quadratic::Quadratic(double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) : A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
+Quadratic::Quadratic(double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) : Object(), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
 {
-    this->color = new Color();
 }
 Quadratic::~Quadratic()
 {
-    delete(this->color);
 }
 
 Point *Quadratic::intersect(Line *line)

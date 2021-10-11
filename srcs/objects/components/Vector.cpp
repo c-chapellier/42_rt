@@ -59,9 +59,26 @@ double Vector::scalarProduct(Vector *v)
     return (this->x * v->x) + (this->y * v->y) + (this->z * v->z);
 }
 
-double Vector::crossProduct(Vector *v)
+double Vector::crossProductMagnitude(Vector *v)
 {
-    return (this->y * v->z) - (v->y * this->z) - (this->x * v->z) + (v->x * this->z) + (this->x * v->y) - (v->x * this->y);
+    Vector *tmp = this->crossProduct(v);
+    double magnitude = tmp->getMagnitude();
+    delete(tmp);
+    return magnitude;
+}
+
+// return a vector perendicular to the two others
+// | x y z |    | y z |     | x z |     | x y |
+// ---------    -------     -------     -------
+// | a b c | => | b c | x - | a c | y + | a b | z
+// | d e f |    | e f |     | d f |     | d e |
+Vector *Vector::crossProduct(Vector *v)
+{
+    return new Vector(
+        (this->y * v->z) - (v->y * this->z),
+        -(this->x * v->z) + (v->x * this->z),
+        (this->x * v->y) - (v->x * this->y)
+    );
 }
 
 //          a . b

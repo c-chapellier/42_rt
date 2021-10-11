@@ -8,12 +8,12 @@ SRCS =	srcs/main.cpp \
 		srcs/color/Color.cpp \
 		srcs/objects/components/Point.cpp \
 		srcs/objects/components/Vector.cpp \
+		srcs/objects/components/Triangle.cpp \
 		srcs/objects/Object.cpp \
-		srcs/objects/Sphere.cpp \
-		srcs/objects/Plane.cpp \
-		srcs/objects/Cylinder.cpp \
-		srcs/objects/MobiusTape.cpp \
 		srcs/objects/Line.cpp \
+		srcs/objects/Plane.cpp \
+		srcs/objects/MobiusTape.cpp \
+		srcs/objects/Polygone.cpp \
 		srcs/objects/Quadratic.cpp \
 		srcs/headers/define.cpp \
 		srcs/tesvieuxtestseclates.cpp \
@@ -27,7 +27,7 @@ all :
 			g++ -std=c++11 ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
 
 run :		all
-			./${NAME}
+			./${NAME} configs/all.json
 
 clean :
 			rm -f ${NAME}

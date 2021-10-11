@@ -29,7 +29,8 @@ class Vector
 
         double getMagnitude();
         double scalarProduct(Vector *v);
-        double crossProduct(Vector *v);
+        double crossProductMagnitude(Vector *v);
+        Vector *crossProduct(Vector *v);
         double angleWith(Vector *v);
 
         int directionXY(Vector *v);

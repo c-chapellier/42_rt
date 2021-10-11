@@ -1,28 +1,34 @@
 #include "Plane.hpp"
 
-Plane::Plane(const double px, const double py, const double pz, const double vx, const double vy, const double vz)
+Plane::Plane(const double px, const double py, const double pz, const double vx, const double vy, const double vz) : Object()
 {
-    this->color = new Color();
     this->p = new Point(px, py, pz);
     this->v = new Vector(vx, vy, vz);
 }
 
-Plane::Plane(Point p, Vector v)
+Plane::Plane(Point p, Vector v) : Object()
 {
-    this->color = new Color();
     this->p = new Point(p);
     this->v = new Vector(v);
 }
 
-Plane::Plane(Point *p, double vx, double vy, double vz)
+Plane::Plane(Point *p, double vx, double vy, double vz) : Object()
 {
     this->p = new Point(*p);
     this->v = new Vector(vx, vy, vz);
 }
 
+Plane::Plane(Point &p1, Point &p2, Point &p3) : Object()
+{
+    Vector v1(p1, p2);
+    Vector v2(p1, p3);
+
+    this->v = v1.crossProduct(&v2);
+    this->p = new Point(p1);
+}
+
 Plane::~Plane()
 {
-    delete(this->color);
     delete(this->p);
     delete(this->v);
 }

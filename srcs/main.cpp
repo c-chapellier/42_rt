@@ -1,10 +1,27 @@
 #include "header.hpp"
 #include "loadingBar/LoadingBar.hpp"
-#include "nlohmann/json.hpp"
+#include "./../include/nlohmann/json.hpp"
 #include <fstream>
 
 // for convenience
 using json = nlohmann::json;
+
+std::list<Object *> polygone()
+{
+    std::vector<Point> points;
+    points.push_back(Point(0, 0, 0));
+    points.push_back(Point(0, 0, 50));
+    points.push_back(Point(0, 50, 0));
+    // points.push_back(Point(50, 0, 0));
+    // points.push_back(Point(-50, 30, 20));
+    // points.push_back(Point(0, -10, -20));
+    // points.push_back(Point(0, 0, 0));
+    std::list<Object *> objects;
+    objects.push_back(new Polygone(
+        points
+    ));
+    return objects;
+}
 
 std::list<Object *> parse_objects(json &j)
 {
@@ -87,7 +104,8 @@ int main(int argc, char *argv[])
     for (auto const& camera : cameras)
     {
         std::vector< std::vector<Point> > screen = camera->getScreen(j["width"], j["height"]);
-        std::list<Object *> objects = parse_objects(j);
+        // std::list<Object *> objects = parse_objects(j);
+        std::list<Object *> objects = polygone();
 
         for (auto const& obj : objects)
         {

@@ -8,6 +8,23 @@ using json = nlohmann::json;
 
 std::list<Object *> polygone()
 {
+    // std::vector<Triangle*> triangles;
+    // Point *a, *b, *c, *d, *e, *f;
+    // a = new Point(0, 0, 50);
+    // b = new Point(0, 20, 0);
+    // c = new Point(0, -20, 0);
+    // d = new Point(-30, 30, 0);
+    // e = new Point(-30, -30, 0);
+    // f = new Point(-30, 0, 20);
+    // triangles.push_back(new Triangle(*a, *b, *c));
+    // triangles.push_back(new Triangle(*a, *b, *e));
+    // triangles.push_back(new Triangle(*a, *c, *d));
+    // triangles.push_back(new Triangle(*a, *e, *b));
+    // triangles.push_back(new Triangle(*f, *b, *c));
+    // triangles.push_back(new Triangle(*f, *c, *d));
+    // triangles.push_back(new Triangle(*f, *d, *e));
+    // triangles.push_back(new Triangle(*f, *e, *b));
+
     std::vector<Triangle*> triangles;
     Point *a, *b, *c, *d, *e, *f;
     a = new Point(0, 0, 50);
@@ -27,6 +44,7 @@ std::list<Object *> polygone()
 
     std::list<Object *> objects;
     objects.push_back(new Polygone(triangles));
+    // objects.push_back(new Polygone(points));
     return objects;
 }
 

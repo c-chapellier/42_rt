@@ -1,5 +1,6 @@
 SRCS =	srcs/main.cpp \
 		srcs/window/Window.cpp \
+		srcs/loadingBar/LoadingBar.cpp \
 		srcs/pixel/Pixel.cpp \
 		srcs/image/Image.cpp \
 		srcs/parser/Parser.cpp \
@@ -15,13 +16,14 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/Line.cpp \
 		srcs/objects/Quadratic.cpp \
 		srcs/headers/define.cpp \
+		srcs/tesvieuxtestseclates.cpp \
 
 NAME = rt
 
 FLAGS		= -Wall -Wextra -Werror
 
 all :
-			g++ ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
+			g++ -std=c++11 ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
 
 run :		all
 			./${NAME}

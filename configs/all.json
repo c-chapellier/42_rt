@@ -1,0 +1,49 @@
+{
+    "name": "sphere",
+    "width": 600,
+    "height": 600,
+    "ambient": [20, 20, 20],
+    "cameras": [
+        {
+            "location": [-100, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        },
+        {
+            "location": [-200, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        },
+        {
+            "location": [-300, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        }
+    ],
+    "objects": [
+        {
+            "name": "sphere",
+            "center": [0, 0, 0],
+            "radius": 300,
+            "color": [13, 234, 34]
+        },
+        {
+            "name": "cylinder",
+            "radius": 300,
+            "color": [13, 234, 34]
+        },
+        {
+            "name": "cone",
+            "color": [13, 234, 34]
+        },
+        {
+            "name": "hyperboloid",
+            "radius": 300,
+            "color": [13, 234, 34]
+        },
+        {
+            "name": "quadratic",
+            "coefficients": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600]
+        }
+    ]
+}

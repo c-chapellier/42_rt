@@ -1,214 +1,117 @@
 #include "header.hpp"
+#include "loadingBar/LoadingBar.hpp"
+#include "nlohmann/json.hpp"
+#include <fstream>
 
-void test_radian_degree()
+// for convenience
+using json = nlohmann::json;
+
+std::list<Object *> parse_objects(json &j)
 {
-    // printf("%f\n", RADIAN(180));
-    // printf("%f\n", RADIAN(360));
+    // https://tutorial.math.lamar.edu/classes/calciii/quadricsurfaces.aspx
+    
+    std::list<Object *> objects;
 
-    // printf("%f\n", sin(RADIAN(0)));
-    // printf("%f\n", sin(RADIAN(30)));
-    // printf("%f\n", sin(RADIAN(45)));
-    // printf("%f\n", sin(RADIAN(60)));
-    // printf("%f\n", sin(RADIAN(90)));
-    // printf("%f\n", sin(RADIAN(180)));
-    // printf("%f\n", sin(RADIAN(270)));
-
-    // printf("%f\n", DEGREE(asin(sin(RADIAN(0)))));
-    // printf("%f\n", DEGREE(asin(sin(RADIAN(30)))));
-    // printf("%f\n", DEGREE(asin(sin(RADIAN(45)))));
-    // printf("%f\n", DEGREE(asin(sin(RADIAN(60)))));
-    // printf("%f\n", DEGREE(asin(sin(RADIAN(90)))));
-    // printf("%f\n", DEGREE(asin(sin(RADIAN(180)))));
-    // printf("%f\n", DEGREE(asin(sin(RADIAN(270)))));
+    for (auto const& obj : j["objects"]) {
+        if (obj["name"] == "sphere") {
+            // objects.push_back(new Sphere(
+            //     obj["center"][0],
+            //     obj["center"][1],
+            //     obj["center"][2],
+            //     obj["radius"],
+            // ));
+        } else if (obj["name"] == "cylinder") {
+            objects.push_back(new Quadratic(1, 0, 1, 0, 0, 0, 0, 0, 0, obj["radius"]));
+        } else if (obj["name"] == "cone") {
+            objects.push_back(new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, 0));
+        } else if (obj["name"] == "hyperboloid") {
+            objects.push_back(new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, obj["radius"]));
+        } else if (obj["name"] == "quadratic") {
+            objects.push_back(new Quadratic(
+                obj["coefficients"][0],
+                obj["coefficients"][1],
+                obj["coefficients"][2],
+                obj["coefficients"][3],
+                obj["coefficients"][4],
+                obj["coefficients"][5],
+                obj["coefficients"][6],
+                obj["coefficients"][7],
+                obj["coefficients"][8],
+                obj["coefficients"][9]
+            ));
+        } else {
+            throw "Object is not supported";
+        }
+    }
+    return objects;
 }
 
-void test_angle_between_vectors()
-{
-    // Vector v1(1, 0, 0); // + 0
-    // Vector v2(1, 1, 0); // + +
-    // Vector v3(0, 1, 0); // 0 +
-    // Vector v4(-1, 1, 0); // - +
-    // Vector v5(-1, 0, 0); // - 0
-    // Vector v6(-1, -1, 0); // - -
-    // Vector v7(0, -1, 0); // 0 -
-    // Vector v8(1, -1, 0); // + -
-
-    // std::cout << "angle between v1 and v1 (0): " << v1.angleWith(&v1) << " sin: " << sin(RADIAN(v1.angleWith(&v1))) << " cos: " << cos(RADIAN(v1.angleWith(&v1))) <<  " dir: " << v1.directionXY(&v1) << std::endl;
-    // std::cout << "angle between v1 and v2 (45): " << v1.angleWith(&v2) << " sin: " << sin(RADIAN(v1.angleWith(&v2))) << " cos: " << cos(RADIAN(v1.angleWith(&v2))) << " dir: " << v1.directionXY(&v2) << std::endl;
-    // std::cout << "angle between v1 and v3 (90): " << v1.angleWith(&v3) << " sin: " << sin(RADIAN(v1.angleWith(&v3))) << " cos: " << cos(RADIAN(v1.angleWith(&v3))) << " dir: " << v1.directionXY(&v3) << std::endl;
-    // std::cout << "angle between v1 and v4 (135): " << v1.angleWith(&v4) << " sin: " << sin(RADIAN(v1.angleWith(&v4))) << " cos: " << cos(RADIAN(v1.angleWith(&v4))) << " dir: " << v1.directionXY(&v4) << std::endl;
-    // std::cout << "angle between v1 and v5 (180): " << v1.angleWith(&v5) << " sin: " << sin(RADIAN(v1.angleWith(&v5))) << " cos: " << cos(RADIAN(v1.angleWith(&v5))) << " dir: " << v1.directionXY(&v5) << std::endl;
-    // std::cout << "angle between v1 and v6 (225): " << v1.angleWith(&v6) << " sin: " << sin(RADIAN(v1.angleWith(&v6))) << " cos: " << cos(RADIAN(v1.angleWith(&v6))) << " dir: " << v1.directionXY(&v6) << std::endl;
-    // std::cout << "angle between v1 and v7 (270): " << v1.angleWith(&v7) << " sin: " << sin(RADIAN(v1.angleWith(&v7))) << " cos: " << cos(RADIAN(v1.angleWith(&v7))) << " dir: " << v1.directionXY(&v7) << std::endl;
-    // std::cout << "angle between v1 and v8 (315): " << v1.angleWith(&v8) << " sin: " << sin(RADIAN(v1.angleWith(&v8))) << " cos: " << cos(RADIAN(v1.angleWith(&v8))) << " dir: " << v1.directionXY(&v8) << std::endl;
+std::list<Camera *> parse_cameras(json &j)
+{    
+    std::list<Camera *> cameras;
+    
+    for (auto const& cam : j["cameras"]) {
+        cameras.push_back(new Camera(
+            cam["location"][0],
+            cam["location"][1],
+            cam["location"][2],
+            cam["direction"][0],
+            cam["direction"][1],
+            cam["direction"][2],
+            cam["aperture"]
+        ));
+    }
+    return cameras;
 }
 
-void test_camera()
+int main(int argc, char *argv[])
 {
-    // Camera c(0, 0, 0, 1, 1, 1, 90);
-    // c.getScreen(10, 10);
-}
+    if (argc < 2)
+        return 1;
 
-void test_shapes()
-{
-    // Point *p;
-    // Line *ln = new Line(0, -100, 0, 0, -1, 0);
-
-    // Object *sp = new Sphere(100, 100, 100, 50);
-    // p = sp->intersect(ln);
-    // if(p){
-    //     std::cout << *p << std::endl;
-    //     delete(p);
-    // } else {
-    //     std::cout << "does not itersect" << std::endl;
-    // }
-
-    // Object *pl = new Plane(0, 5, 0, 0, 1, 0);
-    // p = pl->intersect(ln);
-    // std::cout << *p << std::endl;
-    // if(p){
-    //     std::cout << *p << std::endl;
-    //     delete(p);
-    // } else {
-    //     std::cout << "does not itersect" << std::endl;
-    // }
-
-    // Object *qr = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -25); // circle of R = 5
-    // p = qr->intersect(ln);
-    // if(p){
-    //     std::cout << *p << std::endl;
-    //     delete(p);
-    // } else {
-    //     std::cout << "does not itersect" << std::endl;
-    // }
-}
-
-void test_point_rotation_around_x()
-{
-    Point *res;
-    Point p(0, 1, 1);
-    std::cout << p << std::endl;
-
-    res = p.rotateAroundX(90);
-    std::cout << "Point after rotation of 90 degrees around x: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundX(180);
-    std::cout << "Point after rotation of 180 degrees around x: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundX(270);
-    std::cout << "Point after rotation of 270 degrees around x: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundX(360);
-    std::cout << "Point after rotation of 360 degrees around x: " << *res << std::endl;
-    delete(res);
-}
-
-void test_point_rotation_around_y()
-{
-    Point *res;
-    Point p(1, 0, 1);
-    std::cout << p << std::endl;
-
-    res = p.rotateAroundY(90);
-    std::cout << "Point after rotation of 90 degrees around y: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundY(180);
-    std::cout << "Point after rotation of 180 degrees around y: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundY(270);
-    std::cout << "Point after rotation of 270 degrees around y: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundY(360);
-    std::cout << "Point after rotation of 360 degrees around y: " << *res << std::endl;
-    delete(res);
-}
-
-void test_point_rotation_around_z()
-{
-    Point *res;
-    Point p(1, 1, 0);
-    std::cout << p << std::endl;
-
-    res = p.rotateAroundZ(90);
-    std::cout << "Point after rotation of 90 degrees around z: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundZ(180);
-    std::cout << "Point after rotation of 180 degrees around z: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundZ(270);
-    std::cout << "Point after rotation of 270 degrees around z: " << *res << std::endl;
-    delete(res);
-    res = p.rotateAroundZ(360);
-    std::cout << "Point after rotation of 360 degrees around z: " << *res << std::endl;
-    delete(res);
-}
-
-void test_point_rotation()
-{
-    // test_point_rotation_around_x();
-    // test_point_rotation_around_y();
-    // test_point_rotation_around_z();
-}
-
-void test_angle_plane_vector()
-{
-    // Plane p(0, 0, 0, 1, -1, 0);
-    // Vector v(0, 0, 1);
-    // std::cout << p.angleWith(&v) << std::endl;
-}
-
-void test()
-{
-    test_radian_degree();
-    test_angle_between_vectors();
-    test_camera();
-    test_shapes();
-    test_point_rotation();
-    test_angle_plane_vector();
-}
-
-int main(void)
-{
     srand(time(NULL));
 
     test();
 
-    int size = 600;
 
-    //Object *sp = new Sphere(100, -200, -100, 50);
+    std::ifstream f(argv[1]);
+    json j;
+    f >> j;
 
-    // https://tutorial.math.lamar.edu/classes/calciii/quadricsurfaces.aspx
 
-    // Object *q = new Quadratic(1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Sphere
-    // Object *q = new Quadratic(1, 0, 1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Cylinder
-    // Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, 0); // Cone
-    Object *q = new Quadratic(1, 1, -1, 0, 0, 0, 0, 0, 0, -pow(25, 2)); // Hyperboloid
+    Window win(j["width"], j["height"]);
+    LoadingBar loadingBar(win);
 
-    Window win(size, size);
-    Image img(size, size);
+    Image img(j["width"], j["height"]);
 
-    std::cout << "camera" << std::endl;
-    Camera c(-100, 0, 0, 1, 0, 0, 90);
-    std::cout << "screen" << std::endl;
-    std::vector< std::vector<Point> > screen = c.getScreen(size, size);
+    std::list<Camera *> cameras = parse_cameras(j);
 
-    std::cout << "intersect" << std::endl;
-    for (int i = 0; i < size; ++i){
-        for (int j = 0; j < size; ++j){
-            //std::cout << i << " " << j << std::endl;
-            Line l(*c.getP(), screen[i][j]);
-            //std::cout << l << std::endl;
-            if(q->intersect(&l)){
-                // std::cout << "intersect" << std::endl;
-                // std::cout << *sp->getColor() << std::endl;
-                img.set_pixel(i, j, Pixel(q->getColor()));
+    for (auto const& camera : cameras) {
+
+        std::vector< std::vector<Point> > screen = camera->getScreen(j["width"], j["height"]);
+
+        std::list<Object *> objects = parse_objects(j);
+
+        for (auto const& obj : objects) {
+            // std::cout << "obj" << std::endl;
+            for (int i = 0; i < (int)screen.size(); ++i){
+                for (int j = 0; j < (int)screen[0].size(); ++j){
+                    //std::cout << i << " " << j << std::endl;
+                    Line l(*(camera->getP()), screen[i][j]);
+                    //std::cout << l << std::endl;
+                    if(obj->intersect(&l)){
+                        // std::cout << "intersect" << std::endl;
+                        // std::cout << *sp->getColor() << std::endl;
+                        img.set_pixel(i, j, Pixel(obj->getColor()));
+                    }
+                }
             }
         }
+        win.load_image(img);
+        loadingBar += 100 / cameras.size();
     }
 
-    win.load_image("ok", img);
-    win.set_image("ok");
-
+    win.set_image();
     win.pause();
     return 0;
 }

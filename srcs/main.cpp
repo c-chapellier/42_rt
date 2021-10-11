@@ -71,13 +71,11 @@ int main(int argc, char *argv[])
 
     srand(time(NULL));
 
-    test();
-
+    // test();
 
     std::ifstream f(argv[1]);
     json j;
     f >> j;
-
 
     Window win(j["width"], j["height"]);
     LoadingBar loadingBar(win);
@@ -86,23 +84,25 @@ int main(int argc, char *argv[])
 
     std::list<Camera *> cameras = parse_cameras(j);
 
-    for (auto const& camera : cameras) {
-
+    for (auto const& camera : cameras)
+    {
         std::vector< std::vector<Point> > screen = camera->getScreen(j["width"], j["height"]);
-
         std::list<Object *> objects = parse_objects(j);
 
-        for (auto const& obj : objects) {
-            // std::cout << "obj" << std::endl;
-            for (int i = 0; i < (int)screen.size(); ++i){
-                for (int j = 0; j < (int)screen[0].size(); ++j){
-                    //std::cout << i << " " << j << std::endl;
+        for (auto const& obj : objects)
+        {
+            for (int i = 0; i < (int)screen.size(); ++i)
+            {
+                for (int j = 0; j < (int)screen[0].size(); ++j)
+                {
                     Line l(*(camera->getP()), screen[i][j]);
-                    //std::cout << l << std::endl;
-                    if(obj->intersect(&l)){
-                        // std::cout << "intersect" << std::endl;
-                        // std::cout << *sp->getColor() << std::endl;
-                        img.set_pixel(i, j, Pixel(obj->getColor()));
+                    Point *p = obj->intersect(&l);
+                    
+                    if (p)
+                    {
+                        double dist = p->distWith(*(camera->getP()));
+                        double pourcentage = (dist / 150);
+                        img.set_pixel(i, j, Pixel(obj->getColor()->reduceOf(pourcentage)));
                     }
                 }
             }

@@ -14,6 +14,12 @@ Plane::Plane(Point p, Vector v)
     this->v = new Vector(v);
 }
 
+Plane::Plane(Point *p, double vx, double vy, double vz)
+{
+    this->p = new Point(*p);
+    this->v = new Vector(vx, vy, vz);
+}
+
 Plane::~Plane()
 {
     delete(this->color);
@@ -70,7 +76,7 @@ std::ostream& operator<< (std::ostream& out, const Plane& plane)
 {
     out << "Plane : {" << std::endl
     << "\tpoint : " << *plane.p << std::endl
-    << "\vector : " << *plane.v << std::endl
+    << "\tvector : " << *plane.v << std::endl
     << "}";
     return out;
 }

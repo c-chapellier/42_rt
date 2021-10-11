@@ -17,6 +17,7 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/Quadratic.cpp \
 		srcs/headers/define.cpp \
 		srcs/tesvieuxtestseclates.cpp \
+		srcs/saver/Saver.cpp \
 
 NAME = rt
 

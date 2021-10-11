@@ -9,11 +9,11 @@ using json = nlohmann::json;
 std::list<Object *> polygone()
 {
     std::list<Object *> objects;
-    Point p(0, 0, 0);
+    Point p(100, 0, -20);
     //objects.push_back(PolygoneFactory::createPolygone("Cube", p, 50, 20, 0, 0));
     //objects.push_back(PolygoneFactory::createPolygone("Octohedron", p, 50, 20, 0, 0));
-    objects.push_back(PolygoneFactory::createPolygone("Parallelepiped", p, 50, 100, 100, 0));
-    // objects.push_back(PolygoneFactory::createPolygone("Diamond", p, 20, 50, 50, 70));
+    // objects.push_back(PolygoneFactory::createPolygone("Parallelepiped", p, 50, 100, 100, 0));
+    objects.push_back(PolygoneFactory::createPolygone("Diamond", p, 20, 70, 30, 50));
     // objects.push_back(new Polygone(points));
     return objects;
 }
@@ -114,8 +114,8 @@ int main(int argc, char *argv[])
                     if (p)
                     {
                         double dist = p->distWith(*(camera->getP()));
-                        double pourcentage = (dist / 150);
-                        img.set_pixel(i, j, Pixel(obj->getColor()->reduceOf(pourcentage)));
+                        double pourcentage = (dist / 250);
+                        img.set_pixel(j, i, Pixel(obj->getColor()->reduceOf(pourcentage)));
                     }
                 }
             }

@@ -9,10 +9,10 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/components/Point.cpp \
 		srcs/objects/components/Vector.cpp \
 		srcs/objects/components/Triangle.cpp \
+		srcs/objects/factories/PolygoneFactory.cpp \
 		srcs/objects/Object.cpp \
 		srcs/objects/Line.cpp \
 		srcs/objects/Plane.cpp \
-		srcs/objects/MobiusTape.cpp \
 		srcs/objects/Polygone.cpp \
 		srcs/objects/Quadratic.cpp \
 		srcs/headers/define.cpp \

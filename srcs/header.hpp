@@ -12,6 +12,7 @@
 #include "objects/Line.hpp"
 #include "objects/Quadratic.hpp"
 #include "objects/Polygone.hpp"
+#include "objects/factories/PolygoneFactory.hpp"
 #include "visuals/Camera.hpp"
 
 #include "./headers/define.hpp"

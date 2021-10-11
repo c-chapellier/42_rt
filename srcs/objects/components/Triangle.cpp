@@ -18,6 +18,12 @@ Triangle::Triangle(Point &p1, Point &p2, Point &p3)
     this->p2 = new Point(p2);
     this->p3 = new Point(p3);
 }
+Triangle::Triangle(Triangle &triangle)
+{
+    this->p1 = new Point(*triangle.p1);
+    this->p2 = new Point(*triangle.p2);
+    this->p3 = new Point(*triangle.p3);
+}
 Triangle::~Triangle(){
     delete(this->p1);
     delete(this->p2);
@@ -58,7 +64,7 @@ Point *Triangle::intersect(Line *l)
     double alpha, beta, gama;
     alpha = pb.crossProductMagnitude(&pc) / (2 * area);
     beta = pc.crossProductMagnitude(&pa) / (2 * area);
-    gama = 1 - alpha - beta;
+    gama = pa.crossProductMagnitude(&pb) / (2 * area);
 
     // std::cout << alpha << " " << beta << " " << gama << std::endl;
 

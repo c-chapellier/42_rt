@@ -15,4 +15,5 @@ class Polygone : public Object
         ~Polygone();
 
         Point *intersect(Line *line);
+        double angleWith(Line *line);
 };

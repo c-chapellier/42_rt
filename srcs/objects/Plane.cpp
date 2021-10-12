@@ -73,6 +73,11 @@ double Plane::angleWith(Vector *v)
     //return this->v->angleWith(v);
 }
 
+double Plane::angleWith(Line *line)
+{
+    return this->angleWith(line->getV());
+}
+
 double Plane::angleWith(Plane *p)
 {
     return this->v->angleWith(p->v);

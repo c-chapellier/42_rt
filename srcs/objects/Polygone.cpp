@@ -48,3 +48,38 @@ Point *Polygone::intersect(Line *line)
     }
     return res;
 }
+
+double Polygone::angleWith(Line *line)
+{
+    double angle = -1.0;
+    Point *tmp, *actual_min = NULL;
+
+    for (unsigned long i = 0; i < this->triangles.size(); ++i)
+    {
+        tmp = this->triangles[i]->intersect(line);
+        // if intersect triangle
+        if (tmp)
+        {
+            if (actual_min == NULL)
+            {
+                angle = this->triangles[i]->getPlane()->angleWith(line);
+                actual_min = tmp;
+            }
+            else
+            {
+                double dist1 = actual_min->distWith(*(line->getP()));
+                double dist2 = tmp->distWith(*(line->getP()));
+                
+                if (dist2 < dist1)
+                {
+                    angle = this->triangles[i]->getPlane()->angleWith(line);
+                    delete actual_min;
+                    actual_min = tmp;
+                }
+            }
+        }
+        // compare dist with prec points
+        // stock new point
+    }
+    return angle;
+}

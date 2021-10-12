@@ -17,7 +17,6 @@
 
 #include "./headers/define.hpp"
 
-void test();
 #include "saver/Saver.hpp"
 
 #endif

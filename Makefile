@@ -16,7 +16,6 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/Polygone.cpp \
 		srcs/objects/Quadratic.cpp \
 		srcs/headers/define.cpp \
-		srcs/tesvieuxtestseclates.cpp \
 		srcs/saver/Saver.cpp \
 
 NAME = rt
@@ -27,7 +26,7 @@ all :
 			g++ -std=c++11 ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
 
 run :		all
-			./${NAME} configs/all.json
+			./${NAME} configs/test.json
 
 clean :
 			rm -f ${NAME}

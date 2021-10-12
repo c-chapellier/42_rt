@@ -173,10 +173,9 @@ Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int prec
     for(int i = 0; i < precision; ++i) {
         double alpha = (double)i * (double)(360.0 / (double)precision);
         double beta = alpha / 2.0;
-        double h = beta < 90 ? sin(RADIAN(beta)) * (width / 2) : (width / 2) + (-cos(RADIAN(beta)) * (width / 2)); // ok
-        double r1 = R + (beta < 90 ? (sin(RADIAN(beta)) * (width / 2)) : (width / 2) + (-cos(RADIAN(beta)) * (width / 2)));
-        double r2 = R + (beta < 90 ? -(sin(RADIAN(beta)) * (width / 2)) : -(width / 2) - (-cos(RADIAN(beta)) * (width / 2)));
-        //double r2 = R + (sin(-alpha) * (width / 2));
+        double h = beta < 90 ? sin(RADIAN(beta)) * (width / 2) : (width / 2) + (-cos(RADIAN(beta)) * (width / 2));
+        double r1 = R + (beta < 90 ? (sin(RADIAN(beta)) * (width / 2)) : (width / 2) + (cos(RADIAN(beta)) * (width / 2)));
+        double r2 = R + (beta < 90 ? -(sin(RADIAN(beta)) * (width / 2)) : -(width / 2) - (cos(RADIAN(beta)) * (width / 2)));
 
         sup_points.push_back(new Point(p.getX() + r1 * cos(RADIAN(alpha)), p.getY() + r1 * sin(RADIAN(alpha)), p.getZ() - h));
         inf_points.push_back(new Point(p.getX() + r2 * cos(RADIAN(alpha)), p.getY() + r2 * sin(RADIAN(alpha)), p.getZ() - width + h));
@@ -184,10 +183,12 @@ Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int prec
 
     std::vector<Triangle*> triangles;
 
-    for(int i = 0; i < precision; ++i) {
+    for(int i = 0; i < precision - 1; ++i) {
         triangles.push_back(new Triangle(*sup_points[i], *sup_points[(i + 1) % precision], *inf_points[i]));
         triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % precision], *sup_points[(i + 1) % precision]));
     }
+    triangles.push_back(new Triangle(*sup_points[0], *inf_points[0], *inf_points[precision - 1]));
+    triangles.push_back(new Triangle(*inf_points[precision - 1], *sup_points[precision - 1], *inf_points[0]));
 
     return new Polygone(triangles);
 }

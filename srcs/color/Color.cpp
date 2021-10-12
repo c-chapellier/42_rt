@@ -69,13 +69,34 @@ void Color::generateRandomColor()
     this->b = rand() % 256;
 }
 
-Color *Color::reduceOf(double pourcentage)
+Color *Color::reduceOf(double ratio)
 {
+    if (ratio < 0.0 || ratio > 1.0)
+        throw "Color::reduceOf percentage bad";
     double new_r, new_g, new_b;
-    new_r = (double)this->r * (1.0 - pourcentage);
-    new_g = (double)this->g * (1.0 - pourcentage);
-    new_b = (double)this->b * (1.0 - pourcentage);
+    new_r = (double)this->r * (1.0 - ratio);
+    new_g = (double)this->g * (1.0 - ratio);
+    new_b = (double)this->b * (1.0 - ratio);
     return new Color((int)new_r, (int)new_b, (int)new_g);
+}
+
+Color *Color::add(Color *c)
+{
+    this->r += c->getR();
+    this->g += c->getG();
+    this->b += c->getB();
+    this->o += c->getO();
+
+    if (this->r > 255)
+        this->r = 255;   
+    if (this->g > 255)
+        this->g = 255;    
+    if (this->b > 255)
+        this->b = 255;
+    if (this->o > 255)
+        this->o = 255;
+        
+    return this;
 }
 
 std::ostream& operator<< (std::ostream& out, const Color& color)

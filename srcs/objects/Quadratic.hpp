@@ -19,5 +19,6 @@ class Quadratic : public Object
         ~Quadratic();
 
         Point *intersect(Line *line);
+        double angleWith(Line *line);
         Plane *tangentAt(Point *p);
 };

@@ -29,7 +29,8 @@ class Color
         void setB(int b);
         void setO(int o);
 
-        Color *reduceOf(double pourcentage);
+        Color *reduceOf(double ratio);
+        Color *add(Color *c);
 
         friend std::ostream& operator<<(std::ostream& out, const Color& color);
 };

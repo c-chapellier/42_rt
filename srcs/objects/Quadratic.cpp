@@ -145,3 +145,8 @@ Plane *Quadratic::tangentAt(Point *p)
         i * p->getY();
     return new Plane(p, Fx, Fy, Fz);
 }
+
+double Quadratic::angleWith(Line *line)
+{
+    return this->tangentAt(this->intersect(line))->angleWith(line);
+}

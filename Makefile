@@ -27,7 +27,7 @@ all :
 			g++ -std=c++11 ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
 
 run :		all
-			./${NAME} configs/all.json
+			./${NAME} configs/test.json
 
 clean :
 			rm -f ${NAME}

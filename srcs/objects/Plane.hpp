@@ -25,6 +25,7 @@ class Plane : public Object
         Vector *getV();
 
         Point *intersect(Line *line);
+        double angleWith(Line *line);
         double angleWith(Vector *v);
         double angleWith(Plane *p);
 

@@ -8,16 +8,6 @@
             "location": [-100, 0, 0],
             "direction": [1, 0, 0],
             "aperture": 90
-        },
-        {
-            "location": [-200, 0, 0],
-            "direction": [1, 0, 0],
-            "aperture": 90
-        },
-        {
-            "location": [-300, 0, 0],
-            "direction": [1, 0, 0],
-            "aperture": 90
         }
     ],
     "objects": [

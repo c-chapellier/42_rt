@@ -9,11 +9,12 @@ using json = nlohmann::json;
 std::list<Object *> polygone()
 {
     std::list<Object *> objects;
-    Point p(100, 0, -20);
+    Point p(70, 0, -50);
     //objects.push_back(PolygoneFactory::createPolygone("Cube", p, 50, 20, 0, 0));
     //objects.push_back(PolygoneFactory::createPolygone("Octohedron", p, 50, 20, 0, 0));
     // objects.push_back(PolygoneFactory::createPolygone("Parallelepiped", p, 50, 100, 100, 0));
-    objects.push_back(PolygoneFactory::createPolygone("Diamond", p, 20, 70, 30, 50));
+    // objects.push_back(PolygoneFactory::createPolygone("Diamond", p, 20, 70, 30, 50));
+    objects.push_back(PolygoneFactory::createPolygone("Tape", p, 60, 20, 40, 0));
     // objects.push_back(new Polygone(points));
     return objects;
 }

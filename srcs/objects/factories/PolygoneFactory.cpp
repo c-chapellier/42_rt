@@ -15,6 +15,8 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
         return createParallelepiped(p, size1, size2, size3);
     } else if (type == "Diamond") {
         return createDiamond(p, size1, size2, size3, size4);
+    } else if (type == "Tape") {
+        return createTape(p, size1, size2, size3);
     } else {
         return NULL;
     }
@@ -153,6 +155,38 @@ Polygone *PolygoneFactory::createDiamond(Point &p, double h, double H, double r,
         triangles.push_back(new Triangle(*bottom, *inf_points[i], *inf_points[(i + 1) % 6]));
         triangles.push_back(new Triangle(*sup_points[i], *sup_points[(i + 1) % 6], *inf_points[i]));
         triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % 6], *sup_points[(i + 1) % 6]));
+    }
+
+    return new Polygone(triangles);
+}
+
+Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int precision)
+{
+    std::vector<Point*> sup_points;
+    std::vector<Point*> inf_points;
+
+    // for(int i = 0; i < precision; ++i) {
+    //     sup_points.push_back(new Point(p.getX() + R * cos(RADIAN(i * (360 / precision))), p.getY() + R * sin(RADIAN(i * (360 / precision))), p.getZ()));
+    //     inf_points.push_back(new Point(p.getX() + R * cos(RADIAN(i * (360 / precision))), p.getY() + R * sin(RADIAN(i * (360 / precision))), p.getZ() - width));
+    // }
+
+    for(int i = 0; i < precision; ++i) {
+        double alpha = (double)i * (double)(360.0 / (double)precision);
+        double beta = alpha / 2.0;
+        double h = beta < 90 ? sin(RADIAN(beta)) * (width / 2) : (width / 2) + (-cos(RADIAN(beta)) * (width / 2)); // ok
+        double r1 = R + (beta < 90 ? (sin(RADIAN(beta)) * (width / 2)) : (width / 2) + (-cos(RADIAN(beta)) * (width / 2)));
+        double r2 = R + (beta < 90 ? -(sin(RADIAN(beta)) * (width / 2)) : -(width / 2) - (-cos(RADIAN(beta)) * (width / 2)));
+        //double r2 = R + (sin(-alpha) * (width / 2));
+
+        sup_points.push_back(new Point(p.getX() + r1 * cos(RADIAN(alpha)), p.getY() + r1 * sin(RADIAN(alpha)), p.getZ() - h));
+        inf_points.push_back(new Point(p.getX() + r2 * cos(RADIAN(alpha)), p.getY() + r2 * sin(RADIAN(alpha)), p.getZ() - width + h));
+    }
+
+    std::vector<Triangle*> triangles;
+
+    for(int i = 0; i < precision; ++i) {
+        triangles.push_back(new Triangle(*sup_points[i], *sup_points[(i + 1) % precision], *inf_points[i]));
+        triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % precision], *sup_points[(i + 1) % precision]));
     }
 
     return new Polygone(triangles);

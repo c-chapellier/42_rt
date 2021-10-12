@@ -99,8 +99,8 @@ int wrapped_main(int argc, char *argv[])
     for (auto const& camera : cameras)
     {
         std::vector< std::vector<Point> > screen = camera->getScreen(j["width"], j["height"]);
-        // std::list<Object *> objects = parse_objects(j);
-        std::list<Object *> objects = polygone();
+        std::list<Object *> objects = parse_objects(j);
+        // std::list<Object *> objects = polygone();
 
         for (auto const& obj : objects)
         {

@@ -9,13 +9,22 @@ using json = nlohmann::json;
 std::list<Object *> polygone()
 {
     std::list<Object *> objects;
-    Point p(70, 0, -50);
-    // objects.push_back(PolygoneFactory::createPolygone("Cube", p, 50, 20, 0, 0));
-    //objects.push_back(PolygoneFactory::createPolygone("Octohedron", p, 50, 20, 0, 0));
-    // objects.push_back(PolygoneFactory::createPolygone("Parallelepiped", p, 50, 100, 100, 0));
-    // objects.push_back(PolygoneFactory::createPolygone("Diamond", p, 20, 70, 30, 50));
-    objects.push_back(PolygoneFactory::createPolygone("Tape", p, 60, 20, 40, 0));
-    // objects.push_back(new Polygone(points));
+    Point p0(0, 0, 0);
+    Point p1(80, -50, -50);
+    Point p2(80, 50, -50);
+    Point p3(80, -50, 50);
+    Point p4(80, 50, 50);
+    Point p5(0, 0, -50);
+    // objects.push_back(PolygoneFactory::createPolygone("Cube", p1, 50, 20, 0, 0));
+    // objects.push_back(PolygoneFactory::createPolygone("Cube", p2, 50, 20, 0, 0));
+    // objects.push_back(PolygoneFactory::createPolygone("Cube", p3, 50, 20, 0, 0));
+    // objects.push_back(PolygoneFactory::createPolygone("Cube", p4, 50, 20, 0, 0));
+    // objects.push_back(PolygoneFactory::createPolygone("2N-edron", p1, 3, 50, 40, 0));
+    // objects.push_back(PolygoneFactory::createPolygone("Parallelepiped", p1, 50, 100, 100, 0));
+    // objects.push_back(PolygoneFactory::createPolygone("Diamond", p1, 20, 70, 30, 50));
+    // objects.push_back(PolygoneFactory::createPolygone("MobiusTape", p1, 60, 20, 40, 0));
+    // objects.push_back(PolygoneFactory::createPolygone("Spiral", p1, 60, 20, 40, 4));
+    objects.push_back(PolygoneFactory::createPolygone("Tower", p5, 40, 20, 8, 6));
     return objects;
 }
 

@@ -23,6 +23,8 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
         return createSpiral(p, size1, size2, size3, size4);
     } else if (type == "Tower") {
         return createTower(p, size1, size2, size3, size4);
+    } else if (type == "Torus") {
+        return createTorus(p, size1, size2, size3, size4);
     }
     throw
         "Unrecognized type of polygone";
@@ -226,5 +228,37 @@ Polygone *PolygoneFactory::createTower(Point &p, double R, double width, int pre
     //     }
     // }
     
+    return new Polygone(triangles);
+}
+
+Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precision, int layers)
+{
+    std::vector<std::vector<Point*>> points;
+
+    
+    for(int k = 0; k < layers; ++k){
+        std::vector<Point*> tmp;
+        double beta = k * (360 / layers);
+        double h = r * sin(RADIAN(beta));
+        double r1 = r * cos(RADIAN(beta));
+        for (int i = 0; i < precision; ++i){
+            double alpha = i * (360 / precision);
+            Point *t = new Point(p.getX() + ((R - r1) * (cos(RADIAN(alpha)))), p.getY() + ((R - r1) * (sin(RADIAN(alpha)))), p.getZ() + h);
+            // std::cout << h << " " << r1 << " " << p.getZ() + h << " " << *t << std::endl;
+            tmp.push_back(t);
+        }
+        points.push_back(tmp);
+    }
+
+    std::vector<Triangle*> triangles;
+
+    for(int k = 0; k < layers; ++k){
+        for(int i = 0; i < precision; ++i) {
+            // std::cout << k << " " << i << " " << (k * precision) + i << ": " << *points[k][i] << " " << *points[k][(i + 1) % precision] << " " << *points[(k + 1) % layers][i] << std::endl;
+            triangles.push_back(new Triangle(*points[k][i], *points[k][(i + 1) % precision], *points[(k + 1) % layers][i]));
+            triangles.push_back(new Triangle(*points[(k + 1) % layers][i], *points[(k + 1) % layers][(i + 1) % precision], *points[k][(i + 1) % precision]));
+        }
+    }
+
     return new Polygone(triangles);
 }

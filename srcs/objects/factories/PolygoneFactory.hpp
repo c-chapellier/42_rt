@@ -14,6 +14,7 @@ class PolygoneFactory
         static Polygone *createMobiusTape(Point &p, double R, double width, int precision);
         static Polygone *createSpiral(Point &p, double R, double width, int precision, int nb_turns);
         static Polygone *createTower(Point &p, double R, double width, int precision, int layers);
+        static Polygone *createTorus(Point &p, double R, double r, int precision, int layers);
     public:
         static Polygone *createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4);
 };

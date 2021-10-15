@@ -7,16 +7,20 @@
 #include <list>
 
 #include "window/Window.hpp"
+#include "visuals/Camera.hpp"
+
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Line.hpp"
 #include "objects/Quadratic.hpp"
 #include "objects/Polygone.hpp"
 #include "objects/factories/PolygoneFactory.hpp"
-#include "visuals/Camera.hpp"
+
 
 #include "./headers/define.hpp"
 
 #include "saver/Saver.hpp"
+#include "parser/Parser.hpp"
+#include "config/Config.hpp"
 
 #endif

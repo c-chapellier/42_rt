@@ -70,6 +70,8 @@ Point *Quadratic::intersect(Line *line)
         x = x1 + a * s1;
         y = y1 + b * s1;
         z = z1 + c * s1;
+        if(s1 <= 0)
+            return NULL;
         return new Point(x, y, z);
     } else {
         double s1 = (-t1 + sqrt(delta)) / (2 * t2);
@@ -81,6 +83,12 @@ Point *Quadratic::intersect(Line *line)
         x_2 = x1 + a * s2;
         y_2 = y1 + b * s2;
         z_2 = z1 + c * s2;
+        if(s1 <= 2 && s2 <= 0)
+            return NULL;
+        else if(s1 > 0 && s2 <=0)
+            return new Point(x_1, y_1, z_1);
+        else if(s2 > 0 && s1 <=0)
+            return new Point(x_2, y_2, z_2);
         Point *p1, *p2;
         p1 = new Point(x_1, y_1, z_1);
         p2 = new Point(x_2, y_2, z_2);

@@ -5,35 +5,25 @@
     "ambient": [20, 20, 20, 0],
     "cameras": [
         {
-            "location": [-100, 0, 0],
+            "coordinates": [-100, 0, 0],
             "direction": [1, 0, 0],
             "aperture": 90
         }
     ],
     "objects": [
         {
-            "name": "sphere",
-            "center": [0, 0, 0],
-            "radius": 300,
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, 0, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -50],
             "color": [13, 234, 34]
         },
         {
-            "name": "cylinder",
-            "radius": 300,
+            "type": "Polygon",
+            "name": "Cube",
+            "coordinates": [0, 0, 0],
+            "values": [50, 0, 0, 0],
             "color": [13, 234, 34]
-        },
-        {
-            "name": "cone",
-            "color": [13, 234, 34]
-        },
-        {
-            "name": "hyperboloid",
-            "radius": 300,
-            "color": [13, 234, 34]
-        },
-        {
-            "name": "quadratic",
-            "coefficients": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600]
         }
     ]
 }

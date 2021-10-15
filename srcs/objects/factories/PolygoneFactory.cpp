@@ -5,32 +5,32 @@ PolygoneFactory::PolygoneFactory()
 
 }
 
-Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4)
+Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, Color *color)
 {
     if (type == "Cube"){
-        return createParallelepiped(p, size1, size1, size1);
+        return createParallelepiped(p, size1, size1, size1, color);
     } else if (type == "2N-edron") {
-        return create2NEdron(p, size1, size2, size3);
+        return create2NEdron(p, size1, size2, size3, color);
     } else if (type == "Parallelepiped") {
-        return createParallelepiped(p, size1, size2, size3);
+        return createParallelepiped(p, size1, size2, size3, color);
     } else if (type == "Diamond") {
-        return createDiamond(p, size1, size2, size3, size4);
+        return createDiamond(p, size1, size2, size3, size4, color);
     } else if (type == "Tape") {
-        return createTape(p, size1, size2, size3);
+        return createTape(p, size1, size2, size3, color);
     } else if (type == "MobiusTape") {
-        return createMobiusTape(p, size1, size2, size3);
+        return createMobiusTape(p, size1, size2, size3, color);
     } else if (type == "Spiral") {
-        return createSpiral(p, size1, size2, size3, size4);
+        return createSpiral(p, size1, size2, size3, size4, color);
     } else if (type == "Tower") {
-        return createTower(p, size1, size2, size3, size4);
+        return createTower(p, size1, size2, size3, size4, color);
     } else if (type == "Torus") {
-        return createTorus(p, size1, size2, size3, size4);
+        return createTorus(p, size1, size2, size3, size4, color);
     }
     throw
         "Unrecognized type of polygone";
 }
 
-Polygone *PolygoneFactory::create2NEdron(Point &p, int precision, double height, double r)
+Polygone *PolygoneFactory::create2NEdron(Point &p, int precision, double height, double r, Color *color)
 {
     Point *top = new Point(p.getX(), p.getY(), p.getZ() + height);
     Point *bottom = new Point(p.getX(), p.getY(), p.getZ() - height);
@@ -50,10 +50,10 @@ Polygone *PolygoneFactory::create2NEdron(Point &p, int precision, double height,
     delete(top);
     delete(bottom);
 
-    return new Polygone(triangles);
+    return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createParallelepiped(Point &p, double height, double width, double length)
+Polygone *PolygoneFactory::createParallelepiped(Point &p, double height, double width, double length, Color *color)
 {
     Point *p1 = new Point(p.getX() - (width / 2), p.getY() - (length / 2), p.getZ() + (height / 2));
     Point *p2 = new Point(p.getX() + (width / 2), p.getY() - (length / 2), p.getZ() + (height / 2));
@@ -93,10 +93,10 @@ Polygone *PolygoneFactory::createParallelepiped(Point &p, double height, double 
     delete(p7);
     delete(p8);
 
-    return new Polygone(triangles);
+    return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createDiamond(Point &p, double h, double H, double r, double R)
+Polygone *PolygoneFactory::createDiamond(Point &p, double h, double H, double r, double R, Color *color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -116,10 +116,10 @@ Polygone *PolygoneFactory::createDiamond(Point &p, double h, double H, double r,
         triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % 6], *sup_points[(i + 1) % 6]));
     }
 
-    return new Polygone(triangles);
+    return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int precision)
+Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int precision, Color *color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -137,10 +137,10 @@ Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int prec
         triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % precision], *sup_points[(i + 1) % precision]));
     }
 
-    return new Polygone(triangles);
+    return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createMobiusTape(Point &p, double R, double width, int precision)
+Polygone *PolygoneFactory::createMobiusTape(Point &p, double R, double width, int precision, Color *color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -165,10 +165,10 @@ Polygone *PolygoneFactory::createMobiusTape(Point &p, double R, double width, in
     triangles.push_back(new Triangle(*sup_points[0], *inf_points[0], *inf_points[precision - 1]));
     triangles.push_back(new Triangle(*inf_points[precision - 1], *sup_points[precision - 1], *inf_points[0]));
 
-    return new Polygone(triangles);
+    return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createSpiral(Point &p, double R, double width, int precision, int nb_turns)
+Polygone *PolygoneFactory::createSpiral(Point &p, double R, double width, int precision, int nb_turns, Color *color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -187,10 +187,10 @@ Polygone *PolygoneFactory::createSpiral(Point &p, double R, double width, int pr
         triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % (precision * nb_turns)], *sup_points[(i + 1) % (precision * nb_turns)]));
     }
 
-    return new Polygone(triangles);
+    return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createTower(Point &p, double R, double width, int precision, int layers)
+Polygone *PolygoneFactory::createTower(Point &p, double R, double width, int precision, int layers, Color *color)
 {
     std::vector<std::vector<Point*>> points;
 
@@ -228,10 +228,10 @@ Polygone *PolygoneFactory::createTower(Point &p, double R, double width, int pre
     //     }
     // }
     
-    return new Polygone(triangles);
+    return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precision, int layers)
+Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precision, int layers, Color *color)
 {
     std::vector<std::vector<Point*>> points;
 
@@ -260,5 +260,5 @@ Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precisi
         }
     }
 
-    return new Polygone(triangles);
+    return new Polygone(triangles, color);
 }

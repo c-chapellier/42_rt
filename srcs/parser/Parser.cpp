@@ -31,7 +31,8 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][6],
                 obj["values"][7],
                 obj["values"][8],
-                obj["values"][9]
+                obj["values"][9],
+                new Color(obj["color"][0], obj["color"][1], obj["color"][2])
             ));
         } else if (obj["type"] == "Polygon") {
             Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
@@ -41,7 +42,8 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][0],
                 obj["values"][1],
                 obj["values"][2],
-                obj["values"][3]
+                obj["values"][3],
+                new Color(obj["color"][0], obj["color"][1], obj["color"][2])
             ));
         } else {
             throw "Object is not supported";

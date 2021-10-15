@@ -9,7 +9,7 @@ Polygone::Polygone(std::vector<Point*> points) : Object()
         this->triangles.push_back(new Triangle(*points[i - 2], *points[i - 1], *points[i]));
     }
 }
-Polygone::Polygone(std::vector<Triangle*> triangles)
+Polygone::Polygone(std::vector<Triangle*> triangles, Color *color) : Object(color)
 {
     if(triangles.size() < 1)
         throw "Can not create a polygone without any triangle";

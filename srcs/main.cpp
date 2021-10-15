@@ -22,7 +22,7 @@ std::list<Object *> polygone()
     // objects.push_back(PolygoneFactory::createPolygone("MobiusTape", p1, 60, 20, 40, 0));
     // objects.push_back(PolygoneFactory::createPolygone("Spiral", p1, 60, 20, 40, 4));
     // objects.push_back(PolygoneFactory::createPolygone("Tower", p5, 40, 20, 8, 6));
-    objects.push_back(PolygoneFactory::createPolygone("Torus", p1, 60, 10, 100, 100));
+    // objects.push_back(PolygoneFactory::createPolygone("Torus", p1, 60, 10, 100, 100));
     return objects;
 }
 
@@ -125,6 +125,10 @@ int main(int argc, char *argv[])
     catch (const char *e)
     {
         std::cerr << e << '\n';
+    }
+    catch (...)
+    {
+        std::cerr << "catch something else" << '\n';
     }
     return rc;
 }

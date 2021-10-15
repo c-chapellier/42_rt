@@ -17,7 +17,7 @@ class Quadratic : public Object
         Point *p;
     public:
         Quadratic(double A, double B, double C, double D, double E, double F, double G, double H, double I, double J);
-        Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J);
+        Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, Color *color);
         ~Quadratic();
 
         Point *intersect(Line *line);

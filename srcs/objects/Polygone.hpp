@@ -11,7 +11,7 @@ class Polygone : public Object
         std::vector<Triangle*> triangles;
     public:
         Polygone(std::vector<Point*> points);
-        Polygone(std::vector<Triangle*> triangles);
+        Polygone(std::vector<Triangle*> triangles, Color *color);
         ~Polygone();
 
         Point *intersect(Line *line);

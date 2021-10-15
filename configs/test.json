@@ -2,7 +2,7 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
-    "precision": 2,
+    "precision": 1,
     "ambient": [20, 20, 20, 0],
     "cameras": [
         {
@@ -13,11 +13,11 @@
     ],
     "objects": [
         {
-            "type": "Polygon",
-            "name": "Spiral",
-            "coordinates": [80, 0, -30],
-            "values": [60, 20, 40, 4],
-            "color": [13, 234, 34]
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, 0, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -1000],
+            "color": [0, 255, 0]
         }
     ]
 }

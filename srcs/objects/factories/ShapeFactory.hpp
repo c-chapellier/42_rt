@@ -8,7 +8,7 @@ class ShapeFactory
     private:
         ShapeFactory();
 
-        static std::list<Object*> createDNA(Point &p);
+        static std::list<Object*> createDNA(Point &p, Color *Color);
     public:
-        static std::list<Object*> createShape(std::string type, Point &p);
+        static std::list<Object*> createShape(std::string type, Point &p, Color *color);
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "Line.hpp"
+#include "components/Line.hpp"
 #include "components/Point.hpp"
 #include "./../color/Color.hpp"
 

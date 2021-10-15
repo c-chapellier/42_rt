@@ -11,7 +11,7 @@
 
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
-#include "objects/Line.hpp"
+#include "objects/components/Line.hpp"
 #include "objects/Quadratic.hpp"
 #include "objects/Polygone.hpp"
 #include "objects/factories/PolygoneFactory.hpp"

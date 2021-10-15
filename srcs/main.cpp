@@ -122,13 +122,17 @@ int main(int argc, char *argv[])
     {
         std::cerr << e.what() << '\n';
     }
+    catch (const std::string& e)
+    {
+        std::cerr << e << '\n';
+    }
     catch (const char *e)
     {
         std::cerr << e << '\n';
     }
-    catch (...)
-    {
-        std::cerr << "catch something else" << '\n';
-    }
+    // catch (...)
+    // {
+    //     std::cerr << "catch something else" << '\n';
+    // }
     return rc;
 }

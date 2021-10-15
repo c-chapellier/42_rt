@@ -2,7 +2,7 @@
 
 #include "Object.hpp"
 #include "components/Point.hpp"
-#include "Line.hpp"
+#include "components/Line.hpp"
 #include "Plane.hpp"
 #include <math.h>
 

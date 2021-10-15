@@ -41,20 +41,20 @@ Vector *Camera::getV()
 // apply the rotation for the alpha angle (angle between X axis and camera vector)
 // apply the rotation for the gama angle (angle between Z axis and camera vector)
 // apply the translation (from the point of the camera)
-std::vector< std::vector<Point> > Camera::getScreen(int width, int height)
+std::vector< std::vector<Point> > Camera::getScreen(int height, int width)
 {
     // make all the points
     std::vector< std::vector<Point> > screen;
     screen.resize(height, std::vector<Point>(width));
     for (int z = 0; z < height; ++z){
         for (int y = 0; y < width; ++y){
-            Point p(double(width / 2) / sin(RADIAN(this->angle / 2)), (double)(y - (double)(width / 2)), - z + double(height / 2));
+            Point p(
+                double(width / 2) / sin(RADIAN(this->angle / 2)),
+                (double)((double)(width / 2) - y), //  + (80 * sin(RADIAN(z * 3)))
+                (double)(height / 2) - z); //  + (80 * sin(RADIAN(y * 3)))
             screen[z][y] = p;
-            //std::cout << screen[z][y] << " ";
         }
-        //std::cout << std::endl;
     }
-    //std::cout << std::endl;std::cout << std::endl;
 
     // vectors
     Vector *x_axis = new Vector(1, 0, 0); // X axis
@@ -101,15 +101,7 @@ std::vector< std::vector<Point> > Camera::getScreen(int width, int height)
             screen[z][y].setX(new_point->getX() + this->p->getX());
             screen[z][y].setY(new_point->getY() + this->p->getY());
             screen[z][y].setZ(new_point->getZ() + this->p->getZ());
-            //break;
         }
-        //break;
     }
-    // for (int z = 0; z < height; ++z){
-    //     for (int y = 0; y < width; ++y){
-    //         std::cout << screen[z][y] << " ";
-    //     }
-    //     std::cout << std::endl;
-    // }
     return screen;
 }

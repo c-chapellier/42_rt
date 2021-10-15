@@ -30,32 +30,31 @@ int wrapped_main(int argc, char *argv[])
 {
     if (argc < 2)
         throw std::string("Usage: ") + argv[0] + " <config file>";
+
     Parser parser(argv[1]);
-
     Config *config = parser.getConfig();
-
     std::list<Camera *> cameras = parser.getCameras();
     std::list<Object *> objects = parser.getObjects();
 
     srand(time(NULL));
 
 
-    Window win(config->getWidth(), config->getHeight());
+    Window win(config->getHeight(), config->getWidth());
     LoadingBar loadingBar(win);
 
-    Image img(config->getWidth(), config->getHeight());
+    Image img(config->getHeight(), config->getWidth());
 
     for (auto const& camera : cameras)
     {
-        std::vector< std::vector<Point> > screen = camera->getScreen(config->getWidth(), config->getHeight());
+        std::vector< std::vector<Point> > screen = camera->getScreen(config->getHeight(), config->getWidth());
 
         for (auto const& obj : objects)
         {
-            for (int i = 0; i < (int)screen.size(); ++i)
+            for (int height = 0; height < (int)screen.size(); ++height)
             {
-                for (int j = 0; j < (int)screen[0].size(); ++j)
+                for (int width = 0; width < (int)screen[0].size(); ++width)
                 {
-                    Line l(*(camera->getP()), screen[i][j]);
+                    Line l(*(camera->getP()), screen[height][width]);
                     Point *p = obj->intersect(&l);
                     
                     if (p)
@@ -68,7 +67,7 @@ int wrapped_main(int argc, char *argv[])
                                     ->reduceOf(cos(angle))
                                     ->add(config->getAmbientColor())
                         );
-                        img.set_pixel(j, i, p);
+                        img.set_pixel(height, width, p);
                     }
                 }
             }

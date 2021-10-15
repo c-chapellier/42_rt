@@ -1,7 +1,6 @@
 #include "Window.hpp"
 
-Window::Window(int width, int height)
-    : width(width), height(height), img_index(0)
+Window::Window(int height, int width) :  height(height), width(width), img_index(0)
 {
     SDL_Init(SDL_INIT_VIDEO);
     SDL_CreateWindowAndRenderer(this->height, this->width, 0, &this->window, &this->renderer);
@@ -98,7 +97,7 @@ void Window::stream(Image &img)
 
 void Window::load_image(Image &img)
 {
-    if (!img.is_valid(this->width, this->height))
+    if (!img.is_valid(this->height, this->width))
         throw "Image and window dimensions do not match.";
 
     this->imgs.push_back(img);
@@ -109,18 +108,18 @@ void Window::set_image()
     if (this->imgs.size() == 0)
         throw "Window::set_image: No images loaded.";
 
-    for (int i = 0; i < this->height; ++i)
+    for (int h = 0; h < this->height; ++h)
     {
-        for (int j = 0; j < this->width; ++j)
+        for (int w = 0; w < this->width; ++w)
         {
             SDL_SetRenderDrawColor(
                 this->renderer,
-                this->imgs[this->img_index][i][j].get_red(),
-                this->imgs[this->img_index][i][j].get_green(),
-                this->imgs[this->img_index][i][j].get_blue(),
-                this->imgs[this->img_index][i][j].get_opacity()
+                this->imgs[this->img_index][h][w].get_red(),
+                this->imgs[this->img_index][h][w].get_green(),
+                this->imgs[this->img_index][h][w].get_blue(),
+                this->imgs[this->img_index][h][w].get_opacity()
             );
-            SDL_RenderDrawPoint(this->renderer, i, j);
+            SDL_RenderDrawPoint(this->renderer, w, h);
         }
     }
     this->refresh();

@@ -19,7 +19,9 @@ std::list<Object*> Parser::getObjects()
 
     for (auto const& obj : j["objects"]) {
         if(obj["type"] == "Quadratic") {
+            Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
             objects.push_back(new Quadratic(
+                coordinates,
                 obj["values"][0],
                 obj["values"][1],
                 obj["values"][2],

@@ -1,7 +1,7 @@
 {
     "name": "sphere",
-    "width": 600,
-    "height": 600,
+    "width": 900,
+    "height": 900,
     "ambient": [20, 20, 20, 0],
     "cameras": [
         {
@@ -13,16 +13,37 @@
     "objects": [
         {
             "type": "Quadratic",
+            "name": "Elipsoide",
+            "coordinates": [100,-100, 0],
+            "values": [1, 5, 1, 0, 0, 0, 0, 0, 0, -600],
+            "color": [13, 234, 34]
+        },
+        {
+            "type": "Quadratic",
             "name": "Sphere",
-            "coordinates": [0, 0, 0],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -50],
+            "coordinates": [100, -50, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "color": [13, 234, 34]
+        },
+        {
+            "type": "Quadratic",
+            "name": "Cylinder",
+            "coordinates": [100, 0, 0],
+            "values": [1, 1, 0, 0, 0, 0, 0, 0, 0, -600],
+            "color": [13, 234, 34]
+        },
+        {
+            "type": "Quadratic",
+            "name": "Cylinder",
+            "coordinates": [100, 80, 0],
+            "values": [3, 5, -1, 0, 0, 0, 0, 0, 0, 0],
             "color": [13, 234, 34]
         },
         {
             "type": "Polygon",
             "name": "Cube",
-            "coordinates": [0, 0, 0],
-            "values": [50, 0, 0, 0],
+            "coordinates": [100, -100, -80],
+            "values": [60, 20, 40, 0],
             "color": [13, 234, 34]
         }
     ]

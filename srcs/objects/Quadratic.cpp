@@ -2,17 +2,23 @@
 
 Quadratic::Quadratic(double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) : Object(), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
 {
+    this->p = new Point(0, 0, 0);
+}
+Quadratic::Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) : Object(), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
+{
+    this->p = new Point(p);
 }
 Quadratic::~Quadratic()
 {
+    delete(this->p);
 }
 
 Point *Quadratic::intersect(Line *line)
 {
     double x0, y0, z0, x1, y1, z1, a, b, c, t0, t1, t2, delta;
-    x0 = 0;
-    y0 = 0;
-    z0 = 0;
+    x0 = this->p->getX();
+    y0 = this->p->getY();
+    z0 = this->p->getZ();
     x1 = line->getP()->getX();
     y1 = line->getP()->getY();
     z1 = line->getP()->getZ();
@@ -114,9 +120,9 @@ Point *Quadratic::intersect(Line *line)
 Plane *Quadratic::tangentAt(Point *p)
 {
     double a, b, c, d, e, f, g, h, i, x0, y0, z0;
-    x0 = 0;
-    y0 = 0;
-    z0 = 0;
+    x0 = this->p->getX();
+    y0 = this->p->getY();
+    z0 = this->p->getZ();
 
     a = A;
     b = B;

@@ -11,15 +11,16 @@ private:
     SDL_Renderer *renderer;
     SDL_Window *window;
 
-    const int width;
     const int height;
+    const int width;
+    
     std::vector<Image> imgs;
     int img_index;
 
     void event_info(SDL_Event event) const;
 
 public:
-    Window(int width, int height);
+    Window(int height, int width);
     ~Window();
 
     int get_width() const;

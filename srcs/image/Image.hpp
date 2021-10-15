@@ -6,20 +6,20 @@
 class Image
 {
 private:
-    int width;
     int height;
+    int width;
     std::vector< std::vector<Pixel> > pxls;
 
 public:
     Image();
-    Image(int width, int height);
-    Image(int width, int height, std::vector< std::vector<Pixel> > pxls);
+    Image(int height, int width);
+    Image(int height, int width, std::vector< std::vector<Pixel> > pxls);
     ~Image();
 
     void load_pixels(std::vector< std::vector<Pixel> > pxls);
     void set_pixel(int x, int y, Pixel pxl);
 
-    bool is_valid(int width, int height);
+    bool is_valid(int height, int width);
 
     Image &operator=(const Image &img);
     std::vector<Pixel> &operator[](int i);

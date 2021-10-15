@@ -1,13 +1,11 @@
 #include "Image.hpp"
 
-Image::Image()
-    : width(0), height(0)
+Image::Image() : height(0), width(0)
 {
     
 }
 
-Image::Image(int width, int height)
-    : width(width), height(height)
+Image::Image(int height, int width) : height(height), width(width)
 {
     pxls.resize(height, std::vector<Pixel>(width));
     for (int i = 0; i < height; ++i)
@@ -15,8 +13,7 @@ Image::Image(int width, int height)
             pxls[i][j] = Pixel(0, 0, 0, 255);
 }
 
-Image::Image(int width, int height, std::vector< std::vector<Pixel> > pxls)
-    : width(width), height(height), pxls(pxls)
+Image::Image(int height, int width, std::vector< std::vector<Pixel> > pxls) : height(height), width(width), pxls(pxls)
 {
     
 }
@@ -37,7 +34,7 @@ void Image::set_pixel(int x, int y, Pixel pxl)
     this->pxls[x][y] = pxl;
 }
 
-bool Image::is_valid(int width, int height)
+bool Image::is_valid(int height, int width)
 {
     return this->width == width && this->height == height;
 }

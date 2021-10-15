@@ -2,6 +2,7 @@
     "name": "sphere",
     "width": 900,
     "height": 900,
+    "precision": 1,
     "ambient": [20, 20, 20, 0],
     "cameras": [
         {

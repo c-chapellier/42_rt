@@ -41,8 +41,10 @@ Vector *Camera::getV()
 // apply the rotation for the alpha angle (angle between X axis and camera vector)
 // apply the rotation for the gama angle (angle between Z axis and camera vector)
 // apply the translation (from the point of the camera)
-std::vector< std::vector<Point> > Camera::getScreen(int height, int width)
+std::vector< std::vector<Point> > Camera::getScreen(int height, int width, int precision)
 {
+    height *= precision;
+    width *= precision;
     // make all the points
     std::vector< std::vector<Point> > screen;
     screen.resize(height, std::vector<Point>(width));

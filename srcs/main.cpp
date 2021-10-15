@@ -36,6 +36,9 @@ int wrapped_main(int argc, char *argv[])
     std::list<Camera *> cameras = parser.getCameras();
     std::list<Object *> objects = parser.getObjects();
 
+    // Point p(100, 0, -200);
+    // std::list<Object *> objects = ShapeFactory::createShape("DNA", p);
+
     srand(time(NULL));
 
 
@@ -46,13 +49,18 @@ int wrapped_main(int argc, char *argv[])
 
     for (auto const& camera : cameras)
     {
-        std::vector< std::vector<Point> > screen = camera->getScreen(config->getHeight(), config->getWidth());
-
+        std::vector< std::vector<Point> > screen = camera->getScreen(config->getHeight(), config->getWidth(), config->getPrecision());
+        std::vector< std::vector<Pixel> > pxl;
+        pxl.resize(config->getHeight() * config->getPrecision(), std::vector<Pixel>(config->getWidth() * config->getPrecision()));
+        for (int i = 0; i < config->getHeight() * config->getPrecision(); ++i)
+            for (int j = 0; j < config->getWidth() * config->getPrecision(); ++j)
+                pxl[i][j] = Pixel(0, 0, 0, 255);
+        std::cout << "init" << std::endl;
         for (auto const& obj : objects)
         {
-            for (int height = 0; height < (int)screen.size(); ++height)
+            for (int height = 0; height < config->getHeight() * config->getPrecision(); ++height)
             {
-                for (int width = 0; width < (int)screen[0].size(); ++width)
+                for (int width = 0; width < config->getWidth() * config->getPrecision(); ++width)
                 {
                     Line l(*(camera->getP()), screen[height][width]);
                     Point *p = obj->intersect(&l);
@@ -67,11 +75,31 @@ int wrapped_main(int argc, char *argv[])
                                     ->reduceOf(cos(angle))
                                     ->add(config->getAmbientColor())
                         );
-                        img.set_pixel(height, width, p);
+                        //img.set_pixel(height, width, p);
+                        pxl[height][width] = p;
                     }
                 }
             }
         }
+        std::cout << "middle point reached" << std::endl;
+        for (int height = 0; height < config->getHeight(); ++height){
+            for (int width = 0; width < config->getWidth(); ++width){
+                int r = 0;
+                int g = 0;
+                int b = 0;
+                for(int i = 0; i < config->getPrecision(); ++i){
+                    for(int j = 0; j < config->getPrecision(); ++j){
+                        //std::cout << i << j
+                        r += pxl[height * config->getPrecision() + i][width * config->getPrecision() + j].get_red();
+                        g += pxl[height * config->getPrecision() + i][width * config->getPrecision() + j].get_green();
+                        b += pxl[height * config->getPrecision() + i][width * config->getPrecision() + j].get_blue();
+                    }
+                }
+                Pixel pix(r / pow(config->getPrecision(), 2), g / pow(config->getPrecision(), 2), b / pow(config->getPrecision(), 2), 255);
+                img.set_pixel(height, width, pix);
+            }
+        }
+
         win.load_image(img);
         loadingBar += 100 / cameras.size();
     }

@@ -80,6 +80,7 @@ Config *Parser::getConfig()
     Config *config = new Config();
     config->setHeight(j["height"]);
     config->setWidth(j["width"]);
+    config->setPrecision(j["precision"]);
     config->setAmbientColor(j["ambient"][0], j["ambient"][1], j["ambient"][2], j["ambient"][3]);
     return config;
 }

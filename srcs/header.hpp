@@ -15,6 +15,7 @@
 #include "objects/Quadratic.hpp"
 #include "objects/Polygone.hpp"
 #include "objects/factories/PolygoneFactory.hpp"
+#include "objects/factories/ShapeFactory.hpp"
 
 
 #include "./headers/define.hpp"

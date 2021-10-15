@@ -17,6 +17,10 @@ int Config::getWidth()
 {
     return this->width;
 }
+int Config::getPrecision()
+{
+    return this->precision;
+}
 Color *Config::getAmbientColor()
 {
     return this->ambient_color;
@@ -33,6 +37,12 @@ void Config::setWidth(int w)
     if(w <= 0)
         throw "Width can not be under or equal to 0";
     this->width = w;
+}
+void Config::setPrecision(int p)
+{
+    if(p <= 0)
+        throw "Width can not be under or equal to 0";
+    this->precision = p;
 }
 void Config::setAmbientColor(int r, int g, int b, int o)
 {

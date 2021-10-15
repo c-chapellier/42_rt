@@ -2,6 +2,7 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
+    "precision": 2,
     "ambient": [20, 20, 20, 0],
     "cameras": [
         {
@@ -13,9 +14,9 @@
     "objects": [
         {
             "type": "Polygon",
-            "name": "MobiusTape",
+            "name": "Spiral",
             "coordinates": [80, 0, -30],
-            "values": [60, 20, 40, 0],
+            "values": [60, 20, 40, 4],
             "color": [13, 234, 34]
         }
     ]

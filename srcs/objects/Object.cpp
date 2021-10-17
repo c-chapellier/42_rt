@@ -7,6 +7,15 @@ Object::Object()
     this->colors.push_back(new Color());
     this->colors.push_back(new Color());
 }
+
+Object::Object(Color *color)
+{
+    this->color = color;
+    this->colors.push_back(new Color());
+    this->colors.push_back(new Color());
+    this->colors.push_back(new Color());
+}
+
 Object::~Object()
 {
     delete(this->color);

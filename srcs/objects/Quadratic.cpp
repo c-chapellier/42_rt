@@ -4,7 +4,7 @@ Quadratic::Quadratic(double A, double B, double C, double D, double E, double F,
 {
     this->p = new Point(0, 0, 0);
 }
-Quadratic::Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) : Object(), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
+Quadratic::Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, Color *color) : Object(color), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
 {
     this->p = new Point(p);
 }

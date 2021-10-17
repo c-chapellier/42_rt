@@ -9,13 +9,13 @@ SRCS =	srcs/main.cpp \
 		srcs/config/Config.cpp \
 		srcs/objects/components/Point.cpp \
 		srcs/objects/components/Vector.cpp \
+		srcs/objects/components/Line.cpp \
 		srcs/objects/components/Triangle.cpp \
 		srcs/objects/factories/AlphaFactory.cpp \
 		srcs/objects/factories/PolygoneFactory.cpp \
 		srcs/objects/factories/ShapeFactory.cpp \
 		srcs/objects/transformer/Transformer.cpp \
 		srcs/objects/Object.cpp \
-		srcs/objects/Line.cpp \
 		srcs/objects/Plane.cpp \
 		srcs/objects/Polygone.cpp \
 		srcs/objects/Quadratic.cpp \

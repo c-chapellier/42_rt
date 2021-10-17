@@ -2,7 +2,7 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
-    "precision": 2,
+    "precision": 1,
     "ambient": [20, 20, 20, 0],
     "cameras": [
         {
@@ -18,7 +18,7 @@
             "coordinates": [0, 0, 0],
             "values": [20, 90, 30, 50],
             "rotation": [45, 45, 0],
-            "color": [13, 234, 34]
+            "color": [13, 255, 34]
         }
     ]
 }

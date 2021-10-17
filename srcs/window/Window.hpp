@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include <SDL2/SDL.h>
 
+#include "../../include/SDL2/SDL.h"
 #include "../image/Image.hpp"
 
 class Window

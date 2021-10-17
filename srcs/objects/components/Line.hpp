@@ -1,7 +1,7 @@
 #pragma once
 
-#include "components/Point.hpp"
-#include "components/Vector.hpp"
+#include "Point.hpp"
+#include "Vector.hpp"
 
 // Equation:
 // x = x₀ + aλ

@@ -41,7 +41,10 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][0],
                 obj["values"][1],
                 obj["values"][2],
-                obj["values"][3]
+                obj["values"][3],
+                obj["rotation"][0],
+                obj["rotation"][1],
+                obj["rotation"][2]
             ));
         } else {
             throw "Object is not supported";

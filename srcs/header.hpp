@@ -14,6 +14,7 @@
 #include "objects/Line.hpp"
 #include "objects/Quadratic.hpp"
 #include "objects/Polygone.hpp"
+#include "objects/factories/AlphaFactory.hpp"
 #include "objects/factories/PolygoneFactory.hpp"
 #include "objects/factories/ShapeFactory.hpp"
 

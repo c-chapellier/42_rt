@@ -2,10 +2,11 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
+    "precision": 2,
     "ambient": [20, 20, 20, 0],
     "cameras": [
         {
-            "coordinates": [-100, 0, 0],
+            "coordinates": [-150, 0, 0],
             "direction": [1, 0, 0],
             "aperture": 90
         }
@@ -14,8 +15,9 @@
         {
             "type": "Polygon",
             "name": "MobiusTape",
-            "coordinates": [80, 0, -30],
+            "coordinates": [0, 0, 0],
             "values": [60, 20, 40, 0],
+            "rotation": [45, 45, 0],
             "color": [13, 234, 34]
         }
     ]

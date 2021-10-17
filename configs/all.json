@@ -4,6 +4,26 @@
     "height": 900,
     "precision": 1,
     "ambient": [20, 20, 20, 0],
+    "effects": {
+        "colorization": {
+            "layer": 20,
+            "grid": 20
+        },
+        "transformation": {
+            "x_axis" : {
+                "sin": {
+                    "amplitude" : 50,
+                    "frequency" : 3
+                }
+            },
+            "z_axis" : {
+                "sin": {
+                    "amplitude" : 50,
+                    "frequency" : 3
+                }
+            }
+        }
+    },
     "cameras": [
         {
             "coordinates": [-100, 0, 0],
@@ -45,6 +65,7 @@
             "name": "Cube",
             "coordinates": [100, -100, -80],
             "values": [60, 20, 40, 0],
+            "rotation": [0, 0, 0],
             "color": [13, 234, 34]
         }
     ]

@@ -7,7 +7,7 @@
 #include <fstream>
 #include <ios>
 
-#define RADIAN(n) (n * (2 * M_PI / 360))
+#define RADIAN(n) ((n) * (2 * M_PI / 360))
 #define DEGREE(n) (n * (360 / (2 * M_PI)))
 
 #define CLOCK_WISE 1

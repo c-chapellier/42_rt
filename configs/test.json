@@ -4,6 +4,11 @@
     "height": 600,
     "precision": 1,
     "ambient": [20, 20, 20, 0],
+    "lights": [
+        {
+            "coordinates": [-1000, 1000, 0]
+        }
+    ],
     "cameras": [
         {
             "coordinates": [-200, 0, 0],

@@ -1,4 +1,5 @@
 SRCS =	srcs/main.cpp \
+		srcs/engine/Engine.cpp \
 		srcs/window/Window.cpp \
 		srcs/loadingBar/LoadingBar.cpp \
 		srcs/pixel/Pixel.cpp \
@@ -35,5 +36,7 @@ run :		all
 
 clean :
 			rm -f ${NAME}
+
+fclean :	clean
 
 re :		clean all

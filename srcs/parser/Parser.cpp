@@ -2,7 +2,8 @@
 
 Parser::Parser(std::string config_file)
 {
-    this->file = config_file;
+    std::ifstream f(config_file);
+    f >> this->j;
 }
 
 Parser::~Parser()
@@ -11,13 +12,9 @@ Parser::~Parser()
 
 std::list<Object*> Parser::getObjects()
 {
-    std::ifstream f(this->file);
-    json j;
-    f >> j;
-
     std::list<Object *> objects;
 
-    for (auto const& obj : j["objects"]) {
+    for (auto const& obj : this->j["objects"]) {
         if(obj["type"] == "Quadratic") {
             Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
             objects.push_back(new Quadratic(
@@ -57,12 +54,9 @@ std::list<Object*> Parser::getObjects()
 
 std::list<Camera*> Parser::getCameras()
 {
-    std::ifstream f(this->file);
-    json j;
-    f >> j;
-
     std::list<Camera*> cameras;
-    for (auto const& cam : j["cameras"]) {
+
+    for (auto const& cam : this->j["cameras"]) {
         cameras.push_back(new Camera(
             cam["coordinates"][0],
             cam["coordinates"][1],
@@ -78,12 +72,9 @@ std::list<Camera*> Parser::getCameras()
 
 std::list<Light *> Parser::getLights()
 {
-    std::ifstream f(this->file);
-    json j;
-    f >> j;
-
     std::list<Light *> lights;
-    for (auto const& light : j["lights"]) {
+
+    for (auto const& light : this->j["lights"]) {
         lights.push_back(new Light(
             light["coordinates"][0],
             light["coordinates"][1],
@@ -95,14 +86,11 @@ std::list<Light *> Parser::getLights()
 
 Config *Parser::getConfig()
 {
-    std::ifstream f(this->file);
-    json j;
-    f >> j;
-
     Config *config = new Config();
-    config->setHeight(j["height"]);
-    config->setWidth(j["width"]);
-    config->setPrecision(j["precision"]);
-    config->setAmbientColor(j["ambient"][0], j["ambient"][1], j["ambient"][2], j["ambient"][3]);
+
+    config->setHeight(this->j["height"]);
+    config->setWidth(this->j["width"]);
+    config->setPrecision(this->j["precision"]);
+    config->setAmbientColor(this->j["ambient"][0], this->j["ambient"][1], this->j["ambient"][2], this->j["ambient"][3]);
     return config;
 }

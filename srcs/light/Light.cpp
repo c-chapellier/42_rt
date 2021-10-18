@@ -14,3 +14,8 @@ Light::~Light()
 {
     delete this->p;
 }
+
+Point *Light::getP()
+{
+    return this->p;
+}

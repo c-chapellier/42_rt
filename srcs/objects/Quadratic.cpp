@@ -162,5 +162,10 @@ Plane *Quadratic::tangentAt(Point *p)
 
 double Quadratic::angleWith(Line *line)
 {
-    return this->tangentAt(this->intersect(line))->angleWith(line);
+    Point *p = this->intersect(line);
+
+    if (p == NULL)
+        throw "Quadratic::angleWith: line is not intersecting";
+        
+    return this->tangentAt(p)->angleWith(line);
 }

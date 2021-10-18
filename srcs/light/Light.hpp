@@ -9,4 +9,6 @@ public:
     Light(double px, double py, double pz);
     Light(Point *p);
     ~Light();
+
+    Point *getP();
 };

@@ -3,7 +3,7 @@
 Window::Window(int height, int width) :  height(height), width(width), img_index(0)
 {
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_CreateWindowAndRenderer(this->height, this->width, 0, &this->window, &this->renderer);
+    SDL_CreateWindowAndRenderer(this->width, this->height, 0, &this->window, &this->renderer);
     this->clear();
 }
 

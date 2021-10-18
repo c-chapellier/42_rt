@@ -3,15 +3,14 @@
 
 class LoadingBar
 {
-private:
-    /* data */
-    Window window;
-    int percentage;
+    private:
+        Window window;
+        int percentage;
 
-    void refresh();
+        void refresh();
 
-public:
-    LoadingBar(Window &window);
-    ~LoadingBar();
-    LoadingBar &operator+=(const int rhs);
+    public:
+        LoadingBar(Window &window);
+        ~LoadingBar();
+        LoadingBar &operator+=(const int rhs);
 };

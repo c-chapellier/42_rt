@@ -12,6 +12,7 @@ class Color
         int o;
 
         void generateRandomColor();
+        int getByO(int c);
     public:
         Color();
         Color(int o);
@@ -23,6 +24,10 @@ class Color
         int getG();
         int getB();
         int getO();
+        double getPR();
+        double getPG();
+        double getPB();
+        double getP();
 
         void setR(int r);
         void setG(int g);

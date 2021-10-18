@@ -25,7 +25,7 @@ SRCS =	srcs/main.cpp \
 
 NAME = rt
 
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra
 
 all :
 			g++ -std=c++11 ${FLAGS} -o ${NAME} ${SRCS} -lSDL2

@@ -1,57 +1,50 @@
 #include "Pixel.hpp"
 
-Pixel::Pixel() : 
-    red(0),
-    green(0),
-    blue(0),
-    opacity(255),
-    dist(INFINITY)
+Pixel::Pixel()
 {
-
+    this->color = new Color(0, 0, 0, 255);
+    this->dist = INFINITY;
 }
 
-Pixel::Pixel(int red, int green, int blue, int opacity, double dist) : 
-    red(red),
-    green(green),
-    blue(blue),
-    opacity(opacity),
-    dist(dist)
+Pixel::Pixel(int red, int green, int blue, int opacity, double dist)
 {
-
+    this->color = new Color(red, green, blue, opacity);
+    this->dist = dist;
 }
 
-Pixel::Pixel(Color *c, double dist) :
-    dist(dist)
+Pixel::Pixel(Color *c, double dist)
 {
-    this->red = c->getR();
-    this->green = c->getG();
-    this->blue = c->getB();
-    this->opacity = c->getO();
+    this->color = new Color(*c);
+    this->dist = dist;
 }
 
 Pixel::~Pixel()
 {
-
+    //delete(this->color);
 }
 
 int Pixel::get_red()
 {
-    return this->red;
+    return this->color->getR();
 }
 
 int Pixel::get_green()
 {
-    return this->green;
+    return this->color->getG();
 }
 
 int Pixel::get_blue()
 {
-    return this->blue;
+    return this->color->getB();
+}
+Color *Pixel::getColor()
+{
+    return this->color;
 }
 
 int Pixel::get_opacity()
 {
-    return this->opacity;
+    return this->color->getO();
 }
 
 double Pixel::get_dist()
@@ -59,12 +52,19 @@ double Pixel::get_dist()
     return this->dist;
 }
 
+void Pixel::setColor(Color *color)
+{
+    this->color = color;
+}
+void Pixel::setDist(double dist)
+{
+    this->dist = dist;
+}
+
 Pixel &Pixel::operator=(const Pixel &pxl)
 {
-    this->red = pxl.red;
-    this->blue = pxl.blue;
-    this->green = pxl.green;
-    this->opacity = pxl.opacity;
+    //delete(this->color);
+    this->color = new Color(*pxl.color);
     this->dist = pxl.dist;
     return *this;
 }

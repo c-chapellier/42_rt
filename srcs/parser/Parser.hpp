@@ -17,7 +17,6 @@ class Parser
 {
     private:
         std::string file;
-        json j;
     public:
         Parser(std::string config_file);
         ~Parser();

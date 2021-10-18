@@ -348,7 +348,6 @@ Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precisi
 
     for(int k = 0; k < layers; ++k){
         for(int i = 0; i < precision; ++i) {
-            // std::cout << k << " " << i << " " << (k * precision) + i << ": " << *points[k][i] << " " << *points[k][(i + 1) % precision] << " " << *points[(k + 1) % layers][i] << std::endl;
             triangles.push_back(new Triangle(*points[k][i], *points[k][(i + 1) % precision], *points[(k + 1) % layers][i]));
             triangles.push_back(new Triangle(*points[(k + 1) % layers][i], *points[(k + 1) % layers][(i + 1) % precision], *points[k][(i + 1) % precision]));
         }

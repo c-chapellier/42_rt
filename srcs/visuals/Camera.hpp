@@ -8,6 +8,8 @@
 #include "./../objects/components/Vector.hpp"
 #include "./../objects/Plane.hpp"
 
+class Config;
+
 class Camera
 {
     private:
@@ -22,5 +24,5 @@ class Camera
         Point *getP();
         Vector *getV();
 
-        std::vector< std::vector<Point> > getScreen(int height, int width, int precision);
+        std::vector< std::vector<Point> > getScreen(Config &config);
 };

@@ -25,8 +25,7 @@ Color::Color(int r, int g, int b, int o)
     this->setB(b);
     this->setO(o);
 }
-Color::~Color()
-{}
+Color::~Color(){}
 
 int Color::getR()
 {
@@ -43,6 +42,22 @@ int Color::getB()
 int Color::getO()
 {
     return this->o;
+}
+double Color::getPR()
+{
+    return (double)this->r / 255;
+}
+double Color::getPG()
+{
+    return (double)this->g / 255;
+}
+double Color::getPB()
+{
+    return (double)this->b / 255;
+}
+double Color::getP()
+{
+    return (double)((double)this->o / (double)255);
 }
 
 void Color::setR(int r)
@@ -68,6 +83,12 @@ void Color::generateRandomColor()
     this->g = rand() % 256;
     this->b = rand() % 256;
 }
+int Color::getByO(int c)
+{
+    double p = (double)((double)this->o / (double)255);
+    double res = (double)c * p;
+    return (int)res;
+}
 
 Color *Color::reduceOf(double ratio)
 {
@@ -77,7 +98,7 @@ Color *Color::reduceOf(double ratio)
     new_r = (double)this->r * (1.0 - ratio);
     new_g = (double)this->g * (1.0 - ratio);
     new_b = (double)this->b * (1.0 - ratio);
-    return new Color((int)new_r, (int)new_b, (int)new_g);
+    return new Color((int)new_r, (int)new_b, (int)new_g, this->o);
 }
 
 Color *Color::add(Color *c)
@@ -85,7 +106,7 @@ Color *Color::add(Color *c)
     this->r += c->getR();
     this->g += c->getG();
     this->b += c->getB();
-    this->o += c->getO();
+    //this->o += c->getO();
 
     if (this->r > 255)
         this->r = 255;   
@@ -93,8 +114,8 @@ Color *Color::add(Color *c)
         this->g = 255;    
     if (this->b > 255)
         this->b = 255;
-    if (this->o > 255)
-        this->o = 255;
+    // if (this->o > 255)
+    //     this->o = 255;
         
     return this;
 }

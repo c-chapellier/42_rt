@@ -76,6 +76,23 @@ std::list<Camera*> Parser::getCameras()
     return cameras;
 }
 
+std::list<Light *> Parser::getLights()
+{
+    std::ifstream f(this->file);
+    json j;
+    f >> j;
+
+    std::list<Light *> lights;
+    for (auto const& light : j["lights"]) {
+        lights.push_back(new Light(
+            light["coordinates"][0],
+            light["coordinates"][1],
+            light["coordinates"][2]
+        ));
+    }
+    return lights;
+}
+
 Config *Parser::getConfig()
 {
     std::ifstream f(this->file);

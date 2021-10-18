@@ -22,7 +22,8 @@ class Parser
         Parser(std::string config_file);
         ~Parser();
 
-        std::list<Object*> getObjects();
-        std::list<Camera*> getCameras();
+        std::list<Object *> getObjects();
+        std::list<Camera *> getCameras();
+        std::list<Light *> getLights();
         Config *getConfig();
 };

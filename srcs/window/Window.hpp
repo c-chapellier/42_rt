@@ -5,6 +5,8 @@
 #include "../../include/SDL2/SDL.h"
 #include "../image/Image.hpp"
 
+class Image;
+
 class Window
 {
 private:

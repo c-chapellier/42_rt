@@ -5,6 +5,7 @@ SRCS =	srcs/main.cpp \
 		srcs/image/Image.cpp \
 		srcs/parser/Parser.cpp \
 		srcs/visuals/Camera.cpp \
+		srcs/light/Light.cpp \
 		srcs/color/Color.cpp \
 		srcs/config/Config.cpp \
 		srcs/objects/components/Point.cpp \
@@ -30,7 +31,7 @@ all :
 			g++ -std=c++11 ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
 
 run :		all
-			./${NAME} configs/test.json
+			./${NAME} configs/sphere.json
 
 clean :
 			rm -f ${NAME}

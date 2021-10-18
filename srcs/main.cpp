@@ -76,6 +76,7 @@ int wrapped_main(int argc, char *argv[])
     Config *config = parser.getConfig();
     std::list<Camera *> cameras = parser.getCameras();
     std::list<Object *> objects = parser.getObjects();
+    std::list<Light *> lights = parser.getLights();
 
     // Point p(100, 0, -200);
     // std::list<Object *> objects = ShapeFactory::createShape("DNA", p);
@@ -94,12 +95,16 @@ int wrapped_main(int argc, char *argv[])
     for (auto const& camera : cameras)
     {
         std::vector< std::vector<Point> > screen = camera->getScreen(config->getHeight(), config->getWidth(), config->getPrecision());
-        std::vector< std::vector<Pixel> > pxl;
-        pxl.resize(config->getHeight() * config->getPrecision(), std::vector<Pixel>(config->getWidth() * config->getPrecision()));
+
+        std::vector< std::vector<Pixel> > pxls;
+        pxls.resize(config->getHeight() * config->getPrecision(), std::vector<Pixel>(config->getWidth() * config->getPrecision()));
         for (int i = 0; i < config->getHeight() * config->getPrecision(); ++i)
             for (int j = 0; j < config->getWidth() * config->getPrecision(); ++j)
-                pxl[i][j] = Pixel(0, 0, 0, 255);
+                pxls[i][j] = Pixel(0, 0, 0, 255, INFINITY);
+
         std::cout << "init" << std::endl;
+        
+        int i = 0;
         for (auto const& obj : objects)
         {
             for (int height = 0; height < config->getHeight() * config->getPrecision(); ++height)
@@ -112,18 +117,30 @@ int wrapped_main(int argc, char *argv[])
                     if (p)
                     {
                         double dist = p->distWith(*(camera->getP()));
-                        double angle = RADIAN(obj->angleWith(&l));
-                        Pixel p(
-                            obj->getColor() // ((height / 20) + (width / 20)) % 2
-                                    ->reduceOf(1 - exp(-dist / 1000))
-                                    ->reduceOf(cos(angle))
-                                    ->add(config->getAmbientColor())
-                        );
-                        //img.set_pixel(height, width, p);
-                        pxl[height][width] = p;
+
+                        if (dist < pxls[height][width].get_dist())
+                        {
+                            double angle = RADIAN(obj->angleWith(&l));
+                            Pixel p(
+                                obj->getColor() // ((height / 20) + (width / 20)) % 2
+                                        ->reduceOf(1 - exp(-dist / 1000))
+                                        ->reduceOf(cos(angle))
+                                        ->add(config->getAmbientColor()),
+                                dist
+                            );
+
+                            // for (auto const& light : lights)
+                            // {
+                            //     if (light.shines(p))
+                            //         p.add_light();
+                            // }
+                            
+                            pxls[height][width] = p;
+                        }
                     }
                 }
             }
+            ++i;
         }
         std::cout << "middle point reached" << std::endl;
         for (int height = 0; height < config->getHeight(); ++height){
@@ -134,9 +151,9 @@ int wrapped_main(int argc, char *argv[])
                 for(int i = 0; i < config->getPrecision(); ++i){
                     for(int j = 0; j < config->getPrecision(); ++j){
                         //std::cout << i << j
-                        r += pxl[height * config->getPrecision() + i][width * config->getPrecision() + j].get_red();
-                        g += pxl[height * config->getPrecision() + i][width * config->getPrecision() + j].get_green();
-                        b += pxl[height * config->getPrecision() + i][width * config->getPrecision() + j].get_blue();
+                        r += pxls[height * config->getPrecision() + i][width * config->getPrecision() + j].get_red();
+                        g += pxls[height * config->getPrecision() + i][width * config->getPrecision() + j].get_green();
+                        b += pxls[height * config->getPrecision() + i][width * config->getPrecision() + j].get_blue();
                     }
                 }
                 Pixel pix(r / pow(config->getPrecision(), 2), g / pow(config->getPrecision(), 2), b / pow(config->getPrecision(), 2), 255);

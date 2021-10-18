@@ -1,0 +1,35 @@
+{
+    "name": "sphere",
+    "width": 600,
+    "height": 600,
+    "precision": 1,
+    "ambient": [20, 20, 20, 0],
+    "cameras": [
+        {
+            "coordinates": [-100, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [0, 100, 0]
+        }
+    ],
+    "objects": [
+        {
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, 0, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "color": [13, 234, 34]
+        },
+        {
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [100, 0, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -1000],
+            "color": [234, 13, 34]
+        }
+    ]
+}

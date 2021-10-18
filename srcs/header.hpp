@@ -8,6 +8,7 @@
 
 #include "window/Window.hpp"
 #include "visuals/Camera.hpp"
+#include "light/Light.hpp"
 
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
@@ -19,7 +20,7 @@
 #include "objects/factories/ShapeFactory.hpp"
 
 
-#include "./headers/define.hpp"
+#include "headers/define.hpp"
 
 #include "saver/Saver.hpp"
 #include "parser/Parser.hpp"

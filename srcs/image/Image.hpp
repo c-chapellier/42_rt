@@ -3,6 +3,8 @@
 #include <vector>
 #include "../pixel/Pixel.hpp"
 
+class Pixel;
+
 class Image
 {
 private:

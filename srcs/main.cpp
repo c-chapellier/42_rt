@@ -113,6 +113,7 @@ int wrapped_main(char *argv[])
                     }
                 }
             }
+            loadingBar += 100 / (cameras.size() * objects.size());
         }
 
         for (int height = 0; height < config->getHeight(); ++height){
@@ -133,7 +134,7 @@ int wrapped_main(char *argv[])
         }
 
         win.load_image(img);
-        loadingBar += 100 / cameras.size();
+        //loadingBar += 100 / cameras.size();
     }
 
     win.set_image();

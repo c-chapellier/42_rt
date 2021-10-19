@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <vector>
 #include "./../../header.hpp"
 
 class ShapeFactory
@@ -8,7 +8,8 @@ class ShapeFactory
     private:
         ShapeFactory();
 
-        static std::list<Object*> createDNA(Point &p, Color *Color);
+        static std::vector<Object*> createDNA(Point &p);
+        static std::vector<Object*> createSphereCircle(Point &p, double radius, int nb_sphere, double sphere_radius, double alpha, double beta, double gama);
     public:
-        static std::list<Object*> createShape(std::string type, Point &p, Color *color);
+        static std::vector<Object*> createShape(std::string type, Point &p, double size1, double size2, double size3, double alpha, double beta, double gama);
 };

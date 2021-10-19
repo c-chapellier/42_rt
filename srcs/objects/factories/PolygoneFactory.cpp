@@ -22,6 +22,8 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
         return createDiamond(p, size1, size2, size3, size4, alpha, beta, gama, color);
     } else if (type == "Tape") {
         return createTape(p, size1, size2, size3, alpha, beta, gama, color);
+    } else if (type == "ClosedTape") {
+        return createClosedTape(p, size1, size2, size3, alpha, beta, gama, color);
     } else if (type == "MobiusTape") {
         return createMobiusTape(p, size1, size2, size3, alpha, beta, gama, color);
     } else if (type == "Spiral") {
@@ -30,6 +32,10 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
         return createTower(p, size1, size2, size3, size4, alpha, beta, gama, color);
     } else if (type == "Torus") {
         return createTorus(p, size1, size2, size3, size4, alpha, beta, gama, color);
+    } else if (type == "Ring") {
+        return createRing(p, size1, size2, size3, alpha, beta, gama, color);
+    } else if (type == "Circle") {
+        return createCircle(p, size1, size2, alpha, beta, gama, color);
     }
     throw
         "Unrecognized type of polygone";
@@ -209,6 +215,51 @@ Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int prec
     return new Polygone(triangles, color);
 }
 
+Polygone *PolygoneFactory::createClosedTape(Point &p, double R, double width, int precision, double alpha, double beta, double gama, Color *color)
+{
+    std::vector<Point*> sup_points;
+    std::vector<Point*> inf_points;
+    Point *top = new Point(0, 0, width / 2);
+    Point *bottom = new Point(0, 0, -width / 2);
+
+    for(int i = 0; i < precision; ++i) {
+        double angle = i * (360 / precision);
+        sup_points.push_back(new Point(R * cos(RADIAN(angle)), R * sin(RADIAN(angle)), width / 2));
+        inf_points.push_back(new Point(R * cos(RADIAN(angle)), R * sin(RADIAN(angle)), -width / 2));
+    }
+
+    Transformer::rotateAroundX(sup_points, alpha);
+    Transformer::rotateAroundX(inf_points, alpha);
+    Transformer::rotateAroundX(top, alpha);
+    Transformer::rotateAroundX(bottom, alpha);
+
+    Transformer::rotateAroundY(sup_points, beta);
+    Transformer::rotateAroundY(inf_points, beta);
+    Transformer::rotateAroundY(top, alpha);
+    Transformer::rotateAroundY(bottom, alpha);
+
+    Transformer::rotateAroundZ(sup_points, gama);
+    Transformer::rotateAroundZ(inf_points, gama);
+    Transformer::rotateAroundZ(top, alpha);
+    Transformer::rotateAroundZ(bottom, alpha);
+
+    Transformer::translate(sup_points, &p);
+    Transformer::translate(inf_points, &p);
+    Transformer::translate(top, &p);
+    Transformer::translate(bottom, &p);
+
+    std::vector<Triangle*> triangles;
+
+    for(int i = 0; i < precision; ++i) {
+        triangles.push_back(new Triangle(*sup_points[i], *sup_points[(i + 1) % precision], *inf_points[i]));
+        triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % precision], *sup_points[(i + 1) % precision]));
+        triangles.push_back(new Triangle(*sup_points[i], *sup_points[(i + 1) % precision], *top));
+        triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % precision], *bottom));
+    }
+
+    return new Polygone(triangles, color);
+}
+
 Polygone *PolygoneFactory::createMobiusTape(Point &p, double R, double width, int precision, double alpha, double beta, double gama, Color *color)
 {
     std::vector<Point*> sup_points;
@@ -356,6 +407,67 @@ Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precisi
             triangles.push_back(new Triangle(*points[k][i], *points[k][(i + 1) % precision], *points[(k + 1) % layers][i]));
             triangles.push_back(new Triangle(*points[(k + 1) % layers][i], *points[(k + 1) % layers][(i + 1) % precision], *points[k][(i + 1) % precision]));
         }
+    }
+
+    return new Polygone(triangles, color);
+}
+
+Polygone *PolygoneFactory::createRing(Point &p, double R, double r, int precision, double alpha, double beta, double gama, Color *color)
+{
+    std::vector<Point*> sup_points;
+    std::vector<Point*> inf_points;
+
+    for(int i = 0; i < precision; ++i) {
+        double angle = i * (360 / precision);
+        sup_points.push_back(new Point(R * cos(RADIAN(angle)), R * sin(RADIAN(angle)), 0));
+        inf_points.push_back(new Point(r * cos(RADIAN(angle)), r * sin(RADIAN(angle)), 0));
+    }
+
+    Transformer::rotateAroundX(sup_points, alpha);
+    Transformer::rotateAroundX(inf_points, alpha);
+
+    Transformer::rotateAroundY(sup_points, beta);
+    Transformer::rotateAroundY(inf_points, beta);
+
+    Transformer::rotateAroundZ(sup_points, gama);
+    Transformer::rotateAroundZ(inf_points, gama);
+
+    Transformer::translate(sup_points, &p);
+    Transformer::translate(inf_points, &p);
+
+    std::vector<Triangle*> triangles;
+
+    for(int i = 0; i < precision; ++i) {
+        triangles.push_back(new Triangle(*sup_points[i], *sup_points[(i + 1) % precision], *inf_points[i]));
+        triangles.push_back(new Triangle(*inf_points[i], *inf_points[(i + 1) % precision], *sup_points[(i + 1) % precision]));
+    }
+
+    return new Polygone(triangles, color);
+}
+
+Polygone *PolygoneFactory::createCircle(Point &p, double R, int precision, double alpha, double beta, double gama, Color *color)
+{
+    std::vector<Point*> points;
+    Point *center = new Point(0, 0, 0);
+
+    for(int i = 0; i < precision; ++i) {
+        double angle = i * (360 / precision);
+        points.push_back(new Point(R * cos(RADIAN(angle)), R * sin(RADIAN(angle)), 0));
+    }
+
+    Transformer::rotateAroundX(points, alpha);
+
+    Transformer::rotateAroundY(points, beta);
+
+    Transformer::rotateAroundZ(points, gama);
+
+    Transformer::translate(points, &p);
+    Transformer::translate(center, &p);
+
+    std::vector<Triangle*> triangles;
+
+    for(int i = 0; i < precision; ++i) {
+        triangles.push_back(new Triangle(*points[i], *points[(i + 1) % precision], *center));
     }
 
     return new Polygone(triangles, color);

@@ -1,0 +1,37 @@
+{
+    "name": "sphere",
+    "width": 600,
+    "height": 600,
+    "precision": 2,
+    "ambient": [20, 20, 20, 0],
+    "blur": [255, 255, 255, 0],
+    "cameras": [
+        {
+            "coordinates": [-150, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [-1000, 1000, 0]
+        }
+    ],
+    "objects": [
+        {
+            "type": "Shape",
+            "name": "SphereCircle",
+            "coordinates": [0, 0, 0],
+            "values": [80, 30, 10, 0],
+            "rotation": [90, 0, 30],
+            "colors": [
+                [0, 0, 255, 255],
+                [255, 0, 0, 255]
+            ],
+            "texture": {
+                "type": "Gradient",
+                "values": [0, 0]
+            }
+        }
+    ]
+}

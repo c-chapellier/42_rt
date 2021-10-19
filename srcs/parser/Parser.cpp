@@ -29,7 +29,6 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][7],
                 obj["values"][8],
                 obj["values"][9]
-                //new Color(obj["color"][0], obj["color"][1], obj["color"][2], obj["color"][3])
             );
             for(auto const& color : obj["colors"]) {
                 quadratic->addColor(new Color(color[0], color[1], color[2], color[3]));
@@ -48,13 +47,31 @@ std::list<Object*> Parser::getObjects()
                 obj["rotation"][0],
                 obj["rotation"][1],
                 obj["rotation"][2]
-                //new Color(obj["color"][0], obj["color"][1], obj["color"][2], obj["color"][3])
             );
             for(auto const& color : obj["colors"]) {
                 polygon->addColor(new Color(color[0], color[1], color[2], color[3]));
             }
             polygon->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(polygon);
+        } else if (obj["type"] == "Shape") {
+            Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
+            std::vector<Object *> shape = ShapeFactory::createShape(
+                obj["name"],
+                coordinates,
+                obj["values"][0],
+                obj["values"][1],
+                obj["values"][2],
+                obj["rotation"][0],
+                obj["rotation"][1],
+                obj["rotation"][2]
+            );
+            for(int i = 0; i < (int)shape.size(); ++i){
+                for(auto const& color : obj["colors"]) {
+                    shape[i]->addColor(new Color(color[0], color[1], color[2], color[3]));
+                }
+                shape[i]->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+                objects.push_back(shape[i]);
+            }
         } else {
             throw "Object is not supported";
         }

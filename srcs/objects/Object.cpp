@@ -38,10 +38,14 @@ Color *Object::getColorAt(int height, int width, int screen_height, int screenWi
     } else if (this->texture->getType() == "Gradient") {
         double p = 1.0 - (double)((double)height / (double)screen_height);
         return new Color(
-            std::min(getColor(0)->getR(), getColor(1)->getR()) + (int)(((double)std::max(getColor(0)->getR(), getColor(1)->getR()) - std::min(getColor(0)->getR(), getColor(1)->getR())) * p),
-            std::min(getColor(0)->getG(), getColor(1)->getG()) + (int)(((double)std::max(getColor(0)->getG(), getColor(1)->getG()) - std::min(getColor(0)->getG(), getColor(1)->getG())) * p),
-            std::min(getColor(0)->getB(), getColor(1)->getB()) + (int)(((double)std::max(getColor(0)->getB(), getColor(1)->getB()) - std::min(getColor(0)->getB(), getColor(1)->getB())) * p),
-            std::min(getColor(0)->getO(), getColor(1)->getO()) + (int)(((double)std::max(getColor(0)->getO(), getColor(1)->getO()) - std::min(getColor(0)->getO(), getColor(1)->getO())) * p)
+            getColor(0)->getR() + (int)((double)((double)getColor(1)->getR() - (double)getColor(0)->getR()) * p),
+            getColor(0)->getG() + (int)((double)((double)getColor(1)->getG() - (double)getColor(0)->getG()) * p),
+            getColor(0)->getB() + (int)((double)((double)getColor(1)->getB() - (double)getColor(0)->getB()) * p),
+            getColor(0)->getO() + (int)((double)((double)getColor(1)->getO() - (double)getColor(0)->getO()) * p)
+            // std::min(getColor(0)->getR(), getColor(1)->getR()) + (int)(((double)std::max(getColor(0)->getR(), getColor(1)->getR()) - std::min(getColor(0)->getR(), getColor(1)->getR())) * p),
+            // std::min(getColor(0)->getG(), getColor(1)->getG()) + (int)(((double)std::max(getColor(0)->getG(), getColor(1)->getG()) - std::min(getColor(0)->getG(), getColor(1)->getG())) * p),
+            // std::min(getColor(0)->getB(), getColor(1)->getB()) + (int)(((double)std::max(getColor(0)->getB(), getColor(1)->getB()) - std::min(getColor(0)->getB(), getColor(1)->getB())) * p),
+            // std::min(getColor(0)->getO(), getColor(1)->getO()) + (int)(((double)std::max(getColor(0)->getO(), getColor(1)->getO()) - std::min(getColor(0)->getO(), getColor(1)->getO())) * p)
         );
     } else if (this->texture->getType() == "Grid") {
         return getColor(((height / texture->getValue1()) + (width / texture->getValue2())) % 2);

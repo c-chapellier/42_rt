@@ -22,6 +22,7 @@ private:
     void parse(std::string config_file);
     void init();
     void apply_light(std::vector< std::vector<Pixel> > &pixels);
+    void applyBlur(std::vector< std::vector<Pixel> > &pixels);
 
     Color *alphaBlending(Color *c1, Color *c2);
     void getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel);

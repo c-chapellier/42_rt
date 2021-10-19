@@ -25,6 +25,10 @@ Color *Config::getAmbientColor()
 {
     return this->ambient_color;
 }
+Color *Config::getBlur()
+{
+    return this->blur;
+}
 
 void Config::setHeight(int h)
 {
@@ -47,4 +51,8 @@ void Config::setPrecision(int p)
 void Config::setAmbientColor(int r, int g, int b, int o)
 {
     this->ambient_color = new Color(r, g, b, o);
+}
+void Config::setBlur(int r, int g, int b, int o)
+{
+    this->blur = new Color(r, g, b, o);
 }

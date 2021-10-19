@@ -9,6 +9,7 @@ class Config
         int height;
         int precision;
         Color *ambient_color;
+        Color *blur;
     public:
         Config();
         ~Config();
@@ -17,10 +18,12 @@ class Config
         int getWidth();
         int getPrecision();
         Color *getAmbientColor();
+        Color *getBlur();
 
         void setHeight(int h);
         void setWidth(int w);
         void setPrecision(int p);
         void setAmbientColor(int r, int g, int b, int o);
+        void setBlur(int r, int g, int b, int o);
         
 };

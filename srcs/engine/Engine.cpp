@@ -31,6 +31,19 @@ void Engine::init()
     this->precision_width = this->config->getWidth() * this->config->getPrecision();
 }
 
+void Engine::applyBlur(std::vector< std::vector<Pixel> > &pixels)
+{
+    if(this->config->getBlur()->getP() == 0)
+        return;
+    for (int height = 0; height < this->precision_height; ++height)
+    {
+        for (int width = 0; width < this->precision_width; ++width)
+        {
+            pixels[height][width].setColor(alphaBlending(this->config->getBlur(), pixels[height][width].getColor()));
+        }
+    }
+}
+
 void Engine::apply_light(std::vector< std::vector<Pixel> > &pixels)
 {
     Color *light_color = new Color(255, 255, 255, 255);
@@ -109,6 +122,7 @@ void Engine::run()
         }
 
         this->apply_light(pixels);
+        this->applyBlur(pixels);
 
         for (int height = 0; height < this->config->getHeight(); ++height){
             for (int width = 0; width < this->config->getWidth(); ++width){

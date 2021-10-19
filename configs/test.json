@@ -4,6 +4,7 @@
     "height": 600,
     "precision": 1,
     "ambient": [20, 20, 20, 0],
+    "blur": [255, 0, 0, 150],
     "lights": [
         {
             "coordinates": [-1000, 1000, 0]

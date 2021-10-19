@@ -4,6 +4,7 @@
     "height": 600,
     "precision": 2,
     "ambient": [20, 20, 20, 200],
+    "blur": [255, 0, 255, 150],
     "cameras": [
         {
             "coordinates": [-100, 0, 0],

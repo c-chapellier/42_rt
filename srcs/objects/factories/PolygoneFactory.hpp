@@ -17,5 +17,6 @@ class PolygoneFactory
         static Polygone *createTower(Point &p, double R, double width, int precision, int layers, double alpha, double beta, double gama, Color *color);
         static Polygone *createTorus(Point &p, double R, double r, int precision, int layers, double alpha, double beta, double gama, Color *color);
     public:
+        static Polygone *createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, double alpha, double beta, double gama);
         static Polygone *createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, double alpha, double beta, double gama, Color *color);
 };

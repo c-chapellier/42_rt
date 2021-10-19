@@ -2,28 +2,20 @@
 
 Object::Object()
 {
-    this->color = new Color();
-    this->colors.push_back(new Color());
-    this->colors.push_back(new Color());
-    this->colors.push_back(new Color());
+    //this->colors.push_back(new Color());
 }
 
 Object::Object(Color *color)
 {
-    this->color = color;
-    this->colors.push_back(new Color());
-    this->colors.push_back(new Color());
-    this->colors.push_back(new Color());
+    if(color != NULL)
+        this->colors.push_back(color);
 }
 
-Object::~Object()
-{
-    delete(this->color);
-}
+Object::~Object(){}
 
 Color *Object::getColor()
 {
-    return this->color;
+    return this->colors[0];
 }
 
 Color *Object::getColor(int i)
@@ -31,4 +23,9 @@ Color *Object::getColor(int i)
     if(i < 0 || i > (int)this->colors.size())
         throw "Bad index for accessing color of the object";
     return this->colors[i];
+}
+
+void Object::addColor(Color *color)
+{
+    this->colors.push_back(color);
 }

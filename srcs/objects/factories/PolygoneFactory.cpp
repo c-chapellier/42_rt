@@ -5,6 +5,11 @@ PolygoneFactory::PolygoneFactory()
 
 }
 
+Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, double alpha, double beta, double gama)
+{
+    return createPolygone(type, p, size1, size2, size3, size4, alpha, beta, gama, NULL);
+}
+
 Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, double alpha, double beta, double gama, Color *color)
 {
     if (type == "Cube"){

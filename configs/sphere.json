@@ -4,7 +4,7 @@
     "height": 600,
     "precision": 2,
     "ambient": [20, 20, 20, 200],
-    "blur": [255, 0, 255, 150],
+    "blur": [255, 0, 255, 0],
     "cameras": [
         {
             "coordinates": [-100, 0, 0],
@@ -23,21 +23,27 @@
             "name": "Sphere",
             "coordinates": [0, 0, -10],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
-            "color": [234, 15, 34, 20]
+            "colors": [
+                [234, 15, 34, 20]
+            ]
         },
         {
             "type": "Quadratic",
             "name": "Sphere",
             "coordinates": [0, 15, 10],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
-            "color": [56, 234, 58, 40]
+            "colors": [
+                [234, 234, 58, 80]
+            ]
         },
         {
             "type": "Quadratic",
             "name": "Sphere",
             "coordinates": [0, -15, 10],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
-            "color": [56, 13, 234, 255]
+            "colors": [
+                [56, 13, 234, 255]
+            ]
         }
     ]
 }

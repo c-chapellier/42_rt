@@ -38,28 +38,36 @@
             "name": "Elipsoide",
             "coordinates": [100,-100, 0],
             "values": [1, 5, 1, 0, 0, 0, 0, 0, 0, -600],
-            "color": [13, 234, 34, 255]
+            "colors": [
+                [13, 234, 34, 255]
+            ]
         },
         {
             "type": "Quadratic",
             "name": "Sphere",
             "coordinates": [100, -50, 0],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
-            "color": [13, 234, 34, 255]
+            "colors": [
+                [13, 234, 34, 255]
+            ]
         },
         {
             "type": "Quadratic",
             "name": "Cylinder",
             "coordinates": [100, 0, 0],
             "values": [1, 1, 0, 0, 0, 0, 0, 0, 0, -600],
-            "color": [13, 234, 34, 255]
+            "colors": [
+                [13, 234, 34, 255]
+            ]
         },
         {
             "type": "Quadratic",
             "name": "Cylinder",
             "coordinates": [100, 80, 0],
             "values": [3, 5, -1, 0, 0, 0, 0, 0, 0, 0],
-            "color": [13, 234, 34, 255]
+            "colors": [
+                [13, 234, 34, 255]
+            ]
         },
         {
             "type": "Polygon",
@@ -67,7 +75,9 @@
             "coordinates": [100, -100, -80],
             "values": [60, 20, 40, 0],
             "rotation": [0, 0, 0],
-            "color": [13, 234, 34, 255]
+            "colors": [
+                [13, 234, 34, 255]
+            ]
         }
     ]
 }

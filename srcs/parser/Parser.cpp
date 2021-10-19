@@ -17,7 +17,7 @@ std::list<Object*> Parser::getObjects()
     for (auto const& obj : this->j["objects"]) {
         if(obj["type"] == "Quadratic") {
             Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
-            objects.push_back(new Quadratic(
+            Quadratic *quadratic = new Quadratic(
                 coordinates,
                 obj["values"][0],
                 obj["values"][1],
@@ -28,12 +28,16 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][6],
                 obj["values"][7],
                 obj["values"][8],
-                obj["values"][9],
-                new Color(obj["color"][0], obj["color"][1], obj["color"][2], obj["color"][3])
-            ));
+                obj["values"][9]
+                //new Color(obj["color"][0], obj["color"][1], obj["color"][2], obj["color"][3])
+            );
+            for(auto const& color : obj["colors"]) {
+                quadratic->addColor(new Color(color[0], color[1], color[2], color[3]));
+            }
+            objects.push_back(quadratic);
         } else if (obj["type"] == "Polygon") {
             Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
-            objects.push_back(PolygoneFactory::createPolygone(
+            Polygone *polygon = PolygoneFactory::createPolygone(
                 obj["name"],
                 coordinates,
                 obj["values"][0],
@@ -42,9 +46,13 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][3],
                 obj["rotation"][0],
                 obj["rotation"][1],
-                obj["rotation"][2],
-                new Color(obj["color"][0], obj["color"][1], obj["color"][2], obj["color"][3])
-            ));
+                obj["rotation"][2]
+                //new Color(obj["color"][0], obj["color"][1], obj["color"][2], obj["color"][3])
+            );
+            for(auto const& color : obj["colors"]) {
+                polygon->addColor(new Color(color[0], color[1], color[2], color[3]));
+            }
+            objects.push_back(polygon);
         } else {
             throw "Object is not supported";
         }

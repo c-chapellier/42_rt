@@ -8,6 +8,7 @@ SRCS =	srcs/main.cpp \
 		srcs/visuals/Camera.cpp \
 		srcs/light/Light.cpp \
 		srcs/color/Color.cpp \
+		srcs/color/Texture.cpp \
 		srcs/config/Config.cpp \
 		srcs/objects/components/Point.cpp \
 		srcs/objects/components/Vector.cpp \
@@ -32,7 +33,7 @@ all :
 			g++ -std=c++11 ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
 
 run :		all
-			./${NAME} configs/sphere.json
+			./${NAME} configs/all.json
 
 clean :
 			rm -f ${NAME}

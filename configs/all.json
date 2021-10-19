@@ -4,7 +4,7 @@
     "height": 900,
     "precision": 1,
     "ambient": [20, 20, 20, 0],
-    "blur": [255, 255, 255, 150],
+    "blur": [255, 255, 255, 0],
     "effects": {
         "colorization": {
             "layer": 20,
@@ -39,8 +39,13 @@
             "coordinates": [100,-100, 0],
             "values": [1, 5, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [13, 234, 34, 255]
-            ]
+                [13, 234, 34, 255],
+                [245, 145, 180, 255]
+            ],
+            "texture": {
+                "type": "HorizontalLined",
+                "values": [20, 0]
+            }
         },
         {
             "type": "Quadratic",
@@ -48,8 +53,13 @@
             "coordinates": [100, -50, 0],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [13, 234, 34, 255]
-            ]
+                [13, 234, 34, 255],
+                [245, 145, 180, 255]
+            ],
+            "texture": {
+                "type": "VerticalLined",
+                "values": [20, 0]
+            }
         },
         {
             "type": "Quadratic",
@@ -57,17 +67,27 @@
             "coordinates": [100, 0, 0],
             "values": [1, 1, 0, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [13, 234, 34, 255]
-            ]
+                [212, 212, 34, 255],
+                [13, 85, 187, 255]
+            ],
+            "texture": {
+                "type": "Grid",
+                "values": [20, 20]
+            }
         },
         {
             "type": "Quadratic",
-            "name": "Cylinder",
+            "name": "Cone",
             "coordinates": [100, 80, 0],
             "values": [3, 5, -1, 0, 0, 0, 0, 0, 0, 0],
             "colors": [
-                [13, 234, 34, 255]
-            ]
+                [13, 234, 34, 255],
+                [234, 13, 156, 255]
+            ],
+            "texture": {
+                "type": "Gradient",
+                "values": [0, 0]
+            }
         },
         {
             "type": "Polygon",
@@ -76,8 +96,13 @@
             "values": [60, 20, 40, 0],
             "rotation": [0, 0, 0],
             "colors": [
-                [13, 234, 34, 255]
-            ]
+                [212, 212, 34, 255],
+                [13, 85, 187, 255]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
         }
     ]
 }

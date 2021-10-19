@@ -25,7 +25,7 @@ private:
     void applyBlur(std::vector< std::vector<Pixel> > &pixels);
 
     Color *alphaBlending(Color *c1, Color *c2);
-    void getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel);
+    void getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel, int height, int width);
     std::vector< std::vector<Pixel>> getPixels();
 
 public:

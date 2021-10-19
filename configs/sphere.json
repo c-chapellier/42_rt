@@ -25,7 +25,11 @@
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
                 [234, 15, 34, 20]
-            ]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
         },
         {
             "type": "Quadratic",
@@ -34,7 +38,11 @@
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
                 [234, 234, 58, 80]
-            ]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
         },
         {
             "type": "Quadratic",
@@ -43,7 +51,11 @@
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
                 [56, 13, 234, 255]
-            ]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
         }
     ]
 }

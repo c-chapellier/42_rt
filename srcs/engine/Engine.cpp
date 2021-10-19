@@ -114,7 +114,7 @@ void Engine::run()
                     
                     if (p)
                     {
-                        this->getNewPixel(obj, l, p, camera, &pixels[height][width]);
+                        this->getNewPixel(obj, l, p, camera, &pixels[height][width], height, width);
                     }
                 }
             }
@@ -170,12 +170,12 @@ Color *Engine::alphaBlending(Color *c1, Color *c2) {
     return new Color((int)(r * 255), (int)(g * 255), (int)(b * 255), (int)(o * 255));
 }
 
-void Engine::getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel)
+void Engine::getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel, int height, int width)
 {
     double dist = p->distWith(*(camera->getP()));
     double angle = RADIAN(obj->angleWith(&l));
 
-    Color *tmp = obj->getColor()
+    Color *tmp = obj->getColorAt(height, width, config->getHeight(), config->getWidth())
                     ->reduceOf(1 - exp(-dist / 1000))
                     ->reduceOf(cos(angle))
                     ->add(this->config->getAmbientColor());

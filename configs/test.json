@@ -26,7 +26,11 @@
             "rotation": [45, 45, 0],
             "color": [
                 [13, 255, 34, 255]
-            ]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
         }
     ]
 }

@@ -34,6 +34,7 @@ std::list<Object*> Parser::getObjects()
             for(auto const& color : obj["colors"]) {
                 quadratic->addColor(new Color(color[0], color[1], color[2], color[3]));
             }
+            quadratic->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(quadratic);
         } else if (obj["type"] == "Polygon") {
             Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
@@ -52,6 +53,7 @@ std::list<Object*> Parser::getObjects()
             for(auto const& color : obj["colors"]) {
                 polygon->addColor(new Color(color[0], color[1], color[2], color[3]));
             }
+            polygon->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(polygon);
         } else {
             throw "Object is not supported";

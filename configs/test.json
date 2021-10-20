@@ -2,12 +2,12 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
-    "precision": 1,
+    "precision": 4,
     "ambient": [20, 20, 20, 0],
-    "blur": [255, 0, 0, 150],
+    "blur": [0, 0, 0, 0],
     "lights": [
         {
-            "coordinates": [-1000, 1000, 0]
+            "coordinates": [-1000, 400, 400]
         }
     ],
     "cameras": [
@@ -19,13 +19,24 @@
     ],
     "objects": [
         {
-            "type": "Polygon",
-            "name": "Diamond",
+            "type": "Quadratic",
+            "name": "Sphere",
             "coordinates": [0, 0, 0],
-            "values": [20, 90, 30, 50],
-            "rotation": [45, 45, 0],
-            "color": [
-                [13, 255, 34, 255]
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -2000],
+            "colors": [
+                [234, 15, 34, 255]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
+        },
+        {
+            "type": "Plane",
+            "point": [300, 0, 0],
+            "normal": [-1, 0, 0],
+            "colors": [
+                [15, 34, 234, 255]
             ],
             "texture": {
                 "type": "Uniform",

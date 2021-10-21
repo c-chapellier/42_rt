@@ -14,8 +14,19 @@ std::list<Object*> Parser::getObjects()
 {
     std::list<Object *> objects;
 
-    for (auto const& obj : this->j["objects"]) {
-        if(obj["type"] == "Quadratic") {
+    for (auto const& obj : this->j["objects"])
+    {
+        if (obj["type"] == "Plane")
+        {
+            Plane *plane = new Plane(obj["point"][0], obj["point"][1], obj["point"][2], obj["normal"][0], obj["normal"][1], obj["normal"][2]);
+
+            for (auto const& color : obj["colors"])
+                plane->addColor(new Color(color[0], color[1], color[2], color[3]));
+
+            plane->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+            objects.push_back(plane);
+        }
+        else if (obj["type"] == "Quadratic") {
             Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
             Quadratic *quadratic = new Quadratic(
                 coordinates,
@@ -35,7 +46,8 @@ std::list<Object*> Parser::getObjects()
             }
             quadratic->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(quadratic);
-        } else if (obj["type"] == "Polygon") {
+        } else if (obj["type"] == "Polygon")
+        {
             Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
             Polygone *polygon = PolygoneFactory::createPolygone(
                 obj["name"],

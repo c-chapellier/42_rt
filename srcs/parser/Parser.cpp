@@ -120,5 +120,6 @@ Config *Parser::getConfig()
     config->setPrecision(this->j["precision"]);
     config->setAmbientColor(this->j["ambient"][0], this->j["ambient"][1], this->j["ambient"][2], this->j["ambient"][3]);
     config->setBlur(this->j["blur"][0], this->j["blur"][1], this->j["blur"][2], this->j["blur"][3]);
+    config->setFilter(this->j["filter"]);
     return config;
 }

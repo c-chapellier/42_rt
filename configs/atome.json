@@ -1,0 +1,99 @@
+{
+    "name": "sphere",
+    "width": 600,
+    "height": 600,
+    "precision": 2,
+    "ambient": [20, 20, 20, 0],
+    "blur": [255, 255, 255, 0],
+    "filter": "None",
+    "cameras": [
+        {
+            "coordinates": [-150, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+
+    ],
+    "objects": [
+        {
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, 0, 3],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -100],
+            "colors": [
+                [255, 40, 40, 255]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
+        },
+        {
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, 0, -3],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -100],
+            "colors": [
+                [255, 40, 40, 255]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
+        },
+        {
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, 3, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -100],
+            "colors": [
+                [40, 40, 255, 255]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
+        },
+        {
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, -3, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -100],
+            "colors": [
+                [40, 40, 255, 255]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
+        },
+        {
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, 0, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -2000],
+            "colors": [
+                [135, 206, 250, 100]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
+        },
+        {
+            "type": "Quadratic",
+            "name": "Sphere",
+            "coordinates": [0, 0, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -2500],
+            "colors": [
+                [135, 250, 250, 100]
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
+        }
+    ]
+}

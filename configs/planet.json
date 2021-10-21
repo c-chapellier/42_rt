@@ -5,6 +5,7 @@
     "precision": 2,
     "ambient": [20, 20, 20, 0],
     "blur": [255, 255, 255, 0],
+    "filter": "None",
     "cameras": [
         {
             "coordinates": [-150, 0, 0],

@@ -4,7 +4,8 @@
     "height": 600,
     "precision": 2,
     "ambient": [20, 20, 20, 0],
-    "blur": [255, 255, 255, 150],
+    "blur": [255, 255, 255, 0],
+    "filter": "None",
     "cameras": [
         {
             "coordinates": [-150, 0, 0],
@@ -19,11 +20,12 @@
             "coordinates": [0, 0, 0],
             "values": [60, 20, 40, 0],
             "rotation": [45, 45, 0],
-            "color": [
-                [13, 234, 34, 255]
+            "colors": [
+                [255, 25, 30, 255],
+                [255, 127, 30, 255]
             ],
             "texture": {
-                "type": "Uniform",
+                "type": "Gradient",
                 "values": [0, 0]
             }
         }

@@ -2,10 +2,10 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
-    "precision": 4,
+    "precision": 2,
     "ambient": [20, 20, 20, 0],
-    "blur": [0, 0, 0, 0],
-    "filter": "Invert",
+    "blur": 0,
+    "filter": "None",
     "lights": [
         {
             "coordinates": [-1000, 400, 400]
@@ -20,24 +20,13 @@
     ],
     "objects": [
         {
-            "type": "Quadratic",
-            "name": "Sphere",
+            "type": "Polygon",
+            "name": "Star",
             "coordinates": [0, 0, 0],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -2000],
+            "values": [50, 20, 20, 5],
+            "rotation": [20, 90, 0],
             "colors": [
-                [234, 15, 34, 255]
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Plane",
-            "point": [300, 0, 0],
-            "normal": [-1, 0, 0],
-            "colors": [
-                [15, 34, 234, 255]
+                [255, 255, 34, 255]
             ],
             "texture": {
                 "type": "Uniform",

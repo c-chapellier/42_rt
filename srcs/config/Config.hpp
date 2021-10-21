@@ -9,7 +9,7 @@ class Config
         int height;
         int precision;
         Color *ambient_color;
-        Color *blur;
+        int blur;
         std::string filter;
     public:
         Config();
@@ -19,14 +19,14 @@ class Config
         int getWidth();
         int getPrecision();
         Color *getAmbientColor();
-        Color *getBlur();
+        int getBlur();
         std::string getFilter();
 
         void setHeight(int h);
         void setWidth(int w);
         void setPrecision(int p);
         void setAmbientColor(int r, int g, int b, int o);
-        void setBlur(int r, int g, int b, int o);
+        void setBlur(int b);
         void setFilter(std::string filter);
         
 };

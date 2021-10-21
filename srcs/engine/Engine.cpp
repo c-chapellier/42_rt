@@ -31,19 +31,6 @@ void Engine::init()
     this->precision_width = this->config->getWidth() * this->config->getPrecision();
 }
 
-void Engine::applyBlur(std::vector< std::vector<Pixel> > &pixels)
-{
-    if(this->config->getBlur()->getP() == 0)
-        return;
-    for (int height = 0; height < this->precision_height; ++height)
-    {
-        for (int width = 0; width < this->precision_width; ++width)
-        {
-            pixels[height][width].setColor(alphaBlending(this->config->getBlur(), pixels[height][width].getColor()));
-        }
-    }
-}
-
 void Engine::apply_light(std::vector< std::vector<Pixel> > &pixels)
 {
     Color *light_color = new Color(255, 255, 255, 255);
@@ -122,9 +109,9 @@ void Engine::run()
         }
 
         this->apply_light(pixels);
-        this->applyBlur(pixels);
-        //this->apply3D(pixels);
         this->applyFilter(pixels);
+        //this->apply3D(pixels);
+        this->applyBlur(pixels);
 
         for (int height = 0; height < this->config->getHeight(); ++height){
             for (int width = 0; width < this->config->getWidth(); ++width){
@@ -133,9 +120,9 @@ void Engine::run()
                 int b = 0;
                 for(int i = 0; i < this->config->getPrecision(); ++i){
                     for(int j = 0; j < this->config->getPrecision(); ++j){
-                        r += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].get_red();
-                        g += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].get_green();
-                        b += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].get_blue();
+                        r += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].getRed();
+                        g += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].getGreen();
+                        b += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].getBlue();
                     }
                 }
                 Pixel pix(r / pow(this->config->getPrecision(), 2), g / pow(this->config->getPrecision(), 2), b / pow(this->config->getPrecision(), 2), 255);
@@ -258,6 +245,42 @@ void Engine::applyFilter(std::vector< std::vector<Pixel> > &pixels)
                     pixels[h][w].setColor(new Color((int)tr, (int)tg, (int)tb));
                 }
             }
+        }
+    }
+}
+
+void Engine::applyBlur(std::vector< std::vector<Pixel> > &pixels)
+{
+    if(this->config->getBlur() == 0)
+        return;
+    
+    std::vector<std::vector<Color*>> colors; 
+    for (int height = 0; height < this->precision_height; ++height)
+    {
+        std::vector<Color*> tmp;
+        for (int width = 0; width < this->precision_width; ++width)
+        {
+            int r = 0;
+            int g = 0;
+            int b = 0;
+            int s = 0;
+            for (int i = height - config->getBlur(); i < height + config->getBlur(); ++i){
+                for (int j = width - config->getBlur(); j < width + config->getBlur(); ++j){
+                    if(i >=0 && i < config->getHeight() && j >= 0 && j < config->getWidth()) {
+                        r += pixels[i][j].getRed();
+                        g += pixels[i][j].getGreen();
+                        b += pixels[i][j].getBlue();
+                        ++s;
+                    }
+                }
+            }
+            tmp.push_back(new Color(r / s, g / s, b / s));
+        }
+        colors.push_back(tmp);
+    }
+    for (int h = 0; h < this->precision_height; ++h){
+        for (int w = 0; w < this->precision_width; ++w){
+            pixels[h][w].setColor(colors[h][w]);
         }
     }
 }

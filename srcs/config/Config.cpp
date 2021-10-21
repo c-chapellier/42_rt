@@ -3,7 +3,7 @@
 Config::Config()
 {
     this->ambient_color = NULL;
-    this->blur = NULL;
+    this->blur = 0;
     setFilter("None");
 }
 Config::~Config()
@@ -27,7 +27,7 @@ Color *Config::getAmbientColor()
 {
     return this->ambient_color;
 }
-Color *Config::getBlur()
+int Config::getBlur()
 {
     return this->blur;
 }
@@ -58,9 +58,11 @@ void Config::setAmbientColor(int r, int g, int b, int o)
 {
     this->ambient_color = new Color(r, g, b, o);
 }
-void Config::setBlur(int r, int g, int b, int o)
+void Config::setBlur(int b)
 {
-    this->blur = new Color(r, g, b, o);
+    if(b < 0 || b > 10)
+        throw "Blur must be between 0 and 10";
+    this->blur = b;
 }
 void Config::setFilter(std::string filter)
 {

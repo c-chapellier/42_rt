@@ -8,9 +8,8 @@ Object::Object()
 Object::Object(Color *color)
 {
     this->texture = NULL;
-    if (color == NULL)
-        throw "Object::Object: color == NULL";
-    this->colors.push_back(color);
+    if (color != NULL)
+        this->colors.push_back(color);
 }
 
 Object::~Object(){
@@ -38,7 +37,7 @@ Color *Object::getColorAt(int height, int width, int screen_height, int screenWi
     if (this->texture->getType() == "Uniform") {
         return getColor();
     } else if (this->texture->getType() == "Gradient") {
-        double p = 1.0 - (double)((double)height / (double)screen_height);
+        double p = (double)((double)height / (double)screen_height);
         return new Color(
             getColor(0)->getR() + (int)((double)((double)getColor(1)->getR() - (double)getColor(0)->getR()) * p),
             getColor(0)->getG() + (int)((double)((double)getColor(1)->getG() - (double)getColor(0)->getG()) * p),

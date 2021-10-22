@@ -19,6 +19,7 @@ class PolygoneFactory
         static Polygone *createTorus(Point &p, double R, double r, int precision, int layers, double alpha, double beta, double gama, Color *color);
         static Polygone *createRing(Point &p, double R, double r, int precision, double alpha, double beta, double gama, Color *color);
         static Polygone *createCircle(Point &p, double R, int precision, double alpha, double beta, double gama, Color *color);
+        static Polygone *createStar(Point &p, double R, double r, double thick, int branch, double alpha, double beta, double gama, Color *color);
     public:
         static Polygone *createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, double alpha, double beta, double gama);
         static Polygone *createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, double alpha, double beta, double gama, Color *color);

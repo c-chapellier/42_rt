@@ -33,19 +33,6 @@ void Engine::init()
     this->precision_width = this->config->getWidth() * this->config->getPrecision();
 }
 
-void Engine::applyBlur(std::vector< std::vector<Pixel> > &pixels)
-{
-    if(this->config->getBlur()->getP() == 0)
-        return;
-    for (int height = 0; height < this->precision_height; ++height)
-    {
-        for (int width = 0; width < this->precision_width; ++width)
-        {
-            pixels[height][width].setColor(alphaBlending(this->config->getBlur(), pixels[height][width].getColor()));
-        }
-    }
-}
-
 void Engine::apply_light(std::vector< std::vector<Pixel> > &pixels)
 {
     Color *light_color = new Color(255, 255, 255, 255);
@@ -125,6 +112,8 @@ void Engine::run()
         }
 
         this->apply_light(pixels);
+        this->applyFilter(pixels);
+        //this->apply3D(pixels);
         this->applyBlur(pixels);
 
         for (int height = 0; height < this->config->getHeight(); ++height){
@@ -134,9 +123,9 @@ void Engine::run()
                 int b = 0;
                 for(int i = 0; i < this->config->getPrecision(); ++i){
                     for(int j = 0; j < this->config->getPrecision(); ++j){
-                        r += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].get_red();
-                        g += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].get_green();
-                        b += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].get_blue();
+                        r += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].getRed();
+                        g += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].getGreen();
+                        b += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j].getBlue();
                     }
                 }
                 Pixel pix(r / pow(this->config->getPrecision(), 2), g / pow(this->config->getPrecision(), 2), b / pow(this->config->getPrecision(), 2), 255);
@@ -166,10 +155,6 @@ Color *Engine::alphaBlending(Color *c1, Color *c2) {
     g = ((c1->getPG() * c1->getP()) + (c2->getPG() * c2->getP() * (1 - c1->getP()))) / o;
     b = ((c1->getPB() * c1->getP()) + (c2->getPB() * c2->getP() * (1 - c1->getP()))) / o;
 
-    // std::cout << c1->getP() << " " << c2->getP() << " " << (c2->getP() * (1.0 - c1->getP())) << " " << o << std::endl;
-    // std::cout << *c1 << std::endl;
-    // std::cout << *c2 << std::endl;
-
     return new Color((int)(r * 255), (int)(g * 255), (int)(b * 255), (int)(o * 255));
 }
 
@@ -196,14 +181,109 @@ void Engine::getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *
 
 std::vector< std::vector<Pixel>> Engine::getPixels()
 {
-    int height = this->config->getHeight() * this->config->getPrecision();
-    int width = this->config->getWidth() * this->config->getPrecision();
     std::vector< std::vector<Pixel>> pixels;
-    pixels.resize(height, std::vector<Pixel>(width));
+    pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width));
 
-    for (int h = 0; h < height; ++h)
-        for (int w = 0; w < width; ++w)
+    for (int h = 0; h < this->precision_height; ++h)
+        for (int w = 0; w < this->precision_width; ++w)
             pixels[h][w] = Pixel(0, 0, 0, 100, INFINITY);
 
     return pixels;
+}
+
+void Engine::apply3D(std::vector< std::vector<Pixel> > &pixels)
+{
+    Color red(255, 0, 0, 100);
+    Color cyan(0, 255, 255, 100);
+
+    for (int h = 0; h < this->precision_height; ++h){
+        for (int w = 0; w < this->precision_width; ++w){
+            if(pixels[h][w].get_object() != NULL)
+                pixels[h][w].setColor(alphaBlending(&cyan, pixels[h][w].getColor()));
+        }
+    }
+}
+
+// https://dyclassroom.com/image-processing-project/how-to-convert-a-color-image-into-sepia-image
+void Engine::applyFilter(std::vector< std::vector<Pixel> > &pixels)
+{
+    if (this->config->getFilter() == "None") {
+        return ;
+    } else if (this->config->getFilter() == "Sepia") {
+        for (int h = 0; h < this->precision_height; ++h){
+            for (int w = 0; w < this->precision_width; ++w){
+                if(pixels[h][w].get_object() != NULL){
+                    double tr = 0.393 * (double)pixels[h][w].getColor()->getR() + 0.769 * (double)pixels[h][w].getColor()->getG() + 0.189 * (double)pixels[h][w].getColor()->getB();
+                    double tg = 0.349 * (double)pixels[h][w].getColor()->getR() + 0.686 * (double)pixels[h][w].getColor()->getG() + 0.168 * (double)pixels[h][w].getColor()->getB();
+                    double tb = 0.272 * (double)pixels[h][w].getColor()->getR() + 0.534 * (double)pixels[h][w].getColor()->getG() + 0.131 * (double)pixels[h][w].getColor()->getB();
+                    pixels[h][w].setColor(new Color((int)tr, (int)tg, (int)tb));
+                }
+            }
+        }
+    } else if (this->config->getFilter() == "AverageGrayscale") {
+        for (int h = 0; h < this->precision_height; ++h){
+            for (int w = 0; w < this->precision_width; ++w){
+                if(pixels[h][w].get_object() != NULL){
+                    double t = ((double)pixels[h][w].getColor()->getR() + (double)pixels[h][w].getColor()->getG() + (double)pixels[h][w].getColor()->getB()) / 3.0;
+                    pixels[h][w].setColor(new Color((int)t, (int)t, (int)t));
+                }
+            }
+        }
+    } else if (this->config->getFilter() == "WeightedGrayscale") {
+        for (int h = 0; h < this->precision_height; ++h){
+            for (int w = 0; w < this->precision_width; ++w){
+                if(pixels[h][w].get_object() != NULL){
+                    double t = 0.299 * (double)pixels[h][w].getColor()->getR() + 0.587 * (double)pixels[h][w].getColor()->getG() + 0.114 * (double)pixels[h][w].getColor()->getB();
+                    pixels[h][w].setColor(new Color((int)t, (int)t, (int)t));
+                }
+            }
+        }
+    } else if (this->config->getFilter() == "Invert") {
+        for (int h = 0; h < this->precision_height; ++h){
+            for (int w = 0; w < this->precision_width; ++w){
+                if(pixels[h][w].get_object() != NULL){
+                    double tr = 255 - pixels[h][w].getColor()->getR();
+                    double tg = 255 - pixels[h][w].getColor()->getG();
+                    double tb = 255 - pixels[h][w].getColor()->getB();
+                    pixels[h][w].setColor(new Color((int)tr, (int)tg, (int)tb));
+                }
+            }
+        }
+    }
+}
+
+void Engine::applyBlur(std::vector< std::vector<Pixel> > &pixels)
+{
+    if(this->config->getBlur() == 0)
+        return;
+    
+    std::vector<std::vector<Color*>> colors; 
+    for (int height = 0; height < this->precision_height; ++height)
+    {
+        std::vector<Color*> tmp;
+        for (int width = 0; width < this->precision_width; ++width)
+        {
+            int r = 0;
+            int g = 0;
+            int b = 0;
+            int s = 0;
+            for (int i = height - config->getBlur(); i < height + config->getBlur(); ++i){
+                for (int j = width - config->getBlur(); j < width + config->getBlur(); ++j){
+                    if(i >=0 && i < config->getHeight() && j >= 0 && j < config->getWidth()) {
+                        r += pixels[i][j].getRed();
+                        g += pixels[i][j].getGreen();
+                        b += pixels[i][j].getBlue();
+                        ++s;
+                    }
+                }
+            }
+            tmp.push_back(new Color(r / s, g / s, b / s));
+        }
+        colors.push_back(tmp);
+    }
+    for (int h = 0; h < this->precision_height; ++h){
+        for (int w = 0; w < this->precision_width; ++w){
+            pixels[h][w].setColor(colors[h][w]);
+        }
+    }
 }

@@ -15,17 +15,20 @@
     ],
     "lights": [
         {
-            "coordinates": [-1000, 1000, 0]
+            "coordinates": [-1000, -1000, 0]
+        },
+        {
+            "coordinates": [-100, 100, 0]
         }
     ],
     "objects": [
         {
             "type": "Quadratic",
             "name": "Sphere",
-            "coordinates": [0, 0, -10],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "coordinates": [0, 0, 0],
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -1000],
             "colors": [
-                [234, 15, 34, 20]
+                [255, 15, 34, 255]
             ],
             "texture": {
                 "type": "Uniform",
@@ -34,24 +37,11 @@
         },
         {
             "type": "Quadratic",
-            "name": "Sphere",
+            "name": "Plane",
             "coordinates": [0, 15, 10],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "values": [0, 0, 0, 0, 0, 0, 1, 1, 0, -100],
             "colors": [
-                [234, 234, 58, 80]
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Quadratic",
-            "name": "Sphere",
-            "coordinates": [0, -15, 10],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
-            "colors": [
-                [56, 13, 234, 255]
+                [156, 58, 190, 255]
             ],
             "texture": {
                 "type": "Uniform",

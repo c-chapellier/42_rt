@@ -26,17 +26,17 @@ Pixel::~Pixel()
 
 }
 
-int Pixel::get_red()
+int Pixel::getRed()
 {
     return this->color->getR();
 }
 
-int Pixel::get_green()
+int Pixel::getGreen()
 {
     return this->color->getG();
 }
 
-int Pixel::get_blue()
+int Pixel::getBlue()
 {
     return this->color->getB();
 }
@@ -45,7 +45,7 @@ Color *Pixel::getColor()
     return this->color;
 }
 
-int Pixel::get_opacity()
+int Pixel::getOpacity()
 {
     return this->color->getO();
 }

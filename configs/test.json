@@ -8,9 +8,10 @@
         "ambient": [20, 20, 20, 0],
         "blur": [0, 0, 0, 0]
     },
-    "precision": 4,
+    "precision": 2,
     "ambient": "ambient",
-    "blur": "blur",
+    "blur": 0,
+    "filter": "None",
     "lights": [
         {
             "coordinates": [-1000, 400, 400]
@@ -25,10 +26,11 @@
     ],
     "objects": [
         {
-            "type": "Quadratic",
-            "name": "Sphere",
+            "type": "Polygon",
+            "name": "Star",
             "coordinates": [0, 0, 0],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -2000],
+            "values": [50, 20, 20, 5],
+            "rotation": [20, 90, 0],
             "colors": [
                 "red"
             ],

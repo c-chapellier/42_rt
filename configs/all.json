@@ -4,12 +4,9 @@
     "height": 900,
     "precision": 1,
     "ambient": [20, 20, 20, 0],
-    "blur": [255, 255, 255, 0],
+    "blur": 9,
+    "filter": "Invert",
     "effects": {
-        "colorization": {
-            "layer": 20,
-            "grid": 20
-        },
         "transformation": {
             "x_axis" : {
                 "sin": {

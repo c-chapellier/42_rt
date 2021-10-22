@@ -2,7 +2,9 @@
 
 Config::Config()
 {
-
+    this->ambient_color = NULL;
+    this->blur = 0;
+    setFilter("None");
 }
 
 Config::~Config()
@@ -26,9 +28,13 @@ Color *Config::getAmbientColor()
 {
     return this->ambient_color;
 }
-Color *Config::getBlur()
+int Config::getBlur()
 {
     return this->blur;
+}
+std::string Config::getFilter()
+{
+    return this->filter;
 }
 
 void Config::setHeight(int h)
@@ -37,23 +43,36 @@ void Config::setHeight(int h)
         throw "Height can not be under or equal to 0";
     this->height = h;
 }
+
 void Config::setWidth(int w)
 {
     if(w <= 0)
         throw "Width can not be under or equal to 0";
     this->width = w;
 }
+
 void Config::setPrecision(int p)
 {
     if(p <= 0)
         throw "Width can not be under or equal to 0";
     this->precision = p;
 }
+
 void Config::setAmbientColor(Color *ambient)
 {
     this->ambient_color = ambient;
 }
-void Config::setBlur(Color *blur)
+
+void Config::setBlur(int b)
 {
-    this->blur = blur;
+    if(b < 0 || b > 10)
+        throw "Blur must be between 0 and 10";
+    this->blur = b;
+}
+
+void Config::setFilter(std::string filter)
+{
+    if(filter != "None" && filter != "Sepia" && filter != "AverageGrayscale" && filter != "WeightedGrayscale" && filter != "Invert")
+        throw "Unknown filter";
+    this->filter = filter;
 }

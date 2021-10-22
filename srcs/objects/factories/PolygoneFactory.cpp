@@ -36,6 +36,8 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
         return createRing(p, size1, size2, size3, alpha, beta, gama, color);
     } else if (type == "Circle") {
         return createCircle(p, size1, size2, alpha, beta, gama, color);
+    } else if (type == "Star") {
+        return createStar(p, size1, size2, size3, size4, alpha, beta, gama, color);
     }
     throw
         "Unrecognized type of polygone";
@@ -468,6 +470,54 @@ Polygone *PolygoneFactory::createCircle(Point &p, double R, int precision, doubl
 
     for(int i = 0; i < precision; ++i) {
         triangles.push_back(new Triangle(*points[i], *points[(i + 1) % precision], *center));
+    }
+
+    return new Polygone(triangles, color);
+}
+
+Polygone *PolygoneFactory::createStar(Point &p, double R, double r, double thick, int branch, double alpha, double beta, double gama, Color *color)
+{
+    std::vector<Point*> sup_points;
+    std::vector<Point*> inf_points;
+    Point *top = new Point(0, 0, thick / 2);
+    Point *bottom = new Point(0, 0, -thick / 2);
+
+    double angle = 360.0 / branch;
+
+    for(int i = 0; i < branch; ++i) {
+        double angle1 = i * angle;
+        double angle2 = angle1 + (angle / 2);
+        sup_points.push_back(new Point(R * cos(RADIAN(angle1)), R * sin(RADIAN(angle1)), 0));
+        inf_points.push_back(new Point(r * cos(RADIAN(angle2)), r * sin(RADIAN(angle2)), 0));
+    }
+
+    Transformer::rotateAroundX(sup_points, alpha);
+    Transformer::rotateAroundX(inf_points, alpha);
+    Transformer::rotateAroundX(top, alpha);
+    Transformer::rotateAroundX(bottom, alpha);
+
+    Transformer::rotateAroundY(sup_points, beta);
+    Transformer::rotateAroundY(inf_points, beta);
+    Transformer::rotateAroundY(top, alpha);
+    Transformer::rotateAroundY(bottom, alpha);
+
+    Transformer::rotateAroundZ(sup_points, gama);
+    Transformer::rotateAroundZ(inf_points, gama);
+    Transformer::rotateAroundZ(top, alpha);
+    Transformer::rotateAroundZ(bottom, alpha);
+
+    Transformer::translate(sup_points, &p);
+    Transformer::translate(inf_points, &p);
+    Transformer::translate(top, &p);
+    Transformer::translate(bottom, &p);
+
+    std::vector<Triangle*> triangles;
+
+    for(int i = 0; i < branch; ++i) {
+        triangles.push_back(new Triangle(*sup_points[i], *inf_points[i], *top));
+        triangles.push_back(new Triangle(*sup_points[i], *inf_points[i], *bottom));
+        triangles.push_back(new Triangle(*inf_points[i], *sup_points[(i + 1) % branch], *top));
+        triangles.push_back(new Triangle(*inf_points[i], *sup_points[(i + 1) % branch], *bottom));
     }
 
     return new Polygone(triangles, color);

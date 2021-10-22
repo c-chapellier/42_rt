@@ -22,10 +22,10 @@ public:
     Pixel(Color *c, double dist = INFINITY);
     ~Pixel();
 
-    int get_red();
-    int get_green();
-    int get_blue();
-    int get_opacity();
+    int getRed();
+    int getGreen();
+    int getBlue();
+    int getOpacity();
     Color *getColor();
     double get_dist();
     Point *get_location();

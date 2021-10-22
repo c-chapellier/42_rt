@@ -80,10 +80,10 @@ void Window::stream(Image &img)
         {
             SDL_SetRenderDrawColor(
                 this->renderer,
-                img[i][j].get_red(),
-                img[i][j].get_green(),
-                img[i][j].get_blue(),
-                img[i][j].get_opacity()
+                img[i][j].getRed(),
+                img[i][j].getGreen(),
+                img[i][j].getBlue(),
+                img[i][j].getOpacity()
             );
             SDL_RenderDrawPoint(this->renderer, i, j);
         }
@@ -114,10 +114,10 @@ void Window::set_image()
         {
             SDL_SetRenderDrawColor(
                 this->renderer,
-                this->imgs[this->img_index][h][w].get_red(),
-                this->imgs[this->img_index][h][w].get_green(),
-                this->imgs[this->img_index][h][w].get_blue(),
-                this->imgs[this->img_index][h][w].get_opacity()
+                this->imgs[this->img_index][h][w].getRed(),
+                this->imgs[this->img_index][h][w].getGreen(),
+                this->imgs[this->img_index][h][w].getBlue(),
+                this->imgs[this->img_index][h][w].getOpacity()
             );
             SDL_RenderDrawPoint(this->renderer, w, h);
         }

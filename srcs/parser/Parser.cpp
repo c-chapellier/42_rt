@@ -133,6 +133,7 @@ Config *Parser::getConfig()
     config->setWidth(this->j["width"]);
     config->setPrecision(this->j["precision"]);
     config->setAmbientColor(this->colorManager->getColor(this->j["ambient"]));
-    config->setBlur(this->colorManager->getColor(this->j["blur"]));
+    config->setBlur(this->j["blur"]);
+    config->setFilter(this->j["filter"]);
     return config;
 }

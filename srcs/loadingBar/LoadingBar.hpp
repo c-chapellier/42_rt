@@ -1,16 +1,19 @@
-#include "../window/Window.hpp"
-#include "../image/Image.hpp"
+#pragma once
+
+#include "../header.hpp"
+
+class Window;
 
 class LoadingBar
 {
     private:
-        Window window;
+        Window *window;
         int percentage;
 
         void refresh();
 
     public:
-        LoadingBar(Window &window);
+        LoadingBar(Window *window);
         ~LoadingBar();
         LoadingBar &operator+=(const int rhs);
 };

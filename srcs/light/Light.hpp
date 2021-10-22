@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../objects/components/Point.hpp"
 
 class Light

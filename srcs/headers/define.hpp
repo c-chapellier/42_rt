@@ -1,5 +1,4 @@
-#ifndef DEFINE_HPP
-#define DEFINE_HPP
+#pragma once
 
 #include <string>
 #include <sstream>
@@ -21,5 +20,3 @@ std::string itohex(int n);
 
 void outputHex(std::ofstream *outfile, std::string hex);
 void output(std::ofstream *outfile, std::string str);
-
-#endif

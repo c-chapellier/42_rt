@@ -23,7 +23,7 @@ Pixel::Pixel(Color *c, double dist)
 
 Pixel::~Pixel()
 {
-    //delete(this->color);
+
 }
 
 int Pixel::get_red()
@@ -87,7 +87,6 @@ void Pixel::setObject(Object *obj)
 
 Pixel &Pixel::operator=(const Pixel &pxl)
 {
-    //delete(this->color);
     this->color = new Color(*pxl.color);
     this->dist = pxl.dist;
     return *this;

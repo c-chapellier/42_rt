@@ -2,9 +2,15 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
+    "colors" : {
+        "red": [234, 15, 34, 255],
+        "blue": [15, 34, 234, 255],
+        "ambient": [20, 20, 20, 0],
+        "blur": [0, 0, 0, 0]
+    },
     "precision": 4,
-    "ambient": [20, 20, 20, 0],
-    "blur": [0, 0, 0, 0],
+    "ambient": "ambient",
+    "blur": "blur",
     "lights": [
         {
             "coordinates": [-1000, 400, 400]
@@ -24,7 +30,7 @@
             "coordinates": [0, 0, 0],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -2000],
             "colors": [
-                [234, 15, 34, 255]
+                "red"
             ],
             "texture": {
                 "type": "Uniform",
@@ -36,7 +42,7 @@
             "point": [300, 0, 0],
             "normal": [-1, 0, 0],
             "colors": [
-                [15, 34, 234, 255]
+                "blue"
             ],
             "texture": {
                 "type": "Uniform",

@@ -15,6 +15,7 @@ void Engine::parse(std::string config_file)
 {
     Parser parser(config_file);
 
+    std::cout << "parse" << std::endl;
     this->config = parser.getConfig();
     this->cameras = parser.getCameras();
     this->objects = parser.getObjects();
@@ -23,9 +24,10 @@ void Engine::parse(std::string config_file)
 
 void Engine::init()
 {
+    std::cout << "init" << std::endl;
     this->img = new Image(this->config->getHeight(), this->config->getWidth());
     this->win = new Window(this->config->getHeight(), this->config->getWidth());
-    this->loadingBar = new LoadingBar(*this->win);
+    this->loadingBar = new LoadingBar(this->win);
 
     this->precision_height = this->config->getHeight() * this->config->getPrecision();
     this->precision_width = this->config->getWidth() * this->config->getPrecision();
@@ -109,6 +111,7 @@ void Engine::run()
             {
                 for (int width = 0; width < this->precision_width; ++width)
                 {
+
                     Line l(*(camera->getP()), screen[height][width]);
                     Point *p = obj->intersect(&l);
                     

@@ -8,6 +8,7 @@ SRCS =	srcs/main.cpp \
 		srcs/visuals/Camera.cpp \
 		srcs/light/Light.cpp \
 		srcs/color/Color.cpp \
+		srcs/colorManager/ColorManager.cpp \
 		srcs/color/Texture.cpp \
 		srcs/config/Config.cpp \
 		srcs/objects/components/Point.cpp \

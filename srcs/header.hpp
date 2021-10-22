@@ -1,15 +1,19 @@
-#ifndef HEADER_HPP
-#define HEADER_HPP
+#pragma once
 
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
 
 #include <list>
+#include <map>
 
 #include "window/Window.hpp"
 #include "visuals/Camera.hpp"
 #include "light/Light.hpp"
+#include "colorManager/ColorManager.hpp"
+
+#include "loadingBar/LoadingBar.hpp"
+#include "../include/nlohmann/json.hpp"
 
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
@@ -26,5 +30,3 @@
 #include "saver/Saver.hpp"
 #include "parser/Parser.hpp"
 #include "config/Config.hpp"
-
-#endif

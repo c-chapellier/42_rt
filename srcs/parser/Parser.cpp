@@ -4,6 +4,8 @@ Parser::Parser(std::string config_file)
 {
     std::ifstream f(config_file);
     f >> this->j;
+
+    this->colorManager = new ColorManager(this->j["colors"]);
 }
 
 Parser::~Parser()
@@ -21,7 +23,7 @@ std::list<Object*> Parser::getObjects()
             Plane *plane = new Plane(obj["point"][0], obj["point"][1], obj["point"][2], obj["normal"][0], obj["normal"][1], obj["normal"][2]);
 
             for (auto const& color : obj["colors"])
-                plane->addColor(new Color(color[0], color[1], color[2], color[3]));
+                plane->addColor(this->colorManager->getColor(color));
 
             plane->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(plane);
@@ -42,7 +44,7 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][9]
             );
             for(auto const& color : obj["colors"]) {
-                quadratic->addColor(new Color(color[0], color[1], color[2], color[3]));
+                quadratic->addColor(this->colorManager->getColor(color));
             }
             quadratic->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(quadratic);
@@ -61,7 +63,7 @@ std::list<Object*> Parser::getObjects()
                 obj["rotation"][2]
             );
             for(auto const& color : obj["colors"]) {
-                polygon->addColor(new Color(color[0], color[1], color[2], color[3]));
+                polygon->addColor(this->colorManager->getColor(color));
             }
             polygon->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(polygon);
@@ -79,7 +81,7 @@ std::list<Object*> Parser::getObjects()
             );
             for(int i = 0; i < (int)shape.size(); ++i){
                 for(auto const& color : obj["colors"]) {
-                    shape[i]->addColor(new Color(color[0], color[1], color[2], color[3]));
+                    shape[i]->addColor(this->colorManager->getColor(color));
                 }
                 shape[i]->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
                 objects.push_back(shape[i]);
@@ -130,7 +132,7 @@ Config *Parser::getConfig()
     config->setHeight(this->j["height"]);
     config->setWidth(this->j["width"]);
     config->setPrecision(this->j["precision"]);
-    config->setAmbientColor(this->j["ambient"][0], this->j["ambient"][1], this->j["ambient"][2], this->j["ambient"][3]);
-    config->setBlur(this->j["blur"][0], this->j["blur"][1], this->j["blur"][2], this->j["blur"][3]);
+    config->setAmbientColor(this->colorManager->getColor(this->j["ambient"]));
+    config->setBlur(this->colorManager->getColor(this->j["blur"]));
     return config;
 }

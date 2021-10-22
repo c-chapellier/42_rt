@@ -1,6 +1,6 @@
 #include "LoadingBar.hpp"
 
-LoadingBar::LoadingBar(Window &window) : window(window), percentage(0)
+LoadingBar::LoadingBar(Window *window) : window(window), percentage(0)
 {
     this->refresh();
 }
@@ -12,8 +12,8 @@ LoadingBar::~LoadingBar()
 
 void LoadingBar::refresh()
 {
-    int width = this->window.get_width();
-    int height = this->window.get_height();
+    int width = this->window->get_width();
+    int height = this->window->get_height();
     Image img(width, height);
     Pixel black(0, 0, 0, 0);
     Pixel grey(127, 127, 127, 0);
@@ -28,7 +28,7 @@ void LoadingBar::refresh()
                 img.set_pixel(j, i, black);
         }
     }
-    this->window.stream(img);
+    this->window->stream(img);
 }
 
 LoadingBar &LoadingBar::operator+=(const int rhs)

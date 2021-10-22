@@ -23,7 +23,7 @@ class Config
         void setHeight(int h);
         void setWidth(int w);
         void setPrecision(int p);
-        void setAmbientColor(int r, int g, int b, int o);
-        void setBlur(int r, int g, int b, int o);
+        void setAmbientColor(Color *ambient);
+        void setBlur(Color *blur);
         
 };

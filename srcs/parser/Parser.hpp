@@ -1,22 +1,16 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <list>
-#include "./../header.hpp"
-#include "./../../include/nlohmann/json.hpp"
-#include "./../visuals/Camera.hpp"
-
-// for convenience
-using json = nlohmann::json;
+#include "../header.hpp"
 
 class Camera;
 class Config;
+class ColorManager;
 
 class Parser
 {
     private:
-        json j;
+        nlohmann::json j;
+        ColorManager *colorManager;
     public:
         Parser(std::string config_file);
         ~Parser();

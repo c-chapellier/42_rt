@@ -4,9 +4,10 @@ Config::Config()
 {
 
 }
+
 Config::~Config()
 {
-    delete(this->ambient_color);
+
 }
 
 int Config::getHeight()
@@ -48,11 +49,11 @@ void Config::setPrecision(int p)
         throw "Width can not be under or equal to 0";
     this->precision = p;
 }
-void Config::setAmbientColor(int r, int g, int b, int o)
+void Config::setAmbientColor(Color *ambient)
 {
-    this->ambient_color = new Color(r, g, b, o);
+    this->ambient_color = ambient;
 }
-void Config::setBlur(int r, int g, int b, int o)
+void Config::setBlur(Color *blur)
 {
-    this->blur = new Color(r, g, b, o);
+    this->blur = blur;
 }

@@ -1,8 +1,8 @@
+#pragma once
+
 #include <fstream>
 
 #include "../header.hpp"
-#include "../loadingBar/LoadingBar.hpp"
-#include "../../include/nlohmann/json.hpp"
 
 class Engine
 {

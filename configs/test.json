@@ -5,8 +5,7 @@
     "colors" : {
         "red": [234, 15, 34, 255],
         "blue": [15, 34, 234, 255],
-        "ambient": [20, 20, 20, 0],
-        "blur": [0, 0, 0, 0]
+        "ambient": [20, 20, 20, 0]
     },
     "precision": 2,
     "ambient": "ambient",

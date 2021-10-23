@@ -20,12 +20,16 @@ private:
     int precision_height;
     int precision_width;
 
+    const unsigned int nbrOfThreads = std::thread::hardware_concurrency();
+
     void parse(std::string config_file);
     void init();
-    void apply_light(std::vector< std::vector<Pixel> > &pixels);
+    void findObjects(int threadNumber, Camera *camera, std::vector< std::vector<Point> > *screen, std::vector< std::vector<Pixel> > *pixels);
+    void applyLight(int threadNumber, std::vector< std::vector<Pixel> > *pixels);
     void applyBlur(std::vector< std::vector<Pixel> > &pixels);
     void apply3D(std::vector< std::vector<Pixel> > &pixels);
     void applyFilter(std::vector< std::vector<Pixel> > &pixels);
+    void applyPrecision(std::vector< std::vector<Pixel> > &pixels);
 
     bool blackObjectsContains(Point *p);
 

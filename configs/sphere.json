@@ -2,9 +2,15 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
+    "colors" : {
+        "red": [234, 15, 34, 20],
+        "red_green": [234, 234, 58, 80],
+        "blue": [56, 13, 234, 255],
+        "ambient": [20, 20, 20, 200]
+    },
     "precision": 2,
-    "ambient": [20, 20, 20, 200],
-    "blur": [255, 0, 255, 0],
+    "ambient": "ambient",
+    "blur": 0,
     "filter": "None",
     "cameras": [
         {
@@ -25,7 +31,7 @@
             "coordinates": [0, 0, -10],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [234, 15, 34, 20]
+                "red"
             ],
             "texture": {
                 "type": "Uniform",
@@ -38,7 +44,7 @@
             "coordinates": [0, 15, 10],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [234, 234, 58, 80]
+                "red_green"
             ],
             "texture": {
                 "type": "Uniform",
@@ -51,7 +57,7 @@
             "coordinates": [0, -15, 10],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [56, 13, 234, 255]
+                "blue"
             ],
             "texture": {
                 "type": "Uniform",

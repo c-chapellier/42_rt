@@ -22,6 +22,8 @@ class Line
         Point *getP();
         Vector *getV();
 
+        double distWith(Point &p);
+
         Point *getPointFor(double t);
         Point *getPointAt(double dist);
 

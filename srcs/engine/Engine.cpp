@@ -20,6 +20,7 @@ void Engine::parse(std::string config_file)
     this->cameras = parser.getCameras();
     this->objects = parser.getObjects();
     this->lights = parser.getLights();
+    this->black_objects = parser.getBlackObjects();
 }
 
 void Engine::init()
@@ -102,7 +103,7 @@ void Engine::run()
                     Line l(*(camera->getP()), screen[height][width]);
                     Point *p = obj->intersect(&l);
                     
-                    if (p)
+                    if (p && !blackObjectsContains(p))
                     {
                         this->getNewPixel(obj, l, p, camera, &pixels[height][width], height, width);
                     }
@@ -286,4 +287,16 @@ void Engine::applyBlur(std::vector< std::vector<Pixel> > &pixels)
             pixels[h][w].setColor(colors[h][w]);
         }
     }
+}
+
+bool Engine::blackObjectsContains(Point *p)
+{
+    for (auto const& obj : this->black_objects){
+        //std::cout << "blackObjectsContains" << std::endl;
+        if(obj->contains(p)){
+            //std::cout << "in" << std::endl;
+            return true;
+        }
+    }
+    return false;
 }

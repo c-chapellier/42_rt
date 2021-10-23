@@ -23,6 +23,9 @@ SRCS =	srcs/main.cpp \
 		srcs/objects/Plane.cpp \
 		srcs/objects/Polygone.cpp \
 		srcs/objects/Quadratic.cpp \
+		srcs/blackObjects/BlackObject.cpp \
+		srcs/blackObjects/BlackSphere.cpp \
+		srcs/blackObjects/BlackCylinder.cpp \
 		srcs/headers/define.cpp \
 		srcs/saver/Saver.cpp \
 
@@ -34,7 +37,7 @@ all :
 			g++ -std=c++11 ${FLAGS} -o ${NAME} ${SRCS} -lSDL2
 
 run :		all
-			./${NAME} configs/all.json
+			./${NAME} configs/test.json
 
 clean :
 			rm -f ${NAME}

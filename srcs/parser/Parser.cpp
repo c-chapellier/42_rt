@@ -125,6 +125,34 @@ std::list<Light *> Parser::getLights()
     return lights;
 }
 
+std::list<BlackObject *> Parser::getBlackObjects()
+{
+    std::list<BlackObject *> objects;
+
+    for (auto const& sphere : this->j["blackObjects"]["blackSpheres"]) {
+        objects.push_back(new BlackSphere(
+            sphere["coordinates"][0],
+            sphere["coordinates"][1],
+            sphere["coordinates"][2],
+            sphere["radius"]
+        ));
+    }
+
+    for (auto const& cylinder : this->j["blackObjects"]["blackCylinders"]) {
+        objects.push_back(new BlackCylinder(
+            cylinder["coordinates"][0],
+            cylinder["coordinates"][1],
+            cylinder["coordinates"][2],
+            cylinder["direction"][0],
+            cylinder["direction"][1],
+            cylinder["direction"][2],
+            cylinder["radius"]
+        ));
+    }
+
+    return objects;
+}
+
 Config *Parser::getConfig()
 {
     Config *config = new Config();

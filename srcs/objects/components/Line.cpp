@@ -33,6 +33,13 @@ Vector *Line::getV()
     return this->v;
 }
 
+double Line::distWith(Point &p)
+{
+    Vector tmp(*this->p, p);
+    double dist = tmp.crossProductMagnitude(this->v) / this->v->getMagnitude();
+    return dist;
+}
+
 Point *Line::getPointFor(double t)
 {
     return new Point(this->p->getX() + (this->v->getX() * t), this->p->getY() + (this->v->getY() * t), this->p->getZ() + (this->v->getZ() * t));

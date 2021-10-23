@@ -28,7 +28,7 @@
             "type": "Polygon",
             "name": "Star",
             "coordinates": [0, 0, 0],
-            "values": [50, 20, 20, 5],
+            "values": [60, 30, 20, 5],
             "rotation": [20, 90, 0],
             "colors": [
                 "red"
@@ -39,9 +39,11 @@
             }
         },
         {
-            "type": "Plane",
-            "point": [300, 0, 0],
-            "normal": [-1, 0, 0],
+            "type": "Polygon",
+            "name": "Star",
+            "coordinates": [100, 0, 0],
+            "values": [60, 30, 20, 5],
+            "rotation": [20, 90, 0],
             "colors": [
                 "blue"
             ],
@@ -50,5 +52,13 @@
                 "values": [0, 0]
             }
         }
-    ]
+    ],
+    "blackObjects": {
+        "blackSpheres": [
+            {
+                "coordinates": [0, 20, 20],
+                "radius": 30
+            }
+        ]
+    }
 }

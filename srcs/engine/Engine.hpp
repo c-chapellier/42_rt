@@ -11,6 +11,7 @@ private:
     std::list<Camera *> cameras;
     std::list<Object *> objects;
     std::list<Light *> lights;
+    std::list<BlackObject *> black_objects;
 
     Image *img;
     Window *win;
@@ -25,6 +26,8 @@ private:
     void applyBlur(std::vector< std::vector<Pixel> > &pixels);
     void apply3D(std::vector< std::vector<Pixel> > &pixels);
     void applyFilter(std::vector< std::vector<Pixel> > &pixels);
+
+    bool blackObjectsContains(Point *p);
 
     Color *alphaBlending(Color *c1, Color *c2);
     void getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel, int height, int width);

@@ -24,6 +24,10 @@
 #include "objects/factories/PolygoneFactory.hpp"
 #include "objects/factories/ShapeFactory.hpp"
 
+#include "blackObjects/BlackObject.hpp"
+#include "blackObjects/BlackSphere.hpp"
+#include "blackObjects/BlackCylinder.hpp"
+
 
 #include "headers/define.hpp"
 

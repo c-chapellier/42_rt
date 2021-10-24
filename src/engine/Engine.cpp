@@ -109,7 +109,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
                     if (dist < pixels[height][width]->get_dist())
                     {
                         pixels[height][width]->setDist(dist);
-                        pixels[height][width]->setLocation(new Point(*p));
+                        pixels[height][width]->setLocation(*p);
                         pixels[height][width]->setObject(obj);
                     }
                 }
@@ -197,7 +197,6 @@ void Engine::run()
 
         std::cout << "load_image" << std::endl;
         this->win->load_image(this->img);
-        this->img->clear();
         std::cout << "end load_image" << std::endl;
     }
 

@@ -32,7 +32,7 @@ public:
     Object *get_object();
 
     void setColor(const Color &color);
-    void setLocation(Point *p);
+    void setLocation(const Point &p);
     void setObject(Object *obj);
     void setDist(double dist);
 

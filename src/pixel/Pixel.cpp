@@ -5,6 +5,7 @@ Pixel::Pixel()
     this->color = new Color(0, 0, 0, 255);
     this->dist = INFINITY;
     this->obj = NULL;
+    this->location_3d = new Point();
 }
 
 Pixel::Pixel(int red, int green, int blue, int opacity, double dist)
@@ -12,6 +13,7 @@ Pixel::Pixel(int red, int green, int blue, int opacity, double dist)
     this->color = new Color(red, green, blue, opacity);
     this->dist = dist;
     this->obj = NULL;
+    this->location_3d = new Point();
 }
 
 Pixel::Pixel(Color *c, double dist)
@@ -19,6 +21,7 @@ Pixel::Pixel(Color *c, double dist)
     this->color = new Color(*c);
     this->dist = dist;
     this->obj = NULL;
+    this->location_3d = new Point();
 }
 
 Pixel::~Pixel()
@@ -73,9 +76,9 @@ void Pixel::setColor(const Color &color)
     this->color->setO(color.getO());
 }
 
-void Pixel::setLocation(Point *p)
+void Pixel::setLocation(const Point &p)
 {
-    this->location_3d = p;
+    *this->location_3d = p;
 }
 
 void Pixel::setDist(double dist)
@@ -90,7 +93,9 @@ void Pixel::setObject(Object *obj)
 
 Pixel &Pixel::operator=(const Pixel &pxl)
 {
-    this->color = new Color(*pxl.color);
+    *this->color = *pxl.color;
     this->dist = pxl.dist;
+    this->obj = pxl.obj;
+    *this->location_3d = *pxl.location_3d;
     return *this;
 }

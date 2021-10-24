@@ -21,11 +21,6 @@ bool Image::is_valid(int height, int width)
     return this->width == width && this->height == height;
 }
 
-void Image::clear()
-{
-    this->pxls.resize(height, std::vector<Pixel *>(width));
-}
-
 Image &Image::operator=(const Image &img)
 {
     this->width = img.width;

@@ -18,7 +18,6 @@ public:
     ~Image();
 
     bool is_valid(int height, int width);
-    void clear();
 
     Image &operator=(const Image &img);
     std::vector<Pixel *> &operator[](int i);

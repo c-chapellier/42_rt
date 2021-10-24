@@ -1,3 +1,4 @@
 .vscode
 rt
 .DS_Store
+build/*

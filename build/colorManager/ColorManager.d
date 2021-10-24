@@ -64,7 +64,7 @@ build/colorManager/ColorManager.o: src/colorManager/ColorManager.cpp \
   src/colorManager/../visuals/./../objects/./../color/Color.hpp \
   src/colorManager/../visuals/./../objects/./../color/Texture.hpp \
   src/colorManager/../light/Light.hpp \
-  src/colorManager/../light/../objects/components/Point.hpp \
+  src/colorManager/../light/../header.hpp \
   src/colorManager/../colorManager/ColorManager.hpp \
   src/colorManager/../loadingBar/LoadingBar.hpp \
   src/colorManager/../loadingBar/../header.hpp \
@@ -230,7 +230,7 @@ src/colorManager/../visuals/./../objects/./../color/Texture.hpp:
 
 src/colorManager/../light/Light.hpp:
 
-src/colorManager/../light/../objects/components/Point.hpp:
+src/colorManager/../light/../header.hpp:
 
 src/colorManager/../colorManager/ColorManager.hpp:
 

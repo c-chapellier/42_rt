@@ -11,9 +11,6 @@ class LoadingBar
         Window *window;
         int percentage;
 
-        Pixel *black;
-        Pixel *grey;
-
         void refresh();
 
     public:

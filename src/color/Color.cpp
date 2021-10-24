@@ -27,35 +27,35 @@ Color::Color(int r, int g, int b, int o)
 }
 Color::~Color(){}
 
-int Color::getR()
+int Color::getR() const
 {
     return this->r;
 }
-int Color::getG()
+int Color::getG() const
 {
     return this->g;
 }
-int Color::getB()
+int Color::getB() const
 {
     return this->b;
 }
-int Color::getO()
+int Color::getO() const
 {
     return this->o;
 }
-double Color::getPR()
+double Color::getPR() const
 {
     return (double)this->r / 255;
 }
-double Color::getPG()
+double Color::getPG() const
 {
     return (double)this->g / 255;
 }
-double Color::getPB()
+double Color::getPB() const
 {
     return (double)this->b / 255;
 }
-double Color::getP()
+double Color::getP() const
 {
     return (double)((double)this->o / (double)255);
 }

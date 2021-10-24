@@ -20,14 +20,14 @@ class Color
         Color(int r, int g, int b, int o);
         ~Color();
 
-        int getR();
-        int getG();
-        int getB();
-        int getO();
-        double getPR();
-        double getPG();
-        double getPB();
-        double getP();
+        int getR() const;
+        int getG() const;
+        int getB() const;
+        int getO() const;
+        double getPR() const;
+        double getPG() const;
+        double getPB() const;
+        double getP() const;
 
         void setR(int r);
         void setG(int g);

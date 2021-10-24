@@ -6,7 +6,7 @@ class Camera;
 class Config;
 class ColorManager;
 class BlackObject;
-
+class Light;
 
 class Parser
 {

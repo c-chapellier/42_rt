@@ -119,7 +119,8 @@ std::list<Light *> Parser::getLights()
         lights.push_back(new Light(
             light["coordinates"][0],
             light["coordinates"][1],
-            light["coordinates"][2]
+            light["coordinates"][2],
+            this->colorManager->getColor(light["color"])
         ));
     }
     return lights;

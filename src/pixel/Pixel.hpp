@@ -22,16 +22,16 @@ public:
     Pixel(Color *c, double dist = INFINITY);
     ~Pixel();
 
-    int getRed();
-    int getGreen();
-    int getBlue();
-    int getOpacity();
+    int getRed() const;
+    int getGreen() const;
+    int getBlue() const;
+    int getOpacity() const;
     Color *getColor();
-    double get_dist();
+    double get_dist() const;
     Point *get_location();
     Object *get_object();
 
-    void setColor(Color *color);
+    void setColor(const Color &color);
     void setLocation(Point *p);
     void setObject(Object *obj);
     void setDist(double dist);

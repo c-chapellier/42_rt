@@ -2,15 +2,11 @@
 
 LoadingBar::LoadingBar(Window *window) : window(window), percentage(0)
 {
-    this->black = new Pixel(0, 0, 0, 255);
-    this->grey = new Pixel(127, 127, 127, 255);
     this->refresh();
 }
 
 LoadingBar::~LoadingBar()
 {
-    delete this->black;
-    delete this->grey;
 }
 
 void LoadingBar::refresh()
@@ -24,9 +20,9 @@ void LoadingBar::refresh()
         for (int j = 0; j < width; ++j)
         {
             if (i > (height / 2) - 50 && i < (height / 2) + 50 && (double)j < (double)width * ((double)this->percentage / 100))
-                img[j][i] = this->grey;
+                img[j][i] = new Pixel(127, 127, 127, 255);
             else
-                img[j][i] = this->black;
+                img[j][i] = new Pixel(0, 0, 0, 255);
         }
     }
     this->window->stream(img);

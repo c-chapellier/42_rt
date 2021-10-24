@@ -58,8 +58,8 @@ build/main.o: src/main.cpp src/engine/Engine.hpp src/engine/../header.hpp \
   src/visuals/./../objects/components/Line.hpp \
   src/visuals/./../objects/./../color/Color.hpp \
   src/visuals/./../objects/./../color/Texture.hpp src/light/Light.hpp \
-  src/light/../objects/components/Point.hpp \
-  src/colorManager/ColorManager.hpp src/colorManager/../header.hpp \
+  src/light/../header.hpp src/colorManager/ColorManager.hpp \
+  src/colorManager/../header.hpp \
   src/colorManager/../../include/nlohmann/json.hpp \
   src/loadingBar/LoadingBar.hpp src/loadingBar/../header.hpp \
   src/../include/nlohmann/json.hpp src/objects/Object.hpp \
@@ -217,7 +217,7 @@ src/visuals/./../objects/./../color/Texture.hpp:
 
 src/light/Light.hpp:
 
-src/light/../objects/components/Point.hpp:
+src/light/../header.hpp:
 
 src/colorManager/ColorManager.hpp:
 

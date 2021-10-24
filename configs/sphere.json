@@ -6,7 +6,8 @@
         "red": [234, 15, 34, 20],
         "red_green": [234, 234, 58, 80],
         "blue": [56, 13, 234, 255],
-        "ambient": [20, 20, 20, 200]
+        "ambient": [20, 20, 20, 200],
+        "white": [255, 0, 0, 255]
     },
     "precision": 2,
     "ambient": "ambient",
@@ -31,7 +32,8 @@
     ],
     "lights": [
         {
-            "coordinates": [-1000, 1000, 0]
+            "coordinates": [-1000, 1000, 0],
+            "color": "white"
         }
     ],
     "objects": [

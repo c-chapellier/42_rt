@@ -11,13 +11,14 @@ private:
     int height;
     int width;
     std::vector< std::vector<Pixel *> > pxls;
-    Pixel *black;
 
 public:
     Image(int height, int width);
+    Image(Image *img);
     ~Image();
 
     bool is_valid(int height, int width);
+    void clear();
 
     Image &operator=(const Image &img);
     std::vector<Pixel *> &operator[](int i);

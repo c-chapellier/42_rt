@@ -24,10 +24,10 @@ private:
 
     void parse(std::string config_file);
     void init();
-    void threadedFindObjects(Camera *camera, std::vector< std::vector<Point> > *screen, std::vector< std::vector<Pixel *> > *pixels);
-    void findObjects(int threadNumber, Camera *camera, std::vector< std::vector<Point> > *screen, std::vector< std::vector<Pixel *> > *pixels);
-    void threadedApplyLight(std::vector< std::vector<Pixel *> > *pixels);
-    void applyLight(int threadNumber, std::vector< std::vector<Pixel *> > *pixels);
+    void threadedFindObjects(Camera *camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel *> > &pixels);
+    void findObjects(int threadNumber, Camera *camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel *> > &pixels);
+    void threadedApplyLight(std::vector< std::vector<Pixel *> > &pixels);
+    void applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &pixels);
     void applyBlur(std::vector< std::vector<Pixel *> > &pixels);
     void apply3D(std::vector< std::vector<Pixel *> > &pixels);
     void applyFilter(std::vector< std::vector<Pixel *> > &pixels);
@@ -35,7 +35,7 @@ private:
 
     bool blackObjectsContains(Point *p);
 
-    Color *alphaBlending(Color *c1, Color *c2);
+    void alphaBlending(Color &blended_color, Color *c1, Color *c2);
     void getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel, int height, int width);
     std::vector< std::vector<Pixel *> > getPixels();
 

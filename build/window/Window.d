@@ -61,7 +61,7 @@ build/window/Window.o: src/window/Window.cpp src/window/Window.hpp \
   src/window/../image/../pixel/../visuals/./../objects/./../color/Color.hpp \
   src/window/../image/../pixel/../visuals/./../objects/./../color/Texture.hpp \
   src/window/../image/../pixel/../light/Light.hpp \
-  src/window/../image/../pixel/../light/../objects/components/Point.hpp \
+  src/window/../image/../pixel/../light/../header.hpp \
   src/window/../image/../pixel/../colorManager/ColorManager.hpp \
   src/window/../image/../pixel/../colorManager/../header.hpp \
   src/window/../image/../pixel/../colorManager/../../include/nlohmann/json.hpp \
@@ -226,7 +226,7 @@ src/window/../image/../pixel/../visuals/./../objects/./../color/Texture.hpp:
 
 src/window/../image/../pixel/../light/Light.hpp:
 
-src/window/../image/../pixel/../light/../objects/components/Point.hpp:
+src/window/../image/../pixel/../light/../header.hpp:
 
 src/window/../image/../pixel/../colorManager/ColorManager.hpp:
 

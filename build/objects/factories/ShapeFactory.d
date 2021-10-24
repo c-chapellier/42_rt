@@ -66,7 +66,7 @@ build/objects/factories/ShapeFactory.o: \
   src/objects/factories/./../../visuals/./../objects/./../color/Color.hpp \
   src/objects/factories/./../../visuals/./../objects/./../color/Texture.hpp \
   src/objects/factories/./../../light/Light.hpp \
-  src/objects/factories/./../../light/../objects/components/Point.hpp \
+  src/objects/factories/./../../light/../header.hpp \
   src/objects/factories/./../../colorManager/ColorManager.hpp \
   src/objects/factories/./../../colorManager/../header.hpp \
   src/objects/factories/./../../colorManager/../../include/nlohmann/json.hpp \
@@ -233,7 +233,7 @@ src/objects/factories/./../../visuals/./../objects/./../color/Texture.hpp:
 
 src/objects/factories/./../../light/Light.hpp:
 
-src/objects/factories/./../../light/../objects/components/Point.hpp:
+src/objects/factories/./../../light/../header.hpp:
 
 src/objects/factories/./../../colorManager/ColorManager.hpp:
 

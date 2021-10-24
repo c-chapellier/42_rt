@@ -53,9 +53,7 @@ build/visuals/Camera.o: src/visuals/Camera.cpp src/visuals/Camera.hpp \
   src/visuals/./../window/../image/../pixel/../header.hpp \
   src/visuals/./../window/../image/../pixel/../color/Color.hpp \
   src/visuals/./../visuals/Camera.hpp src/visuals/./../light/Light.hpp \
-  src/visuals/./../light/../objects/components/Point.hpp \
-  src/visuals/./../light/../objects/components/Vector.hpp \
-  src/visuals/./../light/../objects/components/./../../headers/define.hpp \
+  src/visuals/./../light/../header.hpp \
   src/visuals/./../colorManager/ColorManager.hpp \
   src/visuals/./../colorManager/../header.hpp \
   src/visuals/./../colorManager/../../include/nlohmann/json.hpp \
@@ -65,14 +63,15 @@ build/visuals/Camera.o: src/visuals/Camera.cpp src/visuals/Camera.hpp \
   src/visuals/./../objects/Object.hpp \
   src/visuals/./../objects/components/Line.hpp \
   src/visuals/./../objects/components/Point.hpp \
+  src/visuals/./../objects/components/Vector.hpp \
+  src/visuals/./../objects/components/./../../headers/define.hpp \
   src/visuals/./../objects/./../color/Color.hpp \
   src/visuals/./../objects/./../color/Texture.hpp \
   src/visuals/./../objects/Plane.hpp \
-  src/visuals/./../objects/components/Vector.hpp \
   src/visuals/./../objects/Quadratic.hpp \
   src/visuals/./../objects/Polygone.hpp \
   src/visuals/./../objects/components/Triangle.hpp \
-  src/visuals/./../light/../objects/components/./../Plane.hpp \
+  src/visuals/./../objects/components/./../Plane.hpp \
   src/visuals/./../objects/factories/AlphaFactory.hpp \
   src/visuals/./../objects/factories/./../Polygone.hpp \
   src/visuals/./../objects/factories/PolygoneFactory.hpp \
@@ -208,11 +207,7 @@ src/visuals/./../visuals/Camera.hpp:
 
 src/visuals/./../light/Light.hpp:
 
-src/visuals/./../light/../objects/components/Point.hpp:
-
-src/visuals/./../light/../objects/components/Vector.hpp:
-
-src/visuals/./../light/../objects/components/./../../headers/define.hpp:
+src/visuals/./../light/../header.hpp:
 
 src/visuals/./../colorManager/ColorManager.hpp:
 
@@ -232,13 +227,15 @@ src/visuals/./../objects/components/Line.hpp:
 
 src/visuals/./../objects/components/Point.hpp:
 
+src/visuals/./../objects/components/Vector.hpp:
+
+src/visuals/./../objects/components/./../../headers/define.hpp:
+
 src/visuals/./../objects/./../color/Color.hpp:
 
 src/visuals/./../objects/./../color/Texture.hpp:
 
 src/visuals/./../objects/Plane.hpp:
-
-src/visuals/./../objects/components/Vector.hpp:
 
 src/visuals/./../objects/Quadratic.hpp:
 
@@ -246,7 +243,7 @@ src/visuals/./../objects/Polygone.hpp:
 
 src/visuals/./../objects/components/Triangle.hpp:
 
-src/visuals/./../light/../objects/components/./../Plane.hpp:
+src/visuals/./../objects/components/./../Plane.hpp:
 
 src/visuals/./../objects/factories/AlphaFactory.hpp:
 

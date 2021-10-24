@@ -61,8 +61,7 @@ build/engine/Engine.o: src/engine/Engine.cpp src/engine/Engine.hpp \
   src/engine/../visuals/./../objects/components/Line.hpp \
   src/engine/../visuals/./../objects/./../color/Color.hpp \
   src/engine/../visuals/./../objects/./../color/Texture.hpp \
-  src/engine/../light/Light.hpp \
-  src/engine/../light/../objects/components/Point.hpp \
+  src/engine/../light/Light.hpp src/engine/../light/../header.hpp \
   src/engine/../colorManager/ColorManager.hpp \
   src/engine/../colorManager/../header.hpp \
   src/engine/../colorManager/../../include/nlohmann/json.hpp \
@@ -225,7 +224,7 @@ src/engine/../visuals/./../objects/./../color/Texture.hpp:
 
 src/engine/../light/Light.hpp:
 
-src/engine/../light/../objects/components/Point.hpp:
+src/engine/../light/../header.hpp:
 
 src/engine/../colorManager/ColorManager.hpp:
 

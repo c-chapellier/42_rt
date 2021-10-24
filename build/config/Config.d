@@ -62,8 +62,7 @@ build/config/Config.o: src/config/Config.cpp src/config/Config.hpp \
   src/config/./../visuals/./../objects/components/Line.hpp \
   src/config/./../visuals/./../objects/./../color/Color.hpp \
   src/config/./../visuals/./../objects/./../color/Texture.hpp \
-  src/config/./../light/Light.hpp \
-  src/config/./../light/../objects/components/Point.hpp \
+  src/config/./../light/Light.hpp src/config/./../light/../header.hpp \
   src/config/./../colorManager/ColorManager.hpp \
   src/config/./../colorManager/../header.hpp \
   src/config/./../colorManager/../../include/nlohmann/json.hpp \
@@ -227,7 +226,7 @@ src/config/./../visuals/./../objects/./../color/Texture.hpp:
 
 src/config/./../light/Light.hpp:
 
-src/config/./../light/../objects/components/Point.hpp:
+src/config/./../light/../header.hpp:
 
 src/config/./../colorManager/ColorManager.hpp:
 

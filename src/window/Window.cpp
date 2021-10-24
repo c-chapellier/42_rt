@@ -94,12 +94,17 @@ void Window::stream(Image &img)
     SDL_PollEvent(&event);
 }
 
-void Window::load_image(Image &img)
+void Window::load_image(Image *img)
 {
-    if (!img.is_valid(this->height, this->width))
+
+    if (!img->is_valid(this->height, this->width))
         throw "Image and window dimensions do not match.";
 
-    this->imgs.push_back(img);
+    std::cout << "image loaded 2" << std::endl;
+    Image new_img(img);
+    std::cout << "image loaded 3" << std::endl;
+    this->imgs.push_back(new_img);
+    std::cout << "image loaded 4" << std::endl;
 }
 
 void Window::set_image()

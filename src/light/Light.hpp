@@ -1,16 +1,17 @@
 #pragma once
 
-#include "../objects/components/Point.hpp"
+#include "../header.hpp"
 
 class Light
 {
 private:
     Point *p;
+    Color *color;
 
 public:
-    Light(double px, double py, double pz);
-    Light(Point *p);
+    Light(double px, double py, double pz, Color *color);
     ~Light();
 
     Point *getP();
+    Color *getColor();
 };

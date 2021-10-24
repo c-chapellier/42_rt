@@ -17,6 +17,6 @@ BlackSphere::~BlackSphere(){
 
 bool BlackSphere::contains(Point *p)
 {
-    double dist = this->p->distWith(*p);
+    double dist = this->p->distWith(p);
     return dist <= this->r;
 }

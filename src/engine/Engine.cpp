@@ -34,48 +34,41 @@ void Engine::init()
     this->precision_width = this->config->getWidth() * this->config->getPrecision();
 }
 
-void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > *pixels)
+void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &pixels)
 {
-    Color *light_color = new Color(255, 255, 255, 255);
-
     for (auto const& light : this->lights)
     {
         for (int height = threadNumber; height < this->precision_height; height += this->nbrOfThreads)
         {
             for (int width = 0; width < this->precision_width; ++width)
             {
-                if ((*pixels)[height][width]->get_object() != NULL)
+                if (pixels[height][width]->get_object() != NULL)
                 {
-                    Line l(light->getP(), (*pixels)[height][width]->get_location());
+                    Line l(light->getP(), pixels[height][width]->get_location());
                     bool is_shined = true;
-                    double dist_pxl_light = (*pixels)[height][width]->get_location()->distWith(*(light->getP()));
+                    double dist_pxl_light = pixels[height][width]->get_location()->distWith(light->getP());
 
                     for (auto const& obj : this->objects)
                     {
                         Point *p = obj->intersect(&l);
                             
-                        if (p)
+                        if (p != NULL)
                         {
-                            double dist_obj_light = p->distWith(*(light->getP()));
+                            double dist_obj_light = p->distWith(light->getP());
 
                             if (dist_obj_light + 0.0000000001 < dist_pxl_light)
                             {
                                 is_shined = false;
+                                break ;
                             }
                         }
                     }
 
                     if (is_shined)
                     {
-                        Color *shined_color = new Color(*((*pixels)[height][width]->getColor()));
-
-                        Object *obj = (*pixels)[height][width]->get_object();
-
-                        double angle = RADIAN(obj->angleWith(&l));
-
-                        shined_color->add(light_color->reduceOf(cos(angle)));
-
-                        (*pixels)[height][width]->setColor(shined_color);        
+                        double angle = RADIAN(pixels[height][width]->get_object()->angleWith(&l));
+                        
+                        pixels[height][width]->getColor()->add(light->getColor()->reduceOf(cos(angle)));         
                     }
                 }
             }
@@ -83,7 +76,7 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > *p
     }
 }
 
-void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vector<Point> > *screen, std::vector< std::vector<Pixel *> > *pixels)
+void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel *> > &pixels)
 {
     for (auto const& obj : this->objects)
     {
@@ -91,12 +84,34 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
         {
             for (int width = 0; width < this->precision_width; ++width)
             {
-                Line l(camera->getP(), &(*screen)[height][width]);
+                Line l(camera->getP(), &screen[height][width]);
                 Point *p = obj->intersect(&l);
                 
-                if (p && !blackObjectsContains(p))
+                if (p != NULL && !this->blackObjectsContains(p))
                 {
-                    this->getNewPixel(obj, l, p, camera, (*pixels)[height][width], height, width);
+                    double dist = p->distWith(camera->getP());
+                    double angle = RADIAN(obj->angleWith(&l));
+
+                    Color *color = obj->getColorAt(height, width, config->getHeight(), config->getWidth())
+                                    ->reduceOf(1 - exp(-dist / 1000))
+                                    ->reduceOf(cos(angle))
+                                    ->add(this->config->getAmbientColor());
+
+                    Color blended_color;
+
+                    if (dist < pixels[height][width]->get_dist())
+                        this->alphaBlending(blended_color, color, pixels[height][width]->getColor());
+                    else
+                        this->alphaBlending(blended_color, pixels[height][width]->getColor(), color);
+
+                    pixels[height][width]->setColor(blended_color);
+
+                    if (dist < pixels[height][width]->get_dist())
+                    {
+                        pixels[height][width]->setDist(dist);
+                        pixels[height][width]->setLocation(new Point(*p));
+                        pixels[height][width]->setObject(obj);
+                    }
                 }
             }
         }
@@ -120,29 +135,28 @@ void Engine::applyPrecision(std::vector< std::vector<Pixel *> > &pixels)
                     b += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j]->getBlue();
                 }
             }
-            Pixel *pix = new Pixel(r / pow(this->config->getPrecision(), 2), g / pow(this->config->getPrecision(), 2), b / pow(this->config->getPrecision(), 2), 255);
-            (*this->img)[height][width] = pix;
+            (*this->img)[height][width] = new Pixel(r / pow(this->config->getPrecision(), 2), g / pow(this->config->getPrecision(), 2), b / pow(this->config->getPrecision(), 2), 255);
         }
     }
 }
 
-void Engine::threadedFindObjects(Camera *camera, std::vector< std::vector<Point> > *screen, std::vector< std::vector<Pixel *> > *pixels)
+void Engine::threadedFindObjects(Camera *camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel *> > &pixels)
 {
     std::vector<std::thread> threads;
 
     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-        threads.push_back(std::thread(&Engine::findObjects, this, i, camera, screen, pixels));
+        threads.push_back(std::thread(&Engine::findObjects, this, i, camera, std::ref(screen), std::ref(pixels)));
     
     for (auto &th : threads)
         th.join();
 }
 
-void Engine::threadedApplyLight(std::vector< std::vector<Pixel *> > *pixels)
+void Engine::threadedApplyLight(std::vector< std::vector<Pixel *> > &pixels)
 {
     std::vector<std::thread> threads;
 
     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-        threads.push_back(std::thread(&Engine::applyLight, this, i, pixels));
+        threads.push_back(std::thread(&Engine::applyLight, this, i, std::ref(pixels)));
     
     for (auto &th : threads)
         th.join();
@@ -163,63 +177,50 @@ void Engine::run()
         std::vector< std::vector<Pixel *> > pixels = this->getPixels();
         
         std::cout << "findObjects" << std::endl;
-        this->threadedFindObjects(camera, &screen, &pixels);
+        this->threadedFindObjects(camera, screen, pixels);
         this->loadingBar->add(30 / this->cameras.size());
 
         std::cout << "applyLight" << std::endl;
-        this->threadedApplyLight(&pixels);
+        this->threadedApplyLight(pixels);
         this->loadingBar->add(30 / this->cameras.size());
 
-        std::cout << "effects" << std::endl;
+        std::cout << "applyFilter" << std::endl;
         this->applyFilter(pixels);
+        // std::cout << "apply3D" << std::endl;
         //this->apply3D(pixels);
+        std::cout << "applyBlur" << std::endl;
         this->applyBlur(pixels);
+        std::cout << "applyPrecision" << std::endl;
         this->applyPrecision(pixels);
+
         this->loadingBar->add(30 / this->cameras.size());
 
-        this->win->load_image(*this->img);
+        std::cout << "load_image" << std::endl;
+        this->win->load_image(this->img);
+        this->img->clear();
+        std::cout << "end load_image" << std::endl;
     }
 
+    std::cout << "set_image" << std::endl;
     this->win->set_image();
     std::cout << "loaded in " << (time(NULL) - starting_time) << std::endl;
     this->win->pause();
 }
 
 // https://fr.wikipedia.org/wiki/Alpha_blending
-Color *Engine::alphaBlending(Color *c1, Color *c2) {
-    double r;
-    double g;
-    double b;
-    double o;
+void Engine::alphaBlending(Color &blended_color, Color *c1, Color *c2)
+{
+    double r, g, b, o;
 
     o = c1->getP() + (c2->getP() * (1.0 - c1->getP()));
-
     r = ((c1->getPR() * c1->getP()) + (c2->getPR() * c2->getP() * (1 - c1->getP()))) / o;
     g = ((c1->getPG() * c1->getP()) + (c2->getPG() * c2->getP() * (1 - c1->getP()))) / o;
     b = ((c1->getPB() * c1->getP()) + (c2->getPB() * c2->getP() * (1 - c1->getP()))) / o;
 
-    return new Color((int)(r * 255), (int)(g * 255), (int)(b * 255), (int)(o * 255));
-}
-
-void Engine::getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel, int height, int width)
-{
-    double dist = p->distWith(*(camera->getP()));
-    double angle = RADIAN(obj->angleWith(&l));
-
-    Color *tmp = obj->getColorAt(height, width, config->getHeight(), config->getWidth())
-                    ->reduceOf(1 - exp(-dist / 1000))
-                    ->reduceOf(cos(angle))
-                    ->add(this->config->getAmbientColor());
-
-    Color *new_color = dist < pixel->get_dist() ? alphaBlending(tmp, pixel->getColor()) : alphaBlending(pixel->getColor(), tmp);
-    pixel->setColor(new_color);
-
-    if (dist < pixel->get_dist())
-    {
-        pixel->setDist(dist);
-        pixel->setLocation(new Point(*p));
-        pixel->setObject(obj);
-    }
+    blended_color.setR((int)(r * 255));
+    blended_color.setG((int)(g * 255));
+    blended_color.setB((int)(b * 255));
+    blended_color.setO((int)(o * 255));
 }
 
 std::vector< std::vector<Pixel *>> Engine::getPixels()
@@ -239,10 +240,18 @@ void Engine::apply3D(std::vector< std::vector<Pixel *> > &pixels)
     Color red(255, 0, 0, 100);
     Color cyan(0, 255, 255, 100);
 
-    for (int h = 0; h < this->precision_height; ++h){
-        for (int w = 0; w < this->precision_width; ++w){
-            if(pixels[h][w]->get_object() != NULL)
-                pixels[h][w]->setColor(alphaBlending(&cyan, pixels[h][w]->getColor()));
+    for (int h = 0; h < this->precision_height; ++h)
+    {
+        for (int w = 0; w < this->precision_width; ++w)
+        {
+            if (pixels[h][w]->get_object() != NULL)
+            {
+                Color color_3d;
+
+                this->alphaBlending(color_3d, &cyan, pixels[h][w]->getColor());
+
+                pixels[h][w]->setColor(color_3d);
+            }
         }
     }
 }
@@ -259,7 +268,7 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
                     double tr = 0.393 * (double)pixels[h][w]->getColor()->getR() + 0.769 * (double)pixels[h][w]->getColor()->getG() + 0.189 * (double)pixels[h][w]->getColor()->getB();
                     double tg = 0.349 * (double)pixels[h][w]->getColor()->getR() + 0.686 * (double)pixels[h][w]->getColor()->getG() + 0.168 * (double)pixels[h][w]->getColor()->getB();
                     double tb = 0.272 * (double)pixels[h][w]->getColor()->getR() + 0.534 * (double)pixels[h][w]->getColor()->getG() + 0.131 * (double)pixels[h][w]->getColor()->getB();
-                    pixels[h][w]->setColor(new Color((int)tr, (int)tg, (int)tb));
+                    pixels[h][w]->setColor(Color((int)tr, (int)tg, (int)tb));
                 }
             }
         }
@@ -268,7 +277,7 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
             for (int w = 0; w < this->precision_width; ++w){
                 if(pixels[h][w]->get_object() != NULL){
                     double t = ((double)pixels[h][w]->getColor()->getR() + (double)pixels[h][w]->getColor()->getG() + (double)pixels[h][w]->getColor()->getB()) / 3.0;
-                    pixels[h][w]->setColor(new Color((int)t, (int)t, (int)t));
+                    pixels[h][w]->setColor(Color((int)t, (int)t, (int)t));
                 }
             }
         }
@@ -277,7 +286,7 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
             for (int w = 0; w < this->precision_width; ++w){
                 if(pixels[h][w]->get_object() != NULL){
                     double t = 0.299 * (double)pixels[h][w]->getColor()->getR() + 0.587 * (double)pixels[h][w]->getColor()->getG() + 0.114 * (double)pixels[h][w]->getColor()->getB();
-                    pixels[h][w]->setColor(new Color((int)t, (int)t, (int)t));
+                    pixels[h][w]->setColor(Color((int)t, (int)t, (int)t));
                 }
             }
         }
@@ -288,7 +297,7 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
                     double tr = 255 - pixels[h][w]->getColor()->getR();
                     double tg = 255 - pixels[h][w]->getColor()->getG();
                     double tb = 255 - pixels[h][w]->getColor()->getB();
-                    pixels[h][w]->setColor(new Color((int)tr, (int)tg, (int)tb));
+                    pixels[h][w]->setColor(Color((int)tr, (int)tg, (int)tb));
                 }
             }
         }
@@ -297,22 +306,23 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
 
 void Engine::applyBlur(std::vector< std::vector<Pixel *> > &pixels)
 {
-    if(this->config->getBlur() == 0)
+    if (this->config->getBlur() == 0)
         return;
     
-    std::vector<std::vector<Color*>> colors; 
+    std::vector< std::vector<Color> > colors; 
     for (int height = 0; height < this->precision_height; ++height)
     {
-        std::vector<Color*> tmp;
+        std::vector<Color> tmp;
         for (int width = 0; width < this->precision_width; ++width)
         {
-            int r = 0;
-            int g = 0;
-            int b = 0;
-            int s = 0;
-            for (int i = height - config->getBlur(); i < height + config->getBlur(); ++i){
-                for (int j = width - config->getBlur(); j < width + config->getBlur(); ++j){
-                    if(i >=0 && i < config->getHeight() && j >= 0 && j < config->getWidth()) {
+            int r = 0, g = 0, b = 0, s = 0;
+
+            for (int i = height - config->getBlur(); i < height + config->getBlur(); ++i)
+            {
+                for (int j = width - config->getBlur(); j < width + config->getBlur(); ++j)
+                {
+                    if (i >=0 && i < config->getHeight() && j >= 0 && j < config->getWidth())
+                    {
                         r += pixels[i][j]->getRed();
                         g += pixels[i][j]->getGreen();
                         b += pixels[i][j]->getBlue();
@@ -320,7 +330,7 @@ void Engine::applyBlur(std::vector< std::vector<Pixel *> > &pixels)
                     }
                 }
             }
-            tmp.push_back(new Color(r / s, g / s, b / s));
+            tmp.push_back(Color(r / s, g / s, b / s));
         }
         colors.push_back(tmp);
     }

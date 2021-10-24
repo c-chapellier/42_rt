@@ -59,8 +59,7 @@ build/pixel/Pixel.o: src/pixel/Pixel.cpp src/pixel/Pixel.hpp \
   src/pixel/../visuals/./../objects/components/Line.hpp \
   src/pixel/../visuals/./../objects/./../color/Color.hpp \
   src/pixel/../visuals/./../objects/./../color/Texture.hpp \
-  src/pixel/../light/Light.hpp \
-  src/pixel/../light/../objects/components/Point.hpp \
+  src/pixel/../light/Light.hpp src/pixel/../light/../header.hpp \
   src/pixel/../colorManager/ColorManager.hpp \
   src/pixel/../colorManager/../header.hpp \
   src/pixel/../colorManager/../../include/nlohmann/json.hpp \
@@ -220,7 +219,7 @@ src/pixel/../visuals/./../objects/./../color/Texture.hpp:
 
 src/pixel/../light/Light.hpp:
 
-src/pixel/../light/../objects/components/Point.hpp:
+src/pixel/../light/../header.hpp:
 
 src/pixel/../colorManager/ColorManager.hpp:
 

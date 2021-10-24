@@ -61,8 +61,7 @@ build/parser/Parser.o: src/parser/Parser.cpp src/parser/Parser.hpp \
   src/parser/../visuals/./../objects/components/Line.hpp \
   src/parser/../visuals/./../objects/./../color/Color.hpp \
   src/parser/../visuals/./../objects/./../color/Texture.hpp \
-  src/parser/../light/Light.hpp \
-  src/parser/../light/../objects/components/Point.hpp \
+  src/parser/../light/Light.hpp src/parser/../light/../header.hpp \
   src/parser/../colorManager/ColorManager.hpp \
   src/parser/../colorManager/../header.hpp \
   src/parser/../colorManager/../../include/nlohmann/json.hpp \
@@ -225,7 +224,7 @@ src/parser/../visuals/./../objects/./../color/Texture.hpp:
 
 src/parser/../light/Light.hpp:
 
-src/parser/../light/../objects/components/Point.hpp:
+src/parser/../light/../header.hpp:
 
 src/parser/../colorManager/ColorManager.hpp:
 

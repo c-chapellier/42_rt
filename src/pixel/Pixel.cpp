@@ -26,17 +26,17 @@ Pixel::~Pixel()
 
 }
 
-int Pixel::getRed()
+int Pixel::getRed() const
 {
     return this->color->getR();
 }
 
-int Pixel::getGreen()
+int Pixel::getGreen() const
 {
     return this->color->getG();
 }
 
-int Pixel::getBlue()
+int Pixel::getBlue() const
 {
     return this->color->getB();
 }
@@ -45,12 +45,12 @@ Color *Pixel::getColor()
     return this->color;
 }
 
-int Pixel::getOpacity()
+int Pixel::getOpacity() const
 {
     return this->color->getO();
 }
 
-double Pixel::get_dist()
+double Pixel::get_dist() const
 {
     return this->dist;
 }
@@ -65,9 +65,12 @@ Object *Pixel::get_object()
     return this->obj;
 }
 
-void Pixel::setColor(Color *color)
+void Pixel::setColor(const Color &color)
 {
-    this->color = color;
+    this->color->setR(color.getR());
+    this->color->setG(color.getG());
+    this->color->setB(color.getB());
+    this->color->setO(color.getO());
 }
 
 void Pixel::setLocation(Point *p)

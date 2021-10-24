@@ -64,7 +64,7 @@ build/loadingBar/LoadingBar.o: src/loadingBar/LoadingBar.cpp \
   src/loadingBar/../visuals/./../objects/./../color/Color.hpp \
   src/loadingBar/../visuals/./../objects/./../color/Texture.hpp \
   src/loadingBar/../light/Light.hpp \
-  src/loadingBar/../light/../objects/components/Point.hpp \
+  src/loadingBar/../light/../header.hpp \
   src/loadingBar/../colorManager/ColorManager.hpp \
   src/loadingBar/../colorManager/../header.hpp \
   src/loadingBar/../colorManager/../../include/nlohmann/json.hpp \
@@ -230,7 +230,7 @@ src/loadingBar/../visuals/./../objects/./../color/Texture.hpp:
 
 src/loadingBar/../light/Light.hpp:
 
-src/loadingBar/../light/../objects/components/Point.hpp:
+src/loadingBar/../light/../header.hpp:
 
 src/loadingBar/../colorManager/ColorManager.hpp:
 

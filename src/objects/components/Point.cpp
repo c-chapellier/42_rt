@@ -43,9 +43,9 @@ void Point::setZ(double z)
     this->z = z;
 }
 
-double Point::distWith(Point p)
+double Point::distWith(Point *p)
 {
-    return sqrt(pow(p.x - this->x, 2) + pow(p.y - this->y, 2) + pow(p.z - this->z, 2));
+    return sqrt(pow(p->x - this->x, 2) + pow(p->y - this->y, 2) + pow(p->z - this->z, 2));
 }
 
 Point *Point::applyVector(Vector *vector)
@@ -60,7 +60,7 @@ Point *Point::rotateAroundX(double alpha)
     Vector *v = new Vector(*p, *this);
     Vector *y_axis = new Vector(0, 1, 0);
     // current polar coordinates
-    dist = this->distWith(*p);
+    dist = this->distWith(p);
     beta = v->angleWith(y_axis);
     beta = v->directionXY(y_axis) == CLOCK_WISE ? (360 - beta) : (beta); // if right turn angle = one complete turn minus himself (trigonometric circle)
 
@@ -86,7 +86,7 @@ Point *Point::rotateAroundY(double alpha)
     Vector *v = new Vector(*p, *this);
     Vector *x_axis = new Vector(1, 0, 0);
     // current polar coordinates
-    dist = this->distWith(*p);
+    dist = this->distWith(p);
     beta = v->angleWith(x_axis);
     beta = v->directionXY(x_axis) == CLOCK_WISE ? (360 - beta) : (beta); // if right turn angle = one complete turn minus himself (trigonometric circle)
 
@@ -111,7 +111,7 @@ Point *Point::rotateAroundZ(double alpha)
     Vector *v = new Vector(*p, *this);
     Vector *x_axis = new Vector(1, 0, 0);
     // current polar coordinates
-    dist = this->distWith(*p);
+    dist = this->distWith(p);
     beta = v->angleWith(x_axis);
     beta = v->directionXY(x_axis) == CLOCK_WISE ? (360 - beta) : (beta); // if right turn angle = one complete turn minus himself (trigonometric circle)
 

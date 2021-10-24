@@ -34,7 +34,7 @@ class Window
 
         void stream(Image &img);
 
-        void load_image(Image &img);
+        void load_image(Image *img);
         void set_image();
         void set_next_image();
         void set_prev_image();

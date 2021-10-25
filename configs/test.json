@@ -13,7 +13,8 @@
     "filter": "None",
     "lights": [
         {
-            "coordinates": [-1000, 400, 400]
+            "coordinates": [-1000, 400, 400],
+            "color": "red"
         }
     ],
     "cameras": [

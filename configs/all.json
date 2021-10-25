@@ -3,8 +3,14 @@
     "width": 900,
     "height": 900,
     "precision": 1,
-    "ambient": [20, 20, 20, 0],
-    "blur": 9,
+    "colors" : {
+        "red": [234, 15, 34, 255],
+        "green": [234, 15, 34, 255],
+        "blue": [15, 34, 234, 255],
+        "ambient": [20, 20, 20, 0]
+    },
+    "ambient": "ambient",
+    "blur": 0,
     "filter": "Invert",
     "effects": {
         "transformation": {

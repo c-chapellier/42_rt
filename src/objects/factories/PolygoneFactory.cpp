@@ -14,6 +14,8 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
 {
     if (type == "Cube"){
         return createParallelepiped(p, size1, size1, size1, alpha, beta, gama, color);
+    } else if (type == "1N-edron") {
+        return create1NEdron(p, size1, size2, size3, alpha, beta, gama, color);
     } else if (type == "2N-edron") {
         return create2NEdron(p, size1, size2, size3, alpha, beta, gama, color);
     } else if (type == "Parallelepiped") {
@@ -41,6 +43,45 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
     }
     throw
         "Unrecognized type of polygone";
+}
+
+Polygone *PolygoneFactory::create1NEdron(Point &p, int precision, double height, double r, double alpha, double beta, double gama, Color *color)
+{
+    Point *top = new Point(0, 0, height / 2);
+    Point *bottom = new Point(0, 0, -height / 2);
+
+    std::vector<Point*> points;
+    for (int i = 0; i < precision; ++i){
+        double angle = (double)i * (double)(360.0 / (double)precision);
+        points.push_back(new Point(r * cos(RADIAN(angle)), r * sin(RADIAN(angle)), -height / 2));
+    }
+
+    Transformer::rotateAroundX(top, alpha);
+    Transformer::rotateAroundX(bottom, alpha);
+    Transformer::rotateAroundX(points, alpha);
+
+    Transformer::rotateAroundY(top, beta);
+    Transformer::rotateAroundY(bottom, beta);
+    Transformer::rotateAroundY(points, beta);
+
+    Transformer::rotateAroundZ(top, gama);
+    Transformer::rotateAroundZ(bottom, gama);
+    Transformer::rotateAroundZ(points, gama);
+
+    Transformer::translate(top, &p);
+    Transformer::translate(bottom, &p);
+    Transformer::translate(points, &p);
+
+    std::vector<Triangle*> triangles;
+    for (int i = 0; i < precision; ++i){
+        triangles.push_back(new Triangle(*top, *points[i], *points[(i + 1) % precision]));
+        triangles.push_back(new Triangle(*bottom, *points[i], *points[(i + 1) % precision]));
+    }
+
+    delete(top);
+    delete(bottom);
+
+    return new Polygone(triangles, color);
 }
 
 Polygone *PolygoneFactory::create2NEdron(Point &p, int precision, double height, double r, double alpha, double beta, double gama, Color *color)

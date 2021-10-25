@@ -8,6 +8,7 @@ class PolygoneFactory
     private:
         PolygoneFactory();
 
+        static Polygone *create1NEdron(Point &p, int precision, double height, double r, double alpha, double beta, double gama, Color *color);
         static Polygone *create2NEdron(Point &p, int precision, double height, double r, double alpha, double beta, double gama, Color *color);
         static Polygone *createParallelepiped(Point &p, double height, double width, double length, double alpha, double beta, double gama, Color *color);
         static Polygone *createDiamond(Point &p, double h, double H, double r, double R, double alpha, double beta, double gama, Color *color);

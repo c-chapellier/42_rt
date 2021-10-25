@@ -16,10 +16,15 @@ void Engine::parse(std::string config_file)
     Parser parser(config_file);
 
     std::cout << "parse" << std::endl;
+    std::cout << "config" << std::endl;
     this->config = parser.getConfig();
+    std::cout << "cameras" << std::endl;
     this->cameras = parser.getCameras();
+    std::cout << "objects" << std::endl;
     this->objects = parser.getObjects();
+    std::cout << "lights" << std::endl;
     this->lights = parser.getLights();
+    std::cout << "black objects" << std::endl;
     this->black_objects = parser.getBlackObjects();
 }
 

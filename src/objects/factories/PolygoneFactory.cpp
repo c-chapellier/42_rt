@@ -423,11 +423,11 @@ Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precisi
 
     for(int k = 0; k < layers; ++k){
         std::vector<Point*> tmp;
-        double angle1 = k * (360 / layers);
+        double angle1 = (double)k * (360.0 / (double)layers);
         double h = r * sin(RADIAN(angle1));
         double r1 = r * cos(RADIAN(angle1));
         for (int i = 0; i < precision; ++i){
-            double angle2 = i * (360 / precision);
+            double angle2 = (double)i * (360.0 / (double)precision);
             Point *t = new Point(((R - r1) * (cos(RADIAN(angle2)))), ((R - r1) * (sin(RADIAN(angle2)))), h);
             tmp.push_back(t);
         }

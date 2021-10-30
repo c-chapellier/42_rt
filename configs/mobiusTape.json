@@ -3,8 +3,13 @@
     "width": 600,
     "height": 600,
     "precision": 2,
-    "ambient": [20, 20, 20, 0],
-    "blur": [255, 255, 255, 0],
+    "colors" : {
+        "red": [255, 25, 30, 255],
+        "blue": [0, 127, 255, 255],
+        "ambient": [20, 20, 20, 0]
+    },
+    "ambient": "ambient",
+    "blur": 0,
     "filter": "None",
     "cameras": [
         {
@@ -18,11 +23,11 @@
             "type": "Polygon",
             "name": "MobiusTape",
             "coordinates": [0, 0, 0],
-            "values": [60, 20, 40, 0],
+            "values": [70, 20, 200, 0],
             "rotation": [45, 45, 0],
             "colors": [
-                [255, 25, 30, 255],
-                [255, 127, 30, 255]
+                "red",
+                "blue"
             ],
             "texture": {
                 "type": "Gradient",

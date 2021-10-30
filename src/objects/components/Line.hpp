@@ -20,11 +20,13 @@ class Line
         ~Line();
 
         Point &getP();
+        Point getP() const;
         Vector &getV();
+        Vector getV() const;
 
         double distWith(const Point &p) const;
 
-        Point *getPointFor(double t);
+        Point *getPointFor(double t) const;
         Point *getPointAt(double dist);
 
         friend std::ostream& operator<< (std::ostream& out, const Line& line);

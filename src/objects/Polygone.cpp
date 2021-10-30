@@ -32,7 +32,7 @@ Polygone::~Polygone()
 
 }
 
-Point *Polygone::intersect(Line *line)
+Point *Polygone::intersect(const Line &line) const
 {
     Point *res = NULL;
 
@@ -44,8 +44,8 @@ Point *Polygone::intersect(Line *line)
             if (res == NULL){
                 res = tmp;
             } else {
-                double dist1 = res->distWith(line->getP());
-                double dist2 = tmp->distWith(line->getP());
+                double dist1 = res->distWith(line.getP());
+                double dist2 = tmp->distWith(line.getP());
                 if(dist2 < dist1) {
                     delete(res);
                     res = tmp;
@@ -65,7 +65,7 @@ double Polygone::angleWith(Line *line)
 
     for (unsigned long i = 0; i < this->triangles.size(); ++i)
     {
-        tmp = this->triangles[i]->intersect(line);
+        tmp = this->triangles[i]->intersect(*line);
         // if intersect triangle
         if (tmp)
         {

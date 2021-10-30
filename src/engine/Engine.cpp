@@ -56,7 +56,7 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
 
                     for (auto const& obj : this->objects)
                     {
-                        Point *p = obj->intersect(&l);
+                        Point *p = obj->intersect(l);
                             
                         if (p != NULL)
                         {
@@ -91,7 +91,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
             for (int width = 0; width < this->precision_width; ++width)
             {
                 Line l(*camera->getP(), screen[height][width]);
-                Point *p = obj->intersect(&l);
+                Point *p = obj->intersect(l);
                 
                 if (p != NULL && !this->blackObjectsContains(p))
                 {

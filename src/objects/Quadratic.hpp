@@ -21,7 +21,7 @@ class Quadratic : public Object
         Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, Color *color);
         ~Quadratic();
 
-        Point *intersect(Line *line);
+        Point *intersect(const Line &line) const;
         double angleWith(Line *line);
         Plane *tangentAt(Point *p);
 };

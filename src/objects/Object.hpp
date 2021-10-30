@@ -17,7 +17,7 @@ class Object
         Object(Color *color);
         virtual ~Object();
 
-        virtual Point *intersect(Line *line) = 0;
+        virtual Point *intersect(const Line &line) const = 0;
         virtual double angleWith(Line *line) = 0;
         Color *getColor();
         Color *getColor(int i);

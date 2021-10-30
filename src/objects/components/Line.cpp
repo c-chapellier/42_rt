@@ -23,7 +23,18 @@ Point &Line::getP()
 {
     return this->p;
 }
+
+Point Line::getP() const
+{
+    return this->p;
+}
+
 Vector &Line::getV()
+{
+    return this->v;
+}
+
+Vector Line::getV() const
 {
     return this->v;
 }
@@ -35,7 +46,7 @@ double Line::distWith(const Point &p) const
     return dist;
 }
 
-Point *Line::getPointFor(double t)
+Point *Line::getPointFor(double t) const
 {
     return new Point(this->p.getX() + (this->v.getX() * t), this->p.getY() + (this->v.getY() * t), this->p.getZ() + (this->v.getZ() * t));
 }

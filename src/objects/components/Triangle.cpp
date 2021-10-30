@@ -1,66 +1,56 @@
 #include "Triangle.hpp"
 
 Triangle::Triangle(double p1x, double p1y, double p1z, double p2x, double p2y, double p2z, double p3x, double p3y, double p3z)
+    : p1(p1x, p1y, p1z), p2(p2x, p2y, p2z), p3(p3x, p3y, p3z)
 {
-    this->p1 = new Point(p1x, p1y, p1z);
-    this->p2 = new Point(p2x, p2y, p2z);
-    this->p3 = new Point(p3x, p3y, p3z);
-}
-Triangle::Triangle(Point *p1, Point *p2, Point *p3)
-{
-    this->p1 = new Point(*p1);
-    this->p2 = new Point(*p2);
-    this->p3 = new Point(*p3);
-}
-Triangle::Triangle(Point &p1, Point &p2, Point &p3)
-{
-    this->p1 = new Point(p1);
-    this->p2 = new Point(p2);
-    this->p3 = new Point(p3);
-}
-Triangle::Triangle(Triangle &triangle)
-{
-    this->p1 = new Point(*triangle.p1);
-    this->p2 = new Point(*triangle.p2);
-    this->p3 = new Point(*triangle.p3);
-}
-Triangle::~Triangle(){
-    delete(this->p1);
-    delete(this->p2);
-    delete(this->p3);
 }
 
-Point *Triangle::getP1()
+Triangle::Triangle(const Point &p1, const Point &p2, const Point &p3)
+    : p1(p1), p2(p2), p3(p3)
+{
+}
+
+Triangle::Triangle(const Triangle &triangle)
+    : p1(triangle.p1), p2(triangle.p2), p3(triangle.p3)
+{
+}
+
+Triangle::~Triangle()
+{
+}
+
+Point &Triangle::getP1()
 {
     return this->p1;
 }
-Point *Triangle::getP2()
+
+Point &Triangle::getP2()
 {
     return this->p2;
 }
-Point *Triangle::getP3()
+
+Point &Triangle::getP3()
 {
     return this->p3;
 }
 
 Plane *Triangle::getPlane()
 {
-    return new Plane(*this->p1, *this->p2, *this->p3);
+    return new Plane(this->p1, this->p2, this->p3);
 }
 
-Point *Triangle::intersect(Line *l)
+Point *Triangle::intersect(const Line &l) const
 {
-    Plane *plane = this->getPlane();
-    double area = plane->getV()->getMagnitude() / 2;
-    Point *p = plane->intersect(l);
-    delete(plane);
+    Plane plane(this->p1, this->p2, this->p3);
+    double area = plane.getV()->getMagnitude() / 2;
+    Point *p = plane.intersect(l);
 
     if(!p)
         return NULL;
 
-    Vector pa(*p, *this->p1);
-    Vector pb(*p, *this->p2);
-    Vector pc(*p, *this->p3);
+    Vector pa(*p, this->p1);
+    Vector pb(*p, this->p2);
+    Vector pc(*p, this->p3);
     double alpha, beta, gama;
     alpha = pb.crossProductMagnitude(pc) / (2 * area);
     beta = pc.crossProductMagnitude(pa) / (2 * area);

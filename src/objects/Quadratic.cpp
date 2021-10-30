@@ -23,12 +23,12 @@ Point *Quadratic::intersect(Line *line)
     x0 = this->p->getX();
     y0 = this->p->getY();
     z0 = this->p->getZ();
-    x1 = line->getP()->getX();
-    y1 = line->getP()->getY();
-    z1 = line->getP()->getZ();
-    a = line->getV()->getX();
-    b = line->getV()->getY();
-    c = line->getV()->getZ();
+    x1 = line->getP().getX();
+    y1 = line->getP().getY();
+    z1 = line->getP().getZ();
+    a = line->getV().getX();
+    b = line->getV().getY();
+    c = line->getV().getZ();
 
     t0 = A * pow(x1 - x0, 2) + 
         B * pow(y1 - y0, 2) + 
@@ -102,7 +102,7 @@ Point *Quadratic::intersect(Line *line)
         Point *p1, *p2;
         p1 = new Point(x_1, y_1, z_1);
         p2 = new Point(x_2, y_2, z_2);
-        if(line->getP()->distWith(*p1) < line->getP()->distWith(*p2)){
+        if(line->getP().distWith(*p1) < line->getP().distWith(*p2)){
             delete(p2);
             return p1;
         } else {

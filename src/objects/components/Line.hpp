@@ -11,18 +11,18 @@
 class Line
 {
     private:
-        Point *p;
-        Vector *v;
+        Point p;
+        Vector v;
     public:
         Line(double px, double py, double pz, double vx, double vy, double vz);
-        Line(Point *p, Vector *v);
-        Line(Point *a, const Point &b);
+        Line(const Point &p, const Vector &v);
+        Line(const Point &a, const Point &b);
         ~Line();
 
-        Point *getP();
-        Vector *getV();
+        Point &getP();
+        Vector &getV();
 
-        double distWith(Point &p);
+        double distWith(const Point &p) const;
 
         Point *getPointFor(double t);
         Point *getPointAt(double dist);

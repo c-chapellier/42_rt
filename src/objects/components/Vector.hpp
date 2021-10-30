@@ -16,7 +16,7 @@ class Vector
         double z;
     public:
         Vector(const double x, const double y, const double z);
-        Vector(Point &p1, const Point &p2);
+        Vector(const Point &p1, const Point &p2);
         Vector(Point &p, const double x, const double y, const double z);
         Vector(const double x, const double y, const double z, Point &p);
         Vector(const Vector &vector);
@@ -27,7 +27,7 @@ class Vector
         double getY() const;
         double getZ() const;
         double getMagnitude() const;
-        
+
         double scalarProduct(const Vector &v) const;
         double crossProductMagnitude(const Vector &v) const;
         Vector *crossProduct(const Vector &v) const;

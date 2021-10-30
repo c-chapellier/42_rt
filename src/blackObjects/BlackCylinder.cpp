@@ -8,7 +8,7 @@ BlackCylinder::BlackCylinder(double px, double py, double pz, double vx, double 
 
 BlackCylinder::BlackCylinder(Point *p, Vector *v, double r) : BlackObject()
 {
-    this->l = new Line(p, v);
+    this->l = new Line(*p, *v);
     this->r = r;
 }
 

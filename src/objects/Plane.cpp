@@ -50,8 +50,8 @@ Point *Plane::intersect(Line *line)
     c = this->v->getZ();
     K = ((this->v->getX() * (this->p->getX() * -1)) + (this->v->getY() * (this->p->getY() * -1)) + (this->v->getZ() * (this->p->getZ() * -1))) * -1;
     double t, C;
-    t = (a * line->getV()->getX()) + (b * line->getV()->getY()) + (c * line->getV()->getZ());
-    C = (a * line->getP()->getX()) + (b * line->getP()->getY()) + (c * line->getP()->getZ());
+    t = (a * line->getV().getX()) + (b * line->getV().getY()) + (c * line->getV().getZ());
+    C = (a * line->getP().getX()) + (b * line->getP().getY()) + (c * line->getP().getZ());
     if(t == 0 && C != K){
         // no intersection
         return NULL;
@@ -75,7 +75,7 @@ double Plane::angleWith(Vector *v)
 
 double Plane::angleWith(Line *line)
 {
-    return this->angleWith(line->getV());
+    return this->angleWith(&line->getV());
 }
 
 double Plane::angleWith(Plane *p)

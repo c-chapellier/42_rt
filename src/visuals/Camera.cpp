@@ -97,7 +97,7 @@ std::vector< std::vector<Point> > Camera::getScreen(Config &config)
                 tmp1 = tmp->rotateAroundZ(alpha);
 
                 Vector v2(*new_point, *tmp1);
-                new_point = new_point->applyVector(&v2);
+                new_point = new_point->applyVector(v2);
             }
 
             screen[z][y].setX(new_point->getX() + this->p->getX());

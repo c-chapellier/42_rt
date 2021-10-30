@@ -48,9 +48,9 @@ double Point::distWith(const Point &p) const
     return sqrt(pow(p.x - this->x, 2) + pow(p.y - this->y, 2) + pow(p.z - this->z, 2));
 }
 
-Point *Point::applyVector(Vector *vector)
+Point *Point::applyVector(const Vector &vector) const
 {
-    return new Point(this->x + vector->getX(), this->y + vector->getY(), this->z + vector->getZ());
+    return new Point(this->x + vector.getX(), this->y + vector.getY(), this->z + vector.getZ());
 }
 
 Point *Point::rotateAroundX(double alpha)

@@ -50,7 +50,7 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
             {
                 if (pixels[height][width]->get_object() != NULL)
                 {
-                    Line l(light->getP(), pixels[height][width]->get_location());
+                    Line l(*light->getP(), pixels[height][width]->get_location());
                     bool is_shined = true;
                     double dist_pxl_light = pixels[height][width]->get_location().distWith(*light->getP());
 
@@ -90,7 +90,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
         {
             for (int width = 0; width < this->precision_width; ++width)
             {
-                Line l(camera->getP(), screen[height][width]);
+                Line l(*camera->getP(), screen[height][width]);
                 Point *p = obj->intersect(&l);
                 
                 if (p != NULL && !this->blackObjectsContains(p))

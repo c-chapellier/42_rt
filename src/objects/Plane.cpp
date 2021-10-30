@@ -23,7 +23,7 @@ Plane::Plane(Point &p1, Point &p2, Point &p3) : Object()
     Vector v1(p1, p2);
     Vector v2(p1, p3);
 
-    this->v = v1.crossProduct(&v2);
+    this->v = v1.crossProduct(v2);
     this->p = new Point(p1);
 }
 
@@ -69,7 +69,7 @@ Point *Plane::intersect(Line *line)
 // 
 double Plane::angleWith(Vector *v)
 {
-    return DEGREE(asin((this->v->scalarProduct(v) / (this->v->getMagnitude() * v->getMagnitude()))));
+    return DEGREE(asin((this->v->scalarProduct(*v) / (this->v->getMagnitude() * v->getMagnitude()))));
     //return this->v->angleWith(v);
 }
 
@@ -80,7 +80,7 @@ double Plane::angleWith(Line *line)
 
 double Plane::angleWith(Plane *p)
 {
-    return this->v->angleWith(p->v);
+    return this->v->angleWith(*p->v);
 }
 
 std::ostream& operator<< (std::ostream& out, const Plane& plane)

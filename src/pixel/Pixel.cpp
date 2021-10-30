@@ -1,14 +1,14 @@
 #include "Pixel.hpp"
 
-Pixel::Pixel() : color(0, 0, 0, 255), dist(INFINITY), obj(NULL), location_3d()
+Pixel::Pixel() : color(0, 0, 0, 255), dist(INFINITY), location_3d(), obj(NULL)
 {
 }
 
-Pixel::Pixel(int red, int green, int blue, int opacity, double dist) : color(red, green, blue, opacity), dist(dist), obj(NULL), location_3d()
+Pixel::Pixel(int red, int green, int blue, int opacity, double dist) : color(red, green, blue, opacity), dist(dist), location_3d(), obj(NULL)
 {
 }
 
-Pixel::Pixel(Color *c, double dist): color(*c), dist(dist), obj(NULL), location_3d()
+Pixel::Pixel(Color *c, double dist): color(*c), dist(dist), location_3d(), obj(NULL)
 {
 }
 

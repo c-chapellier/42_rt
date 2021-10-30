@@ -29,7 +29,7 @@ class Point
         void setY(double y);
         void setZ(double z);
 
-        double distWith(Point *p);
+        double distWith(const Point &p) const;
         Point *applyVector(Vector *vector);
         Point *rotateAroundX(double alpha);
         Point *rotateAroundY(double alpha);

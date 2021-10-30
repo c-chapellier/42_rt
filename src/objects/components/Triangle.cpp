@@ -62,9 +62,9 @@ Point *Triangle::intersect(Line *l)
     Vector pb(*p, *this->p2);
     Vector pc(*p, *this->p3);
     double alpha, beta, gama;
-    alpha = pb.crossProductMagnitude(&pc) / (2 * area);
-    beta = pc.crossProductMagnitude(&pa) / (2 * area);
-    gama = pa.crossProductMagnitude(&pb) / (2 * area);
+    alpha = pb.crossProductMagnitude(pc) / (2 * area);
+    beta = pc.crossProductMagnitude(pa) / (2 * area);
+    gama = pa.crossProductMagnitude(pb) / (2 * area);
 
     // std::cout << alpha << " " << beta << " " << gama << std::endl;
 

@@ -11,12 +11,12 @@ BlackSphere::BlackSphere(Point *p, double r) : BlackObject()
     this->p = new Point(*p);
     this->r = r;
 }
-BlackSphere::~BlackSphere(){
+BlackSphere::~BlackSphere()
+{
     delete(this->p);
 }
 
 bool BlackSphere::contains(Point *p)
 {
-    double dist = this->p->distWith(p);
-    return dist <= this->r;
+    return this->p->distWith(*p) <= this->r;
 }

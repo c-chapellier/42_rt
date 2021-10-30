@@ -23,22 +23,22 @@ class Vector
         Vector(const Vector &vector, double div);
         ~Vector();
 
-        double getX();
-        double getY();
-        double getZ();
+        double getX() const;
+        double getY() const;
+        double getZ() const;
+        double getMagnitude() const;
+        
+        double scalarProduct(const Vector &v) const;
+        double crossProductMagnitude(const Vector &v) const;
+        Vector *crossProduct(const Vector &v) const;
+        double angleWith(const Vector &v) const;
 
-        double getMagnitude();
-        double scalarProduct(Vector *v);
-        double crossProductMagnitude(Vector *v);
-        Vector *crossProduct(Vector *v);
-        double angleWith(Vector *v);
-
-        int directionXY(Vector *v);
-        int directionXZ(Vector *v);
-        double crossProductXY(Vector *v);
-        double crossProductXZ(Vector *v);
-        double scalarProductXY(Vector *v);
-        double scalarProductXZ(Vector *v);
+        int directionXY(const Vector &v) const;
+        int directionXZ(const Vector &v) const;
+        double crossProductXY(const Vector &v) const;
+        double crossProductXZ(const Vector &v) const;
+        double scalarProductXY(const Vector &v) const;
+        double scalarProductXZ(const Vector &v) const;
 
         friend std::ostream& operator<<(std::ostream& out, const Vector& vector);
 };

@@ -36,30 +36,30 @@ Vector::~Vector()
 {
 }
 
-double Vector::getX()
+double Vector::getX() const
 {
     return this->x;
 }
-double Vector::getY()
+double Vector::getY() const
 {
     return this->y;
 }
-double Vector::getZ()
+double Vector::getZ() const
 {
     return this->z;
 }
 
-double Vector::getMagnitude()
+double Vector::getMagnitude() const
 {
     return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 }
 
-double Vector::scalarProduct(Vector *v)
+double Vector::scalarProduct(const Vector &v) const
 {
-    return (this->x * v->x) + (this->y * v->y) + (this->z * v->z);
+    return (this->x * v.x) + (this->y * v.y) + (this->z * v.z);
 }
 
-double Vector::crossProductMagnitude(Vector *v)
+double Vector::crossProductMagnitude(const Vector &v) const
 {
     Vector *tmp = this->crossProduct(v);
     double magnitude = tmp->getMagnitude();
@@ -72,60 +72,60 @@ double Vector::crossProductMagnitude(Vector *v)
 // ---------    -------     -------     -------
 // | a b c | => | b c | x - | a c | y + | a b | z
 // | d e f |    | e f |     | d f |     | d e |
-Vector *Vector::crossProduct(Vector *v)
+Vector *Vector::crossProduct(const Vector &v) const
 {
     return new Vector(
-        (this->y * v->z) - (v->y * this->z),
-        -(this->x * v->z) + (v->x * this->z),
-        (this->x * v->y) - (v->x * this->y)
+        (this->y * v.z) - (v.y * this->z),
+        -(this->x * v.z) + (v.x * this->z),
+        (this->x * v.y) - (v.x * this->y)
     );
 }
 
 //          a . b
 // cos θ = -------
 //         |a| |b|
-double Vector::angleWith(Vector *v)
+double Vector::angleWith(const Vector &v) const
 {
-    return DEGREE(acos((this->scalarProduct(v) / (this->getMagnitude() * v->getMagnitude()))));
+    return DEGREE(acos((this->scalarProduct(v) / (this->getMagnitude() * v.getMagnitude()))));
 }
 
-double Vector::scalarProductXY(Vector *v)
+double Vector::scalarProductXY(const Vector &v) const
 {
-    return (this->x * v->x) + (this->y * v->y);
+    return (this->x * v.x) + (this->y * v.y);
 }
 
-double Vector::crossProductXY(Vector *v)
+double Vector::crossProductXY(const Vector &v) const
 {
-    return (this->x * v->y) - (v->x * this->y);
+    return (this->x * v.y) - (v.x * this->y);
 }
 
-int Vector::directionXY(Vector *v)
+int Vector::directionXY(const Vector &v) const
 {
     Vector *v1 = new Vector(*this, this->getMagnitude());
-    Vector *v2 = new Vector(v->getX() / v->getMagnitude(), v->getY() / v->getMagnitude(), 0);
+    Vector *v2 = new Vector(v.getX() / v.getMagnitude(), v.getY() / v.getMagnitude(), 0);
     Vector *v1r = new Vector(v1->getY(), -v1->getX(), 0);
 
-    double d = v1r->scalarProductXY(v2);
+    double d = v1r->scalarProductXY(*v2);
     return d > 0 ? CLOCK_WISE : ANTI_CLOCK_WISE;
 }
 
-double Vector::scalarProductXZ(Vector *v)
+double Vector::scalarProductXZ(const Vector &v) const
 {
-    return (this->x * v->x) + (this->z * v->z);
+    return (this->x * v.x) + (this->z * v.z);
 }
 
-double Vector::crossProductXZ(Vector *v)
+double Vector::crossProductXZ(const Vector &v) const
 {
-    return (this->x * v->z) - (v->x * this->z);
+    return (this->x * v.z) - (v.x * this->z);
 }
 
-int Vector::directionXZ(Vector *v)
+int Vector::directionXZ(const Vector &v) const
 {
     Vector *v1 = new Vector(*this, this->getMagnitude());
-    Vector *v2 = new Vector(v->getX() / v->getMagnitude(), 0, v->getZ() / v->getMagnitude());
+    Vector *v2 = new Vector(v.getX() / v.getMagnitude(), 0, v.getZ() / v.getMagnitude());
     Vector *v1r = new Vector(v1->getZ(), 0, -v1->getX());
 
-    double d = v1r->scalarProductXY(v2);
+    double d = v1r->scalarProductXY(*v2);
     return d > 0 ? CLOCK_WISE : ANTI_CLOCK_WISE;
 }
 

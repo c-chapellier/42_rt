@@ -102,7 +102,7 @@ Point *Quadratic::intersect(Line *line)
         Point *p1, *p2;
         p1 = new Point(x_1, y_1, z_1);
         p2 = new Point(x_2, y_2, z_2);
-        if(line->getP()->distWith(p1) < line->getP()->distWith(p2)){
+        if(line->getP()->distWith(*p1) < line->getP()->distWith(*p2)){
             delete(p2);
             return p1;
         } else {

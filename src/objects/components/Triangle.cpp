@@ -42,7 +42,7 @@ Plane *Triangle::getPlane()
 Point *Triangle::intersect(const Line &l) const
 {
     Plane plane(this->p1, this->p2, this->p3);
-    double area = plane.getV()->getMagnitude() / 2;
+    double area = plane.getV().getMagnitude() / 2;
     Point *p = plane.intersect(l);
 
     if(!p)

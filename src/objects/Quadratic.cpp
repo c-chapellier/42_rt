@@ -161,7 +161,7 @@ Plane *Quadratic::tangentAt(Point *p) const
         f +
         h * p->getX() +
         i * p->getY();
-    return new Plane(p, Fx, Fy, Fz);
+    return new Plane(*p, Fx, Fy, Fz);
 }
 
 double Quadratic::angleWith(const Line &line) const

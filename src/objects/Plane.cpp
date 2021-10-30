@@ -1,43 +1,33 @@
 #include "Plane.hpp"
 
-Plane::Plane(const double px, const double py, const double pz, const double vx, const double vy, const double vz) : Object()
+Plane::Plane(const double px, const double py, const double pz, const double vx, const double vy, const double vz)
+    : Object(), p(px, py, pz), v(vx, vy, vz)
 {
-    this->p = new Point(px, py, pz);
-    this->v = new Vector(vx, vy, vz);
 }
 
-Plane::Plane(Point p, Vector v) : Object()
+Plane::Plane(const Point &p, const Vector &v)
+    : Object(), p(p), v(v)
 {
-    this->p = new Point(p);
-    this->v = new Vector(v);
 }
 
-Plane::Plane(Point *p, double vx, double vy, double vz) : Object()
+Plane::Plane(const Point &p, double vx, double vy, double vz)
+    : Object(), p(p), v(vx, vy, vz)
 {
-    this->p = new Point(*p);
-    this->v = new Vector(vx, vy, vz);
 }
 
-Plane::Plane(const Point &p1, const Point &p2, const Point &p3) : Object()
+Plane::Plane(const Point &p1, const Point &p2, const Point &p3) : Object(), p(p1), v(*Vector(p1, p2).crossProduct(Vector(p1, p3)))
 {
-    Vector v1(p1, p2);
-    Vector v2(p1, p3);
-
-    this->v = v1.crossProduct(v2);
-    this->p = new Point(p1);
 }
 
 Plane::~Plane()
 {
-    delete(this->p);
-    delete(this->v);
 }
 
-Point *Plane::getP()
+Point &Plane::getP()
 {
     return this->p;
 }
-Vector *Plane::getV()
+Vector &Plane::getV()
 {
     return this->v;
 }
@@ -45,10 +35,10 @@ Vector *Plane::getV()
 Point *Plane::intersect(const Line &line) const
 {
     double a, b, c, K;
-    a = this->v->getX();
-    b = this->v->getY();
-    c = this->v->getZ();
-    K = ((this->v->getX() * (this->p->getX() * -1)) + (this->v->getY() * (this->p->getY() * -1)) + (this->v->getZ() * (this->p->getZ() * -1))) * -1;
+    a = this->v.getX();
+    b = this->v.getY();
+    c = this->v.getZ();
+    K = ((this->v.getX() * (this->p.getX() * -1)) + (this->v.getY() * (this->p.getY() * -1)) + (this->v.getZ() * (this->p.getZ() * -1))) * -1;
     double t, C;
     t = (a * line.getV().getX()) + (b * line.getV().getY()) + (c * line.getV().getZ());
     C = (a * line.getP().getX()) + (b * line.getP().getY()) + (c * line.getP().getZ());
@@ -69,7 +59,7 @@ Point *Plane::intersect(const Line &line) const
 // 
 double Plane::angleWith(const Vector &v) const
 {
-    return DEGREE(asin((this->v->scalarProduct(v) / (this->v->getMagnitude() * v.getMagnitude()))));
+    return DEGREE(asin((this->v.scalarProduct(v) / (this->v.getMagnitude() * v.getMagnitude()))));
 }
 
 double Plane::angleWith(const Line &line) const
@@ -79,14 +69,14 @@ double Plane::angleWith(const Line &line) const
 
 double Plane::angleWith(Plane *p)
 {
-    return this->v->angleWith(*p->v);
+    return this->v.angleWith(p->v);
 }
 
 std::ostream& operator<< (std::ostream& out, const Plane& plane)
 {
     out << "Plane : {" << std::endl
-    << "\tpoint : " << *plane.p << std::endl
-    << "\tvector : " << *plane.v << std::endl
+    << "\tpoint : " << plane.p << std::endl
+    << "\tvector : " << plane.v << std::endl
     << "}";
     return out;
 }

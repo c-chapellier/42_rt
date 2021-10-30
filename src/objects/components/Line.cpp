@@ -21,11 +21,11 @@ Line::~Line()
 
 Point &Line::getP()
 {
-    return this->p;
+    return &this->p;
 }
 Vector &Line::getV()
 {
-    return this->v;
+    return &this->v;
 }
 
 double Line::distWith(const Point &p) const

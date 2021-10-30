@@ -4,7 +4,7 @@ Vector::Vector(const double x, const double y, const double z) : x(x), y(y), z(z
 {
 }
 
-Vector::Vector(Point &p1, Point &p2)
+Vector::Vector(Point &p1, const Point &p2)
 {
     this->x = p2.getX() - p1.getX();
     this->y = p2.getY() - p1.getY();

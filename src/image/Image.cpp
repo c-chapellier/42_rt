@@ -2,7 +2,7 @@
 
 Image::Image(int height, int width) : height(height), width(width)
 {
-    this->pxls.resize(height, std::vector<Pixel *>(width));
+    this->pxls.resize(height, std::vector<Pixel>(width));
 }
 
 Image::Image(Image *img)
@@ -29,7 +29,7 @@ Image &Image::operator=(const Image &img)
     return *this;
 }
 
-std::vector<Pixel *> &Image::operator[](int i)
+std::vector<Pixel> &Image::operator[](int i)
 {
     return this->pxls[i];
 }

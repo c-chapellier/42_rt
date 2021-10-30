@@ -12,10 +12,10 @@ Line::Line(Point *p, Vector *v)
     this->v = v;
 }
 
-Line::Line(Point *a, Point *b)
+Line::Line(Point *a, const Point &b)
 {
     this->p = new Point(*a);
-    this->v = new Vector(*a, *b);
+    this->v = new Vector(*a, b);
 }
 
 Line::~Line()

@@ -70,6 +70,12 @@ void Window::pause()
 
 void Window::stream(Image &img)
 {
+
+    // for (int i = 0; i < this->height; ++i)
+    //     for (int j = 0; j < this->width; ++j)
+    //         img[i][j].getRed() != 0.0 && std::cout << -------------" << std::endl; 
+
+
     if (!img.is_valid(this->width, this->height))
         throw "Window::stream: Image and window dimensions do not match.";
 
@@ -79,10 +85,10 @@ void Window::stream(Image &img)
         {
             SDL_SetRenderDrawColor(
                 this->renderer,
-                img[i][j]->getRed(),
-                img[i][j]->getGreen(),
-                img[i][j]->getBlue(),
-                img[i][j]->getOpacity()
+                img[i][j].getRed(),
+                img[i][j].getGreen(),
+                img[i][j].getBlue(),
+                img[i][j].getOpacity()
             );
             SDL_RenderDrawPoint(this->renderer, i, j);
         }
@@ -118,10 +124,10 @@ void Window::set_image()
         {
             SDL_SetRenderDrawColor(
                 this->renderer,
-                this->imgs[this->img_index][h][w]->getRed(),
-                this->imgs[this->img_index][h][w]->getGreen(),
-                this->imgs[this->img_index][h][w]->getBlue(),
-                this->imgs[this->img_index][h][w]->getOpacity()
+                this->imgs[this->img_index][h][w].getRed(),
+                this->imgs[this->img_index][h][w].getGreen(),
+                this->imgs[this->img_index][h][w].getBlue(),
+                this->imgs[this->img_index][h][w].getOpacity()
             );
             SDL_RenderDrawPoint(this->renderer, w, h);
         }

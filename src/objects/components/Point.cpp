@@ -17,15 +17,15 @@ Point::~Point()
 {
 }
 
-double Point::getX()
+double Point::getX() const
 {
     return this->x;
 }
-double Point::getY()
+double Point::getY() const
 {
     return this->y;
 }
-double Point::getZ()
+double Point::getZ() const
 {
     return this->z;
 }

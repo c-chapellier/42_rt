@@ -16,7 +16,7 @@ class Vector
         double z;
     public:
         Vector(const double x, const double y, const double z);
-        Vector(Point &p1, Point &p2);
+        Vector(Point &p1, const Point &p2);
         Vector(Point &p, const double x, const double y, const double z);
         Vector(const double x, const double y, const double z, Point &p);
         Vector(const Vector &vector);

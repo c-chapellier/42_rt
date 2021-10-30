@@ -20,9 +20,9 @@ class Point
         Point(const Point &point);
         ~Point();
 
-        double getX();
-        double getY();
-        double getZ();
+        double getX() const;
+        double getY() const;
+        double getZ() const;
 
 
         void setX(double x);

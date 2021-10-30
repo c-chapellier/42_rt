@@ -12,6 +12,7 @@
 #include "visuals/Camera.hpp"
 #include "light/Light.hpp"
 #include "colorManager/ColorManager.hpp"
+#include "color/Color.hpp"
 
 #include "loadingBar/LoadingBar.hpp"
 #include "../include/nlohmann/json.hpp"

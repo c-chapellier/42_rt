@@ -4,16 +4,16 @@
 
 #include "../header.hpp"
 #include "../color/Color.hpp"
+#include "../objects/components/Point.hpp"
 
 class Object;
-class Point;
 
 class Pixel
 {
 private:
-    Color *color;
+    Color color;
     double dist;    // distance between the camera and the viewed point
-    Point *location_3d;
+    Point location_3d;
     Object *obj;
 
 public:
@@ -26,9 +26,9 @@ public:
     int getGreen() const;
     int getBlue() const;
     int getOpacity() const;
-    Color *getColor();
+    Color &getColor();
     double get_dist() const;
-    Point *get_location();
+    Point &get_location();
     Object *get_object();
 
     void setColor(const Color &color);

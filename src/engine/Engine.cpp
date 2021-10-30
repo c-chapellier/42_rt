@@ -32,6 +32,7 @@ void Engine::init()
 
     this->precision_height = this->config->getHeight() * this->config->getPrecision();
     this->precision_width = this->config->getWidth() * this->config->getPrecision();
+    std::cout << "end init" << std::endl;
 }
 
 void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &pixels)
@@ -46,7 +47,7 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
                 {
                     Line l(light->getP(), pixels[height][width]->get_location());
                     bool is_shined = true;
-                    double dist_pxl_light = pixels[height][width]->get_location()->distWith(light->getP());
+                    double dist_pxl_light = pixels[height][width]->get_location().distWith(light->getP());
 
                     for (auto const& obj : this->objects)
                     {
@@ -68,7 +69,7 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
                     {
                         double angle = RADIAN(pixels[height][width]->get_object()->angleWith(&l));
                         
-                        pixels[height][width]->getColor()->add(light->getColor()->reduceOf(cos(angle)));         
+                        pixels[height][width]->getColor().add(light->getColor()->reduceOf(cos(angle)));         
                     }
                 }
             }
@@ -84,7 +85,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
         {
             for (int width = 0; width < this->precision_width; ++width)
             {
-                Line l(camera->getP(), &screen[height][width]);
+                Line l(camera->getP(), screen[height][width]);
                 Point *p = obj->intersect(&l);
                 
                 if (p != NULL && !this->blackObjectsContains(p))
@@ -100,9 +101,9 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
                     Color blended_color;
 
                     if (dist < pixels[height][width]->get_dist())
-                        this->alphaBlending(blended_color, color, pixels[height][width]->getColor());
+                        this->alphaBlending(blended_color, *color, pixels[height][width]->getColor());
                     else
-                        this->alphaBlending(blended_color, pixels[height][width]->getColor(), color);
+                        this->alphaBlending(blended_color, pixels[height][width]->getColor(), *color);
 
                     pixels[height][width]->setColor(blended_color);
 
@@ -135,7 +136,7 @@ void Engine::applyPrecision(std::vector< std::vector<Pixel *> > &pixels)
                     b += pixels[height * this->config->getPrecision() + i][width * this->config->getPrecision() + j]->getBlue();
                 }
             }
-            (*this->img)[height][width] = new Pixel(r / pow(this->config->getPrecision(), 2), g / pow(this->config->getPrecision(), 2), b / pow(this->config->getPrecision(), 2), 255);
+            (*this->img)[height][width] = Pixel(r / pow(this->config->getPrecision(), 2), g / pow(this->config->getPrecision(), 2), b / pow(this->config->getPrecision(), 2), 255);
         }
     }
 }
@@ -169,6 +170,7 @@ void Engine::run()
     std::cout << "max_nbr_of_threads = " << this->nbrOfThreads << std::endl;
 
     this->init();
+
     this->loadingBar->add(10);
 
     for (auto const& camera : this->cameras)
@@ -207,14 +209,14 @@ void Engine::run()
 }
 
 // https://fr.wikipedia.org/wiki/Alpha_blending
-void Engine::alphaBlending(Color &blended_color, Color *c1, Color *c2)
+void Engine::alphaBlending(Color &blended_color, const Color &c1, const Color &c2)
 {
     double r, g, b, o;
 
-    o = c1->getP() + (c2->getP() * (1.0 - c1->getP()));
-    r = ((c1->getPR() * c1->getP()) + (c2->getPR() * c2->getP() * (1 - c1->getP()))) / o;
-    g = ((c1->getPG() * c1->getP()) + (c2->getPG() * c2->getP() * (1 - c1->getP()))) / o;
-    b = ((c1->getPB() * c1->getP()) + (c2->getPB() * c2->getP() * (1 - c1->getP()))) / o;
+    o = c1.getP() + (c2.getP() * (1.0 - c1.getP()));
+    r = ((c1.getPR() * c1.getP()) + (c2.getPR() * c2.getP() * (1 - c1.getP()))) / o;
+    g = ((c1.getPG() * c1.getP()) + (c2.getPG() * c2.getP() * (1 - c1.getP()))) / o;
+    b = ((c1.getPB() * c1.getP()) + (c2.getPB() * c2.getP() * (1 - c1.getP()))) / o;
 
     blended_color.setR((int)(r * 255));
     blended_color.setG((int)(g * 255));
@@ -247,7 +249,7 @@ void Engine::apply3D(std::vector< std::vector<Pixel *> > &pixels)
             {
                 Color color_3d;
 
-                this->alphaBlending(color_3d, &cyan, pixels[h][w]->getColor());
+                this->alphaBlending(color_3d, cyan, pixels[h][w]->getColor());
 
                 pixels[h][w]->setColor(color_3d);
             }
@@ -264,9 +266,9 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
         for (int h = 0; h < this->precision_height; ++h){
             for (int w = 0; w < this->precision_width; ++w){
                 if(pixels[h][w]->get_object() != NULL){
-                    double tr = 0.393 * (double)pixels[h][w]->getColor()->getR() + 0.769 * (double)pixels[h][w]->getColor()->getG() + 0.189 * (double)pixels[h][w]->getColor()->getB();
-                    double tg = 0.349 * (double)pixels[h][w]->getColor()->getR() + 0.686 * (double)pixels[h][w]->getColor()->getG() + 0.168 * (double)pixels[h][w]->getColor()->getB();
-                    double tb = 0.272 * (double)pixels[h][w]->getColor()->getR() + 0.534 * (double)pixels[h][w]->getColor()->getG() + 0.131 * (double)pixels[h][w]->getColor()->getB();
+                    double tr = 0.393 * (double)pixels[h][w]->getColor().getR() + 0.769 * (double)pixels[h][w]->getColor().getG() + 0.189 * (double)pixels[h][w]->getColor().getB();
+                    double tg = 0.349 * (double)pixels[h][w]->getColor().getR() + 0.686 * (double)pixels[h][w]->getColor().getG() + 0.168 * (double)pixels[h][w]->getColor().getB();
+                    double tb = 0.272 * (double)pixels[h][w]->getColor().getR() + 0.534 * (double)pixels[h][w]->getColor().getG() + 0.131 * (double)pixels[h][w]->getColor().getB();
                     pixels[h][w]->setColor(Color((int)tr, (int)tg, (int)tb));
                 }
             }
@@ -275,7 +277,7 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
         for (int h = 0; h < this->precision_height; ++h){
             for (int w = 0; w < this->precision_width; ++w){
                 if(pixels[h][w]->get_object() != NULL){
-                    double t = ((double)pixels[h][w]->getColor()->getR() + (double)pixels[h][w]->getColor()->getG() + (double)pixels[h][w]->getColor()->getB()) / 3.0;
+                    double t = ((double)pixels[h][w]->getColor().getR() + (double)pixels[h][w]->getColor().getG() + (double)pixels[h][w]->getColor().getB()) / 3.0;
                     pixels[h][w]->setColor(Color((int)t, (int)t, (int)t));
                 }
             }
@@ -284,7 +286,7 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
         for (int h = 0; h < this->precision_height; ++h){
             for (int w = 0; w < this->precision_width; ++w){
                 if(pixels[h][w]->get_object() != NULL){
-                    double t = 0.299 * (double)pixels[h][w]->getColor()->getR() + 0.587 * (double)pixels[h][w]->getColor()->getG() + 0.114 * (double)pixels[h][w]->getColor()->getB();
+                    double t = 0.299 * (double)pixels[h][w]->getColor().getR() + 0.587 * (double)pixels[h][w]->getColor().getG() + 0.114 * (double)pixels[h][w]->getColor().getB();
                     pixels[h][w]->setColor(Color((int)t, (int)t, (int)t));
                 }
             }
@@ -293,9 +295,9 @@ void Engine::applyFilter(std::vector< std::vector<Pixel *> > &pixels)
         for (int h = 0; h < this->precision_height; ++h){
             for (int w = 0; w < this->precision_width; ++w){
                 if(pixels[h][w]->get_object() != NULL){
-                    double tr = 255 - pixels[h][w]->getColor()->getR();
-                    double tg = 255 - pixels[h][w]->getColor()->getG();
-                    double tb = 255 - pixels[h][w]->getColor()->getB();
+                    double tr = 255 - pixels[h][w]->getColor().getR();
+                    double tg = 255 - pixels[h][w]->getColor().getG();
+                    double tb = 255 - pixels[h][w]->getColor().getB();
                     pixels[h][w]->setColor(Color((int)tr, (int)tg, (int)tb));
                 }
             }

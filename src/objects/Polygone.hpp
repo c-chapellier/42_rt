@@ -16,7 +16,7 @@ class Polygone : public Object
         ~Polygone();
 
         Point *intersect(const Line &line) const;
-        double angleWith(Line *line);
+        double angleWith(const Line &line) const;
 };
 
 // Cube Coordinates size 0 0 0

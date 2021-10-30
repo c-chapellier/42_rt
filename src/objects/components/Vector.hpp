@@ -14,11 +14,12 @@ class Vector
         double x;
         double y;
         double z;
+        
     public:
         Vector(const double x, const double y, const double z);
         Vector(const Point &p1, const Point &p2);
-        Vector(Point &p, const double x, const double y, const double z);
-        Vector(const double x, const double y, const double z, Point &p);
+        Vector(const Point &p, const double x, const double y, const double z);
+        Vector(const double x, const double y, const double z, const Point &p);
         Vector(const Vector &vector);
         Vector(const Vector &vector, double div);
         ~Vector();
@@ -40,5 +41,5 @@ class Vector
         double scalarProductXY(const Vector &v) const;
         double scalarProductXZ(const Vector &v) const;
 
-        friend std::ostream& operator<<(std::ostream& out, const Vector& vector);
+        friend std::ostream& operator<<(std::ostream& out, const Vector &vector);
 };

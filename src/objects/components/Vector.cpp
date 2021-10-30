@@ -11,13 +11,13 @@ Vector::Vector(const Point &p1, const Point &p2)
     this->z = p2.getZ() - p1.getZ();
 }
 
-Vector::Vector(Point &p, const double x, const double y, const double z)
+Vector::Vector(const Point &p, const double x, const double y, const double z)
 {
     this->x = x - p.getX();
     this->y = y - p.getY();
     this->z = z - p.getZ();
 }
-Vector::Vector(const double x, const double y, const double z, Point &p)
+Vector::Vector(const double x, const double y, const double z, const Point &p)
 {
     this->x = p.getX() - x;
     this->y = p.getY() - y;

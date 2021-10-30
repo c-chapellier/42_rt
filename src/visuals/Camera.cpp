@@ -76,7 +76,7 @@ std::vector< std::vector<Point> > Camera::getScreen(Config &config)
         alpha = projection_on_plane_xy->directionXY(*x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
     }
     // angle between the camera vector and Z axis
-    gama = xy_plane->angleWith(this->v);
+    gama = xy_plane->angleWith(*this->v);
     // if right turn angle = one complete turn minus himself (trigonometric circle)
 
     for (int z = 0; z < height; ++z) {

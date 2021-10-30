@@ -121,7 +121,7 @@ Point *Quadratic::intersect(const Line &line) const
 // Fy => 2By + E + Gx + Iz
 // Fz => 2Cz + F + Hx + Iy
 // Fx(x - x₀) + Fy(y - y₀) + Fz(z -z₀) = 0 : Plane equation
-Plane *Quadratic::tangentAt(Point *p)
+Plane *Quadratic::tangentAt(Point *p) const
 {
     double a, b, c, d, e, f, g, h, i, x0, y0, z0;
     x0 = this->p->getX();
@@ -164,12 +164,12 @@ Plane *Quadratic::tangentAt(Point *p)
     return new Plane(p, Fx, Fy, Fz);
 }
 
-double Quadratic::angleWith(Line *line)
+double Quadratic::angleWith(const Line &line) const
 {
-    Point *p = this->intersect(*line);
+    Point *p = this->intersect(line);
 
     if (p == NULL)
         throw "Quadratic::angleWith: line is not intersecting";
-        
+
     return this->tangentAt(p)->angleWith(line);
 }

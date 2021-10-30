@@ -58,14 +58,14 @@ Point *Polygone::intersect(const Line &line) const
     return res;
 }
 
-double Polygone::angleWith(Line *line)
+double Polygone::angleWith(const Line &line) const
 {
     double angle = -1.0;
     Point *tmp, *actual_min = NULL;
 
     for (unsigned long i = 0; i < this->triangles.size(); ++i)
     {
-        tmp = this->triangles[i]->intersect(*line);
+        tmp = this->triangles[i]->intersect(line);
         // if intersect triangle
         if (tmp)
         {
@@ -76,8 +76,8 @@ double Polygone::angleWith(Line *line)
             }
             else
             {
-                double dist1 = actual_min->distWith(line->getP());
-                double dist2 = tmp->distWith(line->getP());
+                double dist1 = actual_min->distWith(line.getP());
+                double dist2 = tmp->distWith(line.getP());
                 
                 if (dist2 < dist1)
                 {

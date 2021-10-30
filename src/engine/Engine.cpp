@@ -72,7 +72,7 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
 
                     if (is_shined)
                     {
-                        double angle = RADIAN(pixels[height][width]->get_object()->angleWith(&l));
+                        double angle = RADIAN(pixels[height][width]->get_object()->angleWith(l));
                         
                         pixels[height][width]->getColor().add(light->getColor()->reduceOf(cos(angle)));         
                     }
@@ -96,7 +96,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
                 if (p != NULL && !this->blackObjectsContains(p))
                 {
                     double dist = p->distWith(*camera->getP());
-                    double angle = RADIAN(obj->angleWith(&l));
+                    double angle = RADIAN(obj->angleWith(l));
 
                     Color *color = obj->getColorAt(height, width, config->getHeight(), config->getWidth())
                                     ->reduceOf(1 - exp(-dist / 1000))

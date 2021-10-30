@@ -67,15 +67,14 @@ Point *Plane::intersect(const Line &line) const
 //          a . b
 // sin θ = -------
 // 
-double Plane::angleWith(Vector *v)
+double Plane::angleWith(const Vector &v) const
 {
-    return DEGREE(asin((this->v->scalarProduct(*v) / (this->v->getMagnitude() * v->getMagnitude()))));
-    //return this->v->angleWith(v);
+    return DEGREE(asin((this->v->scalarProduct(v) / (this->v->getMagnitude() * v.getMagnitude()))));
 }
 
-double Plane::angleWith(Line *line)
+double Plane::angleWith(const Line &line) const
 {
-    return this->angleWith(&line->getV());
+    return this->angleWith(line.getV());
 }
 
 double Plane::angleWith(Plane *p)

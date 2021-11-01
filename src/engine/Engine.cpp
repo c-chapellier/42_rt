@@ -426,7 +426,7 @@ void Engine::applyPerlinNoise(std::vector< std::vector<Pixel *> > &pixels) {
         std::vector<double> tmp;
         for (int w = 0; w < this->precision_width; ++w){
             if(pixels[h][w]->get_object() != NULL) {
-                pixels[h][w]->setColor(*pixels[h][w]->getColor().reduceOf((1 - res[h][w]) / 3.0));
+                pixels[h][w]->setColor(pixels[h][w]->getColor().reduceOf((1 - res[h][w]) / 3.0));
             }
         }
         res.push_back(tmp);

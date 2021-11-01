@@ -11,6 +11,7 @@ class Config
         Color *ambient_color;
         int blur;
         std::string filter;
+        bool perlinNoise;
     public:
         Config();
         ~Config();
@@ -21,6 +22,7 @@ class Config
         Color *getAmbientColor();
         int getBlur();
         std::string getFilter();
+        bool getPerlinNoise();
 
         void setHeight(int h);
         void setWidth(int w);
@@ -28,4 +30,5 @@ class Config
         void setAmbientColor(Color *ambient);
         void setBlur(int b);
         void setFilter(std::string filter);
+        void setPerlinNoise(bool perlinNoise);
 };

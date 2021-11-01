@@ -22,6 +22,12 @@ private:
 
     const unsigned int nbrOfThreads = std::thread::hardware_concurrency();
 
+    std::vector<std::vector<Vector*>> GRADIENT;
+    void initGradient();
+    float interpolate(float a0, float a1, float w);
+    float dotGridGradient(int ix, int iy, float x, float y);
+    float perlin(float x, float y);
+
     void parse(std::string config_file);
     void init();
     void threadedFindObjects(Camera *camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel *> > &pixels);
@@ -32,6 +38,7 @@ private:
     void apply3D(std::vector< std::vector<Pixel *> > &pixels);
     void applyFilter(std::vector< std::vector<Pixel *> > &pixels);
     void applyPrecision(std::vector< std::vector<Pixel *> > &pixels);
+    void applyPerlinNoise(std::vector< std::vector<Pixel *> > &pixels);
 
     bool blackObjectsContains(Point *p);
 

@@ -191,6 +191,9 @@ void Engine::run()
         this->threadedApplyLight(pixels);
         this->loadingBar->add(30 / this->cameras.size());
 
+        std::cout << "applyPerlinNoise" << std::endl;
+        this->applyPerlinNoise(pixels);
+
         std::cout << "applyFilter" << std::endl;
         this->applyFilter(pixels);
         // std::cout << "apply3D" << std::endl;
@@ -357,4 +360,75 @@ bool Engine::blackObjectsContains(Point *p)
         }
     }
     return false;
+}
+
+float Engine::interpolate(float a0, float a1, float w) {
+    return ((1.0 - w) * a0) + (w * a1);
+}
+
+float Engine::dotGridGradient(int ix, int iy, float x, float y) {
+    // Compute the distance vector
+    float dx = x - (float)ix;
+    float dy = y - (float)iy;
+
+    // Compute the dot-product
+    return (dx * this->GRADIENT[iy][ix]->getX()) + (dy * this->GRADIENT[iy][ix]->getY());
+}
+
+float Engine::perlin(float x, float y) {
+    int x0 = floor(x);
+    int x1 = x0 + 1;
+    int y0 = floor(y);
+    int y1 = y0 + 1;
+
+    float sx = x - (float)x0;
+    float sy = y - (float)y0;
+
+    float n0, n1, ix0, ix1, value;
+    n0 = dotGridGradient(x0, y0, x, y);
+    n1 = dotGridGradient(x1, y0, x, y);
+    ix0 = interpolate(n0, n1, sx);
+    n0 = dotGridGradient(x0, y1, x, y);
+    n1 = dotGridGradient(x1, y1, x, y);
+    ix1 = interpolate(n0, n1, sx);
+    value = interpolate(ix0, ix1, sy);
+    return abs(value);
+}
+
+void Engine::initGradient() {
+    for(int h = 0; h < this->precision_height + 1; ++h){
+        std::vector<Vector*> tmp;
+        for (int w = 0; w < this->precision_width + 1; ++w){
+            double x = (double)(rand() % 100) / 100.0f;
+            double y = 1.0 - pow(x, 2);
+            x = rand() % 2 == 0 ? (x) : (-x);
+            y = rand() % 2 == 0 ? (y) : (-y);
+            tmp.push_back(new Vector(x, y, 0));
+        }
+        this->GRADIENT.push_back(tmp);
+    }
+}
+
+void Engine::applyPerlinNoise(std::vector< std::vector<Pixel *> > &pixels) {
+    if(config->getPerlinNoise() == false)
+        return ;
+    std::vector<std::vector<double>> res;
+
+    this->initGradient();
+    for(int h = 0; h < this->precision_height; ++h){
+        std::vector<double> tmp;
+        for (int w = 0; w < this->precision_width; ++w){
+            tmp.push_back(this->perlin(w + 0.5, h + 0.5));
+        }
+        res.push_back(tmp);
+    }
+    for(int h = 0; h < this->precision_height; ++h){
+        std::vector<double> tmp;
+        for (int w = 0; w < this->precision_width; ++w){
+            if(pixels[h][w]->get_object() != NULL) {
+                pixels[h][w]->setColor(*pixels[h][w]->getColor().reduceOf((1 - res[h][w]) / 3.0));
+            }
+        }
+        res.push_back(tmp);
+    }
 }

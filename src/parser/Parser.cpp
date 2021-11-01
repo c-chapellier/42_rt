@@ -164,5 +164,6 @@ Config *Parser::getConfig()
     config->setAmbientColor(this->colorManager->getColor(this->j["ambient"]));
     config->setBlur(this->j["blur"]);
     config->setFilter(this->j["filter"]);
+    config->setPerlinNoise(this->j["perlinNoise"]);
     return config;
 }

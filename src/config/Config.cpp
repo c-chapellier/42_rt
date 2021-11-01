@@ -36,6 +36,10 @@ std::string Config::getFilter()
 {
     return this->filter;
 }
+bool Config::getPerlinNoise()
+{
+    return this->perlinNoise;
+}
 
 void Config::setHeight(int h)
 {
@@ -75,4 +79,8 @@ void Config::setFilter(std::string filter)
     if(filter != "None" && filter != "Sepia" && filter != "AverageGrayscale" && filter != "WeightedGrayscale" && filter != "Invert")
         throw "Unknown filter";
     this->filter = filter;
+}
+void Config::setPerlinNoise(bool perlinNoise)
+{
+    this->perlinNoise = perlinNoise;
 }

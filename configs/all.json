@@ -13,7 +13,8 @@
     },
     "ambient": "ambient",
     "blur": 0,
-    "filter": "Sepia",
+    "filter": "None",
+    "perlinNoise" : true,
     "effects": {
         "transformation": {
             "x_axis" : {

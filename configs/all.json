@@ -2,16 +2,18 @@
     "name": "sphere",
     "width": 900,
     "height": 900,
-    "precision": 1,
+    "precision": 2,
     "colors" : {
         "red": [234, 15, 34, 255],
-        "green": [234, 15, 34, 255],
+        "green": [15, 234, 34, 255],
         "blue": [15, 34, 234, 255],
-        "ambient": [20, 20, 20, 0]
+        "ambient": [20, 20, 20, 0],
+        "yellow":[212, 212, 34, 255],
+        "grey":[245, 145, 180, 255]
     },
     "ambient": "ambient",
     "blur": 0,
-    "filter": "Invert",
+    "filter": "Sepia",
     "effects": {
         "transformation": {
             "x_axis" : {
@@ -42,8 +44,8 @@
             "coordinates": [100,-100, 0],
             "values": [1, 5, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [13, 234, 34, 255],
-                [245, 145, 180, 255]
+                "green",
+                "grey"
             ],
             "texture": {
                 "type": "HorizontalLined",
@@ -56,8 +58,8 @@
             "coordinates": [100, -50, 0],
             "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [13, 234, 34, 255],
-                [245, 145, 180, 255]
+                "green",
+                "grey"
             ],
             "texture": {
                 "type": "VerticalLined",
@@ -70,8 +72,8 @@
             "coordinates": [100, 0, 0],
             "values": [1, 1, 0, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
-                [212, 212, 34, 255],
-                [13, 85, 187, 255]
+                "yellow",
+                "red"
             ],
             "texture": {
                 "type": "Grid",
@@ -84,26 +86,11 @@
             "coordinates": [100, 80, 0],
             "values": [3, 5, -1, 0, 0, 0, 0, 0, 0, 0],
             "colors": [
-                [13, 234, 34, 255],
-                [234, 13, 156, 255]
+                "green",
+                "yellow"
             ],
             "texture": {
                 "type": "Gradient",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Polygon",
-            "name": "Cube",
-            "coordinates": [100, -100, -80],
-            "values": [60, 20, 40, 0],
-            "rotation": [0, 0, 0],
-            "colors": [
-                [212, 212, 34, 255],
-                [13, 85, 187, 255]
-            ],
-            "texture": {
-                "type": "Uniform",
                 "values": [0, 0]
             }
         }

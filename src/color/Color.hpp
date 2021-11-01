@@ -34,8 +34,8 @@ class Color
         void setB(int b);
         void setO(int o);
 
-        Color *reduceOf(double ratio);
-        Color *add(Color *c);
+        Color reduceOf(double ratio) const;
+        Color add(const Color &c);
 
         friend std::ostream& operator<<(std::ostream& out, const Color& color);
 };

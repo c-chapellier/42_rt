@@ -26,15 +26,17 @@ Texture::Texture(std::string type, int value1, int value2)
 }
 Texture::~Texture(){}
 
-std::string Texture::getType()
+std::string Texture::getType() const
 {
     return this->type;
 }
-int Texture::getValue1()
+
+int Texture::getValue1() const
 {
     return this->value1;
 }
-int Texture::getValue2()
+
+int Texture::getValue2() const
 {
     return this->value2;
 }

@@ -8,11 +8,11 @@
 class Polygone : public Object
 {
     private:
-        std::vector<Triangle*> triangles;
+        std::vector<Triangle *> triangles;
     public:
-        Polygone(std::vector<Point*> points);
-        Polygone(std::vector<Triangle*> triangles);
-        Polygone(std::vector<Triangle*> triangles, Color *color);
+        Polygone(std::vector<Point *> points);
+        Polygone(std::vector<Triangle *> triangles);
+        Polygone(std::vector<Triangle *> triangles, const Color &color);
         ~Polygone();
 
         Point *intersect(const Line &line) const;

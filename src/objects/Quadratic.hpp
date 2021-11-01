@@ -14,14 +14,15 @@ class Quadratic : public Object
 {
     private:
         double A, B, C, D, E, F, G, H, I, J;
-        Point *p;
+        Point p;
+        
     public:
         Quadratic(double A, double B, double C, double D, double E, double F, double G, double H, double I, double J);
-        Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J);
-        Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, Color *color);
+        Quadratic(const Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J);
+        Quadratic(const Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, const Color &color);
         ~Quadratic();
 
         Point *intersect(const Line &line) const;
         double angleWith(const Line &line) const;
-        Plane *tangentAt(Point *p) const;
+        Plane *tangentAt(const Point &p) const;
 };

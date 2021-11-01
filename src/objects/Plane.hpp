@@ -27,7 +27,7 @@ class Plane : public Object
         Point *intersect(const Line &line) const;
         double angleWith(const Line &line) const;
         double angleWith(const Vector &v) const;
-        double angleWith(Plane *p);
+        double angleWith(const Plane &p) const;
 
         friend std::ostream& operator<<(std::ostream& out, const Plane& plane);
 };

@@ -10,7 +10,7 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
     return createPolygone(type, p, size1, size2, size3, size4, alpha, beta, gama, NULL);
 }
 
-Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double size1, double size2, double size3, double size4, double alpha, double beta, double gama, const Color &color)
 {
     if (type == "Cube"){
         return createParallelepiped(p, size1, size1, size1, alpha, beta, gama, color);
@@ -45,7 +45,7 @@ Polygone *PolygoneFactory::createPolygone(std::string type, Point &p, double siz
         "Unrecognized type of polygone";
 }
 
-Polygone *PolygoneFactory::create1NEdron(Point &p, int precision, double height, double r, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::create1NEdron(Point &p, int precision, double height, double r, double alpha, double beta, double gama, const Color &color)
 {
     Point *top = new Point(0, 0, height / 2);
     Point *bottom = new Point(0, 0, -height / 2);
@@ -84,7 +84,7 @@ Polygone *PolygoneFactory::create1NEdron(Point &p, int precision, double height,
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::create2NEdron(Point &p, int precision, double height, double r, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::create2NEdron(Point &p, int precision, double height, double r, double alpha, double beta, double gama, const Color &color)
 {
     Point *top = new Point(0, 0, height);
     Point *bottom = new Point(0, 0, -height);
@@ -123,7 +123,7 @@ Polygone *PolygoneFactory::create2NEdron(Point &p, int precision, double height,
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createParallelepiped(Point &p, double height, double width, double length, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createParallelepiped(Point &p, double height, double width, double length, double alpha, double beta, double gama, const Color &color)
 {
     Point *p1 = new Point(-(width / 2), -(length / 2), height / 2);
     Point *p2 = new Point(width / 2, -(length / 2), height / 2);
@@ -182,7 +182,7 @@ Polygone *PolygoneFactory::createParallelepiped(Point &p, double height, double 
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createDiamond(Point &p, double h, double H, double r, double R, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createDiamond(Point &p, double h, double H, double r, double R, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -225,7 +225,7 @@ Polygone *PolygoneFactory::createDiamond(Point &p, double h, double H, double r,
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int precision, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int precision, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -258,7 +258,7 @@ Polygone *PolygoneFactory::createTape(Point &p, double R, double width, int prec
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createClosedTape(Point &p, double R, double width, int precision, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createClosedTape(Point &p, double R, double width, int precision, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -303,7 +303,7 @@ Polygone *PolygoneFactory::createClosedTape(Point &p, double R, double width, in
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createMobiusTape(Point &p, double R, double width, int precision, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createMobiusTape(Point &p, double R, double width, int precision, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -343,7 +343,7 @@ Polygone *PolygoneFactory::createMobiusTape(Point &p, double R, double width, in
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createSpiral(Point &p, double R, double width, int precision, int nb_turns, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createSpiral(Point &p, double R, double width, int precision, int nb_turns, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -377,7 +377,7 @@ Polygone *PolygoneFactory::createSpiral(Point &p, double R, double width, int pr
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createTower(Point &p, double R, double width, int precision, int layers, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createTower(Point &p, double R, double width, int precision, int layers, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<std::vector<Point*>> points;
 
@@ -417,7 +417,7 @@ Polygone *PolygoneFactory::createTower(Point &p, double R, double width, int pre
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precision, int layers, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precision, int layers, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<std::vector<Point*>> points;
 
@@ -455,7 +455,7 @@ Polygone *PolygoneFactory::createTorus(Point &p, double R, double r, int precisi
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createRing(Point &p, double R, double r, int precision, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createRing(Point &p, double R, double r, int precision, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;
@@ -488,7 +488,7 @@ Polygone *PolygoneFactory::createRing(Point &p, double R, double r, int precisio
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createCircle(Point &p, double R, int precision, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createCircle(Point &p, double R, int precision, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<Point*> points;
     Point *center = new Point(0, 0, 0);
@@ -516,7 +516,7 @@ Polygone *PolygoneFactory::createCircle(Point &p, double R, int precision, doubl
     return new Polygone(triangles, color);
 }
 
-Polygone *PolygoneFactory::createStar(Point &p, double R, double r, double thick, int branch, double alpha, double beta, double gama, Color *color)
+Polygone *PolygoneFactory::createStar(Point &p, double R, double r, double thick, int branch, double alpha, double beta, double gama, const Color &color)
 {
     std::vector<Point*> sup_points;
     std::vector<Point*> inf_points;

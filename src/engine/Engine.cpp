@@ -98,17 +98,17 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
                     double dist = p->distWith(*camera->getP());
                     double angle = RADIAN(obj->angleWith(l));
 
-                    Color *color = obj->getColorAt(height, width, config->getHeight(), config->getWidth())
-                                    ->reduceOf(1 - exp(-dist / 1000))
-                                    ->reduceOf(cos(angle))
-                                    ->add(this->config->getAmbientColor());
+                    Color color = obj->getColorAt(height, width, config->getHeight(), config->getWidth());
+                    color = color.reduceOf(1 - exp(-dist / 1000));
+                    color = color.reduceOf(cos(angle));
+                    color = color.add(*this->config->getAmbientColor());
 
                     Color blended_color;
 
                     if (dist < pixels[height][width]->get_dist())
-                        this->alphaBlending(blended_color, *color, pixels[height][width]->getColor());
+                        this->alphaBlending(blended_color, color, pixels[height][width]->getColor());
                     else
-                        this->alphaBlending(blended_color, pixels[height][width]->getColor(), *color);
+                        this->alphaBlending(blended_color, pixels[height][width]->getColor(), color);
 
                     pixels[height][width]->setColor(blended_color);
 

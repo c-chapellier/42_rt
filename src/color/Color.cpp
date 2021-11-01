@@ -90,23 +90,25 @@ int Color::getByO(int c)
     return (int)res;
 }
 
-Color *Color::reduceOf(double ratio)
+Color Color::reduceOf(double ratio) const
 {
     if (ratio < 0.0 || ratio > 1.0)
         throw "Color::reduceOf percentage bad";
+
     double new_r, new_g, new_b;
+
     new_r = (double)this->r * (1.0 - ratio);
     new_g = (double)this->g * (1.0 - ratio);
     new_b = (double)this->b * (1.0 - ratio);
-    return new Color((int)new_r, (int)new_b, (int)new_g, this->o);
+
+    return Color((int)new_r, (int)new_b, (int)new_g, this->o);
 }
 
-Color *Color::add(Color *c)
+Color Color::add(const Color &c)
 {
-    this->r += c->getR();
-    this->g += c->getG();
-    this->b += c->getB();
-    //this->o += c->getO();
+    this->r += c.getR();
+    this->g += c.getG();
+    this->b += c.getB();
 
     if (this->r > 255)
         this->r = 255;   
@@ -114,10 +116,8 @@ Color *Color::add(Color *c)
         this->g = 255;    
     if (this->b > 255)
         this->b = 255;
-    // if (this->o > 255)
-    //     this->o = 255;
         
-    return this;
+    return Color(this->r, this->g, this->b, this->o);
 }
 
 std::ostream& operator<< (std::ostream& out, const Color& color)

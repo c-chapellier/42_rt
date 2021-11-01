@@ -20,6 +20,7 @@ private:
     int precision_height;
     int precision_width;
 
+    // const unsigned int nbrOfThreads = 1;
     const unsigned int nbrOfThreads = std::thread::hardware_concurrency();
 
     void parse(std::string config_file);

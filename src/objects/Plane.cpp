@@ -59,7 +59,12 @@ Point *Plane::intersect(const Line &line) const
 // 
 double Plane::angleWith(const Vector &v) const
 {
-    return DEGREE(asin((this->v.scalarProduct(v) / (this->v.getMagnitude() * v.getMagnitude()))));
+    double d = this->v.getMagnitude() * v.getMagnitude();
+
+    if (d == 0.0)
+        std::cout << "Plane::angleWith: div by 0" << std::endl;
+
+    return DEGREE(asin((this->v.scalarProduct(v) / d)));
 }
 
 double Plane::angleWith(const Line &line) const
@@ -67,9 +72,9 @@ double Plane::angleWith(const Line &line) const
     return this->angleWith(line.getV());
 }
 
-double Plane::angleWith(Plane *p)
+double Plane::angleWith(const Plane &p) const
 {
-    return this->v.angleWith(p->v);
+    return this->v.angleWith(p.v);
 }
 
 std::ostream& operator<< (std::ostream& out, const Plane& plane)

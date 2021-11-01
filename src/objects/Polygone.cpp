@@ -11,16 +11,16 @@ Polygone::Polygone(std::vector<Point*> points) : Object()
 }
 Polygone::Polygone(std::vector<Triangle*> triangles) : Object()
 {
-    if(triangles.size() < 1)
+    if (triangles.size() < 1)
         throw "Can not create a polygone without any triangle";
     for (unsigned long i = 0; i < triangles.size(); ++i)
     {
         this->triangles.push_back(new Triangle(*triangles[i]));
     }
 }
-Polygone::Polygone(std::vector<Triangle*> triangles, Color *color) : Object(color)
+Polygone::Polygone(std::vector<Triangle*> triangles, const Color &color) : Object(color)
 {
-    if(triangles.size() < 1)
+    if (triangles.size() < 1)
         throw "Can not create a polygone without any triangle";
     for (unsigned long i = 0; i < triangles.size(); ++i)
     {

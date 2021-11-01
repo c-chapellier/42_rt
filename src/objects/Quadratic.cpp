@@ -1,28 +1,29 @@
 #include "Quadratic.hpp"
 
-Quadratic::Quadratic(double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) : Object(), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
+Quadratic::Quadratic(double A, double B, double C, double D, double E, double F, double G, double H, double I, double J)
+    : Object(), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J), p(0, 0, 0)
 {
-    this->p = new Point(0, 0, 0);
 }
-Quadratic::Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) : A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
+
+Quadratic::Quadratic(const Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J)
+    : A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J), p(p)
 {
-    this->p = new Point(p);
 }
-Quadratic::Quadratic(Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, Color *color) : Object(color), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
+
+Quadratic::Quadratic(const Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, const Color &color)
+    : Object(color), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J), p(p)
 {
-    this->p = new Point(p);
 }
 Quadratic::~Quadratic()
 {
-    delete(this->p);
 }
 
 Point *Quadratic::intersect(const Line &line) const
 {
     double x0, y0, z0, x1, y1, z1, a, b, c, t0, t1, t2, delta;
-    x0 = this->p->getX();
-    y0 = this->p->getY();
-    z0 = this->p->getZ();
+    x0 = this->p.getX();
+    y0 = this->p.getY();
+    z0 = this->p.getZ();
     x1 = line.getP().getX();
     y1 = line.getP().getY();
     z1 = line.getP().getZ();
@@ -121,12 +122,12 @@ Point *Quadratic::intersect(const Line &line) const
 // Fy => 2By + E + Gx + Iz
 // Fz => 2Cz + F + Hx + Iy
 // Fx(x - x₀) + Fy(y - y₀) + Fz(z -z₀) = 0 : Plane equation
-Plane *Quadratic::tangentAt(Point *p) const
+Plane *Quadratic::tangentAt(const Point &p) const
 {
     double a, b, c, d, e, f, g, h, i, x0, y0, z0;
-    x0 = this->p->getX();
-    y0 = this->p->getY();
-    z0 = this->p->getZ();
+    x0 = this->p.getX();
+    y0 = this->p.getY();
+    z0 = this->p.getZ();
 
     a = A;
     b = B;
@@ -149,19 +150,20 @@ Plane *Quadratic::tangentAt(Point *p) const
 
     double Fx, Fy, Fz;
 
-    Fx = 2 * a * p->getX() +
+    Fx = 2 * a * p.getX() +
         d +
-        g * p->getY() +
-        h * p->getZ();
-    Fy = 2 * b * p->getY() +
+        g * p.getY() +
+        h * p.getZ();
+    Fy = 2 * b * p.getY() +
         e +
-        g * p->getX() +
-        i * p->getZ();
-    Fz = 2 * c * p->getZ() +
+        g * p.getX() +
+        i * p.getZ();
+    Fz = 2 * c * p.getZ() +
         f +
-        h * p->getX() +
-        i * p->getY();
-    return new Plane(*p, Fx, Fy, Fz);
+        h * p.getX() +
+        i * p.getY();
+
+    return new Plane(p, Fx, Fy, Fz);
 }
 
 double Quadratic::angleWith(const Line &line) const
@@ -171,5 +173,5 @@ double Quadratic::angleWith(const Line &line) const
     if (p == NULL)
         throw "Quadratic::angleWith: line is not intersecting";
 
-    return this->tangentAt(p)->angleWith(line);
+    return this->tangentAt(*p)->angleWith(line);
 }

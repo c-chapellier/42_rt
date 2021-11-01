@@ -23,9 +23,9 @@ std::list<Object*> Parser::getObjects()
             Plane *plane = new Plane(obj["point"][0], obj["point"][1], obj["point"][2], obj["normal"][0], obj["normal"][1], obj["normal"][2]);
 
             for (auto const& color : obj["colors"])
-                plane->addColor(this->colorManager->getColor(color));
+                plane->addColor(*this->colorManager->getColor(color));
 
-            plane->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+            plane->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(plane);
         }
         else if (obj["type"] == "Quadratic") {
@@ -44,9 +44,9 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][9]
             );
             for(auto const& color : obj["colors"]) {
-                quadratic->addColor(this->colorManager->getColor(color));
+                quadratic->addColor(*this->colorManager->getColor(color));
             }
-            quadratic->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+            quadratic->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(quadratic);
         } else if (obj["type"] == "Polygon")
         {
@@ -63,9 +63,9 @@ std::list<Object*> Parser::getObjects()
                 obj["rotation"][2]
             );
             for(auto const& color : obj["colors"]) {
-                polygon->addColor(this->colorManager->getColor(color));
+                polygon->addColor(*this->colorManager->getColor(color));
             }
-            polygon->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+            polygon->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
             objects.push_back(polygon);
         } else if (obj["type"] == "Shape") {
             Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
@@ -81,9 +81,9 @@ std::list<Object*> Parser::getObjects()
             );
             for(int i = 0; i < (int)shape.size(); ++i){
                 for(auto const& color : obj["colors"]) {
-                    shape[i]->addColor(this->colorManager->getColor(color));
+                    shape[i]->addColor(*this->colorManager->getColor(color));
                 }
-                shape[i]->setTexture(new Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+                shape[i]->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
                 objects.push_back(shape[i]);
             }
         } else {

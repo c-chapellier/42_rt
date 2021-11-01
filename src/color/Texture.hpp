@@ -15,9 +15,9 @@ class Texture
         Texture(std::string type, int value1, int value2);
         ~Texture();
 
-        std::string getType();
-        int getValue1();
-        int getValue2();
+        std::string getType() const;
+        int getValue1() const;
+        int getValue2() const;
 
         void setType(std::string type);
         void setValue1(int v1);

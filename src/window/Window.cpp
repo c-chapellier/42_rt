@@ -41,6 +41,7 @@ void Window::pause()
 
     while (SDL_WaitEvent(&event))
     {
+        //std::cout << event.key.keysym.sym << std::endl;
         // this->event_info(event);
         switch (event.type)
         {
@@ -57,6 +58,10 @@ void Window::pause()
                         break;
                     case SDLK_LEFT:
                         this->set_prev_image();
+                        break;
+                    case SDLK_s:
+                        if (event.key.keysym.mod == KMOD_LCTRL)
+                            Saver::saveToBMP(this->height, this->width, this->imgs[img_index].getPixels());
                         break;
                 }
             }

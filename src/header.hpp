@@ -1,10 +1,12 @@
 #pragma once
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
 #include <thread>
 
+#include <vector>
 #include <list>
 #include <map>
 

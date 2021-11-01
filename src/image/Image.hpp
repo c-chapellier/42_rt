@@ -17,6 +17,8 @@ public:
     Image(Image *img);
     ~Image();
 
+    std::vector< std::vector<Pixel> > getPixels();
+
     bool is_valid(int height, int width);
 
     Image &operator=(const Image &img);

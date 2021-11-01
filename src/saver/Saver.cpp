@@ -4,71 +4,48 @@ Saver::Saver(){}
 
 Saver::~Saver(){}
 
-void Saver::saveToPng(int width, int height)
-{
-    
-    std::ofstream outfile("test13.png", std::ios::binary | std::ios::out);
-    writePngHeader(&outfile);
-    writePngChunkIHDR(&outfile, width, height);
-    writePngChunkPLTE(&outfile);
-    writePngChunkIDAT(&outfile);
-    writePngChunkIEND(&outfile);
+void Saver::saveToBMP(int height, int width, std::vector<std::vector<Pixel>> pixels) {
+    int r = rand();
+    int d = 0;
+    unsigned short s = 0;
+    mkdir("savedPictures",0777);
+    std::string file_name = "savedPictures/save_" + std::to_string(r) + ".bmp";
+
+    std::ofstream outfile (file_name, std::ofstream::binary);
+
+    // write header
+    outfile.write("BM", 2);
+    d = 26 + (width * height * 3);
+    outfile.write((char*)((void*)&d), 4);
+    d = 0;
+    outfile.write((char*)((void*)&d), 4);
+    d = 26;
+    outfile.write((char*)((void*)&d), 4);
+
+    // write dib
+    d = 12;
+    outfile.write((char*)((void*)&d), 4);
+    s = width;
+    outfile.write((char*)((void*)&s), 2);
+    s = height;
+    outfile.write((char*)((void*)&s), 2);
+    s = 1;
+    outfile.write((char*)((void*)&s), 2);
+    s = 24;
+    outfile.write((char*)((void*)&s), 2);
+
+    // write data
+    for (int h = 0; h < height; ++h) {
+        for (int w = 0; w < width; ++w) {
+            int color = rgbToInt(
+                pixels[h][w].getColor().getR(), 
+                pixels[h][w].getColor().getG(), 
+                pixels[h][w].getColor().getB());
+            outfile.write((char*)((void*)&color), 3);
+        }
+    }
+
     outfile.close();
-}
 
-void Saver::writePngHeader(std::ofstream *outfile)
-{
-    std::string header = "89504e470d0a1a0a";
-    outputHex(outfile, header);
-}
-
-void Saver::writePngChunkIHDR(std::ofstream *outfile, int width, int height)
-{
-    std::string chunk_size = itohex(13);
-    std::string chunk_type = "IHDR";
-
-    outputHex(outfile, chunk_size); // length
-    output(outfile, chunk_type); // type
-    outputHex(outfile, itohex(width));
-    outputHex(outfile, itohex(height));
-    outputHex(outfile, itohex(16)); // bit depth (1 byte, values 1, 2, 4, 8, or 16)
-    outputHex(outfile, itohex(3)); // color type (1 byte, values 0, 2, 3, 4, or 6)
-    outputHex(outfile, itohex(0)); // compression method (1 byte, value 0)
-    outputHex(outfile, itohex(0)); // filter method (1 byte, value 0)
-    outputHex(outfile, itohex(0)); // interlace method (1 byte, values 0 "no interlace" or 1 "Adam7 interlace")
-
-    outputHex(outfile, itohex(0)); // CRC
-}
-
-void Saver::writePngChunkPLTE(std::ofstream *outfile)
-{
-    std::string chunk_size = itohex(0);
-    std::string chunk_type = "PLTE";
-
-    outputHex(outfile, chunk_size); // length
-    output(outfile, chunk_type); // type
-
-    outputHex(outfile, itohex(0)); // CRC
-}
-
-void Saver::writePngChunkIDAT(std::ofstream *outfile)
-{
-    std::string chunk_size = itohex(0);
-    std::string chunk_type = "IDAT";
-
-    outputHex(outfile, chunk_size); // length
-    output(outfile, chunk_type); // type
-
-    outputHex(outfile, itohex(0)); // CRC
-}
-
-void Saver::writePngChunkIEND(std::ofstream *outfile)
-{
-    std::string chunk_size = itohex(0);
-    std::string chunk_type = "IEND";
-
-    outputHex(outfile, chunk_size); // length
-    output(outfile, chunk_type); // type
-
-    outputHex(outfile, itohex(0)); // CRC
+    std::cout << "Image saved in: " << file_name << std::endl;
 }

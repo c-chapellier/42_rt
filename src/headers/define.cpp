@@ -15,6 +15,16 @@ double mod(double x, double z){
     return x;
 }
 
+int rgbToInt(int r, int g, int b)
+{
+    int c = 0;
+
+    c = r * pow(16, 4);
+    c += g * pow(16, 2);
+    c += b;
+    return c;
+}
+
 std::string itohex(int n) {
     std::string res;
     char hex_string[20];

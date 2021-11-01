@@ -1,5 +1,6 @@
 #pragma once
 
+#include <math.h>
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -15,6 +16,8 @@
 double neg(double x);
 double pos(double x);
 double mod(double x, double z);
+
+int rgbToInt(int r, int g, int b);
 
 std::string itohex(int n);
 

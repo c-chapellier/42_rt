@@ -19,6 +19,7 @@ Color TextureAplicator::applyTextureOnSphereAt(Sphere *sp, Point &intersection) 
     Vector v(tmp, intersection);
     Vector x_axis(0, 1, 0);
     double alpha = v.angleWith(x_axis);
+    alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
     x_ratio = alpha / 360;
 
     return sp->getTexture().getImageTextureAt(y_ratio, x_ratio);

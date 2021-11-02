@@ -62,10 +62,38 @@ Point *Sphere::intersect(const Line &line) const
     }
     return res;
 }
+
 double Sphere::angleWith(const Line &line) const
 {
     Point *tmp = intersect(line);
     Plane plane(*tmp, this->p);
     delete(tmp);
     return plane.angleWith(line);
+}
+
+Color Sphere::getColorAt(int height, int width, int screen_height, int screenWidth, Point &intersection)
+{
+    screenWidth = 0;
+
+    if (this->texture.getType() == "Uniform") {
+        return getColor();
+    } else if (this->texture.getType() == "Gradient") {
+        double p = (double)((double)height / (double)screen_height);
+        return Color(
+            getColor(0).getR() + (int)((double)((double)getColor(1).getR() - (double)getColor(0).getR()) * p),
+            getColor(0).getG() + (int)((double)((double)getColor(1).getG() - (double)getColor(0).getG()) * p),
+            getColor(0).getB() + (int)((double)((double)getColor(1).getB() - (double)getColor(0).getB()) * p),
+            getColor(0).getO() + (int)((double)((double)getColor(1).getO() - (double)getColor(0).getO()) * p)
+        );
+    } else if (this->texture.getType() == "Grid") {
+        return getColor(((height / this->texture.getValue1()) + (width / this->texture.getValue2())) % 2);
+    } else if (this->texture.getType() == "VerticalLined") {
+        return getColor((width / this->texture.getValue1()) % 2);
+    } else if (this->texture.getType() == "HorizontalLined") {
+        return getColor((height / this->texture.getValue1()) % 2);
+    } else if (this->texture.getType() == "Image") {
+        return TextureAplicator::applyTextureOnSphereAt(this, intersection);
+    } else {
+        throw "Should never happen";
+    }
 }

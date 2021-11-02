@@ -10,10 +10,15 @@ int main(int argc, char *argv[])
     {
         if (argc < 2)
             throw std::string("Usage: ") + argv[0] + " <config file>";
-
+        int flags = IMG_INIT_JPG|IMG_INIT_PNG;
+        int initted = IMG_Init(flags);
+        if((initted&flags) != flags) {
+            throw "IMG_Init: Failed to init required jpg and png support!";
+        }
         Engine engine(argv[1]);
         
         engine.run();
+        IMG_Quit();
         //texture();
     }
     catch (const std::exception& e)

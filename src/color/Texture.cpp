@@ -6,6 +6,7 @@ Texture::Texture()
     setValue1(0);
     setValue2(0);
     setFile("NoFile");
+    img = NULL;
 }
 Texture::Texture(std::string type)
 {
@@ -13,6 +14,7 @@ Texture::Texture(std::string type)
     setValue1(0);
     setValue2(0);
     setFile("NoFile");
+    img = NULL;
 }
 Texture::Texture(std::string type, std::string file)
 {
@@ -27,6 +29,7 @@ Texture::Texture(std::string type, int value1)
     setValue1(value1);
     setValue2(0);
     setFile("NoFile");
+    img = NULL;
 }
 Texture::Texture(std::string type, int value1, int value2)
 {
@@ -34,6 +37,7 @@ Texture::Texture(std::string type, int value1, int value2)
     setValue1(value1);
     setValue2(value2);
     setFile("NoFile");
+    img = NULL;
 }
 Texture::Texture(std::string type, int value1, int value2, std::string file)
 {
@@ -91,9 +95,22 @@ void Texture::setValue2(int v2)
 }
 void Texture::setFile(std::string file)
 {
-    std::ifstream myFile(file);
-    if (file != "NoFile" && !myFile.is_open())
-        throw "Can not open texture file";
-    myFile.close();
+    if(file == "NoFile")
+        return ;
+    this->img = IMG_Load(file.c_str());
+    std::cout << file << std::endl;
+    if (this->img == nullptr) {
+        throw "IMG_Load: Failed to load required jpg and png support!";
+    } 
     this->file = file;
+}
+
+Color Texture::getImageTextureAt(double h, double w)
+{
+    int height = floor((double)img->h * h);
+    int width = floor((double)img->w * w);
+    int r = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3)];
+    int g = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3) + 1];
+    int b = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3) + 2];
+    return Color(r, g, b, 255);
 }

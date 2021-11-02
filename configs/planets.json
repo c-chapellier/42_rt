@@ -1,0 +1,101 @@
+{
+    "name": "sphere",
+    "width": 1200,
+    "height": 1200,
+    "colors" : {
+        "red": [255, 0, 0, 20],
+        "yellow": [255, 255, 0, 80],
+        "blue": [0, 0, 255, 255],
+        "ambient": [20, 20, 20, 200],
+        "white": [255, 0, 0, 255]
+    },
+    "ambient": "ambient",
+    "precision": 2,
+    "cameras": [
+        {
+            "coordinates": [-500, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [-1000, 1000, 0],
+            "color": "white"
+        }
+    ],
+    "objects": [
+        {
+            "type": "Sphere",
+            "coordinates": [0, 250, 0],
+            "radius" : 40,
+            "colors": [
+                "red"
+            ],
+            "texture": {
+                "type": "Image",
+                "file": "textures/sun.jpg"
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, 150, 0],
+            "radius" : 40,
+            "colors": [
+                "red"
+            ],
+            "texture": {
+                "type": "Image",
+                "file": "textures/mercury.jpg"
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, 50, 0],
+            "radius" : 40,
+            "colors": [
+                "red"
+            ],
+            "texture": {
+                "type": "Image",
+                "file": "textures/venus.jpg"
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, -50, 0],
+            "radius" : 40,
+            "colors": [
+                "red"
+            ],
+            "texture": {
+                "type": "Image",
+                "file": "textures/earth.jpg"
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, -150, 0],
+            "radius" : 40,
+            "colors": [
+                "red"
+            ],
+            "texture": {
+                "type": "Image",
+                "file": "textures/mars.jpg"
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, -250, 0],
+            "radius" : 40,
+            "colors": [
+                "red"
+            ],
+            "texture": {
+                "type": "Image",
+                "file": "textures/jupiter.jpg"
+            }
+        }
+    ]
+}

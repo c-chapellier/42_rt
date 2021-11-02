@@ -98,7 +98,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
                     double dist = p->distWith(*camera->getP());
                     double angle = RADIAN(obj->angleWith(l));
 
-                    Color color = obj->getColorAt(height, width, config->getHeight(), config->getWidth());
+                    Color color = obj->getColorAt(height, width, config->getHeight(), config->getWidth(), *p);
                     color = color.reduceOf(1 - exp(-dist / 1000));
                     color = color.reduceOf(cos(angle));
                     color = color.add(*this->config->getAmbientColor());

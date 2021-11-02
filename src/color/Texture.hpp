@@ -1,8 +1,13 @@
 #pragma once
 
-#include <string>
 #include <iostream>
 #include <fstream>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_timer.h>
+
+#include "Color.hpp"
 
 class Texture
 {
@@ -11,6 +16,7 @@ class Texture
         int value1;
         int value2;
         std::string file;
+        SDL_Surface *img;
     public:
         Texture();
         Texture(std::string type);
@@ -29,4 +35,6 @@ class Texture
         void setValue1(int v1);
         void setValue2(int v2);
         void setFile(std::string file);
+
+        Color getImageTextureAt(double h, double w);
 };

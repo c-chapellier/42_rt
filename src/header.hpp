@@ -21,9 +21,11 @@
 
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
-#include "objects/components/Line.hpp"
+#include "objects/Sphere.hpp"
 #include "objects/Quadratic.hpp"
 #include "objects/Polygone.hpp"
+#include "objects/components/Line.hpp"
+
 #include "objects/factories/AlphaFactory.hpp"
 #include "objects/factories/PolygoneFactory.hpp"
 #include "objects/factories/ShapeFactory.hpp"
@@ -32,6 +34,8 @@
 #include "blackObjects/BlackSphere.hpp"
 #include "blackObjects/BlackCylinder.hpp"
 
+#include "solver/Complex.hpp"
+#include "solver/EquationSolver.hpp"
 
 #include "headers/define.hpp"
 

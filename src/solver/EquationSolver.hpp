@@ -3,6 +3,8 @@
 #include <list>
 #include <math.h>
 
+#include "Complex.hpp"
+
 class EquationSolver
 {
     public:

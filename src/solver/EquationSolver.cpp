@@ -35,37 +35,41 @@ std::list<double> EquationSolver::solveCubicEquation(double a, double b, double 
 
     std::list<double> solutions;
 
-    if(d == 0) {
-        solutions.push_back(0);
-        std::list<double> tmp = solveQuadraticEquation(a, b, c);
-        for(auto const s : tmp) {
-            bool alreadyIn = false;
-            for(auto const s_prime : solutions) {
-                if (s_prime == s)
-                    alreadyIn = true;
-            }
-            if(alreadyIn == false) {
-                solutions.push_back(s);
-            }
-        }
-    } else {
-        double delta0 = pow(b, 2) - (3 *a * c);
-        double delta1 = (2 * pow(b, 3)) - (9 * a * b * c) + (27 * pow(a, 2) * d);
-        double delta = (pow(delta1, 2) - (4 * pow(delta0, 3))) / (27 * pow(a, 2));
-        double C = pow(sqrt(pow(delta1, 2) - (4 * pow(delta0, 3)) + delta1) / 2.0, 1.0 / 3.0);
-        double u = (-1 + sqrt(-3)) / 2.0;
-        for (int n = 1; n < 4; ++n) {
-            double s = -(b + (pow(u, n) * C) + (delta0 / (pow(u, n) * C))) / (3 * a);
-            bool alreadyIn = false;
-            for(auto const s_prime : solutions) {
-                if (s_prime == s)
-                    alreadyIn = true;
-            }
-            if(alreadyIn == false) {
-                solutions.push_back(s);
-            }
-        }
-    }
+    // if(d == 0) {
+    //     solutions.push_back(0);
+    //     std::list<double> tmp = solveQuadraticEquation(a, b, c);
+    //     for(auto const s : tmp) {
+    //         bool alreadyIn = false;
+    //         for(auto const s_prime : solutions) {
+    //             if (s_prime == s)
+    //                 alreadyIn = true;
+    //         }
+    //         if(alreadyIn == false) {
+    //             solutions.push_back(s);
+    //         }
+    //     }
+    // } else {
+    //     // Coef
+    //     double delta0 = pow(b, 2) - (3 *a * c);
+    //     double delta1 = (2 * pow(b, 3)) - (9 * a * b * c) + (27 * pow(a, 2) * d);
+    //     double delta = (pow(delta1, 2) - (4 * pow(delta0, 3))) / (27 * pow(a, 2));
+    //     double tmp = pow(delta1, 2) - (4 * pow(delta0, 3)) + delta1;
+    //     double C = pow(sqrt(tmp) / 2.0, 1.0 / 3.0);
+    //     //double u = (-1 + sqrt(-3)) / 2.0;
+    //     Complex u(-1.0 / 2.0, sqrt(3.0) / 2.0);
+    //     // for (int n = 1; n < 4; ++n) {
+    //     //     double s = -(1 / (3 * a)) * ((u.pow(n) * C) + b + (delta0))
+    //     //     //double s = -(b + (pow(u, n) * C) + (delta0 / (pow(u, n) * C))) / (3 * a);
+    //     //     bool alreadyIn = false;
+    //     //     for(auto const s_prime : solutions) {
+    //     //         if (s_prime == s)
+    //     //             alreadyIn = true;
+    //     //     }
+    //     //     if(alreadyIn == false) {
+    //     //         solutions.push_back(s);
+    //     //     }
+    //     // }
+    // }
 
     return solutions;
 }

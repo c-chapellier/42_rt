@@ -3,9 +3,9 @@
     "width": 600,
     "height": 600,
     "colors" : {
-        "red": [234, 15, 34, 20],
-        "red_green": [234, 234, 58, 80],
-        "blue": [56, 13, 234, 255],
+        "red": [255, 0, 0, 20],
+        "red_green": [255, 255, 0, 80],
+        "blue": [0, 0, 255, 255],
         "ambient": [20, 20, 20, 200],
         "white": [255, 0, 0, 255]
     },
@@ -13,6 +13,7 @@
     "ambient": "ambient",
     "blur": 0,
     "filter": "None",
+    "perlinNoise": false,
     "cameras": [
         {
             "coordinates": [-100, 0, 0],
@@ -38,10 +39,10 @@
     ],
     "objects": [
         {
-            "type": "Quadratic",
+            "type": "Sphere",
             "name": "Sphere",
             "coordinates": [0, 0, -10],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "radius" : 30,
             "colors": [
                 "red"
             ],
@@ -51,10 +52,10 @@
             }
         },
         {
-            "type": "Quadratic",
+            "type": "Sphere",
             "name": "Sphere",
             "coordinates": [0, 15, 10],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "radius" : 30,
             "colors": [
                 "red_green"
             ],
@@ -64,10 +65,10 @@
             }
         },
         {
-            "type": "Quadratic",
+            "type": "Sphere",
             "name": "Sphere",
             "coordinates": [0, -15, 10],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "radius" : 30,
             "colors": [
                 "blue"
             ],

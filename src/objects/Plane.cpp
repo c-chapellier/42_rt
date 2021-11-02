@@ -5,6 +5,9 @@ Plane::Plane(const double px, const double py, const double pz, const double vx,
 {
 }
 
+Plane::Plane(const Point &p1, const Point &p2) : Object(), p(p1), v(p2, p1)
+{}
+
 Plane::Plane(const Point &p, const Vector &v)
     : Object(), p(p), v(v)
 {

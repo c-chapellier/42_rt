@@ -8,8 +8,28 @@ Parser::Parser(std::string config_file)
     this->colorManager = new ColorManager(this->j["colors"]);
 }
 
-Parser::~Parser()
-{
+Parser::~Parser() {}
+
+Texture Parser::getTexture(nlohmann::json json) {
+    nlohmann::json t = json["texture"];
+    if (t == nullptr) {
+        std::cout << "no texture" << std::endl;
+        Texture texture;
+        return texture;
+    } else if (t["type"] == "Image") {
+        Texture texture(
+            t["type"],
+            (std::string)t["file"]
+        );
+        return texture;
+    } else {
+        Texture texture(
+            t["type"],
+            t["values"][0],
+            t["values"][1]
+        );
+        return texture;
+    }
 }
 
 std::list<Object*> Parser::getObjects()
@@ -31,7 +51,7 @@ std::list<Object*> Parser::getObjects()
             for (auto const& color : obj["colors"])
                 plane->addColor(*this->colorManager->getColor(color));
 
-            plane->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+            plane->setTexture(getTexture(obj));
             objects.push_back(plane);
 
         } else if (obj["type"] == "Sphere") {
@@ -45,10 +65,15 @@ std::list<Object*> Parser::getObjects()
             for (auto const& color : obj["colors"])
                 sp->addColor(*this->colorManager->getColor(color));
 
-            sp->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+            sp->setTexture(getTexture(obj));
             objects.push_back(sp);
+
         } else if (obj["type"] == "Quadratic") {
-            Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
+            Point coordinates(
+                obj["coordinates"][0], 
+                obj["coordinates"][1], 
+                obj["coordinates"][2]
+            );
             Quadratic *quadratic = new Quadratic(
                 coordinates,
                 obj["values"][0],
@@ -62,13 +87,18 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][8],
                 obj["values"][9]
             );
-            for(auto const& color : obj["colors"]) {
+            for(auto const& color : obj["colors"])
                 quadratic->addColor(*this->colorManager->getColor(color));
-            }
-            quadratic->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+
+            quadratic->setTexture(getTexture(obj));
             objects.push_back(quadratic);
+
         } else if (obj["type"] == "Polygon") {
-            Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
+            Point coordinates(
+                obj["coordinates"][0], 
+                obj["coordinates"][1], 
+                obj["coordinates"][2]
+            );
             Polygone *polygon = PolygoneFactory::createPolygone(
                 obj["name"],
                 coordinates,
@@ -80,13 +110,18 @@ std::list<Object*> Parser::getObjects()
                 obj["rotation"][1],
                 obj["rotation"][2]
             );
-            for(auto const& color : obj["colors"]) {
+            for(auto const& color : obj["colors"])
                 polygon->addColor(*this->colorManager->getColor(color));
-            }
-            polygon->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+
+            polygon->setTexture(getTexture(obj));
             objects.push_back(polygon);
+
         } else if (obj["type"] == "Shape") {
-            Point coordinates(obj["coordinates"][0], obj["coordinates"][1], obj["coordinates"][2]);
+            Point coordinates(
+                obj["coordinates"][0], 
+                obj["coordinates"][1], 
+                obj["coordinates"][2]
+            );
             std::vector<Object *> shape = ShapeFactory::createShape(
                 obj["name"],
                 coordinates,
@@ -101,7 +136,7 @@ std::list<Object*> Parser::getObjects()
                 for(auto const& color : obj["colors"]) {
                     shape[i]->addColor(*this->colorManager->getColor(color));
                 }
-                shape[i]->setTexture(Texture(obj["texture"]["type"], obj["texture"]["values"][0], obj["texture"]["values"][1]));
+                shape[i]->setTexture(getTexture(obj));
                 objects.push_back(shape[i]);
             }
         } else {
@@ -178,10 +213,10 @@ Config *Parser::getConfig()
 
     config->setHeight(this->j["height"]);
     config->setWidth(this->j["width"]);
-    config->setPrecision(this->j["precision"]);
     config->setAmbientColor(this->colorManager->getColor(this->j["ambient"]));
-    config->setBlur(this->j["blur"]);
-    config->setFilter(this->j["filter"]);
-    config->setPerlinNoise(this->j["perlinNoise"]);
+    try { config->setPrecision(this->j["precision"]); } catch(...) { config->setPrecision(1); }
+    try { config->setBlur(this->j["blur"]); } catch(...) { config->setBlur(0); }
+    try { config->setFilter(this->j["filter"]); } catch(...) { config->setFilter("None"); }
+    try { config->setPerlinNoise(this->j["perlinNoise"]); } catch(...) { config->setPerlinNoise(false); }
     return config;
 }

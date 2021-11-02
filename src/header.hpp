@@ -9,6 +9,10 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_timer.h>
 
 #include "window/Window.hpp"
 #include "visuals/Camera.hpp"

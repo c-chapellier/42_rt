@@ -13,6 +13,8 @@ class Parser
     private:
         nlohmann::json j;
         ColorManager *colorManager;
+
+        Texture getTexture(nlohmann::json json);
     public:
         Parser(std::string config_file);
         ~Parser();

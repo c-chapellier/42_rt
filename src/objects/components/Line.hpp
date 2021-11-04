@@ -26,7 +26,7 @@ class Line
 
         double distWith(const Point &p) const;
 
-        Point *getPointFor(double t) const;
+        Point getPointFor(double t) const;
         Point *getPointAt(double dist);
 
         friend std::ostream& operator<< (std::ostream& out, const Line& line);

@@ -35,7 +35,7 @@ Vector &Plane::getV()
     return this->v;
 }
 
-Point *Plane::intersect(const Line &line) const
+Point Plane::intersect(const Line &line) const
 {
     double a, b, c, K;
     a = this->v.getX();
@@ -47,10 +47,10 @@ Point *Plane::intersect(const Line &line) const
     C = (a * line.getP().getX()) + (b * line.getP().getY()) + (c * line.getP().getZ());
     if(t == 0 && C != K){
         // no intersection
-        return NULL;
+        throw "Line do not intersect the plane";
     } else if (t == 0 && C == K) {
         // the line is in the plane
-        return NULL;
+        throw "Line do not intersect the plane";
     } else {
         double s1 = (K - C) / t;
         return line.getPointFor(s1);

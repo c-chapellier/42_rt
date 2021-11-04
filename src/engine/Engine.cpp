@@ -56,18 +56,17 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
 
                     for (auto const& obj : this->objects)
                     {
-                        Point *p = obj->intersect(l);
-                            
-                        if (p != NULL)
-                        {
-                            double dist_obj_light = p->distWith(*light->getP());
+                        try {
+                            Point p = obj->intersect(l);
+                            double dist_obj_light = p.distWith(*light->getP());
 
                             if (dist_obj_light + 0.0000000001 < dist_pxl_light)
                             {
                                 is_shined = false;
                                 break ;
                             }
-                        }
+                        } catch(...) {}
+                        
                     }
 
                     if (is_shined)
@@ -90,35 +89,38 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
         {
             for (int width = 0; width < this->precision_width; ++width)
             {
-                Line l(*camera->getP(), screen[height][width]);
-                Point *p = obj->intersect(l);
-                
-                if (p != NULL && !this->blackObjectsContains(*p))
-                {
-                    double dist = p->distWith(*camera->getP());
-                    double angle = RADIAN(obj->angleWith(l));
-
-                    Color color = obj->getColorAt(height, width, config->getHeight(), config->getWidth(), *p);
-                    color = color.reduceOf(1 - exp(-dist / 1000));
-                    color = color.reduceOf(cos(angle));
-                    color = color.add(*this->config->getAmbientColor());
-
-                    Color blended_color;
-
-                    if (dist < pixels[height][width]->get_dist())
-                        this->alphaBlending(blended_color, color, pixels[height][width]->getColor());
-                    else
-                        this->alphaBlending(blended_color, pixels[height][width]->getColor(), color);
-
-                    pixels[height][width]->setColor(blended_color);
-
-                    if (dist < pixels[height][width]->get_dist())
+                try {
+                    Line l(*camera->getP(), screen[height][width]);
+                    Point p = obj->intersect(l);
+                    
+                    if (!this->blackObjectsContains(p))
                     {
-                        pixels[height][width]->setDist(dist);
-                        pixels[height][width]->setLocation(*p);
-                        pixels[height][width]->setObject(obj);
+                        double dist = p.distWith(*camera->getP());
+                        double angle = RADIAN(obj->angleWith(l));
+
+                        Color color = obj->getColorAt(height, width, config->getHeight(), config->getWidth(), p);
+                        color = color.reduceOf(1 - exp(-dist / 1000));
+                        color = color.reduceOf(cos(angle));
+                        color = color.add(*this->config->getAmbientColor());
+
+                        Color blended_color;
+
+                        if (dist < pixels[height][width]->get_dist())
+                            this->alphaBlending(blended_color, color, pixels[height][width]->getColor());
+                        else
+                            this->alphaBlending(blended_color, pixels[height][width]->getColor(), color);
+
+                        pixels[height][width]->setColor(blended_color);
+
+                        if (dist < pixels[height][width]->get_dist())
+                        {
+                            pixels[height][width]->setDist(dist);
+                            pixels[height][width]->setLocation(p);
+                            pixels[height][width]->setObject(obj);
+                        }
                     }
-                }
+                } catch(...) {}
+                
             }
         }
     }

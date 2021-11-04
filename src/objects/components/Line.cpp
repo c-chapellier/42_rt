@@ -46,9 +46,10 @@ double Line::distWith(const Point &p) const
     return dist;
 }
 
-Point *Line::getPointFor(double t) const
+Point Line::getPointFor(double t) const
 {
-    return new Point(this->p.getX() + (this->v.getX() * t), this->p.getY() + (this->v.getY() * t), this->p.getZ() + (this->v.getZ() * t));
+    Point tmp(this->p.getX() + (this->v.getX() * t), this->p.getY() + (this->v.getY() * t), this->p.getZ() + (this->v.getZ() * t));
+    return tmp;
 }
 
 Point *Line::getPointAt(double dist)

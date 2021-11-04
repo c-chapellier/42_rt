@@ -22,7 +22,7 @@ class Quadratic : public Object
         Quadratic(const Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, const Color &color);
         ~Quadratic();
 
-        Point *intersect(const Line &line) const;
+        Point intersect(const Line &line) const;
         double angleWith(const Line &line) const;
         Plane *tangentAt(const Point &p) const;
         Color getColorAt(int height, int width, int screen_height, int screenWidth, Point &intersection);

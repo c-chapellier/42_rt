@@ -23,5 +23,5 @@ class Triangle
         Point &getP3();
         Plane *getPlane();
 
-        Point *intersect(const Line &l) const;
+        Point intersect(const Line &l) const;
 };

@@ -18,7 +18,7 @@ Quadratic::~Quadratic()
 {
 }
 
-Point *Quadratic::intersect(const Line &line) const
+Point Quadratic::intersect(const Line &line) const
 {
     double x0, y0, z0, x1, y1, z1, a, b, c, t0, t1, t2, delta;
     x0 = this->p.getX();
@@ -70,11 +70,12 @@ Point *Quadratic::intersect(const Line &line) const
         x = x1 + a * s1;
         y = y1 + b * s1;
         z = z1 + c * s1;
-        return new Point(x, y, z);
+        Point tmp(x, y, z);
+        return tmp;
     }
     
     if (delta < 0){
-        return NULL;
+        throw "Line do not intersect Quadratic surface";
     } else if (delta == 0) {
         double s1 = -t1 / (2 * t2);
         double x, y, z;
@@ -82,8 +83,9 @@ Point *Quadratic::intersect(const Line &line) const
         y = y1 + b * s1;
         z = z1 + c * s1;
         if(s1 <= 0)
-            return NULL;
-        return new Point(x, y, z);
+            throw "Line do not intersect Quadratic surface";
+        Point tmp(x, y, z);
+        return tmp;
     } else {
         double s1 = (-t1 + sqrt(delta)) / (2 * t2);
         double s2 = (-t1 - sqrt(delta)) / (2 * t2);
@@ -95,19 +97,20 @@ Point *Quadratic::intersect(const Line &line) const
         y_2 = y1 + b * s2;
         z_2 = z1 + c * s2;
         if(s1 <= 2 && s2 <= 0)
-            return NULL;
-        else if(s1 > 0 && s2 <=0)
-            return new Point(x_1, y_1, z_1);
-        else if(s2 > 0 && s1 <=0)
-            return new Point(x_2, y_2, z_2);
-        Point *p1, *p2;
-        p1 = new Point(x_1, y_1, z_1);
-        p2 = new Point(x_2, y_2, z_2);
-        if(line.getP().distWith(*p1) < line.getP().distWith(*p2)){
-            delete(p2);
+            throw "Line do not intersect Quadratic surface";
+        else if(s1 > 0 && s2 <=0) {
+            Point tmp(x_1, y_1, z_1);
+            return tmp;
+        }
+        else if(s2 > 0 && s1 <=0){
+            Point tmp(x_2, y_2, z_2);
+            return tmp;
+        }
+        Point p1(x_1, y_1, z_1);
+        Point p2(x_2, y_2, z_2);
+        if(line.getP().distWith(p1) < line.getP().distWith(p2)){
             return p1;
         } else {
-            delete(p1);
             return p2;
         }
     }
@@ -168,12 +171,9 @@ Plane *Quadratic::tangentAt(const Point &p) const
 
 double Quadratic::angleWith(const Line &line) const
 {
-    Point *p = this->intersect(line);
+    Point p = this->intersect(line);
 
-    if (p == NULL)
-        throw "Quadratic::angleWith: line is not intersecting";
-
-    return this->tangentAt(*p)->angleWith(line);
+    return this->tangentAt(p)->angleWith(line);
 }
 
 Color Quadratic::getColorAt(int height, int width, int screen_height, int screenWidth, Point &intersection)

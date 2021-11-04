@@ -23,7 +23,7 @@ double Sphere::getR()
     return this->r;
 }
 
-Point *Sphere::intersect(const Line &line) const
+Point Sphere::intersect(const Line &line) const
 {
     double a, b, c, tmp1, tmp2, tmp3;
     tmp1 = (line.getP().getX() - p.getX());
@@ -60,14 +60,17 @@ Point *Sphere::intersect(const Line &line) const
             }
         }
     }
-    return res;
+    if(res == NULL)
+        throw "Line do not intersect sphere";
+    Point tmp(*res);
+    delete(res);
+    return tmp;
 }
 
 double Sphere::angleWith(const Line &line) const
 {
-    Point *tmp = intersect(line);
-    Plane plane(*tmp, this->p);
-    delete(tmp);
+    Point tmp = intersect(line);
+    Plane plane(tmp, this->p);
     return plane.angleWith(line);
 }
 

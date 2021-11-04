@@ -39,18 +39,15 @@ Plane *Triangle::getPlane()
     return new Plane(this->p1, this->p2, this->p3);
 }
 
-Point *Triangle::intersect(const Line &l) const
+Point Triangle::intersect(const Line &l) const
 {
     Plane plane(this->p1, this->p2, this->p3);
     double area = plane.getV().getMagnitude() / 2;
-    Point *p = plane.intersect(l);
+    Point p = plane.intersect(l);
 
-    if(!p)
-        return NULL;
-
-    Vector pa(*p, this->p1);
-    Vector pb(*p, this->p2);
-    Vector pc(*p, this->p3);
+    Vector pa(p, this->p1);
+    Vector pb(p, this->p2);
+    Vector pc(p, this->p3);
     double alpha, beta, gama;
     alpha = pb.crossProductMagnitude(pc) / (2 * area);
     beta = pc.crossProductMagnitude(pa) / (2 * area);
@@ -63,7 +60,5 @@ Point *Triangle::intersect(const Line &l) const
         gama >= 0 && gama <= 1 &&
         alpha + beta + gama < 1.001 && alpha + beta + gama > 0.990)
         return p;
-    delete(p);
-    return NULL;
-    
+    throw "Line do not intersect the triangle";
 }

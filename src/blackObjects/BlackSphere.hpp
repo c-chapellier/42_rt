@@ -6,12 +6,12 @@
 class BlackSphere : public BlackObject
 {
     private:
-        Point *p;
+        Point p;
         double r;
     public:
         BlackSphere(double x, double y, double z, double r);
-        BlackSphere(Point *p, double r);
+        BlackSphere(Point &p, double r);
         ~BlackSphere();
 
-        bool contains(Point *p);
+        bool contains(Point &p);
 };

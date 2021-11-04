@@ -8,13 +8,13 @@
 class BlackCylinder : public BlackObject
 {
     private:
-        Line *l;
+        Line l;
         double r;
     public:
         BlackCylinder(double px, double py, double pz, double vx, double vy, double vz, double r);
-        BlackCylinder(Point *p, Vector *v, double r);
-        BlackCylinder(Line *line, double r);
+        BlackCylinder(Point &p, Vector &v, double r);
+        BlackCylinder(Line &line, double r);
         ~BlackCylinder();
 
-        bool contains(Point *p);
+        bool contains(Point &p);
 };

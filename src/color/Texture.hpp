@@ -16,9 +16,9 @@ class Texture
         std::string type;
         int value1;
         int value2;
-        float h_offset;
-        float w_offset;
-        float speed;
+        float h_offset = 0;
+        float w_offset = 0;
+        float speed = 1;
         std::string file;
         SDL_Surface *img;
     public:

@@ -1,29 +1,23 @@
 #include "BlackCylinder.hpp"
 
-BlackCylinder::BlackCylinder(double px, double py, double pz, double vx, double vy, double vz, double r) : BlackObject()
+BlackCylinder::BlackCylinder(double px, double py, double pz, double vx, double vy, double vz, double r) : BlackObject(), l(px, py, pz, vx, vy, vz)
 {
-    this->l = new Line(px, py, pz, vx, vy, vz);
     this->r = r;
 }
 
-BlackCylinder::BlackCylinder(Point *p, Vector *v, double r) : BlackObject()
+BlackCylinder::BlackCylinder(Point &p, Vector &v, double r) : BlackObject(), l(p, v)
 {
-    this->l = new Line(*p, *v);
     this->r = r;
 }
 
-BlackCylinder::BlackCylinder(Line *line, double r) : BlackObject()
+BlackCylinder::BlackCylinder(Line &line, double r) : BlackObject(), l(line)
 {
-    this->l = new Line(*line);
     this->r = r;
 }
-BlackCylinder::~BlackCylinder()
-{
-    delete(this->l);
-}
+BlackCylinder::~BlackCylinder() {}
 
-bool BlackCylinder::contains(Point *p)
+bool BlackCylinder::contains(Point &p)
 {
-    double dist = this->l->distWith(*p);
+    double dist = this->l.distWith(p);
     return dist <= this->r;
 }

@@ -7,5 +7,5 @@ class BlackObject
     public:
         BlackObject();
         virtual ~BlackObject();
-        virtual bool contains(Point *p) = 0;
+        virtual bool contains(Point &p) = 0;
 };

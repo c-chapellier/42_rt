@@ -93,7 +93,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
                 Line l(*camera->getP(), screen[height][width]);
                 Point *p = obj->intersect(l);
                 
-                if (p != NULL && !this->blackObjectsContains(p))
+                if (p != NULL && !this->blackObjectsContains(*p))
                 {
                     double dist = p->distWith(*camera->getP());
                     double angle = RADIAN(obj->angleWith(l));
@@ -350,7 +350,7 @@ void Engine::applyBlur(std::vector< std::vector<Pixel *> > &pixels)
     }
 }
 
-bool Engine::blackObjectsContains(Point *p)
+bool Engine::blackObjectsContains(Point &p)
 {
     for (auto const& obj : this->black_objects){
         //std::cout << "blackObjectsContains" << std::endl;

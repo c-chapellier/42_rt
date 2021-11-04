@@ -21,6 +21,9 @@ Texture Parser::getTexture(nlohmann::json json) {
             t["type"],
             (std::string)t["file"]
         );
+        try { texture.setHOffset(t["hOffset"]); } catch(...) { texture.setHOffset(0); }
+        try { texture.setWOffset(t["wOffset"]); } catch(...) { texture.setWOffset(0); }
+        try { texture.setSpeed(t["speed"]); } catch(...) { texture.setSpeed(1); }
         return texture;
     } else {
         Texture texture(

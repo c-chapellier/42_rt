@@ -75,7 +75,9 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/earth.jpg"
+                "file": "textures/earth.jpg",
+                "wOffset": 0.0,
+                "speed": 2
             }
         },
         {

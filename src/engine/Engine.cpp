@@ -65,7 +65,7 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
                                 is_shined = false;
                                 break ;
                             }
-                        } catch(...) {}
+                        } catch (const NoInterException &e) {}
                         
                     }
 
@@ -119,7 +119,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
                             pixels[height][width]->setObject(obj);
                         }
                     }
-                } catch(...) {}
+                } catch(const NoInterException &e) {}
                 
             }
         }
@@ -345,18 +345,18 @@ void Engine::applyBlur(std::vector< std::vector<Pixel *> > &pixels)
         }
         colors.push_back(tmp);
     }
-    for (int h = 0; h < this->precision_height; ++h){
-        for (int w = 0; w < this->precision_width; ++w){
+    for (int h = 0; h < this->precision_height; ++h) {
+        for (int w = 0; w < this->precision_width; ++w) {
             pixels[h][w]->setColor(colors[h][w]);
         }
     }
 }
 
-bool Engine::blackObjectsContains(Point &p)
+bool Engine::blackObjectsContains(const Point &p) const
 {
-    for (auto const& obj : this->black_objects){
+    for (auto const& obj : this->black_objects) {
         //std::cout << "blackObjectsContains" << std::endl;
-        if(obj->contains(p)){
+        if (obj->contains(p)) {
             //std::cout << "in" << std::endl;
             return true;
         }

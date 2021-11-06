@@ -13,5 +13,5 @@ class BlackSphere : public BlackObject
         BlackSphere(Point &p, double r);
         ~BlackSphere();
 
-        bool contains(Point &p);
+        bool contains(const Point &p) const;
 };

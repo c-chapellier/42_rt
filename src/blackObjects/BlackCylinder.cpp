@@ -16,8 +16,7 @@ BlackCylinder::BlackCylinder(Line &line, double r) : BlackObject(), l(line)
 }
 BlackCylinder::~BlackCylinder() {}
 
-bool BlackCylinder::contains(Point &p)
+bool BlackCylinder::contains(const Point &p) const
 {
-    double dist = this->l.distWith(p);
-    return dist <= this->r;
+    return this->l.distWith(p) <= this->r;
 }

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "BlackObject.hpp"
-#include "./../objects/components/Point.hpp"
-#include "./../objects/components/Vector.hpp"
-#include "./../objects/components/Line.hpp"
+#include "../objects/components/Point.hpp"
+#include "../objects/components/Vector.hpp"
+#include "../objects/components/Line.hpp"
 
 class BlackCylinder : public BlackObject
 {
@@ -16,5 +16,5 @@ class BlackCylinder : public BlackObject
         BlackCylinder(Line &line, double r);
         ~BlackCylinder();
 
-        bool contains(Point &p);
+        bool contains(const Point &p) const;
 };

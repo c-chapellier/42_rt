@@ -56,8 +56,8 @@ Point Polygone::intersect(const Line &line) const
         // compare dist with prec points
         // stock new point
     }
-    if(res == NULL) {
-        throw "Line do not intersect polygon";
+    if (res == NULL) {
+        throw NoInterException("Line do not intersect polygon");
     }
     Point ret(*res);
     delete(res);

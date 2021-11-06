@@ -5,6 +5,7 @@
 #include <math.h>
 #include <unistd.h>
 
+#include <exception>
 #include <thread>
 #include <string>
 #include <iostream>
@@ -18,6 +19,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_timer.h>
+
+#include "exceptions/NoInterException.hpp"
 
 #include "loadingBar/LoadingBar.hpp"
 #include "window/Window.hpp"

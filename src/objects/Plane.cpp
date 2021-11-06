@@ -45,12 +45,11 @@ Point Plane::intersect(const Line &line) const
     double t, C;
     t = (a * line.getV().getX()) + (b * line.getV().getY()) + (c * line.getV().getZ());
     C = (a * line.getP().getX()) + (b * line.getP().getY()) + (c * line.getP().getZ());
-    if(t == 0 && C != K){
-        // no intersection
-        throw "Line do not intersect the plane";
+    
+    if (t == 0 && C != K) {
+        throw NoInterException("Line do not intersect the plane");
     } else if (t == 0 && C == K) {
-        // the line is in the plane
-        throw "Line do not intersect the plane";
+        throw NoInterException("Line do not intersect the plane");
     } else {
         double s1 = (K - C) / t;
         return line.getPointFor(s1);

@@ -1,7 +1,6 @@
 #pragma once
 
-#include <iostream>
-
+#include "../header.hpp"
 #include "components/Point.hpp"
 #include "components/Vector.hpp"
 #include "Object.hpp"

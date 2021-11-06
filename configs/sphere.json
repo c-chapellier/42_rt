@@ -10,20 +10,10 @@
         "white": [255, 0, 0, 255]
     },
     "ambient": "ambient",
-    "precision": 2,
+    "precision": 1,
     "cameras": [
         {
             "coordinates": [-100, 0, 0],
-            "direction": [1, 0, 0],
-            "aperture": 90
-        },
-        {
-            "coordinates": [-300, 0, 0],
-            "direction": [1, 0, 0],
-            "aperture": 90
-        },
-        {
-            "coordinates": [-500, 0, 0],
             "direction": [1, 0, 0],
             "aperture": 90
         }

@@ -3,6 +3,8 @@
 #include <vector>
 #include "./../Polygone.hpp"
 
+class Polygone;
+
 class AlphaFactory
 {
     private:

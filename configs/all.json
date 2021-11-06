@@ -71,7 +71,7 @@
             "type": "Quadratic",
             "name": "Cylinder",
             "coordinates": [100, 0, 0],
-            "values": [1, 1, 0, 0, 0, 0, 0, 0, 0, -600],
+            "values": [1, 1, 0, 0, 0, 0, -2, -2, 4, -600],
             "colors": [
                 "yellow",
                 "red"

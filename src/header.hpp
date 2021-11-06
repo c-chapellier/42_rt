@@ -27,6 +27,7 @@
 #include "visuals/Camera.hpp"
 #include "light/Light.hpp"
 #include "colorManager/ColorManager.hpp"
+
 #include "color/Color.hpp"
 #include "color/Texture.hpp"
 #include "color/TextureAplicator.hpp"
@@ -36,6 +37,7 @@
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
+#include "objects/Circle.hpp"
 #include "objects/Quadratic.hpp"
 #include "objects/Polygone.hpp"
 

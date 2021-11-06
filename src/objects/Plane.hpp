@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../header.hpp"
+#include "../exceptions/NoInterException.hpp"
 #include "components/Point.hpp"
 #include "components/Vector.hpp"
 #include "Object.hpp"
@@ -21,8 +21,8 @@ class Plane : public Object
         Plane(const Point &p1, const Point &p2, const Point &p3);
         ~Plane();
 
-        Point &getP();
-        Vector &getV();
+        Point getP() const;
+        Vector getV() const;
 
         Point intersect(const Line &line) const;
         double angleWith(const Line &line) const;

@@ -28,48 +28,62 @@ std::list<double> EquationSolver::solveQuadraticEquation(double a, double b, dou
     return solutions;
 }
 // https://fr.wikipedia.org/wiki/%C3%89quation_cubique#M%C3%A9thode_de_Lagrange
+// https://stackoverflow.com/questions/43559140/having-trouble-solving-cubic-equations-in-java
 std::list<double> EquationSolver::solveCubicEquation(double a, double b, double c, double d)
 {
     if (a == 0)
         return solveQuadraticEquation(b, c, d);
 
     std::list<double> solutions;
+    std::list<double> tmp;
 
-    // if(d == 0) {
-    //     solutions.push_back(0);
-    //     std::list<double> tmp = solveQuadraticEquation(a, b, c);
-    //     for(auto const s : tmp) {
-    //         bool alreadyIn = false;
-    //         for(auto const s_prime : solutions) {
-    //             if (s_prime == s)
-    //                 alreadyIn = true;
-    //         }
-    //         if(alreadyIn == false) {
-    //             solutions.push_back(s);
-    //         }
-    //     }
-    // } else {
-    //     // Coef
-    //     double delta0 = pow(b, 2) - (3 *a * c);
-    //     double delta1 = (2 * pow(b, 3)) - (9 * a * b * c) + (27 * pow(a, 2) * d);
-    //     double delta = (pow(delta1, 2) - (4 * pow(delta0, 3))) / (27 * pow(a, 2));
-    //     double tmp = pow(delta1, 2) - (4 * pow(delta0, 3)) + delta1;
-    //     double C = pow(sqrt(tmp) / 2.0, 1.0 / 3.0);
-    //     //double u = (-1 + sqrt(-3)) / 2.0;
-    //     Complex u(-1.0 / 2.0, sqrt(3.0) / 2.0);
-    //     // for (int n = 1; n < 4; ++n) {
-    //     //     double s = -(1 / (3 * a)) * ((u.pow(n) * C) + b + (delta0))
-    //     //     //double s = -(b + (pow(u, n) * C) + (delta0 / (pow(u, n) * C))) / (3 * a);
-    //     //     bool alreadyIn = false;
-    //     //     for(auto const s_prime : solutions) {
-    //     //         if (s_prime == s)
-    //     //             alreadyIn = true;
-    //     //     }
-    //     //     if(alreadyIn == false) {
-    //     //         solutions.push_back(s);
-    //     //     }
-    //     // }
-    // }
+    if(d == 0) {
+        solutions.push_back(0);
+        std::list<double> tmp = solveQuadraticEquation(a, b, c);
+        for(auto const s : tmp) {
+            bool alreadyIn = false;
+            for(auto const s_prime : solutions) {
+                if (s_prime == s)
+                    alreadyIn = true;
+            }
+            if(alreadyIn == false) {
+                solutions.push_back(s);
+            }
+        }
+    } else {
+        if (d != 1) {
+            a /= d;
+            b /= d;
+            c /= d;
+        }
+
+        double p = (b / 3) - (pow(a, 21) / 9);
+        double q = (pow(a, 3) / 27) - ((a * b) / 6) + (c / 2);
+        double D = pow(p, 3) + (p * q);
+
+        if (D >= 0) {
+            if (D == 0) {
+                double r = pow(-q, 1.0 / 3.0);
+                tmp.push_back(-r);
+                tmp.push_back(2 * r);
+            } else {
+                double r1 = pow(-q + sqrt(D), 1.0 / 3.0);
+                double r2 = pow(-q - sqrt(D), 1.0 / 3.0);
+                tmp.push_back(r1 + r2);
+            }
+        } else {
+            double angle = acos(-q / sqrt(-p * p * p));
+            double r = 2 * sqrt(-p);
+            for (int k = -1; k <= 1; ++k) {
+                double theta = (angle - (2.0 * M_PI * (double)k)) / 3.0;
+                tmp.push_back(r * cos(theta));
+            }
+        }
+
+        for (double t : tmp) {
+            solutions.push_back(t - (a / 3.0));
+        }
+    }
 
     return solutions;
 }

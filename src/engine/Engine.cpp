@@ -54,8 +54,8 @@ void Engine::run()
         this->threadedFindObjects(*camera, screen, pixels);
         this->loadingBar->add(30 / this->cameras.size());
 
-        std::cout << "applyLight" << std::endl;
-        this->threadedApplyLight(pixels);
+        // std::cout << "applyLight" << std::endl;
+        // this->threadedApplyLight(pixels);
         this->loadingBar->add(30 / this->cameras.size());
 
         std::cout << "applyPerlinNoise" << std::endl;
@@ -145,59 +145,59 @@ void Engine::findObjects(int threadNumber, const Camera &camera, std::vector< st
     }
 }
 
-void Engine::threadedApplyLight(std::vector< std::vector<Pixel> > &pixels)
-{
-    std::vector<std::thread> threads;
+// void Engine::threadedApplyLight(std::vector< std::vector<Pixel> > &pixels)
+// {
+//     std::vector<std::thread> threads;
 
-    for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-        threads.push_back(std::thread(&Engine::applyLight, this, i, std::ref(pixels)));
+//     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
+//         threads.push_back(std::thread(&Engine::applyLight, this, i, std::ref(pixels)));
     
-    for (auto &th : threads)
-        th.join();
-}
+//     for (auto &th : threads)
+//         th.join();
+// }
 
-void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel> > &pixels)
-{
-    for (auto const& light : this->lights)
-    {
-        for (int height = threadNumber; height < this->precision_height; height += this->nbrOfThreads)
-        {
-            for (int width = 0; width < this->precision_width; ++width)
-            {
-                if (pixels[height][width].getObject() != NULL)
-                {
-                    Line l(light->getP(), pixels[height][width].getLocation());
-                    bool is_shined = true;
-                    double dist_pxl_light = pixels[height][width].getLocation().distWith(light->getP());
+// void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel> > &pixels)
+// {
+//     for (auto const& light : this->lights)
+//     {
+//         for (int height = threadNumber; height < this->precision_height; height += this->nbrOfThreads)
+//         {
+//             for (int width = 0; width < this->precision_width; ++width)
+//             {
+//                 if (pixels[height][width].getObject() != NULL)
+//                 {
+//                     Line l(light->getP(), pixels[height][width].getLocation());
+//                     bool is_shined = true;
+//                     double dist_pxl_light = pixels[height][width].getLocation().distWith(light->getP());
 
-                    for (auto const& obj : this->objects)
-                    {
-                        try
-                        {
-                            Point p = obj->intersect(l);
-                            double dist_obj_light = p.distWith(light->getP());
+//                     for (auto const& obj : this->objects)
+//                     {
+//                         try
+//                         {
+//                             Point p = obj->intersect(l);
+//                             double dist_obj_light = p.distWith(light->getP());
 
-                            if (dist_obj_light + 0.0000000001 < dist_pxl_light)
-                            {
-                                is_shined = false;
-                                break ;
-                            }
-                        }
-                        catch (const NoInterException &e) {}
+//                             if (dist_obj_light + 0.0000000001 < dist_pxl_light)
+//                             {
+//                                 is_shined = false;
+//                                 break ;
+//                             }
+//                         }
+//                         catch (const NoInterException &e) {}
                         
-                    }
+//                     }
 
-                    if (is_shined)
-                    {
-                        double angle = RADIAN(pixels[height][width].getObject()->angleWith(l));
+//                     if (is_shined)
+//                     {
+//                         double angle = RADIAN(pixels[height][width].getObject()->angleWith(l));
                         
-                        pixels[height][width].getColor().add(light->getColor().reduceOf(cos(angle)));         
-                    }
-                }
-            }
-        }
-    }
-}
+//                         pixels[height][width].getColor().add(light->getColor().reduceOf(cos(angle)));         
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 void Engine::applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels)
 {

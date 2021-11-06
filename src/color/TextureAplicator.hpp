@@ -14,5 +14,5 @@ class TextureAplicator
     public:
         static Color applyTexture(Object *o, Point &intersection);
 
-        static Color applyTextureOnSphereAt(Sphere *sp, Point &intersection);
+        static Color applyTextureOnSphereAt(const Sphere &sp, const Point &intersection);
 };

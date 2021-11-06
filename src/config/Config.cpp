@@ -12,15 +12,15 @@ Config::~Config()
 
 }
 
-int Config::getHeight()
+int Config::getHeight() const
 {
     return this->height;
 }
-int Config::getWidth()
+int Config::getWidth() const
 {
     return this->width;
 }
-int Config::getPrecision()
+int Config::getPrecision() const
 {
     return this->precision;
 }
@@ -28,7 +28,7 @@ Color *Config::getAmbientColor()
 {
     return this->ambient_color;
 }
-int Config::getBlur()
+int Config::getBlur() const
 {
     return this->blur;
 }
@@ -36,7 +36,7 @@ std::string Config::getFilter()
 {
     return this->filter;
 }
-bool Config::getPerlinNoise()
+bool Config::getPerlinNoise() const
 {
     return this->perlinNoise;
 }

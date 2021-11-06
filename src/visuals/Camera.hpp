@@ -13,16 +13,17 @@ class Config;
 class Camera
 {
     private:
-        Point *p;
-        Vector *v;
+        Point p;
+        Vector v;
         double angle;
+        
     public:
         Camera(double px, double py, double pz, double vx, double vy, double vz, double a);
-        Camera(Point p, Vector v, double a);
+        Camera(const Point &p, const Vector &v, double a);
         ~Camera();
 
-        Point *getP();
-        Vector *getV();
+        Point getP() const;
+        Vector getV() const;
 
-        std::vector< std::vector<Point> > getScreen(Config &config);
+        std::vector< std::vector<Point> > getScreen(const Config &config) const;
 };

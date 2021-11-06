@@ -1,36 +1,32 @@
 #include "Camera.hpp"
 
 Camera::Camera(double px, double py, double pz, double vx, double vy, double vz, double a)
+    : p(px, py, pz), v(vx, vy, vz), angle(a)
 {
-    if(vx == 0 && vy == 0 && vz == 0)
+    if (vx == 0 && vy == 0 && vz == 0)
         throw "The camera vector can not be the null vector";
-    this->p = new Point(px, py, pz);
-    this->v = new Vector(vx, vy, vz);
     if (a < 60 || a > 120)
         throw "Bad angle for camera";
-    this->angle = a;
 }
-Camera::Camera(Point p, Vector v, double a)
+
+Camera::Camera(const Point &p, const Vector &v, double a)
+    : p(p), v(v), angle(a)
 {
     if(v.getX() == 0 && v.getY() == 0 && v.getZ() == 0)
         throw "The camera vector can not be the null vector";
-    this->p = new Point(p);
-    this->v = new Vector(v);
     if (a < 60 || a > 120)
         throw "Bad angle for camera";
-    this->angle = a;
-}
-Camera::~Camera()
-{
-    delete(this->p);
-    delete(this->v);
 }
 
-Point *Camera::getP()
+Camera::~Camera()
+{
+}
+
+Point Camera::getP() const
 {
     return this->p;
 }
-Vector *Camera::getV()
+Vector Camera::getV() const
 {
     return this->v;
 }
@@ -41,7 +37,7 @@ Vector *Camera::getV()
 // apply the rotation for the alpha angle (angle between X axis and camera vector)
 // apply the rotation for the gama angle (angle between Z axis and camera vector)
 // apply the translation (from the point of the camera)
-std::vector< std::vector<Point> > Camera::getScreen(Config &config)
+std::vector< std::vector<Point> > Camera::getScreen(const Config &config) const
 {
     int height = config.getHeight() * config.getPrecision();
     int width = config.getWidth() * config.getPrecision();
@@ -60,8 +56,8 @@ std::vector< std::vector<Point> > Camera::getScreen(Config &config)
 
     // vectors
     Vector *x_axis = new Vector(1, 0, 0);
-    Vector *projection_on_plane_xy = new Vector(this->v->getX(), this->v->getY(), 0);
-    Vector *projection_on_plane_xz = new Vector(this->v->getX(), 0, this->v->getZ());
+    Vector *projection_on_plane_xy = new Vector(this->v.getX(), this->v.getY(), 0);
+    Vector *projection_on_plane_xz = new Vector(this->v.getX(), 0, this->v.getZ());
 
     //plane
     Plane *xy_plane = new Plane(0, 0, 0, 0, 0, 1);
@@ -76,7 +72,7 @@ std::vector< std::vector<Point> > Camera::getScreen(Config &config)
         alpha = projection_on_plane_xy->directionXY(*x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
     }
     // angle between the camera vector and Z axis
-    gama = xy_plane->angleWith(*this->v);
+    gama = xy_plane->angleWith(this->v);
     // if right turn angle = one complete turn minus himself (trigonometric circle)
 
     for (int z = 0; z < height; ++z) {
@@ -100,9 +96,9 @@ std::vector< std::vector<Point> > Camera::getScreen(Config &config)
                 new_point = new_point->applyVector(v2);
             }
 
-            screen[z][y].setX(new_point->getX() + this->p->getX());
-            screen[z][y].setY(new_point->getY() + this->p->getY());
-            screen[z][y].setZ(new_point->getZ() + this->p->getZ());
+            screen[z][y].setX(new_point->getX() + this->p.getX());
+            screen[z][y].setY(new_point->getY() + this->p.getY());
+            screen[z][y].setZ(new_point->getZ() + this->p.getZ());
         }
     }
     return screen;

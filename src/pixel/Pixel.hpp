@@ -19,7 +19,7 @@ private:
 public:
     Pixel();
     Pixel(int red, int green, int blue, int opacity, double dist = INFINITY);
-    Pixel(Color *c, double dist = INFINITY);
+    Pixel(const Color &c, double dist = INFINITY);
     ~Pixel();
 
     int getRed() const;

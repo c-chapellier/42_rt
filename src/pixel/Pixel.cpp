@@ -8,7 +8,7 @@ Pixel::Pixel(int red, int green, int blue, int opacity, double dist) : color(red
 {
 }
 
-Pixel::Pixel(Color *c, double dist): color(*c), dist(dist), location_3d(), obj(NULL)
+Pixel::Pixel(const Color &c, double dist): color(c), dist(dist), location_3d(), obj(NULL)
 {
 }
 

@@ -8,7 +8,10 @@ Parser::Parser(std::string config_file)
     this->colorManager = new ColorManager(this->j["colors"]);
 }
 
-Parser::~Parser() {}
+Parser::~Parser()
+{
+    delete this->colorManager;
+}
 
 Texture Parser::getTexture(nlohmann::json json) {
     nlohmann::json t = json["texture"];

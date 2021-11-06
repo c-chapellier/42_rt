@@ -100,7 +100,7 @@ void Engine::findObjects(int threadNumber, const Camera &camera, std::vector< st
     {
         for (int height = threadNumber; height < this->precision_height; height += this->nbrOfThreads)
         {
-            std::cout << height << std::endl;
+            // std::cout << height << std::endl;
             for (int width = 0; width < this->precision_width; ++width)
             {
                 try
@@ -113,11 +113,10 @@ void Engine::findObjects(int threadNumber, const Camera &camera, std::vector< st
                         double dist = p.distWith(camera.getP());
                         double angle = RADIAN(obj->angleWith(l));
 
-                        Color color = obj->getColorAt(height, width, this->config.getHeight(), this->config.getWidth(), p)
-                            .reduceOf(1 - exp(-dist / 1000))
-                            .reduceOf(cos(angle))
-                            .add(this->config.getAmbientColor());
+                        Color color = obj->getColorAt(height, width, this->config.getHeight(), this->config.getWidth(), p);
 
+                        
+                            
                         Color blended_color;
 
                         if (dist < pixels[height][width].getDist())
@@ -132,10 +131,15 @@ void Engine::findObjects(int threadNumber, const Camera &camera, std::vector< st
                             blended_color = this->alphaBlending(pixels[height][width].getColor(), color);
                         }
 
-                        pixels[height][width].setColor(blended_color);
+                        pixels[height][width].setColor(
+                            blended_color
+                                .add(this->config.getAmbientColor())
+                                .reduceOf(cos(angle) / 1.1)
+                                // .reduceOf(1 - exp(-dist / 1000))
+                        );
                     }
                 }
-                catch(const NoInterException &e) {}
+                catch (const NoInterException &e) {}
             }
         }
     }
@@ -168,7 +172,8 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel> > &pix
 
                     for (auto const& obj : this->objects)
                     {
-                        try {
+                        try
+                        {
                             Point p = obj->intersect(l);
                             double dist_obj_light = p.distWith(light->getP());
 
@@ -177,7 +182,8 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel> > &pix
                                 is_shined = false;
                                 break ;
                             }
-                        } catch (const NoInterException &e) {}
+                        }
+                        catch (const NoInterException &e) {}
                         
                     }
 

@@ -4,10 +4,10 @@
     "height": 600,
     "colors" : {
         "red": [255, 0, 0, 20],
-        "yellow": [255, 255, 0, 80],
+        "green": [0, 255, 0, 80],
         "blue": [0, 0, 255, 255],
         "ambient": [20, 20, 20, 200],
-        "white": [255, 0, 0, 255]
+        "white": [120, 0, 0, 255]
     },
     "ambient": "ambient",
     "precision": 1,
@@ -38,7 +38,7 @@
             "coordinates": [0, 15, 10],
             "radius" : 30,
             "colors": [
-                "yellow"
+                "green"
             ],
             "texture": {
                 "type": "Uniform",

@@ -11,7 +11,7 @@ BlackSphere::BlackSphere(Point &p, double r) : BlackObject(), p(p)
 }
 BlackSphere::~BlackSphere() {}
 
-bool BlackSphere::contains(Point &p)
+bool BlackSphere::contains(const Point &p) const
 {
     return this->p.distWith(p) <= this->r;
 }

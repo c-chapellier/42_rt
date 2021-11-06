@@ -2,11 +2,11 @@
 
 #include <math.h>
 
-#include "./../header.hpp"
+#include "../header.hpp"
 
-#include "./../objects/components/Point.hpp"
-#include "./../objects/components/Vector.hpp"
-#include "./../objects/Plane.hpp"
+#include "../objects/components/Point.hpp"
+#include "../objects/components/Vector.hpp"
+#include "../objects/Plane.hpp"
 
 class Config;
 

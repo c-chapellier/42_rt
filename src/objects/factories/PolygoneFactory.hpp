@@ -3,6 +3,8 @@
 #include "./../Polygone.hpp"
 #include "./../transformer/Transformer.hpp"
 
+class Polygone;
+
 class PolygoneFactory
 {
     private:

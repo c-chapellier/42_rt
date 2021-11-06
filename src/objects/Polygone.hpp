@@ -5,6 +5,8 @@
 #include "Object.hpp"
 #include "components/Triangle.hpp"
 
+class Triangle;
+
 class Polygone : public Object
 {
     private:

@@ -61,7 +61,8 @@ Point Sphere::intersect(const Line &line) const
         }
     }
     if(res == NULL)
-        throw "Line do not intersect sphere";
+        throw NoInterException("Line do not intersect sphere");
+        
     Point tmp(*res);
     delete(res);
     return tmp;

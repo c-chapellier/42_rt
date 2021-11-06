@@ -6,10 +6,10 @@
 class ColorManager
 {
 private:
-    std::map<std::string, Color *> colors;
+    std::map<std::string, Color> colors;
 public:
     ColorManager(nlohmann::json colors);
     ~ColorManager();
 
-    Color *getColor(std::string color);
+    Color getColor(const std::string &color);
 };

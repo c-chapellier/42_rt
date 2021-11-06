@@ -1,32 +1,17 @@
 #include "Polygone.hpp"
 
-Polygone::Polygone(std::vector<Point*> points) : Object()
+Polygone::Polygone(std::vector<Triangle> triangles) : Object(), triangles(triangles)
 {
-    if (points.size() < 3)
-        throw "Can not create a polygone with less than three points";
-    for (unsigned long i = 2; i < points.size(); ++i)
-    {
-        this->triangles.push_back(new Triangle(*points[i - 2], *points[i - 1], *points[i]));
-    }
-}
-Polygone::Polygone(std::vector<Triangle*> triangles) : Object()
-{
-    if (triangles.size() < 1)
+    if (triangles.size() == 0)
         throw "Can not create a polygone without any triangle";
-    for (unsigned long i = 0; i < triangles.size(); ++i)
-    {
-        this->triangles.push_back(new Triangle(*triangles[i]));
-    }
 }
-Polygone::Polygone(std::vector<Triangle*> triangles, const Color &color) : Object(color)
+
+Polygone::Polygone(std::vector<Triangle> triangles, const Color &color) : Object(color), triangles(triangles)
 {
-    if (triangles.size() < 1)
+    if (triangles.size() == 0)
         throw "Can not create a polygone without any triangle";
-    for (unsigned long i = 0; i < triangles.size(); ++i)
-    {
-        this->triangles.push_back(new Triangle(*triangles[i]));
-    }
 }
+
 Polygone::~Polygone()
 {
 
@@ -40,7 +25,7 @@ Point Polygone::intersect(const Line &line) const
     {
         // if intersect triangle
         try {
-            Point tmp = this->triangles[i]->intersect(line);
+            Point tmp = this->triangles[i].intersect(line);
 
             if (res == NULL){
                 res = new Point(tmp);
@@ -72,10 +57,10 @@ double Polygone::angleWith(const Line &line) const
     for (unsigned long i = 0; i < this->triangles.size(); ++i)
     {
         try {
-            Point tmp = this->triangles[i]->intersect(line);
+            Point tmp = this->triangles[i].intersect(line);
             if (actual_min == NULL)
             {
-                angle = this->triangles[i]->getPlane()->angleWith(line);
+                angle = this->triangles[i].getPlane().angleWith(line);
                 actual_min = new Point(tmp);
             }
             else
@@ -85,7 +70,7 @@ double Polygone::angleWith(const Line &line) const
                 
                 if (dist2 < dist1)
                 {
-                    angle = this->triangles[i]->getPlane()->angleWith(line);
+                    angle = this->triangles[i].getPlane().angleWith(line);
                     delete(actual_min);
                     actual_min = new Point(tmp);
                 }

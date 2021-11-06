@@ -8,7 +8,7 @@ class Config
         int width;
         int height;
         int precision;
-        Color *ambient_color;
+        Color ambient_color;
         int blur;
         std::string filter;
         bool perlinNoise;
@@ -19,16 +19,16 @@ class Config
         int getHeight() const;
         int getWidth() const;
         int getPrecision() const;
-        Color *getAmbientColor();
+        Color getAmbientColor() const;
         int getBlur() const;
-        std::string getFilter();
+        std::string getFilter() const;
         bool getPerlinNoise() const;
 
         void setHeight(int h);
         void setWidth(int w);
         void setPrecision(int p);
-        void setAmbientColor(Color *ambient);
+        void setAmbientColor(const Color &ambient);
         void setBlur(int b);
-        void setFilter(std::string filter);
+        void setFilter(const std::string &filter);
         void setPerlinNoise(bool perlinNoise);
 };

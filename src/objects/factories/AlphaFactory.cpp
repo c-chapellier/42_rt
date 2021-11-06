@@ -45,11 +45,11 @@ Polygone *AlphaFactory::createB(Point &p, double height, double width, double th
         point.push_back(new Point(0, offset + (thick / 2) * cos(RADIAN(alpha)), (height / 4) + (thick / 2) + (thick / 2) * sin(RADIAN(alpha))));
     }
 
-    std::vector<Triangle *> triangles;
-    triangles.push_back(new Triangle(*bar[0], *bar[1], *bar[2]));
-    triangles.push_back(new Triangle(*bar[2], *bar[3], *bar[0]));
-    triangles.push_back(new Triangle(*point[0], *point[1], *point[2]));
-    triangles.push_back(new Triangle(*point[2], *point[3], *point[0]));
+    std::vector<Triangle> triangles;
+    triangles.push_back(Triangle(*bar[0], *bar[1], *bar[2]));
+    triangles.push_back(Triangle(*bar[2], *bar[3], *bar[0]));
+    triangles.push_back(Triangle(*point[0], *point[1], *point[2]));
+    triangles.push_back(Triangle(*point[2], *point[3], *point[0]));
 
     return new Polygone(triangles);
 }
@@ -72,11 +72,11 @@ Polygone *AlphaFactory::createI(Point &p, double height, double width, double th
         point.push_back(new Point(0, offset + (thick / 2) * cos(RADIAN(alpha)), (height / 4) + (thick / 2) + (thick / 2) * sin(RADIAN(alpha))));
     }
 
-    std::vector<Triangle *> triangles;
-    triangles.push_back(new Triangle(*bar[0], *bar[1], *bar[2]));
-    triangles.push_back(new Triangle(*bar[2], *bar[3], *bar[0]));
-    triangles.push_back(new Triangle(*point[0], *point[1], *point[2]));
-    triangles.push_back(new Triangle(*point[2], *point[3], *point[0]));
+    std::vector<Triangle> triangles;
+    triangles.push_back(Triangle(*bar[0], *bar[1], *bar[2]));
+    triangles.push_back(Triangle(*bar[2], *bar[3], *bar[0]));
+    triangles.push_back(Triangle(*point[0], *point[1], *point[2]));
+    triangles.push_back(Triangle(*point[2], *point[3], *point[0]));
 
     return new Polygone(triangles);
 }
@@ -95,10 +95,10 @@ Polygone *AlphaFactory::createO(Point &p, double height, double width, double th
     points_in.push_back(new Point(0, offset, (height / 2) - thick));
     points_in.push_back(new Point(0, offset + (width / 2) - thick, 0));
 
-    std::vector<Triangle *> triangles;
+    std::vector<Triangle> triangles;
     for(int i = 0; i < 4; ++i) {
-        triangles.push_back(new Triangle(*points_out[i], *points_out[(i + 1) % 4], *points_in[i]));
-        triangles.push_back(new Triangle(*points_out[(i + 1) % 4], *points_in[i], *points_in[(i + 1) % 4]));
+        triangles.push_back(Triangle(*points_out[i], *points_out[(i + 1) % 4], *points_in[i]));
+        triangles.push_back(Triangle(*points_out[(i + 1) % 4], *points_in[i], *points_in[(i + 1) % 4]));
     }
 
     return new Polygone(triangles);
@@ -120,10 +120,10 @@ Polygone *AlphaFactory::createU(Point &p, double height, double width, double th
     points_in.push_back(new Point(0, offset + (width / 2) - thick, 0));
     points_in.push_back(new Point(0, offset + (width / 2) - thick, height / 2));
 
-    std::vector<Triangle *> triangles;
+    std::vector<Triangle> triangles;
     for(int i = 0; i < 4; ++i) {
-        triangles.push_back(new Triangle(*points_out[i], *points_out[(i + 1)], *points_in[i]));
-        triangles.push_back(new Triangle(*points_out[(i + 1)], *points_in[i], *points_in[(i + 1)]));
+        triangles.push_back(Triangle(*points_out[i], *points_out[(i + 1)], *points_in[i]));
+        triangles.push_back(Triangle(*points_out[(i + 1)], *points_in[i], *points_in[(i + 1)]));
     }
 
     return new Polygone(triangles);

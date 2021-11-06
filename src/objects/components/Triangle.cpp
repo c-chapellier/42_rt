@@ -34,9 +34,9 @@ Point &Triangle::getP3()
     return this->p3;
 }
 
-Plane *Triangle::getPlane()
+Plane Triangle::getPlane() const
 {
-    return new Plane(this->p1, this->p2, this->p3);
+    return Plane(this->p1, this->p2, this->p3);
 }
 
 Point Triangle::intersect(const Line &l) const

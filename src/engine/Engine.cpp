@@ -50,15 +50,15 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
             {
                 if (pixels[height][width]->get_object() != NULL)
                 {
-                    Line l(*light->getP(), pixels[height][width]->get_location());
+                    Line l(light->getP(), pixels[height][width]->get_location());
                     bool is_shined = true;
-                    double dist_pxl_light = pixels[height][width]->get_location().distWith(*light->getP());
+                    double dist_pxl_light = pixels[height][width]->get_location().distWith(light->getP());
 
                     for (auto const& obj : this->objects)
                     {
                         try {
                             Point p = obj->intersect(l);
-                            double dist_obj_light = p.distWith(*light->getP());
+                            double dist_obj_light = p.distWith(light->getP());
 
                             if (dist_obj_light + 0.0000000001 < dist_pxl_light)
                             {
@@ -73,7 +73,7 @@ void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel *> > &p
                     {
                         double angle = RADIAN(pixels[height][width]->get_object()->angleWith(l));
                         
-                        pixels[height][width]->getColor().add(light->getColor()->reduceOf(cos(angle)));         
+                        pixels[height][width]->getColor().add(light->getColor().reduceOf(cos(angle)));         
                     }
                 }
             }
@@ -101,7 +101,7 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
                         Color color = obj->getColorAt(height, width, config->getHeight(), config->getWidth(), p);
                         color = color.reduceOf(1 - exp(-dist / 1000));
                         color = color.reduceOf(cos(angle));
-                        color = color.add(*this->config->getAmbientColor());
+                        color = color.add(this->config->getAmbientColor());
 
                         Color blended_color;
 

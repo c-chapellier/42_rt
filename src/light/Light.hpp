@@ -5,13 +5,13 @@
 class Light
 {
 private:
-    Point *p;
-    Color *color;
+    Point p;
+    Color color;
 
 public:
-    Light(double px, double py, double pz, Color *color);
+    Light(double px, double py, double pz, const Color &color);
     ~Light();
 
-    Point *getP();
-    Color *getColor();
+    Point getP() const;
+    Color getColor() const;
 };

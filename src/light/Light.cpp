@@ -1,21 +1,20 @@
 #include "Light.hpp"
 
-Light::Light(double px, double py, double pz, Color *color) : color(color)
+Light::Light(double px, double py, double pz, const Color &color)
+    : p(px, py, pz), color(color)
 {
-    this->p = new Point(px, py, pz);
 }
 
 Light::~Light()
 {
-    delete this->p;
 }
 
-Point *Light::getP()
+Point Light::getP() const
 {
     return this->p;
 }
 
-Color *Light::getColor()
+Color Light::getColor() const
 {
     return this->color;
 }

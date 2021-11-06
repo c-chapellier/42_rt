@@ -52,7 +52,7 @@ std::list<Object*> Parser::getObjects()
             );
 
             for (auto const& color : obj["colors"])
-                plane->addColor(*this->colorManager->getColor(color));
+                plane->addColor(this->colorManager->getColor(color));
 
             plane->setTexture(getTexture(obj));
             objects.push_back(plane);
@@ -66,7 +66,7 @@ std::list<Object*> Parser::getObjects()
             );
 
             for (auto const& color : obj["colors"])
-                sp->addColor(*this->colorManager->getColor(color));
+                sp->addColor(this->colorManager->getColor(color));
 
             sp->setTexture(getTexture(obj));
             objects.push_back(sp);
@@ -91,7 +91,7 @@ std::list<Object*> Parser::getObjects()
                 obj["values"][9]
             );
             for(auto const& color : obj["colors"])
-                quadratic->addColor(*this->colorManager->getColor(color));
+                quadratic->addColor(this->colorManager->getColor(color));
 
             quadratic->setTexture(getTexture(obj));
             objects.push_back(quadratic);
@@ -114,7 +114,7 @@ std::list<Object*> Parser::getObjects()
                 obj["rotation"][2]
             );
             for(auto const& color : obj["colors"])
-                polygon->addColor(*this->colorManager->getColor(color));
+                polygon->addColor(this->colorManager->getColor(color));
 
             polygon->setTexture(getTexture(obj));
             objects.push_back(polygon);
@@ -137,7 +137,7 @@ std::list<Object*> Parser::getObjects()
             );
             for(int i = 0; i < (int)shape.size(); ++i){
                 for(auto const& color : obj["colors"]) {
-                    shape[i]->addColor(*this->colorManager->getColor(color));
+                    shape[i]->addColor(this->colorManager->getColor(color));
                 }
                 shape[i]->setTexture(getTexture(obj));
                 objects.push_back(shape[i]);

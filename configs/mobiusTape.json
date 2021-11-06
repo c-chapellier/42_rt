@@ -2,7 +2,7 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
-    "precision": 2,
+    "precision": 1,
     "colors" : {
         "red": [255, 25, 30, 255],
         "blue": [0, 127, 255, 255],

@@ -1,9 +1,8 @@
 #include "Config.hpp"
 
 Config::Config()
+    : ambient_color(), blur(0)
 {
-    this->ambient_color = NULL;
-    this->blur = 0;
     setFilter("None");
 }
 
@@ -24,7 +23,7 @@ int Config::getPrecision() const
 {
     return this->precision;
 }
-Color *Config::getAmbientColor()
+Color Config::getAmbientColor() const
 {
     return this->ambient_color;
 }
@@ -32,7 +31,7 @@ int Config::getBlur() const
 {
     return this->blur;
 }
-std::string Config::getFilter()
+std::string Config::getFilter() const
 {
     return this->filter;
 }
@@ -62,7 +61,7 @@ void Config::setPrecision(int p)
     this->precision = p;
 }
 
-void Config::setAmbientColor(Color *ambient)
+void Config::setAmbientColor(const Color &ambient)
 {
     this->ambient_color = ambient;
 }
@@ -74,7 +73,7 @@ void Config::setBlur(int b)
     this->blur = b;
 }
 
-void Config::setFilter(std::string filter)
+void Config::setFilter(const std::string &filter)
 {
     if(filter != "None" && filter != "Sepia" && filter != "AverageGrayscale" && filter != "WeightedGrayscale" && filter != "Invert")
         throw "Unknown filter";

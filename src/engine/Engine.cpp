@@ -84,6 +84,7 @@ void Engine::findObjects(int threadNumber, const Camera &camera, std::vector< st
     {
         for (int height = threadNumber; height < this->precision_height; height += this->nbrOfThreads)
         {
+            std::cout << height << std::endl;
             for (int width = 0; width < this->precision_width; ++width)
             {
                 try {

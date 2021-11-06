@@ -30,46 +30,53 @@ double Sphere::getR() const
 Point Sphere::intersect(const Line &line) const
 {
     double a, b, c, tmp1, tmp2, tmp3;
-    tmp1 = (line.getP().getX() - p.getX());
-    tmp2 = (line.getP().getY() - p.getY());
-    tmp3 = (line.getP().getZ() - p.getZ());
-    a = pow(line.getV().getX(), 2) + 
-        pow(line.getV().getY(), 2) + 
-        pow(line.getV().getZ(), 2);
-    b = 2 * tmp1 * line.getV().getX() +
-        2 * tmp2 * line.getV().getY() +
-        2 * tmp3 * line.getV().getZ();
-    c = pow(tmp1, 2) +
-        pow(tmp2, 2) +
-        pow(tmp3, 2) -
-        pow(this->r, 2);
+
+    tmp1 = line.getP().getX() - p.getX();
+    tmp2 = line.getP().getY() - p.getY();
+    tmp3 = line.getP().getZ() - p.getZ();
+
+    a = pow(line.getV().getX(), 2)
+        + pow(line.getV().getY(), 2)
+        + pow(line.getV().getZ(), 2);
+
+    b = 2 * tmp1 * line.getV().getX()
+        + 2 * tmp2 * line.getV().getY()
+        + 2 * tmp3 * line.getV().getZ();
+        
+    c = pow(tmp1, 2)
+        + pow(tmp2, 2)
+        + pow(tmp3, 2)
+        - pow(this->r, 2);
+
     std::list<double> solutions = EquationSolver::solveQuadraticEquation(a, b, c);
-    Point *res = NULL;
-    for (double s: solutions) {
-        if(s > 0) {
-            Point *tmp = new Point(
+
+    Point res;
+    bool first = true;
+
+    for (double s: solutions)
+    {
+        if (s > 0)
+        {
+            Point tmp(
                 line.getP().getX() + line.getV().getX() * s,
                 line.getP().getY() + line.getV().getY() * s,
                 line.getP().getZ() + line.getV().getZ() * s
             );
-            if (res == NULL)
+
+            if (first)
+            {
                 res = tmp;
-            else {
-                if (line.getP().distWith(*tmp) < line.getP().distWith(*res)) {
-                    delete(res);
-                    res = tmp;
-                } else {
-                    delete(tmp);
-                }
+                first = false;
             }
+            else if (line.getP().distWith(tmp) < line.getP().distWith(res))
+                res = tmp;
         }
     }
-    if(res == NULL)
+
+    if (first == true)
         throw NoInterException("Line do not intersect sphere");
         
-    Point tmp(*res);
-    delete(res);
-    return tmp;
+    return res;
 }
 
 double Sphere::angleWith(const Line &line) const

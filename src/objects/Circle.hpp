@@ -1,11 +1,8 @@
 #pragma once
 
-#include "../exceptions/NoInterException.hpp"
-#include "Plane.hpp"
-#include "Object.hpp"
+#include "../header.hpp"
 
 class Plane;
-class Object;
 
 class Circle : public Object
 {
@@ -15,7 +12,7 @@ class Circle : public Object
         double r;
     public:
         Circle(double px, double py, double pz, double vx, double vy, double vz, double R, double r);
-        Circle(Plane &plane, double R, double r);
+        Circle(const Plane &plane, double R, double r);
         ~Circle();
 
         Point intersect(const Line &line) const;

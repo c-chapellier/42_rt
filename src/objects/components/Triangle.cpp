@@ -60,5 +60,5 @@ Point Triangle::intersect(const Line &l) const
         gama >= 0 && gama <= 1 &&
         alpha + beta + gama < 1.001 && alpha + beta + gama > 0.990)
         return p;
-    throw "Line do not intersect the triangle";
+    throw NoInterException("Line do not intersect the triangle");
 }

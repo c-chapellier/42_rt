@@ -19,65 +19,62 @@ Polygone::~Polygone()
 
 Point Polygone::intersect(const Line &line) const
 {
-    Point *res = NULL;
+    Point res;
+    bool first = true;
 
-    for(unsigned long i = 0; i < this->triangles.size(); ++i)
+    for (unsigned long i = 0; i < this->triangles.size(); ++i)
     {
-        // if intersect triangle
-        try {
+        try
+        {
             Point tmp = this->triangles[i].intersect(line);
 
-            if (res == NULL){
-                res = new Point(tmp);
-            } else {
-                double dist1 = res->distWith(line.getP());
-                double dist2 = tmp.distWith(line.getP());
-                if(dist2 < dist1) {
-                    delete(res);
-                    res = new Point(tmp);
-                }
+            if (first)
+            {
+                res = tmp;
+                first = false;
             }
-        } catch(...) {}
-        // compare dist with prec points
-        // stock new point
+            else if (tmp.distWith(line.getP()) < res.distWith(line.getP()))
+                res = tmp;
+        }
+        catch(const NoInterException &e) {}
     }
-    if (res == NULL) {
+
+    if (first == true)
         throw NoInterException("Line do not intersect polygon");
-    }
-    Point ret(*res);
-    delete(res);
-    return ret;
+
+    return res;
 }
 
 double Polygone::angleWith(const Line &line) const
 {
-    double angle = -1.0;
-    Point *actual_min = NULL;
+    double angle;
+    Point actual_min;
+    bool first = true;
 
     for (unsigned long i = 0; i < this->triangles.size(); ++i)
     {
-        try {
+        try
+        {
             Point tmp = this->triangles[i].intersect(line);
-            if (actual_min == NULL)
+
+            if (first)
             {
                 angle = this->triangles[i].getPlane().angleWith(line);
-                actual_min = new Point(tmp);
+                actual_min = tmp;
+                first = false;
             }
-            else
+            else if (tmp.distWith(line.getP()) < actual_min.distWith(line.getP()))
             {
-                double dist1 = actual_min->distWith(line.getP());
-                double dist2 = tmp.distWith(line.getP());
-                
-                if (dist2 < dist1)
-                {
-                    angle = this->triangles[i].getPlane().angleWith(line);
-                    delete(actual_min);
-                    actual_min = new Point(tmp);
-                }
+                angle = this->triangles[i].getPlane().angleWith(line);
+                actual_min = tmp;
             }
-        } catch(...) {}
+        }
+        catch (const NoInterException &e) {}
     }
-    delete(actual_min);
+
+    if (first == true)
+        throw NoInterException("Line do not intersect polygon");
+
     return angle;
 }
 

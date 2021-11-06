@@ -126,7 +126,7 @@ Point Quadratic::intersect(const Line &line) const
 // Fy => 2By + E + Gx + Iz
 // Fz => 2Cz + F + Hx + Iy
 // Fx(x - x₀) + Fy(y - y₀) + Fz(z -z₀) = 0 : Plane equation
-Plane *Quadratic::tangentAt(const Point &p) const
+Plane Quadratic::tangentAt(const Point &p) const
 {
     double a, b, c, d, e, f, g, h, i, x0, y0, z0;
     x0 = this->p.getX();
@@ -167,14 +167,14 @@ Plane *Quadratic::tangentAt(const Point &p) const
         h * p.getX() +
         i * p.getY();
 
-    return new Plane(p, Fx, Fy, Fz);
+    return Plane(p, Fx, Fy, Fz);
 }
 
 double Quadratic::angleWith(const Line &line) const
 {
     Point p = this->intersect(line);
 
-    return this->tangentAt(p)->angleWith(line);
+    return this->tangentAt(p).angleWith(line);
 }
 
 Color Quadratic::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

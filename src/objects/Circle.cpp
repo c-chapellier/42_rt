@@ -1,15 +1,13 @@
 #include "Circle.hpp"
 
 Circle::Circle(double px, double py, double pz, double vx, double vy, double vz, double R, double r)
+    : plane(new Plane(px, py, pz, vx, vy, vz)), R(R), r(r)
 {
-    this->plane = new Plane(px, py, pz, vx, vy, vz);
-    this->R = R;
-    this->r = r;
-    if(r >= R)
+    if (r >= R)
         throw "Impossible circle";
 }
 Circle::~Circle() {
-    delete(this->plane);
+    delete this->plane;
 }
 
 Point Circle::intersect(const Line &line) const

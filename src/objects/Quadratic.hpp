@@ -26,6 +26,6 @@ class Quadratic : public Object
 
         Point intersect(const Line &line) const;
         double angleWith(const Line &line) const;
-        Plane *tangentAt(const Point &p) const;
+        Plane tangentAt(const Point &p) const;
         Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 };

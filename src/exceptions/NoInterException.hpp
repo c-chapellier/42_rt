@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../header.hpp"
 
 class NoInterException : public std::exception

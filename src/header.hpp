@@ -27,6 +27,7 @@
 #include "visuals/Camera.hpp"
 #include "light/Light.hpp"
 #include "colorManager/ColorManager.hpp"
+
 #include "color/Color.hpp"
 #include "color/Texture.hpp"
 #include "color/TextureAplicator.hpp"

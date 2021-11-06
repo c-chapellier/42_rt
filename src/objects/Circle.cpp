@@ -1,28 +1,28 @@
 #include "Circle.hpp"
 
-Circle::Circle(double px, double py, double pz, double vx, double vy, double vz, double R, double r) : plane(px, py, pz, vx, vy, vz), R(R), r(r)
+Circle::Circle(double px, double py, double pz, double vx, double vy, double vz, double R, double r)
 {
-
+    this->plane = new Plane(px, py, pz, vx, vy, vz);
+    this->R = R;
+    this->r = r;
 }
-Circle::Circle(Plane &plane, double R, double r) : plane(plane), R(R), r(r)
-{
-
+Circle::~Circle() {
+    delete(this->plane);
 }
-Circle::~Circle() {}
 
 Point Circle::intersect(const Line &line) const
 {
-    Point p = this->plane.intersect(line);
-    double dist = p.distWith(this->plane.getP());
+    Point p = this->plane->intersect(line);
+    double dist = p.distWith(this->plane->getP());
 
     if (dist <= this->R && dist >= this->r)
         return p;
-    throw "Line do not intersect the circle";
+    throw NoInterException("Line do not intersect the circle");
 }
 
 double Circle::angleWith(const Line &line) const
 {
-    return this->plane.angleWith(line);
+    return this->plane->angleWith(line);
 }
 
 Color Circle::getColorAt(int height, int width, int screen_height, int screenWidth, Point &intersection)

@@ -1,12 +1,16 @@
 #pragma once
 
-#include "Object.hpp"
+#include "../exceptions/NoInterException.hpp"
 #include "Plane.hpp"
+#include "Object.hpp"
+
+class Plane;
+class Object;
 
 class Circle : public Object
 {
     private:
-        Plane plane;
+        Plane *plane;
         double R;
         double r;
     public:

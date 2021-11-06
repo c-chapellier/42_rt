@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../header.hpp"
+#include "../exceptions/NoInterException.hpp"
 #include "components/Point.hpp"
 #include "components/Vector.hpp"
 #include "Object.hpp"

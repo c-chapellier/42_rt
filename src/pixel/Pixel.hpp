@@ -27,9 +27,9 @@ public:
     int getBlue() const;
     int getOpacity() const;
     Color &getColor();
-    double get_dist() const;
-    Point &get_location();
-    Object *get_object();
+    double getDist() const;
+    Point &getLocation();
+    Object *getObject();
 
     void setColor(const Color &color);
     void setLocation(const Point &p);

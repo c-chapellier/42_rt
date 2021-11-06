@@ -107,7 +107,6 @@ void Window::stream(Image &img)
 
 void Window::load_image(Image *img)
 {
-
     if (!img->is_valid(this->height, this->width))
         throw "Image and window dimensions do not match.";
 

@@ -35,7 +35,7 @@ Texture Parser::getTexture(nlohmann::json json) {
     }
 }
 
-std::list<Object*> Parser::getObjects()
+std::list<Object *> Parser::getObjects()
 {
     std::list<Object *> objects;
 
@@ -84,7 +84,7 @@ std::list<Object*> Parser::getObjects()
             );
 
             for (auto const& color : obj["colors"])
-                c->addColor(*this->colorManager->getColor(color));
+                c->addColor(this->colorManager->getColor(color));
 
             c->setTexture(getTexture(obj));
             objects.push_back(c);
@@ -120,6 +120,7 @@ std::list<Object*> Parser::getObjects()
                 obj["coordinates"][1], 
                 obj["coordinates"][2]
             );
+
             Polygone *polygon = PolygoneFactory::createPolygone(
                 obj["name"],
                 coordinates,
@@ -228,16 +229,16 @@ std::list<BlackObject *> Parser::getBlackObjects()
     return objects;
 }
 
-Config *Parser::getConfig()
+Config Parser::getConfig()
 {
-    Config *config = new Config();
+    Config config = Config();
 
-    config->setHeight(this->j["height"]);
-    config->setWidth(this->j["width"]);
-    config->setAmbientColor(this->colorManager->getColor(this->j["ambient"]));
-    try { config->setPrecision(this->j["precision"]); } catch(...) { config->setPrecision(1); }
-    try { config->setBlur(this->j["blur"]); } catch(...) { config->setBlur(0); }
-    try { config->setFilter(this->j["filter"]); } catch(...) { config->setFilter("None"); }
-    try { config->setPerlinNoise(this->j["perlinNoise"]); } catch(...) { config->setPerlinNoise(false); }
+    config.setHeight(this->j["height"]);
+    config.setWidth(this->j["width"]);
+    config.setAmbientColor(this->colorManager->getColor(this->j["ambient"]));
+    try { config.setPrecision(this->j["precision"]); } catch(...) { config.setPrecision(1); }
+    try { config.setBlur(this->j["blur"]); } catch(...) { config.setBlur(0); }
+    try { config.setFilter(this->j["filter"]); } catch(...) { config.setFilter("None"); }
+    try { config.setPerlinNoise(this->j["perlinNoise"]); } catch(...) { config.setPerlinNoise(false); }
     return config;
 }

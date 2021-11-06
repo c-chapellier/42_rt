@@ -48,12 +48,12 @@ double Point::distWith(const Point &p) const
     return sqrt(pow(p.x - this->x, 2) + pow(p.y - this->y, 2) + pow(p.z - this->z, 2));
 }
 
-Point *Point::applyVector(const Vector &vector) const
+Point Point::applyVector(const Vector &vector) const
 {
-    return new Point(this->x + vector.getX(), this->y + vector.getY(), this->z + vector.getZ());
+    return Point(this->x + vector.getX(), this->y + vector.getY(), this->z + vector.getZ());
 }
 
-Point *Point::rotateAroundX(double alpha)
+Point Point::rotateAroundX(double alpha) const
 {
     double dist, beta, new_angle, new_y, new_z;
     Point p(this->x, 0, 0);
@@ -73,10 +73,10 @@ Point *Point::rotateAroundX(double alpha)
     new_y = new_angle <= 90 ? (pos(new_y)) : new_angle <= 270 ? (neg(new_y)) : (pos(new_y));
     new_z = new_angle <= 180 ? (pos(new_z)) : (neg(new_z));
     
-    return new Point(this->x, new_y, new_z);
+    return Point(this->x, new_y, new_z);
 }
 
-Point *Point::rotateAroundY(double alpha)
+Point Point::rotateAroundY(double alpha) const
 {
     double dist, beta, new_angle, new_x, new_z;
     Point p(0, this->y, 0);
@@ -96,10 +96,10 @@ Point *Point::rotateAroundY(double alpha)
     new_x = new_angle <= 90 ? (pos(new_x)) : new_angle <= 270 ? (neg(new_x)) : (pos(new_x));
     new_z = new_angle <= 180 ? (pos(new_z)) : (neg(new_z));
 
-    return new Point(new_x, this->y, new_z);
+    return Point(new_x, this->y, new_z);
 }
 
-Point *Point::rotateAroundZ(double alpha)
+Point Point::rotateAroundZ(double alpha) const
 {
     double dist, beta, new_angle, new_x, new_y;
     Point p(0, 0, this->z);
@@ -119,7 +119,7 @@ Point *Point::rotateAroundZ(double alpha)
     new_x = new_angle <= 90 ? (pos(new_x)) : new_angle <= 270 ? (neg(new_x)) : (pos(new_x));
     new_y = new_angle <= 180 ? (neg(new_y)) : (pos(new_y));
 
-    return new Point(new_x, new_y, this->z);
+    return Point(new_x, new_y, this->z);
 }
 
 std::ostream& operator<< (std::ostream& out, const Point& point)

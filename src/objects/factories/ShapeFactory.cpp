@@ -2,9 +2,9 @@
 
 ShapeFactory::ShapeFactory(){}
 
-std::vector<Object*> ShapeFactory::createShape(std::string type, Point &p, double size1, double size2, double size3, double alpha, double beta, double gama)
+std::vector<Object *> ShapeFactory::createShape(const std::string &type, const Point &p, double size1, double size2, double size3, double alpha, double beta, double gama)
 {
-    if(type == "DNA") {
+    if (type == "DNA") {
         return createDNA(p);
     } else if(type == "SphereCircle") {
         return createSphereCircle(p, size1, size2, size3, alpha, beta, gama);
@@ -13,8 +13,8 @@ std::vector<Object*> ShapeFactory::createShape(std::string type, Point &p, doubl
         "Unrecognized type of shape";
 }
 
-std::vector<Object*> ShapeFactory::createDNA(Point &p) {
-    std::vector<Object*> objects;
+std::vector<Object *> ShapeFactory::createDNA(const Point &p) {
+    std::vector<Object *> objects;
 
     int height = 30;
     int width = 100;
@@ -30,9 +30,9 @@ std::vector<Object*> ShapeFactory::createDNA(Point &p) {
     return objects;
 }
 
-std::vector<Object*> ShapeFactory::createSphereCircle(Point &p, double radius, int nb_sphere, double sphere_radius, double alpha, double beta, double gama)
+std::vector<Object *> ShapeFactory::createSphereCircle(const Point &p, double radius, int nb_sphere, double sphere_radius, double alpha, double beta, double gama)
 {
-    std::vector<Object*> objects;
+    std::vector<Object *> objects;
 
     for (int i = 0; i < nb_sphere; ++i) {
         double angle = i * (360 / nb_sphere);

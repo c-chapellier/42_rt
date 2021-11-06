@@ -41,29 +41,27 @@ int Pixel::getOpacity() const
     return this->color.getO();
 }
 
-double Pixel::get_dist() const
+double Pixel::getDist() const
 {
     return this->dist;
 }
 
-Point &Pixel::get_location()
+Point &Pixel::getLocation()
 {
     return this->location_3d;
 }
 
-Object *Pixel::get_object()
+Object *Pixel::getObject()
 {
     return this->obj;
 }
 
 void Pixel::setColor(const Color &color)
 {
-    // std::cout << "setColor red[" << color.getR() << "]" << std::endl;
     this->color.setR(color.getR());
     this->color.setG(color.getG());
     this->color.setB(color.getB());
     this->color.setO(color.getO());
-    // std::cout << "end setColor red[" << this->color.getR() << "]" << std::endl;
 }
 
 void Pixel::setLocation(const Point &p)
@@ -83,7 +81,6 @@ void Pixel::setObject(Object *obj)
 
 Pixel &Pixel::operator=(const Pixel &pxl)
 {
-    // std::cout << "op= red[" << pxl.getRed() << "]" << std::endl;
     this->setColor(pxl.color);
     this->dist = pxl.dist;
     this->obj = pxl.obj;

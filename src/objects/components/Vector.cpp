@@ -61,10 +61,7 @@ double Vector::scalarProduct(const Vector &v) const
 
 double Vector::crossProductMagnitude(const Vector &v) const
 {
-    Vector *tmp = this->crossProduct(v);
-    double magnitude = tmp->getMagnitude();
-    delete(tmp);
-    return magnitude;
+    return this->crossProduct(v).getMagnitude();
 }
 
 // return a vector perendicular to the two others
@@ -72,9 +69,9 @@ double Vector::crossProductMagnitude(const Vector &v) const
 // ---------    -------     -------     -------
 // | a b c | => | b c | x - | a c | y + | a b | z
 // | d e f |    | e f |     | d f |     | d e |
-Vector *Vector::crossProduct(const Vector &v) const
+Vector Vector::crossProduct(const Vector &v) const
 {
-    return new Vector(
+    return Vector(
         (this->y * v.z) - (v.y * this->z),
         -(this->x * v.z) + (v.x * this->z),
         (this->x * v.y) - (v.x * this->y)
@@ -101,11 +98,11 @@ double Vector::crossProductXY(const Vector &v) const
 
 int Vector::directionXY(const Vector &v) const
 {
-    Vector *v1 = new Vector(*this, this->getMagnitude());
-    Vector *v2 = new Vector(v.getX() / v.getMagnitude(), v.getY() / v.getMagnitude(), 0);
-    Vector *v1r = new Vector(v1->getY(), -v1->getX(), 0);
+    Vector v1(*this, this->getMagnitude());
+    Vector v2(v.getX() / v.getMagnitude(), v.getY() / v.getMagnitude(), 0);
+    Vector v1r(v1.getY(), -v1.getX(), 0);
 
-    double d = v1r->scalarProductXY(*v2);
+    double d = v1r.scalarProductXY(v2);
     return d > 0 ? CLOCK_WISE : ANTI_CLOCK_WISE;
 }
 
@@ -121,11 +118,11 @@ double Vector::crossProductXZ(const Vector &v) const
 
 int Vector::directionXZ(const Vector &v) const
 {
-    Vector *v1 = new Vector(*this, this->getMagnitude());
-    Vector *v2 = new Vector(v.getX() / v.getMagnitude(), 0, v.getZ() / v.getMagnitude());
-    Vector *v1r = new Vector(v1->getZ(), 0, -v1->getX());
+    Vector v1(*this, this->getMagnitude());
+    Vector v2(v.getX() / v.getMagnitude(), 0, v.getZ() / v.getMagnitude());
+    Vector v1r(v1.getZ(), 0, -v1.getX());
 
-    double d = v1r->scalarProductXY(*v2);
+    double d = v1r.scalarProductXY(v2);
     return d > 0 ? CLOCK_WISE : ANTI_CLOCK_WISE;
 }
 

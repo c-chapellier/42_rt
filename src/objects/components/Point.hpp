@@ -30,10 +30,10 @@ class Point
         void setZ(double z);
 
         double distWith(const Point &p) const;
-        Point *applyVector(const Vector &vector) const;
-        Point *rotateAroundX(double alpha);
-        Point *rotateAroundY(double alpha);
-        Point *rotateAroundZ(double alpha);
+        Point applyVector(const Vector &vector) const;
+        Point rotateAroundX(double alpha) const;
+        Point rotateAroundY(double alpha) const;
+        Point rotateAroundZ(double alpha) const;
 
         friend std::ostream& operator<<(std::ostream& out, const Point& point);
 };

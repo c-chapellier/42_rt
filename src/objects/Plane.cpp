@@ -18,7 +18,8 @@ Plane::Plane(const Point &p, double vx, double vy, double vz)
 {
 }
 
-Plane::Plane(const Point &p1, const Point &p2, const Point &p3) : Object(), p(p1), v(*Vector(p1, p2).crossProduct(Vector(p1, p3)))
+Plane::Plane(const Point &p1, const Point &p2, const Point &p3)
+    : Object(), p(p1), v(Vector(p1, p2).crossProduct(Vector(p1, p3)))
 {
 }
 

@@ -19,7 +19,7 @@ public:
 
     std::vector< std::vector<Pixel> > getPixels();
 
-    bool is_valid(int height, int width);
+    bool is_valid(int height, int width) const;
 
     Image &operator=(const Image &img);
     std::vector<Pixel> &operator[](int i);

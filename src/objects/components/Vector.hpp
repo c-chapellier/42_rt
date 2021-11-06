@@ -31,7 +31,7 @@ class Vector
 
         double scalarProduct(const Vector &v) const;
         double crossProductMagnitude(const Vector &v) const;
-        Vector *crossProduct(const Vector &v) const;
+        Vector crossProduct(const Vector &v) const;
         double angleWith(const Vector &v) const;
 
         int directionXY(const Vector &v) const;

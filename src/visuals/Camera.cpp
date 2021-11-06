@@ -55,50 +55,50 @@ std::vector< std::vector<Point> > Camera::getScreen(const Config &config) const
     }
 
     // vectors
-    Vector *x_axis = new Vector(1, 0, 0);
-    Vector *projection_on_plane_xy = new Vector(this->v.getX(), this->v.getY(), 0);
-    Vector *projection_on_plane_xz = new Vector(this->v.getX(), 0, this->v.getZ());
+    Vector x_axis(1, 0, 0);
+    Vector projection_on_plane_xy(this->v.getX(), this->v.getY(), 0);
+    Vector projection_on_plane_xz(this->v.getX(), 0, this->v.getZ());
 
     //plane
-    Plane *xy_plane = new Plane(0, 0, 0, 0, 0, 1);
+    Plane xy_plane(0, 0, 0, 0, 0, 1);
 
     // angles
     double alpha = 0, gama = 0;
 
-    if(projection_on_plane_xy->getMagnitude() != 0){
+    if(projection_on_plane_xy.getMagnitude() != 0){
         // angle between the camera vector and X axis
-        alpha = projection_on_plane_xy->angleWith(*x_axis);
+        alpha = projection_on_plane_xy.angleWith(x_axis);
         // if right turn angle = one complete turn minus himself (trigonometric circle)
-        alpha = projection_on_plane_xy->directionXY(*x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
+        alpha = projection_on_plane_xy.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
     }
     // angle between the camera vector and Z axis
-    gama = xy_plane->angleWith(this->v);
+    gama = xy_plane.angleWith(this->v);
     // if right turn angle = one complete turn minus himself (trigonometric circle)
 
     for (int z = 0; z < height; ++z) {
         for (int y = 0; y < width; ++y) {
-            Point *tmp1;
-            Point *new_point = new Point(screen[z][y]); // res
+            Point tmp1;
+            Point new_point(screen[z][y]); // res
 
             // translation horizontal
-            if(projection_on_plane_xy->getMagnitude() != 0 && alpha != 0) {
+            if (projection_on_plane_xy.getMagnitude() != 0 && alpha != 0) {
                 new_point = screen[z][y].rotateAroundZ(alpha);
             }
 
             // translation vertical
-            if(projection_on_plane_xz->getMagnitude() != 0 && gama != 0) {
+            if(projection_on_plane_xz.getMagnitude() != 0 && gama != 0) {
                 if(gama < 0)
                     gama = 360 + gama;
-                Point *tmp = screen[z][y].rotateAroundY(gama);
-                tmp1 = tmp->rotateAroundZ(alpha);
+                Point tmp = screen[z][y].rotateAroundY(gama);
+                tmp1 = tmp.rotateAroundZ(alpha);
 
-                Vector v2(*new_point, *tmp1);
-                new_point = new_point->applyVector(v2);
+                Vector v2(new_point, tmp1);
+                new_point = new_point.applyVector(v2);
             }
 
-            screen[z][y].setX(new_point->getX() + this->p.getX());
-            screen[z][y].setY(new_point->getY() + this->p.getY());
-            screen[z][y].setZ(new_point->getZ() + this->p.getZ());
+            screen[z][y].setX(new_point.getX() + this->p.getX());
+            screen[z][y].setY(new_point.getY() + this->p.getY());
+            screen[z][y].setZ(new_point.getZ() + this->p.getZ());
         }
     }
     return screen;

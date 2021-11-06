@@ -52,11 +52,10 @@ Point Line::getPointFor(double t) const
     return tmp;
 }
 
-Point *Line::getPointAt(double dist)
+Point Line::getPointAt(double dist) const
 {
-    double l = this->v.getMagnitude();
-    double t = dist / l;
-    return new Point(this->p.getX() + (this->v.getX() * t), this->p.getY() + (this->v.getY() * t), this->p.getZ() + (this->v.getZ() * t));
+    double t = dist / this->v.getMagnitude();
+    return Point(this->p.getX() + (this->v.getX() * t), this->p.getY() + (this->v.getY() * t), this->p.getZ() + (this->v.getZ() * t));
 }
 
 std::ostream& operator<< (std::ostream& out, const Line& line)

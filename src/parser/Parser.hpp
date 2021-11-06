@@ -23,5 +23,5 @@ class Parser
         std::list<Camera *> getCameras();
         std::list<Light *> getLights();
         std::list<BlackObject *> getBlackObjects();
-        Config *getConfig();
+        Config getConfig();
 };

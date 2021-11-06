@@ -42,21 +42,21 @@ bool Config::getPerlinNoise() const
 
 void Config::setHeight(int h)
 {
-    if(h <= 0)
+    if (h <= 0)
         throw "Height can not be under or equal to 0";
     this->height = h;
 }
 
 void Config::setWidth(int w)
 {
-    if(w <= 0)
+    if (w <= 0)
         throw "Width can not be under or equal to 0";
     this->width = w;
 }
 
 void Config::setPrecision(int p)
 {
-    if(p <= 0)
+    if (p <= 0)
         throw "Width can not be under or equal to 0";
     this->precision = p;
 }
@@ -68,14 +68,14 @@ void Config::setAmbientColor(const Color &ambient)
 
 void Config::setBlur(int b)
 {
-    if(b < 0 || b > 10)
+    if (b < 0 || b > 10)
         throw "Blur must be between 0 and 10";
     this->blur = b;
 }
 
 void Config::setFilter(const std::string &filter)
 {
-    if(filter != "None" && filter != "Sepia" && filter != "AverageGrayscale" && filter != "WeightedGrayscale" && filter != "Invert")
+    if (filter != "None" && filter != "Sepia" && filter != "AverageGrayscale" && filter != "WeightedGrayscale" && filter != "Invert")
         throw "Unknown filter";
     this->filter = filter;
 }

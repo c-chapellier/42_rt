@@ -21,7 +21,7 @@ std::vector< std::vector<Pixel> > Image::getPixels()
     return this->pxls;
 }
 
-bool Image::is_valid(int height, int width)
+bool Image::is_valid(int height, int width) const
 {
     return this->width == width && this->height == height;
 }

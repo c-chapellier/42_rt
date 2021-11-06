@@ -90,12 +90,12 @@ void Engine::findObjects(int threadNumber, Camera *camera, std::vector< std::vec
             for (int width = 0; width < this->precision_width; ++width)
             {
                 try {
-                    Line l(*camera->getP(), screen[height][width]);
+                    Line l(camera->getP(), screen[height][width]);
                     Point p = obj->intersect(l);
                     
                     if (!this->blackObjectsContains(p))
                     {
-                        double dist = p.distWith(*camera->getP());
+                        double dist = p.distWith(camera->getP());
                         double angle = RADIAN(obj->angleWith(l));
 
                         Color color = obj->getColorAt(height, width, config->getHeight(), config->getWidth(), p);

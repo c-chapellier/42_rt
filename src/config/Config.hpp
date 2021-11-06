@@ -16,13 +16,13 @@ class Config
         Config();
         ~Config();
 
-        int getHeight();
-        int getWidth();
-        int getPrecision();
+        int getHeight() const;
+        int getWidth() const;
+        int getPrecision() const;
         Color *getAmbientColor();
-        int getBlur();
+        int getBlur() const;
         std::string getFilter();
-        bool getPerlinNoise();
+        bool getPerlinNoise() const;
 
         void setHeight(int h);
         void setWidth(int w);

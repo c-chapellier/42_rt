@@ -101,7 +101,7 @@ Color Color::reduceOf(double ratio) const
     new_g = (double)this->g * (1.0 - ratio);
     new_b = (double)this->b * (1.0 - ratio);
 
-    return Color((int)new_r, (int)new_b, (int)new_g, this->o);
+    return Color((int)new_r, (int)new_g, (int)new_b, this->o);
 }
 
 Color Color::add(const Color &c)

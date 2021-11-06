@@ -7,7 +7,7 @@
         "green": [0, 255, 0, 80],
         "blue": [0, 0, 255, 255],
         "ambient": [20, 20, 20, 200],
-        "white": [120, 0, 0, 255]
+        "white": [255, 255, 255, 255]
     },
     "ambient": "ambient",
     "precision": 1,
@@ -20,7 +20,7 @@
     ],
     "lights": [
         {
-            "coordinates": [-1000, 1000, 0],
+            "coordinates": [-100, 50, 20],
             "color": "white"
         }
     ],

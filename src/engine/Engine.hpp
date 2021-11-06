@@ -44,9 +44,8 @@ private:
 
     bool blackObjectsContains(const Point &p) const;
 
-    void alphaBlending(Color &blended_color, const Color &c1, const Color &c2);
+    Color alphaBlending(const Color &c1, const Color &c2);
     void getNewPixel(Object *obj, Line &l, Point *p, Camera *camera, Pixel *pixel, int height, int width);
-    std::vector< std::vector<Pixel> > getPixels();
 
 public:
     Engine(std::string config_file);

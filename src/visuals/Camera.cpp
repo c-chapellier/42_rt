@@ -12,7 +12,7 @@ Camera::Camera(double px, double py, double pz, double vx, double vy, double vz,
 Camera::Camera(const Point &p, const Vector &v, double a)
     : p(p), v(v), angle(a)
 {
-    if(v.getX() == 0 && v.getY() == 0 && v.getZ() == 0)
+    if (v.getX() == 0 && v.getY() == 0 && v.getZ() == 0)
         throw "The camera vector can not be the null vector";
     if (a < 60 || a > 120)
         throw "Bad angle for camera";
@@ -41,16 +41,20 @@ std::vector< std::vector<Point> > Camera::getScreen(const Config &config) const
 {
     int height = config.getHeight() * config.getPrecision();
     int width = config.getWidth() * config.getPrecision();
+
     // make all the points
     std::vector< std::vector<Point> > screen;
     screen.resize(height, std::vector<Point>(width));
-    for (int z = 0; z < height; ++z){
-        for (int y = 0; y < width; ++y){
-            Point p(
-                double(width / 2) / sin(RADIAN(this->angle / 2)),
-                (double)((double)(width / 2) - y), //  + (80 * sin(RADIAN(z * 3)))
-                (double)(height / 2) - z); //  + (80 * sin(RADIAN(y * 3)))
-            screen[z][y] = p;
+
+    for (int z = 0; z < height; ++z)
+    {
+        for (int y = 0; y < width; ++y)
+        {
+            screen[z][y] = Point(
+                (double)width / (2 * sin(RADIAN(this->angle / 2))),
+                ((double)width / 2) - y,    //  + (80 * sin(RADIAN(z * 3)))
+                ((double)height / 2) - z    //  + (80 * sin(RADIAN(y * 3)))
+            );
         }
     }
 
@@ -65,35 +69,38 @@ std::vector< std::vector<Point> > Camera::getScreen(const Config &config) const
     // angles
     double alpha = 0, gama = 0;
 
-    if(projection_on_plane_xy.getMagnitude() != 0){
+    if (projection_on_plane_xy.getMagnitude() != 0)
+    {
         // angle between the camera vector and X axis
         alpha = projection_on_plane_xy.angleWith(x_axis);
         // if right turn angle = one complete turn minus himself (trigonometric circle)
         alpha = projection_on_plane_xy.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
     }
+
     // angle between the camera vector and Z axis
     gama = xy_plane.angleWith(this->v);
     // if right turn angle = one complete turn minus himself (trigonometric circle)
 
-    for (int z = 0; z < height; ++z) {
-        for (int y = 0; y < width; ++y) {
-            Point tmp1;
+    for (int z = 0; z < height; ++z)
+    {
+        for (int y = 0; y < width; ++y)
+        {
             Point new_point(screen[z][y]); // res
 
             // translation horizontal
-            if (projection_on_plane_xy.getMagnitude() != 0 && alpha != 0) {
+            if (projection_on_plane_xy.getMagnitude() != 0 && alpha != 0)
                 new_point = screen[z][y].rotateAroundZ(alpha);
-            }
 
             // translation vertical
-            if(projection_on_plane_xz.getMagnitude() != 0 && gama != 0) {
-                if(gama < 0)
+            if (projection_on_plane_xz.getMagnitude() != 0 && gama != 0)
+            {
+                if (gama < 0)
                     gama = 360 + gama;
-                Point tmp = screen[z][y].rotateAroundY(gama);
-                tmp1 = tmp.rotateAroundZ(alpha);
 
-                Vector v2(new_point, tmp1);
-                new_point = new_point.applyVector(v2);
+                new_point = new_point.applyVector(Vector(
+                    new_point,
+                    screen[z][y].rotateAroundY(gama).rotateAroundZ(alpha)
+                ));
             }
 
             screen[z][y].setX(new_point.getX() + this->p.getX());

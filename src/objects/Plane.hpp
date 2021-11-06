@@ -22,8 +22,8 @@ class Plane : public Object
         Plane(const Point &p1, const Point &p2, const Point &p3);
         ~Plane();
 
-        Point &getP();
-        Vector &getV();
+        Point getP() const;
+        Vector getV() const;
 
         Point intersect(const Line &line) const;
         double angleWith(const Line &line) const;

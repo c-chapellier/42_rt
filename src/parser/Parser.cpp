@@ -71,6 +71,24 @@ std::list<Object*> Parser::getObjects()
             sp->setTexture(getTexture(obj));
             objects.push_back(sp);
 
+        } else if (obj["type"] == "Circle") {
+            Circle *c = new Circle(
+                obj["coordinates"][0], 
+                obj["coordinates"][1], 
+                obj["coordinates"][2],
+                obj["normal"][0], 
+                obj["normal"][1], 
+                obj["normal"][2],
+                obj["externRadius"],
+                obj["internRadius"]
+            );
+
+            for (auto const& color : obj["colors"])
+                c->addColor(*this->colorManager->getColor(color));
+
+            c->setTexture(getTexture(obj));
+            objects.push_back(c);
+
         } else if (obj["type"] == "Quadratic") {
             Point coordinates(
                 obj["coordinates"][0], 

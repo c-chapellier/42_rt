@@ -26,11 +26,11 @@ Plane::~Plane()
 {
 }
 
-Point &Plane::getP()
+Point Plane::getP() const
 {
     return this->p;
 }
-Vector &Plane::getV()
+Vector Plane::getV() const
 {
     return this->v;
 }

@@ -33,6 +33,7 @@
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
+#include "objects/Circle.hpp"
 #include "objects/Quadratic.hpp"
 #include "objects/Polygone.hpp"
 

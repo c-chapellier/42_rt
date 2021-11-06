@@ -9,15 +9,15 @@ class Sphere : public Object
         Point p;
         double r;
     public:
-        Sphere(Point &p, double r);
+        Sphere(const Point &p, double r);
         Sphere(double x, double y, double z, double r);
-        Sphere(double x, double y, double z, double r, Color &color);
+        Sphere(double x, double y, double z, double r, const Color &color);
         ~Sphere();
 
-        Point getP();
-        double getR();
+        Point getP() const;
+        double getR() const;
 
         Point intersect(const Line &line) const;
         double angleWith(const Line &line) const;
-        Color getColorAt(int height, int width, int screen_height, int screenWidth, Point &intersection);
+        Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 };

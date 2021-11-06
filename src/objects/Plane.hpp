@@ -29,7 +29,7 @@ class Plane : public Object
         double angleWith(const Vector &v) const;
         double angleWith(const Plane &p) const;
 
-        Color getColorAt(int height, int width, int screen_height, int screenWidth, Point &intersection);
+        Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 
         friend std::ostream& operator<<(std::ostream& out, const Plane& plane);
 };

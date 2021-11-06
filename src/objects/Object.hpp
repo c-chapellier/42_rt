@@ -23,13 +23,11 @@ class Object
 
         virtual Point intersect(const Line &line) const = 0;
         virtual double angleWith(const Line &line) const = 0;
-        virtual Color getColorAt(int height, int width, int screen_height, int screenWidth, Point &intersection);
+        virtual Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 
-        Color &getColor();
-        Color &getColor(int i);
-        Texture &getTexture();
+        Color getColor() const;
+        Color getColor(int i) const;
+        Texture getTexture() const;
         void addColor(const Color &color);
         void setTexture(const Texture &texture);
-
-        
 };

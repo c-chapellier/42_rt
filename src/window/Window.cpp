@@ -14,14 +14,14 @@ Window::~Window()
     SDL_Quit();
 }
 
-int Window::get_width() const
-{
-    return this->width;
-}
-
 int Window::get_height() const
 {
     return this->height;
+}
+
+int Window::get_width() const
+{
+    return this->width;
 }
 
 void Window::clear()
@@ -75,13 +75,7 @@ void Window::pause()
 
 void Window::stream(Image &img)
 {
-
-    // for (int i = 0; i < this->height; ++i)
-    //     for (int j = 0; j < this->width; ++j)
-    //         img[i][j].getRed() != 0.0 && std::cout << -------------" << std::endl; 
-
-
-    if (!img.is_valid(this->width, this->height))
+    if (!img.is_valid(this->height, this->width))
         throw "Window::stream: Image and window dimensions do not match.";
 
     for (int i = 0; i < this->height; ++i)

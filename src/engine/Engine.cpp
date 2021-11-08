@@ -1,6 +1,7 @@
 #include "Engine.hpp"
 
 Engine::Engine(std::string config_file)
+    : current_pixel(0)
 {
     std::cout << "init" << std::endl;
     std::cout << "max_nbr_of_threads = " << this->nbrOfThreads << std::endl;
@@ -19,6 +20,8 @@ Engine::Engine(std::string config_file)
 
     this->precision_height = this->config.getHeight() * this->config.getPrecision();
     this->precision_width = this->config.getWidth() * this->config.getPrecision();
+
+    std::cout << "end init" << std::endl;
 }
 
 Engine::~Engine()
@@ -39,8 +42,10 @@ Engine::~Engine()
 
 void Engine::run()
 {
-    time_t starting_time = time(NULL);
+    std::cout << "run" << std::endl;
 
+    auto start = std::chrono::high_resolution_clock::now();
+  
     this->loadingBar->add(10);
 
     for (auto const& camera : this->cameras)
@@ -52,12 +57,7 @@ void Engine::run()
 
         std::cout << "findObjects" << std::endl;
         this->threadedFindObjects(*camera, screen, pixels);
-        this->loadingBar->add(30 / this->cameras.size());
-
-        // std::cout << "applyLight" << std::endl;
-        // this->threadedApplyLight(pixels);
-        this->loadingBar->add(30 / this->cameras.size());
-
+        
         std::cout << "applyPerlinNoise" << std::endl;
         this->applyPerlinNoise(pixels);
 
@@ -79,8 +79,41 @@ void Engine::run()
 
     std::cout << "set_image" << std::endl;
     this->win->set_image();
-    std::cout << "loaded in " << (time(NULL) - starting_time) << std::endl;
+
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    std::cout << "Loaded: " << duration.count() << " milliseconds" << std::endl;
+
     this->win->pause();
+}
+
+void Engine::manageLoadingBar()
+{
+    int a, b = 0;
+    int total_pixels = this->precision_height * this->precision_width;
+
+    int sleeping_time = 500;
+
+    do
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(sleeping_time));
+
+        a = (60. * ((double)this->current_pixel / total_pixels)) - b;
+
+        auto start = std::chrono::high_resolution_clock::now();
+        this->loadingBar->add(a / this->cameras.size());
+        auto stop = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+        std::cout << "Time taken by function: " << duration.count() << " milliseconds" << std::endl;
+  
+        b += a;
+        sleeping_time += sleeping_time < 3000 ? 500 : 0;
+    }
+    while (this->current_pixel < total_pixels);
+
+    a = (60. * ((double)this->current_pixel / total_pixels)) - b;
+    this->loadingBar->add(a / this->cameras.size());
+    b += a;
 }
 
 void Engine::threadedFindObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
@@ -88,116 +121,111 @@ void Engine::threadedFindObjects(const Camera &camera, std::vector< std::vector<
     std::vector<std::thread> threads;
 
     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-        threads.push_back(std::thread(&Engine::findObjects, this, i, camera, std::ref(screen), std::ref(pixels)));
+        threads.push_back(std::thread(&Engine::findObjects, this, camera, std::ref(screen), std::ref(pixels)));
     
+    std::cout << "manageLoadingBar" << std::endl;
+    this->manageLoadingBar();
+    std::cout << "end manageLoadingBar" << std::endl;
+
     for (auto &th : threads)
         th.join();
+
 }
 
-void Engine::findObjects(int threadNumber, const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
+bool Engine::getNextPixel(int &height, int &width)
 {
-    for (auto const& obj : this->objects)
+    if (this->current_pixel >= this->precision_height * this->precision_width)
+        return false;
+
+    this->get_pixel_mtx.lock();
+
+    height = this->current_pixel / this->precision_width;
+    width = this->current_pixel % this->precision_width;
+    ++this->current_pixel;
+
+    this->get_pixel_mtx.unlock();
+
+    return true;
+}
+
+void Engine::findObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
+{
+    int height, width;
+
+    while (getNextPixel(height, width))
     {
-        for (int height = threadNumber; height < this->precision_height; height += this->nbrOfThreads)
+        // std::cout << height << ", " << width << std::endl;
+        Line camera_screen_ray(camera.getP(), screen[height][width]);
+
+        for (auto const& obj : this->objects)
         {
-            // std::cout << height << std::endl;
-            for (int width = 0; width < this->precision_width; ++width)
+            try
             {
-                try
-                {
-                    Line l(camera.getP(), screen[height][width]);
-                    Point p = obj->intersect(l);
+                Point camera_screen_inter = obj->intersect(camera_screen_ray);
                     
-                    if (!this->blackObjectsContains(p))
+                if (!this->blackObjectsContains(camera_screen_inter))
+                {
+                    double dist = camera_screen_inter.distWith(camera.getP());
+                    double camera_obj_angle = RADIAN(obj->angleWith(camera_screen_ray));
+
+                    Color color = obj->getColorAt(height, width, this->config.getHeight(), this->config.getWidth(), camera_screen_inter);
+
+                    for (auto const& light : this->lights)
                     {
-                        double dist = p.distWith(camera.getP());
-                        double angle = RADIAN(obj->angleWith(l));
+                        Line light_object_ray(light->getP(), camera_screen_inter);
+                        bool is_shined = true;
+                        double dist_pxl_light = camera_screen_inter.distWith(light->getP());
 
-                        Color color = obj->getColorAt(height, width, this->config.getHeight(), this->config.getWidth(), p);
-
-                        
-                            
-                        Color blended_color;
-
-                        if (dist < pixels[height][width].getDist())
+                        for (auto const& following_obj : this->objects)
                         {
-                            blended_color = this->alphaBlending(color, pixels[height][width].getColor());
-                            pixels[height][width].setDist(dist);
-                            pixels[height][width].setLocation(p);
-                            pixels[height][width].setObject(obj);
-                        }
-                        else
-                        {
-                            blended_color = this->alphaBlending(pixels[height][width].getColor(), color);
+                            try
+                            {
+                                Point light_object_inter = following_obj->intersect(light_object_ray);
+                                double dist_obj_light = light_object_inter.distWith(light->getP());
+
+                                if (dist_obj_light + 0.0000000001 < dist_pxl_light)
+                                {
+                                    is_shined = false;
+                                    break ;
+                                }
+                            }
+                            catch (const NoInterException &e) {}
                         }
 
-                        pixels[height][width].setColor(
-                            blended_color
-                                .add(this->config.getAmbientColor())
-                                .reduceOf(cos(angle) / 1.1)
-                                // .reduceOf(1 - exp(-dist / 1000))
-                        );
+                        if (is_shined)
+                        {
+                            double obj_light_angle = RADIAN(obj->angleWith(light_object_ray));
+                                
+                            color = color.add(light->getColor().reduceOf(cos(obj_light_angle) / 1.1));
+                        }
                     }
+                            
+                    Color blended_color;
+
+                    if (dist < pixels[height][width].getDist())
+                    {
+                        blended_color = this->alphaBlending(color, pixels[height][width].getColor());
+                        pixels[height][width].setDist(dist);
+                        pixels[height][width].setLocation(camera_screen_inter);
+                        pixels[height][width].setObject(obj);
+                    }
+                    else
+                    {
+                        blended_color = this->alphaBlending(pixels[height][width].getColor(), color);
+                    }
+
+                    pixels[height][width].setColor(
+                        blended_color
+                            .add(this->config.getAmbientColor())
+                            .reduceOf(cos(camera_obj_angle) / 1.1)
+                            // .reduceOf(1 - exp(-dist / 1000))
+                    );
                 }
-                catch (const NoInterException &e) {}
             }
+            catch (const NoInterException &e) {}
         }
     }
 }
-
-// void Engine::threadedApplyLight(std::vector< std::vector<Pixel> > &pixels)
-// {
-//     std::vector<std::thread> threads;
-
-//     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-//         threads.push_back(std::thread(&Engine::applyLight, this, i, std::ref(pixels)));
-    
-//     for (auto &th : threads)
-//         th.join();
-// }
-
-// void Engine::applyLight(int threadNumber, std::vector< std::vector<Pixel> > &pixels)
-// {
-//     for (auto const& light : this->lights)
-//     {
-//         for (int height = threadNumber; height < this->precision_height; height += this->nbrOfThreads)
-//         {
-//             for (int width = 0; width < this->precision_width; ++width)
-//             {
-//                 if (pixels[height][width].getObject() != NULL)
-//                 {
-//                     Line l(light->getP(), pixels[height][width].getLocation());
-//                     bool is_shined = true;
-//                     double dist_pxl_light = pixels[height][width].getLocation().distWith(light->getP());
-
-//                     for (auto const& obj : this->objects)
-//                     {
-//                         try
-//                         {
-//                             Point p = obj->intersect(l);
-//                             double dist_obj_light = p.distWith(light->getP());
-
-//                             if (dist_obj_light + 0.0000000001 < dist_pxl_light)
-//                             {
-//                                 is_shined = false;
-//                                 break ;
-//                             }
-//                         }
-//                         catch (const NoInterException &e) {}
-                        
-//                     }
-
-//                     if (is_shined)
-//                     {
-//                         double angle = RADIAN(pixels[height][width].getObject()->angleWith(l));
-                        
-//                         pixels[height][width].getColor().add(light->getColor().reduceOf(cos(angle)));         
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
 
 void Engine::applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels)
 {

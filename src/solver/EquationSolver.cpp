@@ -51,38 +51,75 @@ std::list<double> EquationSolver::solveCubicEquation(double a, double b, double 
             }
         }
     } else {
-        if (d != 1) {
-            a /= d;
-            b /= d;
-            c /= d;
+        b /= a;
+        c /= a;
+        d /= a;
+
+        // double p = (b / 3) - (pow(a, 21) / 9);
+        // double q = (pow(a, 3) / 27) - ((a * b) / 6) + (c / 2);
+        // double D = pow(p, 3) + (p * q);
+
+        double disc, q, r, dum1, s, t, term1, r13;
+        q = (3.0 * c - (pow(b, 2))) / 9.0;
+        r = -(27.0 * d) + b * (9.0 * c - 2.0 * (pow(b, 2)));
+        r /= 54.0;
+        disc = pow(q, 3) + pow(r, 2);
+
+        term1 = (b / 3.0);
+
+        if (disc > 0) { // one root real, two are complex
+            s = r + sqrt(disc);
+            s = ((s < 0) ? pow(-s, (1.0 / 3.0)) : pow(s, (1.0 / 3.0)));
+            t = r - sqrt(disc);
+            t = ((t < 0) ? - pow(-t, (1.0 / 3.0)) : pow(t, (1.0 / 3.0)));
+            // dataForm.x1Re.value = -term1 + s + t;
+            solutions.push_back(-term1 + s + t);
+            // term1 += (s + t)/2.0;
+            // dataForm.x3Re.value = dataForm.x2Re.value = -term1;
+            // term1 = Math.sqrt(3.0)*(-t + s)/2;
+            // dataForm.x2Im.value = term1;
+            // dataForm.x3Im.value = -term1;
+        } else if (disc == 0) { // All roots real, at least two are equal.
+            r13 = ((r < 0) ? - pow(-r, (1.0 / 3.0)) : pow(r, (1.0/  3.0)));
+            // dataForm.x1Re.value = -term1 + 2.0*r13;
+            solutions.push_back(-term1 + 2.0 * r13);
+            // dataForm.x3Re.value = dataForm.x2Re.value = -(r13 + term1);
+            solutions.push_back(-(r13 + term1));
+        } else { // all roots are real and unequal (to get here, q < 0)
+            q = -q;
+            dum1 = pow(q, 3);
+            dum1 = acos(r / sqrt(dum1));
+            r13 = 2.0 * sqrt(q);
+            // dataForm.x1Re.value = -term1 + r13 * cos(dum1 / 3.0);
+            // dataForm.x2Re.value = -term1 + r13 * cos((dum1 + 2.0 * M_PI) / 3.0);
+            // dataForm.x3Re.value = -term1 + r13 * cos((dum1 + 4.0 * M_PI) / 3.0);
+            solutions.push_back(-term1 + r13 * cos(dum1 / 3.0));
+            solutions.push_back(-term1 + r13 * cos((dum1 + 2.0 * M_PI) / 3.0));
+            solutions.push_back(-term1 + r13 * cos((dum1 + 4.0 * M_PI) / 3.0));
         }
 
-        double p = (b / 3) - (pow(a, 21) / 9);
-        double q = (pow(a, 3) / 27) - ((a * b) / 6) + (c / 2);
-        double D = pow(p, 3) + (p * q);
+        // if (D >= 0) {
+        //     if (D == 0) {
+        //         double r = pow(-q, 1.0 / 3.0);
+        //         tmp.push_back(-r);
+        //         tmp.push_back(2 * r);
+        //     } else {
+        //         double r1 = pow(-q + sqrt(D), 1.0 / 3.0);
+        //         double r2 = pow(-q - sqrt(D), 1.0 / 3.0);
+        //         tmp.push_back(r1 + r2);
+        //     }
+        // } else {
+        //     double angle = acos(-q / sqrt(-p * p * p));
+        //     double r = 2 * sqrt(-p);
+        //     for (int k = -1; k <= 1; ++k) {
+        //         double theta = (angle - (2.0 * M_PI * (double)k)) / 3.0;
+        //         tmp.push_back(r * cos(theta));
+        //     }
+        // }
 
-        if (D >= 0) {
-            if (D == 0) {
-                double r = pow(-q, 1.0 / 3.0);
-                tmp.push_back(-r);
-                tmp.push_back(2 * r);
-            } else {
-                double r1 = pow(-q + sqrt(D), 1.0 / 3.0);
-                double r2 = pow(-q - sqrt(D), 1.0 / 3.0);
-                tmp.push_back(r1 + r2);
-            }
-        } else {
-            double angle = acos(-q / sqrt(-p * p * p));
-            double r = 2 * sqrt(-p);
-            for (int k = -1; k <= 1; ++k) {
-                double theta = (angle - (2.0 * M_PI * (double)k)) / 3.0;
-                tmp.push_back(r * cos(theta));
-            }
-        }
-
-        for (double t : tmp) {
-            solutions.push_back(t - (a / 3.0));
-        }
+        // for (double t : tmp) {
+        //     solutions.push_back(t - (a / 3.0));
+        // }
     }
 
     return solutions;

@@ -92,6 +92,26 @@ std::list<Object *> Parser::getObjects()
             c->setTexture(getTexture(obj));
             objects.push_back(c);
 
+        } else if (obj["type"] == "MobiusTape") {
+            MobiusTape *mt = new MobiusTape(
+                obj["coordinates"][0], 
+                obj["coordinates"][1], 
+                obj["coordinates"][2],
+                obj["values"][0],
+                obj["values"][1],
+                obj["values"][2],
+                obj["values"][3],
+                obj["values"][4],
+                obj["values"][5],
+                obj["values"][6]
+            );
+
+            for (auto const& color : obj["colors"])
+                mt->addColor(this->colorManager->getColor(color));
+
+            mt->setTexture(getTexture(obj));
+            objects.push_back(mt);
+
         } else if (obj["type"] == "Quadratic") {
             Point coordinates(
                 obj["coordinates"][0], 
@@ -116,6 +136,40 @@ std::list<Object *> Parser::getObjects()
 
             quadratic->setTexture(getTexture(obj));
             objects.push_back(quadratic);
+
+        } else if (obj["type"] == "CubicSurface") {
+            CubicSurface *cs = new CubicSurface(
+                obj["coordinates"][0], 
+                obj["coordinates"][1], 
+                obj["coordinates"][2]
+            );
+            nlohmann::json tmp = obj;
+            try { cs->setX3(tmp["x3"]); } catch (...) {}
+            try { cs->setY3(tmp["y3"]); } catch (...) {}
+            try { cs->setZ3(tmp["z3"]); } catch (...) {}
+            try { cs->setX2Y(tmp["x2y"]); } catch (...) {}
+            try { cs->setX2Z(tmp["x2z"]); } catch (...) {}
+            try { cs->setY2X(tmp["y2x"]); } catch (...) {}
+            try { cs->setY2Z(tmp["y2z"]); } catch (...) {}
+            try { cs->setZ2X(tmp["z2x"]); } catch (...) {}
+            try { cs->setZ2Y(tmp["z2y"]); } catch (...) {}
+            try { cs->setXYZ(tmp["xyz"]); } catch (...) {}
+            try { cs->setX2(tmp["x2"]); } catch (...) {}
+            try { cs->setY2(tmp["y2"]); } catch (...) {}
+            try { cs->setZ2(tmp["z2"]); } catch (...) {}
+            try { cs->setXY(tmp["xy"]); } catch (...) {}
+            try { cs->setXZ(tmp["xz"]); } catch (...) {}
+            try { cs->setYZ(tmp["yz"]); } catch (...) {}
+            try { cs->setX(tmp["x"]); } catch (...) {}
+            try { cs->setY(tmp["y"]); } catch (...) {}
+            try { cs->setZ(tmp["z"]); } catch (...) {}
+            try { cs->setK(tmp["k"]); } catch (...) {}
+
+            for(auto const& color : obj["colors"])
+                cs->addColor(this->colorManager->getColor(color));
+
+            cs->setTexture(getTexture(obj));
+            objects.push_back(cs);
 
         } else if (obj["type"] == "Polygon") {
             Point coordinates(

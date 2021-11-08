@@ -121,7 +121,7 @@ Point Quadratic::intersect(const Line &line) const
 // Point: (x₀, y₀, z₀)
 // Tangent Plane: Fx(x₀, y₀, z₀)(x - x₀) + Fy(x₀, y₀, z₀)(y - y₀) + Fz(x₀, y₀, z₀)(z - z₀) = 0
 // Resolution:
-// Ax² + By² +Cz² + Dx + Ey + Fz + Gxy + Hxz + Iyz + K = 0
+// Ax² + By² + Cz² + Dx + Ey + Fz + Gxy + Hxz + Iyz + K = 0
 // Fx => 2Ax + D + Gy + Hz
 // Fy => 2By + E + Gx + Iz
 // Fz => 2Cz + F + Hx + Iy

@@ -1,0 +1,42 @@
+{
+    "name": "sphere",
+    "width": 600,
+    "height": 600,
+    "precision": 2,
+    "colors" : {
+        "red": [255, 25, 30, 255],
+        "blue": [0, 127, 255, 255],
+        "white": [255, 255, 255, 255],
+        "ambient": [20, 20, 20, 0]
+    },
+    "ambient": "ambient",
+    "cameras": [
+        {
+            "coordinates": [-1000, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        },
+        {
+            "coordinates": [0, 0, 1000],
+            "direction": [0, 0, -1],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [-1000, 1000, 0],
+            "color": "white"
+        }
+    ],
+    "objects": [
+        {
+            "type": "MobiusTape",
+            "coordinates": [0, 0, 0],
+            "values": [1, 1, 1, 1, 1, 1, 1],
+            "colors": [
+                "red",
+                "blue"
+            ]
+        }
+    ]
+}

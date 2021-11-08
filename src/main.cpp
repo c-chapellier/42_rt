@@ -6,6 +6,8 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
+    EquationSolver::solveQuarticEquation(1, -4, -5, 2, -10);
+
     try
     {
         if (argc < 2)

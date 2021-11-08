@@ -2,6 +2,7 @@
 
 #include <list>
 #include <math.h>
+#include <iostream>
 
 #include "Complex.hpp"
 

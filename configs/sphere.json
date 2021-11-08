@@ -20,7 +20,7 @@
     ],
     "lights": [
         {
-            "coordinates": [-100, 50, 20],
+            "coordinates": [-1000, 500, 200],
             "color": "white"
         }
     ],

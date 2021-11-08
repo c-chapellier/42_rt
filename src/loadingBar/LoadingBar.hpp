@@ -17,4 +17,5 @@ class LoadingBar
         LoadingBar(Window *window);
         ~LoadingBar();
         void add(int i);
+        void set(int i);
 };

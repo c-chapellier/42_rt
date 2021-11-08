@@ -1,7 +1,7 @@
 {
     "name": "sphere",
-    "width": 600,
     "height": 600,
+    "width": 600,
     "colors" : {
         "red": [255, 0, 0, 20],
         "green": [0, 255, 0, 80],

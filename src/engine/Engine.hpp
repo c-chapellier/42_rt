@@ -1,7 +1,5 @@
 #pragma once
 
-#include <fstream>
-
 #include "../header.hpp"
 
 class Engine
@@ -20,15 +18,17 @@ private:
     int precision_height;
     int precision_width;
 
+    int current_pixel;
+    std::mutex get_pixel_mtx;
+
     // const unsigned int nbrOfThreads = 1;
     const unsigned int nbrOfThreads = std::thread::hardware_concurrency();
 
     std::vector< std::vector<Vector> > GRADIENT;
 
     void threadedFindObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
-    void findObjects(int threadNumber, const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
-    void threadedApplyLight(std::vector< std::vector<Pixel> > &pixels);
-    void applyLight(int threadNumber, std::vector< std::vector<Pixel> > &pixels);
+    bool getNextPixel(int &height, int &width);
+    void findObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
     void applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels);
     void applyFilter(std::vector< std::vector<Pixel> > &pixels);
     void apply3D(std::vector< std::vector<Pixel> > &pixels);
@@ -41,6 +41,8 @@ private:
     float interpolate(float a0, float a1, float w);
     float dotGridGradient(int ix, int iy, float x, float y);
     float perlin(float x, float y);
+
+    void manageLoadingBar();
 
 public:
     Engine(std::string config_file);

@@ -7,8 +7,8 @@ Image::Image(int height, int width) : height(height), width(width)
 
 Image::Image(Image *img)
 {
-    this->width = img->width;
     this->height = img->height;
+    this->width = img->width;
     this->pxls = img->pxls;
 }
 
@@ -23,13 +23,13 @@ std::vector< std::vector<Pixel> > Image::getPixels()
 
 bool Image::is_valid(int height, int width) const
 {
-    return this->width == width && this->height == height;
+    return this->height == height && this->width == width;
 }
 
 Image &Image::operator=(const Image &img)
 {
-    this->width = img.width;
     this->height = img.height;
+    this->width = img.width;
     this->pxls = img.pxls;
     return *this;
 }

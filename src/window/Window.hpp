@@ -25,8 +25,8 @@ class Window
         Window(int height, int width);
         ~Window();
 
-        int get_width() const;
         int get_height() const;
+        int get_width() const;
 
         void clear();
         void refresh();

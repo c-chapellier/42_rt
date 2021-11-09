@@ -201,11 +201,11 @@ std::list<double> EquationSolver::solveQuarticEquation(double a, double b, doubl
         }
     }
 
-    std::cout << solutions.size() << std::endl;
-    for(double s : solutions) {
-        std::cout << s << ' ';
-    }
-    std::cout << std::endl;
+    // std::cout << solutions.size() << std::endl;
+    // for(double s : solutions) {
+    //     std::cout << s << ' ';
+    // }
+    // std::cout << std::endl;
 
     return solutions;
 }

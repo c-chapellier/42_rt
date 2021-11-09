@@ -43,6 +43,7 @@
 #include "objects/MobiusTape.hpp"
 #include "objects/Quadratic.hpp"
 #include "objects/CubicSurface.hpp"
+#include "objects/QuarticSurface.hpp"
 #include "objects/Polygone.hpp"
 
 #include "objects/components/Point.hpp"

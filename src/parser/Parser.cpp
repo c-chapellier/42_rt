@@ -171,6 +171,54 @@ std::list<Object *> Parser::getObjects()
             cs->setTexture(getTexture(obj));
             objects.push_back(cs);
 
+        } else if (obj["type"] == "QuarticSurface") {
+            QuarticSurface *qs = new QuarticSurface(
+                obj["coordinates"][0], 
+                obj["coordinates"][1], 
+                obj["coordinates"][2]
+            );
+            nlohmann::json tmp = obj;
+            try { qs->setX4(tmp["x4"]); } catch (...) {}
+            try { qs->setY4(tmp["y4"]); } catch (...) {}
+            try { qs->setZ4(tmp["z4"]); } catch (...) {}
+            try { qs->setX3Y(tmp["x3y"]); } catch (...) {}
+            try { qs->setX3Z(tmp["x3z"]); } catch (...) {}
+            try { qs->setY3X(tmp["y3x"]); } catch (...) {}
+            try { qs->setY3Z(tmp["y3z"]); } catch (...) {}
+            try { qs->setZ3X(tmp["z3x"]); } catch (...) {}
+            try { qs->setZ3Y(tmp["z3y"]); } catch (...) {}
+            try { qs->setX2YZ(tmp["x2yz"]); } catch (...) {}
+            try { qs->setY2XZ(tmp["y2xz"]); } catch (...) {}
+            try { qs->setZ2XY(tmp["z2yx"]); } catch (...) {}
+            try { qs->setX2Y2(tmp["x2y2"]); } catch (...) {}
+            try { qs->setX2Z2(tmp["x2z2"]); } catch (...) {}
+            try { qs->setY2Z2(tmp["y2z2"]); } catch (...) {}
+            try { qs->setX3(tmp["x3"]); } catch (...) {}
+            try { qs->setY3(tmp["y3"]); } catch (...) {}
+            try { qs->setZ3(tmp["z3"]); } catch (...) {}
+            try { qs->setX2Y(tmp["x2y"]); } catch (...) {}
+            try { qs->setX2Z(tmp["x2z"]); } catch (...) {}
+            try { qs->setY2X(tmp["y2x"]); } catch (...) {}
+            try { qs->setY2Z(tmp["y2z"]); } catch (...) {}
+            try { qs->setZ2X(tmp["z2x"]); } catch (...) {}
+            try { qs->setZ2Y(tmp["z2y"]); } catch (...) {}
+            try { qs->setXYZ(tmp["xyz"]); } catch (...) {}
+            try { qs->setX2(tmp["x2"]); } catch (...) {}
+            try { qs->setY2(tmp["y2"]); } catch (...) {}
+            try { qs->setZ2(tmp["z2"]); } catch (...) {}
+            try { qs->setXY(tmp["xy"]); } catch (...) {}
+            try { qs->setXZ(tmp["xz"]); } catch (...) {}
+            try { qs->setYZ(tmp["yz"]); } catch (...) {}
+            try { qs->setX(tmp["x"]); } catch (...) {}
+            try { qs->setY(tmp["y"]); } catch (...) {}
+            try { qs->setZ(tmp["z"]); } catch (...) {}
+            try { qs->setK(tmp["k"]); } catch (...) {}
+            for(auto const& color : obj["colors"])
+                qs->addColor(this->colorManager->getColor(color));
+
+            qs->setTexture(getTexture(obj));
+            objects.push_back(qs);
+
         } else if (obj["type"] == "Polygon") {
             Point coordinates(
                 obj["coordinates"][0], 

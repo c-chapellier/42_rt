@@ -71,54 +71,20 @@ std::list<double> EquationSolver::solveCubicEquation(double a, double b, double 
             s = ((s < 0) ? pow(-s, (1.0 / 3.0)) : pow(s, (1.0 / 3.0)));
             t = r - sqrt(disc);
             t = ((t < 0) ? - pow(-t, (1.0 / 3.0)) : pow(t, (1.0 / 3.0)));
-            // dataForm.x1Re.value = -term1 + s + t;
             solutions.push_back(-term1 + s + t);
-            // term1 += (s + t)/2.0;
-            // dataForm.x3Re.value = dataForm.x2Re.value = -term1;
-            // term1 = Math.sqrt(3.0)*(-t + s)/2;
-            // dataForm.x2Im.value = term1;
-            // dataForm.x3Im.value = -term1;
         } else if (disc == 0) { // All roots real, at least two are equal.
             r13 = ((r < 0) ? - pow(-r, (1.0 / 3.0)) : pow(r, (1.0/  3.0)));
-            // dataForm.x1Re.value = -term1 + 2.0*r13;
             solutions.push_back(-term1 + 2.0 * r13);
-            // dataForm.x3Re.value = dataForm.x2Re.value = -(r13 + term1);
             solutions.push_back(-(r13 + term1));
         } else { // all roots are real and unequal (to get here, q < 0)
             q = -q;
             dum1 = pow(q, 3);
             dum1 = acos(r / sqrt(dum1));
             r13 = 2.0 * sqrt(q);
-            // dataForm.x1Re.value = -term1 + r13 * cos(dum1 / 3.0);
-            // dataForm.x2Re.value = -term1 + r13 * cos((dum1 + 2.0 * M_PI) / 3.0);
-            // dataForm.x3Re.value = -term1 + r13 * cos((dum1 + 4.0 * M_PI) / 3.0);
             solutions.push_back(-term1 + r13 * cos(dum1 / 3.0));
             solutions.push_back(-term1 + r13 * cos((dum1 + 2.0 * M_PI) / 3.0));
             solutions.push_back(-term1 + r13 * cos((dum1 + 4.0 * M_PI) / 3.0));
         }
-
-        // if (D >= 0) {
-        //     if (D == 0) {
-        //         double r = pow(-q, 1.0 / 3.0);
-        //         tmp.push_back(-r);
-        //         tmp.push_back(2 * r);
-        //     } else {
-        //         double r1 = pow(-q + sqrt(D), 1.0 / 3.0);
-        //         double r2 = pow(-q - sqrt(D), 1.0 / 3.0);
-        //         tmp.push_back(r1 + r2);
-        //     }
-        // } else {
-        //     double angle = acos(-q / sqrt(-p * p * p));
-        //     double r = 2 * sqrt(-p);
-        //     for (int k = -1; k <= 1; ++k) {
-        //         double theta = (angle - (2.0 * M_PI * (double)k)) / 3.0;
-        //         tmp.push_back(r * cos(theta));
-        //     }
-        // }
-
-        // for (double t : tmp) {
-        //     solutions.push_back(t - (a / 3.0));
-        // }
     }
 
     return solutions;
@@ -127,12 +93,18 @@ std::list<double> EquationSolver::solveCubicEquation(double a, double b, double 
 // https://en.wikipedia.org/wiki/Quartic_equation#The_general_case,_along_Ferrari's_lines
 std::list<double> EquationSolver::solveQuarticEquation(double a, double b, double c, double d, double e)
 {
-    if (a == 0)
+    //std::cout << a << " " << b << " " << c << " " << d << " " << e << std::endl;
+    if (a == 0) {
+        // equation:
+        // bx³ + cx² + dx + e = 0
         return solveCubicEquation(b, c, d, e);
+    }
 
     std::list<double> solutions;
 
-    if(d == 0) {
+    if(e == 0) {
+        // equation:
+        // ax⁴ + bx³ + cx² + dx = 0
         solutions.push_back(0);
         std::list<double> tmp = solveCubicEquation(a, b, c, d);
         for(auto const s : tmp) {
@@ -145,7 +117,31 @@ std::list<double> EquationSolver::solveQuarticEquation(double a, double b, doubl
                 solutions.push_back(s);
             }
         }
+    } else if(b == 0 && c == 0 && d == 0) {
+        // equation:
+        // ax⁴ + e = 0
+        double r = -d / a;
+        if(r > 0) {
+            solutions.push_back(pow(r, 1.0 / 4.0));
+            solutions.push_back(-pow(r, 1.0 / 4.0));
+        }
+    } else if(b == 0 && d == 0) {
+        // equation:
+        // ax⁴ + cx² + e = 0
+        std::list<double> tmp = solveQuadraticEquation(a, c, e);
+        for(double s : tmp) {
+            if (s == 0) {
+                solutions.push_back(sqrt(0));
+            } else if (s >= 0) {
+                solutions.push_back(sqrt(s));
+                solutions.push_back(-sqrt(s));
+            }
+        }
     } else {
+        // equation:
+        // ax⁴ + bx³ + cx² + dx + e= 0
+        // on pose:
+        // x = y - (b / 4a)
         double p = (c / a) -
                     ((3 * pow(b, 2)) / (8 * pow(a, 2)));
         double q = (d / a) - 
@@ -156,56 +152,111 @@ std::list<double> EquationSolver::solveQuarticEquation(double a, double b, doubl
                     (c * pow(b, 2)) / (16 * pow(a, 3)) -
                     (3 * pow(b, 4)) / (256 * pow(a, 4));
 
-        std::list<double> tmp = solveCubicEquation(8, -4 * p, -8 * r, (4 * r * p) - pow(q, 2));
+        // equation resultante:
+        // z⁴ + pz² + qz + r = 0
 
-        double phi = INFINITY;
-        for (double ss : tmp) {
-            if(phi == INFINITY) {
-                phi = ss;
+        if (q == 0) {
+            // equation bicare:
+            // z⁴ + pz² + r = 0
+            std::list<double> tmp = solveQuadraticEquation(1, p, r);
+            for(double s : tmp) {
+                if (s == 0) {
+                    solutions.push_back(sqrt(0) - (b / (4 * a)));
+                } else if (s >= 0) {
+                    solutions.push_back(sqrt(s) - (b / (4 * a)));
+                    solutions.push_back(-sqrt(s) - (b / (4 * a)));
+                }
             }
-            if ((phi < 0 && ss > 0) || (ss > 0 && phi > ss)) {
-                phi = ss;
-            }
-        }
+        } else {
+            // equation resultante:
+            // z⁴ + pz² + qz + r = 0
+            // Descartes's method
+            std::list<double> tmp = solveCubicEquation(1, 2 * p, pow(p, 2) - (4 * r), -pow(q, 2));
 
-        if (phi == INFINITY)
-            return solutions;
+            double D_A = 0;
+            for (double s : tmp) {
+                if(D_A == INFINITY || (D_A < 0 && s > 0) || (s > 0 && D_A > s)) {
+                    D_A = s;
+                    //break;
+                }
+            }
+            if (D_A > 0) {
+                double D_a = sqrt(D_A);
+                //double D_a_prime = -a;
+                double D_c = (p + pow(D_a, 2) + (q / D_a)) / 2;
+                double D_b = (p + pow(D_a, 2) - (q / D_a)) / 2;
 
-        double a0 = (2 * phi) - p;
-        double b0 = -q / (2 * a0);
+                std::list<double> tmp1 = solveQuadraticEquation(1, D_a, D_b);
+                std::list<double> tmp2 = solveQuadraticEquation(1, -D_a, D_c);
 
-        std::list<double> tmp1 = solveQuadraticEquation(1, a0, phi + b0);
-        std::list<double> tmp2 = solveQuadraticEquation(1, -a0, phi - b0);
+                for (double s: tmp1) {
+                    //s = s - (b / 4 * a);
+                    bool alreadyIn = false;
+                    // for(auto const s_prime : solutions) {
+                    //     if (s_prime == s)
+                    //         alreadyIn = true;
+                    // }
+                    if(alreadyIn == false) {
+                        solutions.push_back(s);
+                    }
+                }
+                for (double s: tmp2) {
+                    //s = s - (b / 4 * a);
+                    bool alreadyIn = false;
+                    // for(auto const s_prime : solutions) {
+                    //     if (s_prime == s)
+                    //         alreadyIn = true;
+                    // }
+                    if(alreadyIn == false) {
+                        solutions.push_back(s);
+                    }
+                }
+            }
+            
+            /*
+            std::list<double> tmp = solveCubicEquation(8, -4 * p, -8 * r, (4 * r * p) - pow(q, 2));
 
-        for (double s: tmp1) {
-            s = s - (b / 4 * a);
-            bool alreadyIn = false;
-            for(auto const s_prime : solutions) {
-                if (s_prime == s)
-                    alreadyIn = true;
+            double phi = INFINITY;
+            for (double ss : tmp) {
+                if(phi == INFINITY || (phi < 0 && ss > 0) || (ss > 0 && phi > ss)) {
+                    phi = ss;
+                }
             }
-            if(alreadyIn == false) {
-                solutions.push_back(s);
+
+            if (phi == INFINITY)
+                return solutions;
+
+            double a0 = (2 * phi) - p;
+            double b0 = -q / (2 * a0);
+
+            std::list<double> tmp1 = solveQuadraticEquation(1, a0, phi + b0);
+            std::list<double> tmp2 = solveQuadraticEquation(1, -a0, phi - b0);
+
+            for (double s: tmp1) {
+                s = s - (b / 4 * a);
+                bool alreadyIn = false;
+                for(auto const s_prime : solutions) {
+                    if (s_prime == s)
+                        alreadyIn = true;
+                }
+                if(alreadyIn == false) {
+                    solutions.push_back(s);
+                }
             }
-        }
-        for (double s: tmp2) {
-            s = s - (b / 4 * a);
-            bool alreadyIn = false;
-            for(auto const s_prime : solutions) {
-                if (s_prime == s)
-                    alreadyIn = true;
-            }
-            if(alreadyIn == false) {
-                solutions.push_back(s);
-            }
+            for (double s: tmp2) {
+                s = s - (b / 4 * a);
+                bool alreadyIn = false;
+                for(auto const s_prime : solutions) {
+                    if (s_prime == s)
+                        alreadyIn = true;
+                }
+                if(alreadyIn == false) {
+                    solutions.push_back(s);
+                }
+            }*/
         }
     }
-
-    // std::cout << solutions.size() << std::endl;
-    // for(double s : solutions) {
-    //     std::cout << s << ' ';
-    // }
-    // std::cout << std::endl;
-
+    // if(solutions.size())
+    //     std::cout << solutions.size() << std::endl;
     return solutions;
 }

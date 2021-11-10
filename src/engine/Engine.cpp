@@ -1,5 +1,11 @@
 #include "Engine.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 Engine::Engine(std::string config_file)
     : current_pixel(0)
 {
@@ -40,6 +46,12 @@ Engine::~Engine()
     delete this->loadingBar;
 }
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*             ENGINE ROUTINE             *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 void Engine::run()
 {
     std::cout << "run" << std::endl;
@@ -63,10 +75,13 @@ void Engine::run()
 
         std::cout << "applyFilter" << std::endl;
         this->applyFilter(pixels);
-        // std::cout << "apply3D" << std::endl;
-        //this->apply3D(pixels);
+
         std::cout << "applyBlur" << std::endl;
         this->applyBlur(pixels);
+
+        // std::cout << "apply3D" << std::endl;
+        //this->apply3D(pixels);
+
         std::cout << "applyPrecision" << std::endl;
         this->applyPrecision(pixels);
 
@@ -87,35 +102,6 @@ void Engine::run()
     this->win->pause();
 }
 
-void Engine::manageLoadingBar()
-{
-    int a, b = 0;
-    int total_pixels = this->precision_height * this->precision_width;
-
-    int sleeping_time = 500;
-
-    do
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(sleeping_time));
-
-        a = (60. * ((double)this->current_pixel / total_pixels)) - b;
-
-        auto start = std::chrono::high_resolution_clock::now();
-        this->loadingBar->add(a / this->cameras.size());
-        auto stop = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-        std::cout << "Time taken by function: " << duration.count() << " milliseconds" << std::endl;
-  
-        b += a;
-        sleeping_time += sleeping_time < 3000 ? 500 : 0;
-    }
-    while (this->current_pixel < total_pixels);
-
-    a = (60. * ((double)this->current_pixel / total_pixels)) - b;
-    this->loadingBar->add(a / this->cameras.size());
-    b += a;
-}
-
 void Engine::threadedFindObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
 {
     std::vector<std::thread> threads;
@@ -132,29 +118,12 @@ void Engine::threadedFindObjects(const Camera &camera, std::vector< std::vector<
 
 }
 
-bool Engine::getNextPixel(int &height, int &width)
-{
-    if (this->current_pixel >= this->precision_height * this->precision_width)
-        return false;
-
-    this->get_pixel_mtx.lock();
-
-    height = this->current_pixel / this->precision_width;
-    width = this->current_pixel % this->precision_width;
-    ++this->current_pixel;
-
-    this->get_pixel_mtx.unlock();
-
-    return true;
-}
-
 void Engine::findObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
 {
     int height, width;
 
     while (getNextPixel(height, width))
     {
-        // std::cout << height << ", " << width << std::endl;
         Line camera_screen_ray(camera.getP(), screen[height][width]);
 
         for (auto const& obj : this->objects)
@@ -227,33 +196,56 @@ void Engine::findObjects(const Camera &camera, std::vector< std::vector<Point> >
     }
 }
 
-void Engine::applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels)
+bool Engine::getNextPixel(int &height, int &width)
 {
-    if (this->config.getPerlinNoise() == false)
-        return ;
+    if (this->current_pixel >= this->precision_height * this->precision_width)
+        return false;
 
-    std::vector<std::vector<double>> res;
+    this->get_pixel_mtx.lock();
 
-    this->initGradient();
-    for(int h = 0; h < this->precision_height; ++h)
-    {
-        std::vector<double> tmp;
-        for (int w = 0; w < this->precision_width; ++w)
-            tmp.push_back(this->perlin(w + 0.5, h + 0.5));
-        res.push_back(tmp);
-    }
-    
-    for (int h = 0; h < this->precision_height; ++h)
-    {
-        std::vector<double> tmp;
+    height = this->current_pixel / this->precision_width;
+    width = this->current_pixel % this->precision_width;
+    ++this->current_pixel;
 
-        for (int w = 0; w < this->precision_width; ++w)
-            if (pixels[h][w].getObject() != NULL)
-                pixels[h][w].setColor(pixels[h][w].getColor().reduceOf((1 - res[h][w]) / 3.0));
+    this->get_pixel_mtx.unlock();
 
-        res.push_back(tmp);
-    }
+    return true;
 }
+
+void Engine::manageLoadingBar()
+{
+    int a, b = 0;
+    int total_pixels = this->precision_height * this->precision_width;
+
+    int sleeping_time = 500;
+
+    do
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(sleeping_time));
+
+        a = (60. * ((double)this->current_pixel / total_pixels)) - b;
+
+        auto start = std::chrono::high_resolution_clock::now();
+        this->loadingBar->add(a / this->cameras.size());
+        auto stop = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+        std::cout << "Time taken by function: " << duration.count() << " milliseconds" << std::endl;
+  
+        b += a;
+        sleeping_time += sleeping_time < 3000 ? 500 : 0;
+    }
+    while (this->current_pixel < total_pixels);
+
+    a = (60. * ((double)this->current_pixel / total_pixels)) - b;
+    this->loadingBar->add(a / this->cameras.size());
+    b += a;
+}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*              END FILTERS               *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 // https://dyclassroom.com/image-processing-project/how-to-convert-a-color-image-into-sepia-image
 void Engine::applyFilter(std::vector< std::vector<Pixel> > &pixels)
@@ -303,17 +295,6 @@ void Engine::applyFilter(std::vector< std::vector<Pixel> > &pixels)
     }
 }
 
-void Engine::apply3D(std::vector< std::vector<Pixel> > &pixels)
-{
-    Color red(255, 0, 0, 100);
-    Color cyan(0, 255, 255, 100);
-
-    for (int h = 0; h < this->precision_height; ++h)
-        for (int w = 0; w < this->precision_width; ++w)
-            if (pixels[h][w].getObject() != NULL)
-                pixels[h][w].setColor(this->alphaBlending(cyan, pixels[h][w].getColor()));
-}
-
 void Engine::applyBlur(std::vector< std::vector<Pixel> > &pixels)
 {
     if (this->config.getBlur() == 0)
@@ -351,6 +332,17 @@ void Engine::applyBlur(std::vector< std::vector<Pixel> > &pixels)
     }
 }
 
+void Engine::apply3D(std::vector< std::vector<Pixel> > &pixels)
+{
+    Color red(255, 0, 0, 100);
+    Color cyan(0, 255, 255, 100);
+
+    for (int h = 0; h < this->precision_height; ++h)
+        for (int w = 0; w < this->precision_width; ++w)
+            if (pixels[h][w].getObject() != NULL)
+                pixels[h][w].setColor(this->alphaBlending(cyan, pixels[h][w].getColor()));
+}
+
 void Engine::applyPrecision(std::vector< std::vector<Pixel> > &pixels)
 {
     for (int height = 0; height < this->config.getHeight(); ++height)
@@ -373,6 +365,12 @@ void Engine::applyPrecision(std::vector< std::vector<Pixel> > &pixels)
     }
 }
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*             COLOR BLENDING             *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 // https://fr.wikipedia.org/wiki/Alpha_blending
 Color Engine::alphaBlending(const Color &c1, const Color &c2)
 {
@@ -385,6 +383,12 @@ Color Engine::alphaBlending(const Color &c1, const Color &c2)
 
     return Color((int)(r * 255), (int)(g * 255), (int)(b * 255), (int)(o * 255));
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*             PERLIN NOISE               *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 bool Engine::blackObjectsContains(const Point &p) const
 {
@@ -446,5 +450,33 @@ void Engine::initGradient()
             tmp.push_back(Vector(x, y, 0));
         }
         this->GRADIENT.push_back(tmp);
+    }
+}
+
+void Engine::applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels)
+{
+    if (this->config.getPerlinNoise() == false)
+        return ;
+
+    std::vector<std::vector<double>> res;
+
+    this->initGradient();
+    for(int h = 0; h < this->precision_height; ++h)
+    {
+        std::vector<double> tmp;
+        for (int w = 0; w < this->precision_width; ++w)
+            tmp.push_back(this->perlin(w + 0.5, h + 0.5));
+        res.push_back(tmp);
+    }
+    
+    for (int h = 0; h < this->precision_height; ++h)
+    {
+        std::vector<double> tmp;
+
+        for (int w = 0; w < this->precision_width; ++w)
+            if (pixels[h][w].getObject() != NULL)
+                pixels[h][w].setColor(pixels[h][w].getColor().reduceOf((1 - res[h][w]) / 3.0));
+
+        res.push_back(tmp);
     }
 }

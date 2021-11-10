@@ -37,5 +37,7 @@ class Color
         Color reduceOf(double ratio) const;
         Color add(const Color &c);
 
+        Color &operator=(const Color &p);
+
         friend std::ostream& operator<<(std::ostream& out, const Color& color);
 };

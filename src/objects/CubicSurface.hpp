@@ -3,6 +3,8 @@
 #include "Object.hpp"
 #include "./../exceptions/NoInterException.hpp"
 
+class Intersection;
+
 // https://mathcurve.com/surfaces.gb/cubic/cubic.shtml
 class CubicSurface : public Object
 {
@@ -36,7 +38,7 @@ class CubicSurface : public Object
         void setZ(double S);
         void setK(double T);
 
-        Point intersect(const Line &line) const;
-        double angleWith(const Line &line) const;
+        std::vector<Intersection> intersect(const Line &line) const;
+        double angleWithAt(const Line &line, const Intersection &intersection) const;
         Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 };

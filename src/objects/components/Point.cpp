@@ -122,6 +122,19 @@ Point Point::rotateAroundZ(double alpha) const
     return Point(new_x, new_y, this->z);
 }
 
+Point &Point::operator=(const Point &p)
+{
+    this->x = p.x;
+    this->y = p.y;
+    this->z = p.z;
+    return *this;
+}
+
+bool operator==(const Point& p1, const Point& p2)
+{
+    return p1.getX() == p2.getX() && p1.getY() == p2.getY() && p1.getZ() == p2.getZ();
+}
+
 std::ostream& operator<< (std::ostream& out, const Point& point)
 {
     out << "Point(" << point.x << ", " << point.y << ", " << point.z << ')';

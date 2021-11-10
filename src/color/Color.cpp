@@ -120,6 +120,15 @@ Color Color::add(const Color &c)
     return Color(this->r, this->g, this->b, this->o);
 }
 
+Color &Color::operator=(const Color &p)
+{
+    this->r = p.r;
+    this->g = p.g;
+    this->b = p.b;
+    this->o = p.o;
+    return *this;
+}
+
 std::ostream& operator<< (std::ostream& out, const Color& color)
 {
     out << "Color : {" << std::endl

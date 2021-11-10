@@ -46,7 +46,7 @@ void CubicSurface::setY(double R) { this->R = R; }
 void CubicSurface::setZ(double S) { this->S = S; }
 void CubicSurface::setK(double T) { this->T = T; }
 
-Point CubicSurface::intersect(const Line &line) const
+std::vector<Intersection> CubicSurface::intersect(const Line &line) const
 {
     double a = line.getV().getX();
     double b = line.getV().getY();
@@ -126,21 +126,33 @@ Point CubicSurface::intersect(const Line &line) const
 
     std::list<double> solutions = EquationSolver::solveCubicEquation(t3, t2, t1, t0);
 
-    double s = -1;
-    for (double ss: solutions) {
-        if ((ss < s && ss > 0) || (s < 0 && ss > 0))
-            s = ss;
+    std::vector<Intersection> intersections;
+    for (double s : solutions) {
+        if (s > 0) {
+            Point p(
+                line.getP().getX() + s * line.getV().getX(),
+                line.getP().getY() + s * line.getV().getY(),
+                line.getP().getZ() + s * line.getV().getZ()
+            );
+            intersections.push_back(Intersection(p, s, (Object*)this));
+        }
     }
+    return intersections;
+    // double s = -1;
+    // for (double ss: solutions) {
+    //     if ((ss < s && ss > 0) || (s < 0 && ss > 0))
+    //         s = ss;
+    // }
 
-    if (s < 0)
-        throw NoInterException("Line do not intersect the cubic surface");
+    // if (s < 0)
+    //     throw NoInterException("Line do not intersect the cubic surface");
 
-    Point p(
-        line.getP().getX() + s * line.getV().getX(),
-        line.getP().getY() + s * line.getV().getY(),
-        line.getP().getZ() + s * line.getV().getZ()
-    );
-    return p;
+    // Point p(
+    //     line.getP().getX() + s * line.getV().getX(),
+    //     line.getP().getY() + s * line.getV().getY(),
+    //     line.getP().getZ() + s * line.getV().getZ()
+    // );
+    // return p;
 }
 
 Plane CubicSurface::tangentAt(const Point &intersection) const
@@ -187,11 +199,9 @@ Plane CubicSurface::tangentAt(const Point &intersection) const
     return Plane(intersection, fx, fy, fz); 
 }
 
-double CubicSurface::angleWith(const Line &line) const
+double CubicSurface::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    Point p = this->intersect(line);
-
-    return this->tangentAt(p).angleWith(line);
+    return this->tangentAt(intersection.getP()).angleWith(line);
 }
 
 Color CubicSurface::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

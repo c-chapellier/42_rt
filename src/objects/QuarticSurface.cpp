@@ -76,7 +76,7 @@ void QuarticSurface::setY(double C33) { this->C33 = C33; }
 void QuarticSurface::setZ(double C34) { this->C34 = C34; }   
 void QuarticSurface::setK(double C35) { this->C35 = C35; }
 
-Point QuarticSurface::intersect(const Line &line) const
+std::vector<Intersection> QuarticSurface::intersect(const Line &line) const
 {
     double a = line.getV().getX();
     double b = line.getV().getY();
@@ -231,22 +231,37 @@ Point QuarticSurface::intersect(const Line &line) const
                 C35;
 
     std::list<double> solutions = EquationSolver::solveQuarticEquation(t4, t3, t2, t1, t0);
+    std::vector<Intersection> intersections;
 
-    double s = -1;
-    for (double ss: solutions) {
-        if ((ss < s && ss > 0) || (s < 0 && ss > 0))
-            s = ss;
+    for (double s : solutions) {
+        if (s > 0) {
+            Point p(
+                line.getP().getX() + s * line.getV().getX(),
+                line.getP().getY() + s * line.getV().getY(),
+                line.getP().getZ() + s * line.getV().getZ()
+            );
+            intersections.push_back(Intersection(p, s, (Object*)this));
+        }
     }
+    return intersections;
 
-    if (s < 0)
-        throw NoInterException("Line do not intersect the cubic surface");
 
-    Point p(
-        line.getP().getX() + s * line.getV().getX(),
-        line.getP().getY() + s * line.getV().getY(),
-        line.getP().getZ() + s * line.getV().getZ()
-    );
-    return p;
+
+    // double s = -1;
+    // for (double ss: solutions) {
+    //     if ((ss < s && ss > 0) || (s < 0 && ss > 0))
+    //         s = ss;
+    // }
+
+    // if (s < 0)
+    //     throw NoInterException("Line do not intersect the cubic surface");
+
+    // Point p(
+    //     line.getP().getX() + s * line.getV().getX(),
+    //     line.getP().getY() + s * line.getV().getY(),
+    //     line.getP().getZ() + s * line.getV().getZ()
+    // );
+    // return p;
 }
 
 Plane QuarticSurface::tangentAt(const Point &intersection) const
@@ -325,11 +340,9 @@ Plane QuarticSurface::tangentAt(const Point &intersection) const
     return Plane(intersection, fx, fy, fz);
 }
 
-double QuarticSurface::angleWith(const Line &line) const
+double QuarticSurface::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    Point p = this->intersect(line);
-
-    return this->tangentAt(p).angleWith(line);
+    return this->tangentAt(intersection.getP()).angleWith(line);
 }
 
 Color QuarticSurface::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

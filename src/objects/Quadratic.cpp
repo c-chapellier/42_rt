@@ -18,9 +18,9 @@ Quadratic::~Quadratic()
 {
 }
 
-Point Quadratic::intersect(const Line &line) const
+std::vector<Intersection> Quadratic::intersect(const Line &line) const
 {
-    double x0, y0, z0, x1, y1, z1, a, b, c, t0, t1, t2, delta;
+    double x0, y0, z0, x1, y1, z1, a, b, c, t0, t1, t2;
     x0 = this->p.getX();
     y0 = this->p.getY();
     z0 = this->p.getZ();
@@ -62,59 +62,73 @@ Point Quadratic::intersect(const Line &line) const
         E * a * c +
         F * b * c;
 
-    delta = pow(t1, 2) - (4 * t2 * t0);
+    std::list<double> solutions = EquationSolver::solveQuadraticEquation(t2, t1, t0);
 
-    if (t2 == 0) {
-        double s1 = -t0 / t1;
-        double x, y, z;
-        x = x1 + a * s1;
-        y = y1 + b * s1;
-        z = z1 + c * s1;
-        return Point(x, y, z);
+    std::vector<Intersection> intersections;
+    for (double s : solutions) {
+        if (s > 0) {
+            double x = x1 + a * s;
+            double y = y1 + b * s;
+            double z = z1 + c * s;
+            intersections.push_back(Intersection(x, y, z, s, (Object*)this));
+        }
     }
+
+    return intersections;
+
+    // delta = pow(t1, 2) - (4 * t2 * t0);
+
+    // if (t2 == 0) {
+    //     double s1 = -t0 / t1;
+    //     double x, y, z;
+    //     x = x1 + a * s1;
+    //     y = y1 + b * s1;
+    //     z = z1 + c * s1;
+    //     return Point(x, y, z);
+    // }
     
-    if (delta < 0) {
-        throw NoInterException("Line do not intersect Quadratic surface");
-    } else if (delta == 0) {
-        double s1 = -t1 / (2 * t2);
-        double x, y, z;
-        x = x1 + a * s1;
-        y = y1 + b * s1;
-        z = z1 + c * s1;
-        if (s1 <= 0)
-            throw NoInterException("Line do not intersect Quadratic surface");
-        return Point(x, y, z);
-    } else {
+    // if (delta < 0) {
+    //     throw NoInterException("Line do not intersect Quadratic surface");
+    // } else if (delta == 0) {
+    //     double s1 = -t1 / (2 * t2);
+    //     double x, y, z;
+    //     x = x1 + a * s1;
+    //     y = y1 + b * s1;
+    //     z = z1 + c * s1;
+    //     if (s1 <= 0)
+    //         throw NoInterException("Line do not intersect Quadratic surface");
+    //     return Point(x, y, z);
+    // } else {
         
-        double s1 = (-t1 + sqrt(delta)) / (2 * t2);
-        double s2 = (-t1 - sqrt(delta)) / (2 * t2);
-        double x_1, y_1, z_1, x_2, y_2, z_2;
+    //     double s1 = (-t1 + sqrt(delta)) / (2 * t2);
+    //     double s2 = (-t1 - sqrt(delta)) / (2 * t2);
+    //     double x_1, y_1, z_1, x_2, y_2, z_2;
 
-        x_1 = x1 + a * s1;
-        y_1 = y1 + b * s1;
-        z_1 = z1 + c * s1;
-        x_2 = x1 + a * s2;
-        y_2 = y1 + b * s2;
-        z_2 = z1 + c * s2;
+    //     x_1 = x1 + a * s1;
+    //     y_1 = y1 + b * s1;
+    //     z_1 = z1 + c * s1;
+    //     x_2 = x1 + a * s2;
+    //     y_2 = y1 + b * s2;
+    //     z_2 = z1 + c * s2;
 
-        if (s1 <= 2 && s2 <= 0)
-            throw NoInterException("Line do not intersect Quadratic surface");
-        else if(s1 > 0 && s2 <=0) {
-            return Point(x_1, y_1, z_1);
-        }
-        else if(s2 > 0 && s1 <=0){
-            return Point(x_2, y_2, z_2);
-        }
+    //     if (s1 <= 2 && s2 <= 0)
+    //         throw NoInterException("Line do not intersect Quadratic surface");
+    //     else if(s1 > 0 && s2 <=0) {
+    //         return Point(x_1, y_1, z_1);
+    //     }
+    //     else if(s2 > 0 && s1 <=0){
+    //         return Point(x_2, y_2, z_2);
+    //     }
 
-        Point p1(x_1, y_1, z_1);
-        Point p2(x_2, y_2, z_2);
+    //     Point p1(x_1, y_1, z_1);
+    //     Point p2(x_2, y_2, z_2);
 
-        if (line.getP().distWith(p1) < line.getP().distWith(p2)){
-            return p1;
-        } else {
-            return p2;
-        }
-    }
+    //     if (line.getP().distWith(p1) < line.getP().distWith(p2)){
+    //         return p1;
+    //     } else {
+    //         return p2;
+    //     }
+    // }
 }
 
 // Surface: F(x, y, z) = 0
@@ -170,11 +184,9 @@ Plane Quadratic::tangentAt(const Point &p) const
     return Plane(p, Fx, Fy, Fz);
 }
 
-double Quadratic::angleWith(const Line &line) const
+double Quadratic::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    Point p = this->intersect(line);
-
-    return this->tangentAt(p).angleWith(line);
+    return this->tangentAt(intersection.getP()).angleWith(line);
 }
 
 Color Quadratic::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

@@ -1,10 +1,14 @@
 #pragma once
 
+#include <math.h>
+#include <list>
 #include "Object.hpp"
+#include "Plane.hpp"
 #include "components/Point.hpp"
 #include "components/Line.hpp"
-#include "Plane.hpp"
-#include <math.h>
+#include "../solver/EquationSolver.hpp"
+class Intersection;
+
 
 class Plane;
 
@@ -24,8 +28,8 @@ class Quadratic : public Object
         Quadratic(const Point &p, double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, const Color &color);
         ~Quadratic();
 
-        Point intersect(const Line &line) const;
-        double angleWith(const Line &line) const;
+        std::vector<Intersection> intersect(const Line &line) const;
+        double angleWithAt(const Line &line, const Intersection &intersection) const;
         Plane tangentAt(const Point &p) const;
         Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 };

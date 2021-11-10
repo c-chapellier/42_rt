@@ -27,7 +27,7 @@ double Sphere::getR() const
     return this->r;
 }
 
-Point Sphere::intersect(const Line &line) const
+std::vector<Intersection> Sphere::intersect(const Line &line) const
 {
     double a, b, c, tmp1, tmp2, tmp3;
 
@@ -50,9 +50,10 @@ Point Sphere::intersect(const Line &line) const
 
     std::list<double> solutions = EquationSolver::solveQuadraticEquation(a, b, c);
 
-    Point res;
-    bool first = true;
+    // Point res;
+    // bool first = true;
 
+    std::vector<Intersection> intersections;
     for (double s: solutions)
     {
         if (s > 0)
@@ -63,25 +64,27 @@ Point Sphere::intersect(const Line &line) const
                 line.getP().getZ() + line.getV().getZ() * s
             );
 
-            if (first)
-            {
-                res = tmp;
-                first = false;
-            }
-            else if (line.getP().distWith(tmp) < line.getP().distWith(res))
-                res = tmp;
+            intersections.push_back(Intersection(tmp, s, (Object*)this));
+
+            // if (first)
+            // {
+            //     res = tmp;
+            //     first = false;
+            // }
+            // else if (line.getP().distWith(tmp) < line.getP().distWith(res))
+            //     res = tmp;
         }
     }
 
-    if (first == true)
-        throw NoInterException("Line do not intersect sphere");
+    // if (first == true)
+    //     throw NoInterException("Line do not intersect sphere");
         
-    return res;
+    return intersections;
 }
 
-double Sphere::angleWith(const Line &line) const
+double Sphere::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    return Plane(Point(intersect(line)), this->p).angleWith(line);
+    return Plane(intersection.getP(), this->p).angleWith(line);
 }
 
 Color Sphere::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

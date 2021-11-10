@@ -65,7 +65,7 @@ void Engine::run()
         std::vector< std::vector<Point> > screen = camera->getScreen(config);
         
         std::vector< std::vector<Pixel> > pixels;
-        pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width, Pixel(0, 0, 0, 100, INFINITY)));
+        pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width, Pixel(0, 0, 0, 0, INFINITY)));
 
         std::cout << "findObjects" << std::endl;
         this->threadedFindObjects(*camera, screen, pixels);
@@ -124,74 +124,165 @@ void Engine::findObjects(const Camera &camera, std::vector< std::vector<Point> >
 
     while (getNextPixel(height, width))
     {
-        Line camera_screen_ray(camera.getP(), screen[height][width]);
+        Line ray(camera.getP(), screen[height][width]);
+        std::vector<Intersection> intersections;
 
         for (auto const& obj : this->objects)
         {
-            try
-            {
-                Point camera_screen_inter = obj->intersect(camera_screen_ray);
-                    
-                if (!this->blackObjectsContains(camera_screen_inter))
-                {
-                    double dist = camera_screen_inter.distWith(camera.getP());
-                    double camera_obj_angle = RADIAN(obj->angleWith(camera_screen_ray));
-
-                    Color color = obj->getColorAt(height, width, this->config.getHeight(), this->config.getWidth(), camera_screen_inter);
-
-                    for (auto const& light : this->lights)
-                    {
-                        Line light_object_ray(light->getP(), camera_screen_inter);
-                        bool is_shined = true;
-                        double dist_pxl_light = camera_screen_inter.distWith(light->getP());
-
-                        for (auto const& following_obj : this->objects)
-                        {
-                            try
-                            {
-                                Point light_object_inter = following_obj->intersect(light_object_ray);
-                                double dist_obj_light = light_object_inter.distWith(light->getP());
-
-                                if (dist_obj_light + 0.0000000001 < dist_pxl_light)
-                                {
-                                    is_shined = false;
-                                    break ;
-                                }
-                            }
-                            catch (const NoInterException &e) {}
-                        }
-
-                        if (is_shined)
-                        {
-                            double obj_light_angle = RADIAN(obj->angleWith(light_object_ray));
-                                
-                            color = color.add(light->getColor().reduceOf(cos(obj_light_angle) / 1.1));
-                        }
-                    }
-                            
-                    Color blended_color;
-
-                    if (dist < pixels[height][width].getDist())
-                    {
-                        blended_color = this->alphaBlending(color, pixels[height][width].getColor());
-                        pixels[height][width].setDist(dist);
-                        pixels[height][width].setLocation(camera_screen_inter);
-                        pixels[height][width].setObject(obj);
-                    }
-                    else
-                    {
-                        blended_color = this->alphaBlending(pixels[height][width].getColor(), color);
-                    }
-
-                    pixels[height][width].setColor(
-                        blended_color
-                            .add(this->config.getAmbientColor())
-                            .reduceOf(cos(camera_obj_angle) / 1.1)
-                            // .reduceOf(1 - exp(-dist / 1000))
-                    );
-                }
+            std::vector<Intersection> tmp = obj->intersect(ray);
+            for (unsigned long i = 0; i < tmp.size(); ++i) {
+                if(!blackObjectsContains(tmp[i].getP()))
+                    intersections.push_back(tmp[i]);
             }
-            catch (const NoInterException &e) {}
+            // try
+            // {
+            //     pixels[0];
+            //     obj->getColor(0);
+                // Point camera_screen_inter = obj->intersect(ray);
+                    
+                // if (!this->blackObjectsContains(camera_screen_inter))
+                // {
+                //     double dist = camera_screen_inter.distWith(camera.getP());
+                //     double camera_obj_angle = RADIAN(obj->angleWith(ray));
+
+                //     Color color = obj->getColorAt(height, width, this->config.getHeight(), this->config.getWidth(), camera_screen_inter);
+
+                    // for (auto const& light : this->lights)
+                    // {
+                    //     Line light_object_ray(light->getP(), camera_screen_inter);
+                    //     bool is_shined = true;
+                    //     double dist_pxl_light = camera_screen_inter.distWith(light->getP());
+
+                    //     for (auto const& following_obj : this->objects)
+                    //     {
+                    //         try
+                    //         {
+                    //             Point light_object_inter = following_obj->intersect(light_object_ray);
+                    //             double dist_obj_light = light_object_inter.distWith(light->getP());
+
+                    //             if (dist_obj_light + 0.0000000001 < dist_pxl_light)
+                    //             {
+                    //                 is_shined = false;
+                    //                 break ;
+                    //             }
+                    //         }
+                    //         catch (const NoInterException &e) {}
+                    //     }
+
+                    //     if (is_shined)
+                    //     {
+                    //         double obj_light_angle = RADIAN(obj->angleWith(light_object_ray));
+                                
+                    //         color = color.add(light->getColor().reduceOf(cos(obj_light_angle) / 1.1));
+                    //     }
+                    // }
+                            
+                //     Color blended_color;
+
+                //     if (dist < pixels[height][width].getDist())
+                //     {
+                //         blended_color = this->alphaBlending(color, pixels[height][width].getColor());
+                //         pixels[height][width].setDist(dist);
+                //         pixels[height][width].setLocation(camera_screen_inter);
+                //         pixels[height][width].setObject(obj);
+                //     }
+                //     else
+                //     {
+                //         blended_color = this->alphaBlending(pixels[height][width].getColor(), color);
+                //     }
+
+                //     pixels[height][width].setColor(
+                //         blended_color
+                //             .add(this->config.getAmbientColor())
+                //             .reduceOf(cos(camera_obj_angle) / 1.1)
+                //             // .reduceOf(1 - exp(-dist / 1000))
+                //     );
+                // }
+            // }
+            // catch (const NoInterException &e) {}
+        }
+        sortIntersections(intersections, intersections.size());
+        drawPixel(intersections, pixels[height][width], height, width, ray);
+    }
+}
+
+// bubble sort : average O(n²)
+void Engine::sortIntersections(std::vector<Intersection> intersections, int size)
+{
+    for (int i = 0; i < size - 1; ++i) { 
+        bool swapped = false;
+        for (int j = 0; j < size - i - 1; ++j) {
+            if (intersections[j].getDist() > intersections[j+1].getDist()) {
+                Intersection tmp = intersections[j];
+                intersections[j] = intersections[j + 1];
+                intersections[j + 1] = tmp;
+                swapped = true;
+            }
+        }
+        if(!swapped)
+            break;
+    }
+}
+
+void Engine::drawPixel(std::vector<Intersection> intersections, Pixel &pixel, int height, int width, Line &ray)
+{
+    Color c = pixel.getColor();
+    for (unsigned long i = 0; i < intersections.size(); ++i) {
+        Color tmp = getColor(intersections[i], height, width, ray);
+        c = alphaBlending(c, tmp);
+        if (c.getO() == 255)
+            break;
+    }
+    pixel.setColor(c);
+}
+
+Color Engine::getColor(Intersection &inter, int height, int width, Line &ray)
+{
+    Color c;
+    if (inter.getObj()->getReflexion() != 0) {
+
+    } else {
+        c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
+    }
+    // apply lights
+    applyLights(inter, c);
+    double angle = RADIAN(inter.getObj()->angleWithAt(ray, inter));
+    c = c.add(this->config.getAmbientColor()).reduceOf(cos(angle) / 1.1);
+    return c;
+}
+
+void Engine::applyLights(Intersection &inter, Color &color)
+{
+    for (auto const& light : this->lights)
+    {
+        Line ray(light->getP(), inter.getP());
+        double dist = inter.getP().distWith(light->getP());
+
+        std::vector<Intersection> intersections;
+        for (auto const& obj : this->objects)
+        {
+            std::vector<Intersection> tmp = obj->intersect(ray);
+            for(unsigned long k = 0; k < tmp.size(); ++k) {
+                if(!blackObjectsContains(tmp[k].getP()) && tmp[k].getDist() < dist)
+                    intersections.push_back(tmp[k]);
+            }
+        }
+
+        double dist_min = INFINITY;
+        //double opacity = 0;
+
+        for (unsigned int i = 0; i < intersections.size(); ++i) {
+            if (intersections[i].getDist() < dist_min) {
+                dist_min = intersections[i].getDist();
+                break;
+            }
+        }
+
+        if (dist_min != INFINITY)
+        {
+            double obj_light_angle = RADIAN(inter.getObj()->angleWithAt(ray, inter));
+                                
+            color = color.add(light->getColor().reduceOf(cos(obj_light_angle) / 1.1));
         }
     }
 }

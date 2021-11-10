@@ -17,65 +17,46 @@ Polygone::~Polygone()
 
 }
 
-Point Polygone::intersect(const Line &line) const
+std::vector<Intersection> Polygone::intersect(const Line &line) const
 {
-    Point res;
-    bool first = true;
+    std::vector<Intersection> intersections;
 
-    for (unsigned long i = 0; i < this->triangles.size(); ++i)
-    {
-        try
-        {
-            Point tmp = this->triangles[i].intersect(line);
-
-            if (first)
-            {
-                res = tmp;
-                first = false;
-            }
-            else if (tmp.distWith(line.getP()) < res.distWith(line.getP()))
-                res = tmp;
+    for (unsigned long i = 0; i < this->triangles.size(); ++i) {
+        std::vector<Intersection> tmp = triangles[i].intersect(line);
+        for(Intersection inter : tmp) {
+            intersections.push_back(Intersection(inter.getP(), inter.getDist(), (Object*)this, (Triangle*)&triangles[i]));
         }
-        catch(const NoInterException &e) {}
     }
+    return intersections;
+    // Point res;
+    // bool first = true;
 
-    if (first == true)
-        throw NoInterException("Line do not intersect polygon");
+    // for (unsigned long i = 0; i < this->triangles.size(); ++i)
+    // {
+    //     try
+    //     {
+    //         Point tmp = this->triangles[i].intersect(line);
 
-    return res;
+    //         if (first)
+    //         {
+    //             res = tmp;
+    //             first = false;
+    //         }
+    //         else if (tmp.distWith(line.getP()) < res.distWith(line.getP()))
+    //             res = tmp;
+    //     }
+    //     catch(const NoInterException &e) {}
+    // }
+
+    // if (first == true)
+    //     throw NoInterException("Line do not intersect polygon");
+
+    // return res;
 }
 
-double Polygone::angleWith(const Line &line) const
+double Polygone::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    double angle;
-    Point actual_min;
-    bool first = true;
-
-    for (unsigned long i = 0; i < this->triangles.size(); ++i)
-    {
-        try
-        {
-            Point tmp = this->triangles[i].intersect(line);
-
-            if (first)
-            {
-                angle = this->triangles[i].getPlane().angleWith(line);
-                actual_min = tmp;
-                first = false;
-            }
-            else if (tmp.distWith(line.getP()) < actual_min.distWith(line.getP()))
-            {
-                angle = this->triangles[i].getPlane().angleWith(line);
-                actual_min = tmp;
-            }
-        }
-        catch (const NoInterException &e) {}
-    }
-
-    if (first == true)
-        throw NoInterException("Line do not intersect polygon");
-
-    return angle;
+    return intersection.getTr()->getPlane().angleWith(line);
 }
 
 Color Polygone::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

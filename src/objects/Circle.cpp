@@ -10,18 +10,28 @@ Circle::~Circle() {
     delete this->plane;
 }
 
-Point Circle::intersect(const Line &line) const
+std::vector<Intersection> Circle::intersect(const Line &line) const
 {
-    Point p = this->plane->intersect(line);
-    double dist = p.distWith(this->plane->getP());
+    std::vector<Intersection> tmp = this->plane->intersect(line);
 
-    if (dist <= this->R && dist >= this->r)
-        return p;
-    throw NoInterException("Line do not intersect the circle");
+    std::vector<Intersection> intersections;
+    for (Intersection i : tmp) {
+        double dist = i.getP().distWith(this->plane->getP());
+        if ( dist <= this->R && dist >= this->r) {
+            intersections.push_back(Intersection(i.getP(), i.getDist(), (Object*)this));
+        }
+    }
+    // Point p = this->plane->intersect(line);
+    // double dist = p.distWith(this->plane->getP());
+
+    // if (dist <= this->R && dist >= this->r)
+    //     intersections.push_back(Intersection(p, dist, this));
+    return intersections;
 }
 
-double Circle::angleWith(const Line &line) const
+double Circle::angleWithAt(const Line &line, const Intersection &intersection) const
 {
+    intersection.getP();
     return this->plane->angleWith(line);
 }
 

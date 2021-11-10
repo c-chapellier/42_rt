@@ -11,7 +11,7 @@ MobiusTape::MobiusTape(double px, double py, double pz, double A, double B, doub
 }
 MobiusTape::~MobiusTape(){}
 
-Point MobiusTape::intersect(const Line &line) const
+std::vector<Intersection> MobiusTape::intersect(const Line &line) const
 {
     double alpha = line.getP().getX() - this->p.getX();
     double beta = line.getP().getY() - this->p.getY();
@@ -61,21 +61,33 @@ Point MobiusTape::intersect(const Line &line) const
 
     std::list<double> solutions = EquationSolver::solveCubicEquation(x3, x2, x1, x0);
 
-    double s = -1;
-    for (double ss: solutions) {
-        if ((ss < s && ss > 0) || (s < 0 && ss > 0))
-            s = ss;
+    std::vector<Intersection> intersections;
+    for (double s : solutions) {
+        if (s > 0) {
+            Point p(
+                line.getP().getX() + s * line.getV().getX(),
+                line.getP().getY() + s * line.getV().getY(),
+                line.getP().getZ() + s * line.getV().getZ()
+            );
+            intersections.push_back(Intersection(p, s, (Object*)this));
+        }
     }
+    return intersections;
+    // double s = -1;
+    // for (double ss: solutions) {
+    //     if ((ss < s && ss > 0) || (s < 0 && ss > 0))
+    //         s = ss;
+    // }
 
-    if (s < 0)
-        throw NoInterException("Line do not intersect the mobius tape");
+    // if (s < 0)
+    //     throw NoInterException("Line do not intersect the mobius tape");
 
-    Point p(
-        line.getP().getX() + s * line.getV().getX(),
-        line.getP().getY() + s * line.getV().getY(),
-        line.getP().getZ() + s * line.getV().getZ()
-    );
-    return p;
+    // Point p(
+    //     line.getP().getX() + s * line.getV().getX(),
+    //     line.getP().getY() + s * line.getV().getY(),
+    //     line.getP().getZ() + s * line.getV().getZ()
+    // );
+    // return p;
 }
 
 Plane MobiusTape::tangentAt(const Point &intersection) const
@@ -106,9 +118,9 @@ Plane MobiusTape::tangentAt(const Point &intersection) const
     return Plane(intersection, fx, fy, fz);
 }
 
-double MobiusTape::angleWith(const Line &line) const
+double MobiusTape::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    return this->tangentAt(this->intersect(line)).angleWith(line);
+    return this->tangentAt(intersection.getP()).angleWith(line);
 }
 
 Color MobiusTape::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

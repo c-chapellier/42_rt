@@ -3,6 +3,7 @@
 #include <math.h>
 #include "Object.hpp"
 #include "./../exceptions/NoInterException.hpp"
+class Intersection;
 
 class QuarticSurface : public Object
 {
@@ -59,7 +60,7 @@ class QuarticSurface : public Object
 
         void setK(double C35);
 
-        Point intersect(const Line &line) const;
-        double angleWith(const Line &line) const;
+        std::vector<Intersection> intersect(const Line &line) const;
+        double angleWithAt(const Line &line, const Intersection &intersection) const;
         Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 };

@@ -36,7 +36,7 @@ Vector Plane::getV() const
     return this->v;
 }
 
-Point Plane::intersect(const Line &line) const
+std::vector<Intersection> Plane::intersect(const Line &line) const
 {
     double a, b, c, K;
     a = this->v.getX();
@@ -47,14 +47,17 @@ Point Plane::intersect(const Line &line) const
     t = (a * line.getV().getX()) + (b * line.getV().getY()) + (c * line.getV().getZ());
     C = (a * line.getP().getX()) + (b * line.getP().getY()) + (c * line.getP().getZ());
     
+    std::vector<Intersection> intersections;
     if (t == 0 && C != K) {
-        throw NoInterException("Line do not intersect the plane");
+        //throw NoInterException("Line do not intersect the plane");
     } else if (t == 0 && C == K) {
-        throw NoInterException("Line do not intersect the plane");
+        //throw NoInterException("Line do not intersect the plane");
     } else {
-        double s1 = (K - C) / t;
-        return line.getPointFor(s1);
+        double s = (K - C) / t;
+        //return line.getPointFor(s);
+        intersections.push_back(Intersection(line.getPointFor(s), s, (Object*)this));
     }
+    return intersections;
 }
 
 //          a . b
@@ -78,6 +81,12 @@ double Plane::angleWith(const Line &line) const
 double Plane::angleWith(const Plane &p) const
 {
     return this->v.angleWith(p.v);
+}
+
+double Plane::angleWithAt(const Line &line, const Intersection &intersection) const
+{
+    intersection.getP();
+    return this->angleWith(line.getV());
 }
 
 Color Plane::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "Point.hpp"
 #include "Vector.hpp"
 #include "./../Plane.hpp"
@@ -23,5 +24,5 @@ class Triangle
         Point &getP3();
         Plane getPlane() const;
 
-        Point intersect(const Line &l) const;
+        std::vector<Intersection> intersect(const Line &l) const;
 };

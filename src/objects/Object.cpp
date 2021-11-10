@@ -3,12 +3,14 @@
 Object::Object()
     : texture()
 {
+    this->reflexion = 0;
 }
 
 Object::Object(const Color &color)
     : texture()
 {
     this->colors.push_back(color);
+    this->reflexion = 0;
 }
 
 Object::~Object() {}
@@ -32,6 +34,11 @@ Texture Object::getTexture() const
     return this->texture;
 }
 
+int Object::getReflexion() const
+{
+    return this->reflexion;
+}
+
 void Object::addColor(const Color &color)
 {
     this->colors.push_back(color);
@@ -40,6 +47,13 @@ void Object::addColor(const Color &color)
 void Object::setTexture(const Texture &texture)
 {
     this->texture = texture;
+}
+
+void Object::setReflexion(int r)
+{
+    if (r > 100 || r < 0)
+        throw "Reflexion must be between 0 and 100";
+    this->reflexion = r;
 }
 
 Color Object::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

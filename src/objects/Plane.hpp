@@ -5,6 +5,8 @@
 #include "components/Vector.hpp"
 #include "Object.hpp"
 
+class Intersection;
+
 // Equation:
 // aX + bY +cZ = K
 
@@ -24,10 +26,11 @@ class Plane : public Object
         Point getP() const;
         Vector getV() const;
 
-        Point intersect(const Line &line) const;
+        std::vector<Intersection> intersect(const Line &line) const;
         double angleWith(const Line &line) const;
         double angleWith(const Vector &v) const;
         double angleWith(const Plane &p) const;
+        double angleWithAt(const Line &line, const Intersection &intersection) const;
 
         Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 

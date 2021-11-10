@@ -39,26 +39,40 @@ Plane Triangle::getPlane() const
     return Plane(this->p1, this->p2, this->p3);
 }
 
-Point Triangle::intersect(const Line &l) const
+std::vector<Intersection> Triangle::intersect(const Line &l) const
 {
     Plane plane(this->p1, this->p2, this->p3);
     double area = plane.getV().getMagnitude() / 2;
-    Point p = plane.intersect(l);
 
-    Vector pa(p, this->p1);
-    Vector pb(p, this->p2);
-    Vector pc(p, this->p3);
-    double alpha, beta, gama;
-    alpha = pb.crossProductMagnitude(pc) / (2 * area);
-    beta = pc.crossProductMagnitude(pa) / (2 * area);
-    gama = pa.crossProductMagnitude(pb) / (2 * area);
+    std::vector<Intersection> intersections;
+    std::vector<Intersection> tmp = plane.intersect(l);
 
-    // std::cout << alpha << " " << beta << " " << gama << std::endl;
+    for (Intersection inter : tmp) {
+        Vector pa(inter.getP(), this->p1);
+        Vector pb(inter.getP(), this->p2);
+        Vector pc(inter.getP(), this->p3);
+        double alpha, beta, gama;
+        alpha = pb.crossProductMagnitude(pc) / (2 * area);
+        beta = pc.crossProductMagnitude(pa) / (2 * area);
+        gama = pa.crossProductMagnitude(pb) / (2 * area);
 
-    if(alpha >= 0 && alpha <= 1 &&
+        if(alpha >= 0 && alpha <= 1 &&
         beta >= 0 && beta <= 1 &&
         gama >= 0 && gama <= 1 &&
         alpha + beta + gama < 1.001 && alpha + beta + gama > 0.990)
-        return p;
-    throw NoInterException("Line do not intersect the triangle");
+            intersections.push_back(Intersection(inter));
+    }
+
+    return intersections;
+
+    
+
+    // std::cout << alpha << " " << beta << " " << gama << std::endl;
+
+    // if(alpha >= 0 && alpha <= 1 &&
+    //     beta >= 0 && beta <= 1 &&
+    //     gama >= 0 && gama <= 1 &&
+    //     alpha + beta + gama < 1.001 && alpha + beta + gama > 0.990)
+    //     return p;
+    // throw NoInterException("Line do not intersect the triangle");
 }

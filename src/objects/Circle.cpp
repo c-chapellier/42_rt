@@ -21,11 +21,6 @@ std::vector<Intersection> Circle::intersect(const Line &line) const
             intersections.push_back(Intersection(i.getP(), i.getDist(), (Object*)this));
         }
     }
-    // Point p = this->plane->intersect(line);
-    // double dist = p.distWith(this->plane->getP());
-
-    // if (dist <= this->R && dist >= this->r)
-    //     intersections.push_back(Intersection(p, dist, this));
     return intersections;
 }
 

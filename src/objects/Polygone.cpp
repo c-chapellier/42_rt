@@ -28,30 +28,6 @@ std::vector<Intersection> Polygone::intersect(const Line &line) const
         }
     }
     return intersections;
-    // Point res;
-    // bool first = true;
-
-    // for (unsigned long i = 0; i < this->triangles.size(); ++i)
-    // {
-    //     try
-    //     {
-    //         Point tmp = this->triangles[i].intersect(line);
-
-    //         if (first)
-    //         {
-    //             res = tmp;
-    //             first = false;
-    //         }
-    //         else if (tmp.distWith(line.getP()) < res.distWith(line.getP()))
-    //             res = tmp;
-    //     }
-    //     catch(const NoInterException &e) {}
-    // }
-
-    // if (first == true)
-    //     throw NoInterException("Line do not intersect polygon");
-
-    // return res;
 }
 
 double Polygone::angleWithAt(const Line &line, const Intersection &intersection) const

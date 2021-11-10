@@ -138,21 +138,6 @@ std::vector<Intersection> CubicSurface::intersect(const Line &line) const
         }
     }
     return intersections;
-    // double s = -1;
-    // for (double ss: solutions) {
-    //     if ((ss < s && ss > 0) || (s < 0 && ss > 0))
-    //         s = ss;
-    // }
-
-    // if (s < 0)
-    //     throw NoInterException("Line do not intersect the cubic surface");
-
-    // Point p(
-    //     line.getP().getX() + s * line.getV().getX(),
-    //     line.getP().getY() + s * line.getV().getY(),
-    //     line.getP().getZ() + s * line.getV().getZ()
-    // );
-    // return p;
 }
 
 Plane CubicSurface::tangentAt(const Point &intersection) const

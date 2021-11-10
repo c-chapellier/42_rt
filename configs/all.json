@@ -88,7 +88,7 @@
             "values": [3, 5, -1, 0, 0, 0, 0, 0, 0, 0],
             "colors": [
                 "green",
-                "yellow"
+                "blue"
             ],
             "texture": {
                 "type": "Gradient",

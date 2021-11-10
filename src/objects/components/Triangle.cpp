@@ -64,15 +64,4 @@ std::vector<Intersection> Triangle::intersect(const Line &l) const
     }
 
     return intersections;
-
-    
-
-    // std::cout << alpha << " " << beta << " " << gama << std::endl;
-
-    // if(alpha >= 0 && alpha <= 1 &&
-    //     beta >= 0 && beta <= 1 &&
-    //     gama >= 0 && gama <= 1 &&
-    //     alpha + beta + gama < 1.001 && alpha + beta + gama > 0.990)
-    //     return p;
-    // throw NoInterException("Line do not intersect the triangle");
 }

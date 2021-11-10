@@ -49,10 +49,6 @@ std::vector<Intersection> Sphere::intersect(const Line &line) const
         - pow(this->r, 2);
 
     std::list<double> solutions = EquationSolver::solveQuadraticEquation(a, b, c);
-
-    // Point res;
-    // bool first = true;
-
     std::vector<Intersection> intersections;
     for (double s: solutions)
     {
@@ -63,21 +59,9 @@ std::vector<Intersection> Sphere::intersect(const Line &line) const
                 line.getP().getY() + line.getV().getY() * s,
                 line.getP().getZ() + line.getV().getZ() * s
             );
-
             intersections.push_back(Intersection(tmp, s, (Object*)this));
-
-            // if (first)
-            // {
-            //     res = tmp;
-            //     first = false;
-            // }
-            // else if (line.getP().distWith(tmp) < line.getP().distWith(res))
-            //     res = tmp;
         }
     }
-
-    // if (first == true)
-    //     throw NoInterException("Line do not intersect sphere");
         
     return intersections;
 }

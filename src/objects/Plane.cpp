@@ -38,14 +38,12 @@ Vector Plane::getV() const
 
 std::vector<Intersection> Plane::intersect(const Line &line) const
 {
-    double a, b, c, K;
-    a = this->v.getX();
-    b = this->v.getY();
-    c = this->v.getZ();
-    K = ((this->v.getX() * (this->p.getX() * -1)) + (this->v.getY() * (this->p.getY() * -1)) + (this->v.getZ() * (this->p.getZ() * -1))) * -1;
-    double t, C;
-    t = (a * line.getV().getX()) + (b * line.getV().getY()) + (c * line.getV().getZ());
-    C = (a * line.getP().getX()) + (b * line.getP().getY()) + (c * line.getP().getZ());
+    double a = this->v.getX();
+    double b = this->v.getY();
+    double c = this->v.getZ();
+    double K = ((a * (this->p.getX() * -1)) + (b * (this->p.getY() * -1)) + (c * (this->p.getZ() * -1))) * -1;
+    double t = (a * line.getV().getX()) + (b * line.getV().getY()) + (c * line.getV().getZ());
+    double C = (a * line.getP().getX()) + (b * line.getP().getY()) + (c * line.getP().getZ());
     
     std::vector<Intersection> intersections;
     if (t == 0 && C != K) {
@@ -55,7 +53,8 @@ std::vector<Intersection> Plane::intersect(const Line &line) const
     } else {
         double s = (K - C) / t;
         //return line.getPointFor(s);
-        intersections.push_back(Intersection(line.getPointFor(s), s, (Object*)this));
+        if(s > 0)
+            intersections.push_back(Intersection(line.getPointFor(s), s, (Object*)this));
     }
     return intersections;
 }
@@ -87,6 +86,12 @@ double Plane::angleWithAt(const Line &line, const Intersection &intersection) co
 {
     intersection.getP();
     return this->angleWith(line.getV());
+}
+
+Line Plane::getReflectedRayAt(Intersection &intersection, const Line &line) const
+{
+    Vector ref = v.getReflectionOf(line.getV());
+    return Line(intersection.getP(), ref);
 }
 
 Color Plane::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

@@ -125,23 +125,30 @@ void Engine::findObjects(const Camera &camera, std::vector< std::vector<Point> >
     while (getNextPixel(height, width))
     {
         Line ray(camera.getP(), screen[height][width]);
-        std::vector<Intersection> intersections;
+        std::vector<Intersection> intersections = getIntersections(ray);
 
-        for (auto const& obj : this->objects)
-        {
-            std::vector<Intersection> tmp = obj->intersect(ray);
-            for (unsigned long i = 0; i < tmp.size(); ++i) {
-                if(!blackObjectsContains(tmp[i].getP()))
-                    intersections.push_back(tmp[i]);
-            }
-        }
-        sortIntersections(intersections, intersections.size());
+        intersections = sortIntersections(intersections, intersections.size());
         drawPixel(intersections, pixels[height][width], height, width, ray);
     }
 }
 
+std::vector<Intersection> Engine::getIntersections(Line ray)
+{
+    std::vector<Intersection> intersections;
+
+    for (auto const& obj : this->objects)
+    {
+        std::vector<Intersection> tmp = obj->intersect(ray);
+        for (unsigned long i = 0; i < tmp.size(); ++i) {
+            if(!blackObjectsContains(tmp[i].getP()))
+                intersections.push_back(tmp[i]);
+        }
+    }
+    return intersections;
+}
+
 // bubble sort : average O(n²)
-void Engine::sortIntersections(std::vector<Intersection> intersections, int size)
+std::vector<Intersection> Engine::sortIntersections(std::vector<Intersection> intersections, int size)
 {
     for (int i = 0; i < size - 1; ++i) { 
         bool swapped = false;
@@ -156,13 +163,14 @@ void Engine::sortIntersections(std::vector<Intersection> intersections, int size
         if(!swapped)
             break;
     }
+    return intersections;
 }
 
 void Engine::drawPixel(std::vector<Intersection> intersections, Pixel &pixel, int height, int width, Line &ray)
 {
     Color c = pixel.getColor();
     for (unsigned long i = 0; i < intersections.size(); ++i) {
-        Color tmp = getColor(intersections[i], height, width, ray);
+        Color tmp = getColor(intersections[i], height, width, ray, 1);
         c = alphaBlending(c, tmp);
         if (c.getO() == 255)
             break;
@@ -170,11 +178,29 @@ void Engine::drawPixel(std::vector<Intersection> intersections, Pixel &pixel, in
     pixel.setColor(c);
 }
 
-Color Engine::getColor(Intersection &inter, int height, int width, Line &ray)
+Color Engine::getColor(Intersection &inter, int height, int width, Line &ray, int index)
 {
     Color c;
     if (inter.getObj()->getReflexion() != 0) {
-
+        if (index >= maxReflexion)
+            c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
+        else {
+            // find the new vector
+            Line reflected_ray = inter.getObj()->getReflectedRayAt(inter, ray);
+            // find all intersections
+            std::vector<Intersection> new_intersections = getIntersections(reflected_ray);
+            // sort all intersections
+            new_intersections = sortIntersections(new_intersections, new_intersections.size());
+            // get color
+            for (unsigned long i = 0; i < new_intersections.size(); ++i) {
+                Color tmp = getColor(new_intersections[i], height, width, reflected_ray, index + 1);
+                c = alphaBlending(c, tmp);
+                if (c.getO() == 255)
+                    break;
+            }
+            if(new_intersections.size() == 0)
+                c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
+        } 
     } else {
         c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
     }

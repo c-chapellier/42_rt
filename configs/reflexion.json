@@ -1,0 +1,63 @@
+{
+    "name": "Reflection",
+    "height": 600,
+    "width": 600,
+    "precision": 2,
+    "colors" : {
+        "red": [255, 0, 0, 255],
+        "green": [0, 255, 0, 255],
+        "blue": [0, 0, 255, 255],
+        "ambient": [20, 20, 20, 200],
+        "white": [255, 255, 255, 255],
+        "mirror": [212, 225, 226, 255]
+    },
+    "ambient": "ambient",
+    "cameras": [
+        {
+            "coordinates": [-100, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [-1000, 500, 200],
+            "color": "white"
+        }
+    ],
+    "objects": [
+        {
+            "type": "Plane",
+            "point": [0, 0, -70],
+            "normal": [0, 0, 1],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [200, 70, 0],
+            "radius" : 40,
+            "colors": [
+                "red"
+            ]
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [200, 0, 0],
+            "radius" : 40,
+            "colors": [
+                "green"
+            ]
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [200, -70, 0],
+            "radius" : 40,
+            "colors": [
+                "blue"
+            ]
+        }
+    ]
+}

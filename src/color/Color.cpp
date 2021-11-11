@@ -2,8 +2,11 @@
 
 Color::Color()
 {
-    this->generateRandomColor();
-    this->o = 255;
+    this->setR(0);
+    this->setG(0);
+    this->setB(0);
+    //this->generateRandomColor();
+    this->o = 0;
 }
 
 Color::Color(int o)

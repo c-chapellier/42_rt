@@ -189,6 +189,11 @@ double CubicSurface::angleWithAt(const Line &line, const Intersection &intersect
     return this->tangentAt(intersection.getP()).angleWith(line);
 }
 
+Line CubicSurface::getReflectedRayAt(Intersection &intersection, const Line &line) const
+{
+    return this->tangentAt(intersection.getP()).getReflectedRayAt(intersection, line);
+}
+
 Color CubicSurface::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
     screenWidth = intersection.getX();

@@ -71,6 +71,12 @@ double Sphere::angleWithAt(const Line &line, const Intersection &intersection) c
     return Plane(intersection.getP(), this->p).angleWith(line);
 }
 
+Line Sphere::getReflectedRayAt(Intersection &intersection, const Line &line) const
+{
+    Vector v(this->p, intersection.getP());
+    return Line(intersection.getP(), v.getReflectionOf(line.getV()));
+}
+
 Color Sphere::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
     screenWidth = 0;

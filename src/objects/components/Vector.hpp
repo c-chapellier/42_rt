@@ -28,11 +28,14 @@ class Vector
         double getY() const;
         double getZ() const;
         double getMagnitude() const;
+        Vector getNormalized() const;
 
         double scalarProduct(const Vector &v) const;
+        double dotProduct(const Vector &v) const;
         double crossProductMagnitude(const Vector &v) const;
         Vector crossProduct(const Vector &v) const;
         double angleWith(const Vector &v) const;
+        Vector getReflectionOf(const Vector &v) const;
 
         int directionXY(const Vector &v) const;
         int directionXZ(const Vector &v) const;

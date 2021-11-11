@@ -35,6 +35,11 @@ double Polygone::angleWithAt(const Line &line, const Intersection &intersection)
     return intersection.getTr()->getPlane().angleWith(line);
 }
 
+Line Polygone::getReflectedRayAt(Intersection &intersection, const Line &line) const
+{
+    return intersection.getTr()->getPlane().getReflectedRayAt(intersection, line);
+}
+
 Color Polygone::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
     screenWidth = intersection.getX();

@@ -30,6 +30,11 @@ double Circle::angleWithAt(const Line &line, const Intersection &intersection) c
     return this->plane->angleWith(line);
 }
 
+Line Circle::getReflectedRayAt(Intersection &intersection, const Line &line) const
+{
+    return this->plane->getReflectedRayAt(intersection, line);
+}
+
 Color Circle::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
     screenWidth = screen_height;

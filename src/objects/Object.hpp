@@ -24,10 +24,6 @@ class Object
         Object(const Color &color);
         virtual ~Object();
 
-        virtual std::vector<Intersection> intersect(const Line &line) const = 0;
-        virtual double angleWithAt(const Line &line, const Intersection &intersection) const = 0;
-        virtual Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
-
         Color getColor() const;
         Color getColor(int i) const;
         Texture getTexture() const;
@@ -36,4 +32,9 @@ class Object
         void addColor(const Color &color);
         void setTexture(const Texture &texture);
         void setReflexion(int r);
+
+        virtual std::vector<Intersection> intersect(const Line &line) const = 0;
+        virtual double angleWithAt(const Line &line, const Intersection &intersection) const = 0;
+        virtual Line getReflectedRayAt(Intersection &intersection, const Line &line) const = 0;
+        virtual Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 };

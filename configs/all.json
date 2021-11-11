@@ -9,12 +9,10 @@
         "blue": [15, 34, 234, 255],
         "ambient": [20, 20, 20, 0],
         "yellow":[212, 212, 34, 255],
-        "grey":[245, 145, 180, 255]
+        "grey":[245, 145, 180, 255],
+        "mirror": [212, 225, 226, 255]
     },
     "ambient": "ambient",
-    "blur": 0,
-    "filter": "None",
-    "perlinNoise" : true,
     "effects": {
         "transformation": {
             "x_axis" : {
@@ -54,24 +52,18 @@
             }
         },
         {
-            "type": "Quadratic",
-            "name": "Sphere",
+            "type": "Sphere",
             "coordinates": [100, -50, 0],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "radius" : 30,
             "colors": [
-                "green",
-                "grey"
-            ],
-            "texture": {
-                "type": "VerticalLined",
-                "values": [20, 0]
-            }
+                "mirror"
+            ]
         },
         {
             "type": "Quadratic",
             "name": "Cylinder",
             "coordinates": [100, 0, 0],
-            "values": [1, 1, 0, 0, 0, 0, -2, -2, 4, -600],
+            "values": [1, 1, 0, 0, 0, 0, 0, 0, 4, -600],
             "colors": [
                 "yellow",
                 "red"

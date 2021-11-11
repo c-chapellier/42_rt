@@ -54,9 +54,20 @@ double Vector::getMagnitude() const
     return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 }
 
+Vector Vector::getNormalized() const
+{
+    double magnitude = getMagnitude();
+    return Vector(x / magnitude, y /magnitude, z / magnitude);
+}
+
 double Vector::scalarProduct(const Vector &v) const
 {
     return (this->x * v.x) + (this->y * v.y) + (this->z * v.z);
+}
+
+double Vector::dotProduct(const Vector &v) const
+{
+    return this->scalarProduct(v);
 }
 
 double Vector::crossProductMagnitude(const Vector &v) const
@@ -84,6 +95,14 @@ Vector Vector::crossProduct(const Vector &v) const
 double Vector::angleWith(const Vector &v) const
 {
     return DEGREE(acos((this->scalarProduct(v) / (this->getMagnitude() * v.getMagnitude()))));
+}
+
+Vector Vector::getReflectionOf(const Vector &d) const
+{
+    double coef = (2 * d.dotProduct(*this)) / pow(getMagnitude(), 2);
+    Vector tmp(coef * this->getX(), coef * this->getY(), coef * this->getZ());
+    Vector res(d.getX() - tmp.getX(), d.getY() - tmp.getY(), d.getZ() - tmp.getZ());
+    return res;
 }
 
 double Vector::scalarProductXY(const Vector &v) const

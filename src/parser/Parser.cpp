@@ -58,6 +58,10 @@ std::list<Object *> Parser::getObjects()
                 plane->addColor(this->colorManager->getColor(color));
 
             plane->setTexture(getTexture(obj));
+
+            nlohmann::json tmp = obj;
+            try { plane->setReflexion(tmp["reflection"]); } catch(...) {}
+
             objects.push_back(plane);
 
         } else if (obj["type"] == "Sphere") {
@@ -72,6 +76,10 @@ std::list<Object *> Parser::getObjects()
                 sp->addColor(this->colorManager->getColor(color));
 
             sp->setTexture(getTexture(obj));
+            
+            nlohmann::json tmp = obj;
+            try { sp->setReflexion(tmp["reflection"]); } catch(...) {}
+
             objects.push_back(sp);
 
         } else if (obj["type"] == "Circle") {
@@ -90,6 +98,10 @@ std::list<Object *> Parser::getObjects()
                 c->addColor(this->colorManager->getColor(color));
 
             c->setTexture(getTexture(obj));
+
+            nlohmann::json tmp = obj;
+            try { c->setReflexion(tmp["reflection"]); } catch(...) {}
+
             objects.push_back(c);
 
         } else if (obj["type"] == "MobiusTape") {
@@ -110,6 +122,10 @@ std::list<Object *> Parser::getObjects()
                 mt->addColor(this->colorManager->getColor(color));
 
             mt->setTexture(getTexture(obj));
+
+            nlohmann::json tmp = obj;
+            try { mt->setReflexion(tmp["reflection"]); } catch(...) {}
+            
             objects.push_back(mt);
 
         } else if (obj["type"] == "Quadratic") {
@@ -135,6 +151,10 @@ std::list<Object *> Parser::getObjects()
                 quadratic->addColor(this->colorManager->getColor(color));
 
             quadratic->setTexture(getTexture(obj));
+
+            nlohmann::json tmp = obj;
+            try { quadratic->setReflexion(tmp["reflection"]); } catch(...) {}
+
             objects.push_back(quadratic);
 
         } else if (obj["type"] == "CubicSurface") {
@@ -169,6 +189,8 @@ std::list<Object *> Parser::getObjects()
                 cs->addColor(this->colorManager->getColor(color));
 
             cs->setTexture(getTexture(obj));
+            try { cs->setReflexion(tmp["reflection"]); } catch(...) {}
+
             objects.push_back(cs);
 
         } else if (obj["type"] == "QuarticSurface") {
@@ -213,10 +235,13 @@ std::list<Object *> Parser::getObjects()
             try { qs->setY(tmp["y"]); } catch (...) {}
             try { qs->setZ(tmp["z"]); } catch (...) {}
             try { qs->setK(tmp["k"]); } catch (...) {}
+
             for(auto const& color : obj["colors"])
                 qs->addColor(this->colorManager->getColor(color));
 
             qs->setTexture(getTexture(obj));
+            try { qs->setReflexion(tmp["reflection"]); } catch(...) {}
+
             objects.push_back(qs);
 
         } else if (obj["type"] == "Polygon") {
@@ -241,6 +266,10 @@ std::list<Object *> Parser::getObjects()
                 polygon->addColor(this->colorManager->getColor(color));
 
             polygon->setTexture(getTexture(obj));
+
+            nlohmann::json tmp = obj;
+            try { polygon->setReflexion(tmp["reflection"]); } catch(...) {}
+
             objects.push_back(polygon);
 
         } else if (obj["type"] == "Shape") {
@@ -259,11 +288,17 @@ std::list<Object *> Parser::getObjects()
                 obj["rotation"][1],
                 obj["rotation"][2]
             );
+
+            nlohmann::json tmp = obj;
             for(int i = 0; i < (int)shape.size(); ++i){
                 for(auto const& color : obj["colors"]) {
                     shape[i]->addColor(this->colorManager->getColor(color));
                 }
                 shape[i]->setTexture(getTexture(obj));
+
+                
+                try { shape[i]->setReflexion(tmp["reflection"]); } catch(...) {}
+
                 objects.push_back(shape[i]);
             }
         } else {

@@ -6,7 +6,9 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
-    EquationSolver::solveQuarticEquation(1, -4, -5, 2, -10);
+    Vector v(-1, 1, 0);
+
+    //std::cout << v.reflection(Vector(1, 0, 0)) << std::endl;
 
     try
     {

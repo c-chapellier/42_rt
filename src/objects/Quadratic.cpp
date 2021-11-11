@@ -135,6 +135,11 @@ double Quadratic::angleWithAt(const Line &line, const Intersection &intersection
     return this->tangentAt(intersection.getP()).angleWith(line);
 }
 
+Line Quadratic::getReflectedRayAt(Intersection &intersection, const Line &line) const
+{
+    return this->tangentAt(intersection.getP()).getReflectedRayAt(intersection, line);
+}
+
 Color Quadratic::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
     screenWidth = intersection.getX();

@@ -21,6 +21,8 @@ class Engine
         int current_pixel;
         std::mutex get_pixel_mtx;
 
+        int maxReflexion = 2;
+
         // const unsigned int nbrOfThreads = 1;
         const unsigned int nbrOfThreads = std::thread::hardware_concurrency();
 
@@ -44,9 +46,10 @@ class Engine
 
         void manageLoadingBar();
 
-        void sortIntersections(std::vector<Intersection> intersections, int size);
+        std::vector<Intersection> getIntersections(Line ray);
+        std::vector<Intersection> sortIntersections(std::vector<Intersection> intersections, int size);
         void drawPixel(std::vector<Intersection> intersections, Pixel &pixel, int height, int width, Line &ray);
-        Color getColor(Intersection &inter, int height, int width, Line &ray);
+        Color getColor(Intersection &inter, int height, int width, Line &ray, int index);
         void applyLights(Intersection &inter, Color &color);
 
     public:

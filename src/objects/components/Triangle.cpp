@@ -57,9 +57,10 @@ std::vector<Intersection> Triangle::intersect(const Line &l) const
         gama = pa.crossProductMagnitude(pb) / (2 * area);
 
         if(alpha >= 0 && alpha <= 1 &&
-        beta >= 0 && beta <= 1 &&
-        gama >= 0 && gama <= 1 &&
-        alpha + beta + gama < 1.001 && alpha + beta + gama > 0.990)
+            beta >= 0 && beta <= 1 &&
+            gama >= 0 && gama <= 1 &&
+            alpha + beta + gama < 1.001 && alpha + beta + gama > 0.990
+        )
             intersections.push_back(Intersection(inter));
     }
 

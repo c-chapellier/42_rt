@@ -108,7 +108,7 @@ void Engine::threadedFindObjects(const Camera &camera, std::vector< std::vector<
     std::vector<std::thread> threads;
 
     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-        threads.push_back(std::thread(&Engine::findObjects, this, camera, std::ref(screen), std::ref(pixels)));
+        threads.push_back(std::thread(&Engine::findObjects, this, camera.getP(), std::ref(screen), std::ref(pixels)));
     
     // std::cout << "manageLoadingBar" << std::endl;
     // this->manageLoadingBar();
@@ -119,13 +119,15 @@ void Engine::threadedFindObjects(const Camera &camera, std::vector< std::vector<
 
 }
 
-void Engine::findObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
+void Engine::findObjects(const Point &cam, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
 {
     int height, width;
 
     while (getNextPixel(height, width))
     {
-        Line ray(camera.getP(), screen[height][width]);
+        if (height >= this->precision_height || width >= this->precision_width)
+            continue;
+        Line ray(cam, screen[height][width]);
         std::vector<Intersection> intersections = getIntersections(ray);
 
         intersections = sortIntersections(intersections, intersections.size());

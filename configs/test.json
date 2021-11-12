@@ -1,18 +1,20 @@
 {
-    "name": "Triangles",
+    "name": "sphere",
     "width": 600,
     "height": 600,
     "precision": 2,
     "colors" : {
         "red": [234, 15, 34, 255],
         "blue": [15, 34, 234, 255],
+        "white": [255, 255, 255, 255],
         "ambient": [20, 20, 20, 0]
     },
+    
     "ambient": "ambient",
     "lights": [
         {
-            "coordinates": [-1000, 400, 400],
-            "color": "red"
+            "coordinates": [-1000, 1000, 0],
+            "color": "white"
         }
     ],
     "cameras": [
@@ -26,21 +28,11 @@
         {
             "type": "Polygon",
             "name": "Star",
-            "coordinates": [0, 0, 0],
-            "values": [60, 30, 20, 5],
-            "rotation": [20, 90, 0],
+            "coordinates": [0, 100, 50],
+            "values": [50, 50, 30, 4],
+            "rotation": [0, 0, 0],
             "colors": [
                 "red"
-            ]
-        },
-        {
-            "type": "Polygon",
-            "name": "Star",
-            "coordinates": [100, 0, 0],
-            "values": [60, 30, 20, 5],
-            "rotation": [20, 90, 0],
-            "colors": [
-                "blue"
             ]
         }
     ]

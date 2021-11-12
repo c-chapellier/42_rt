@@ -1,5 +1,5 @@
 {
-    "name": "sphere",
+    "name": "MobiusTape",
     "width": 600,
     "height": 600,
     "precision": 1,
@@ -9,8 +9,6 @@
         "ambient": [20, 20, 20, 0]
     },
     "ambient": "ambient",
-    "blur": 0,
-    "filter": "None",
     "cameras": [
         {
             "coordinates": [-150, 0, 0],

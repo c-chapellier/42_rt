@@ -53,7 +53,7 @@ std::vector<Intersection> Plane::intersect(const Line &line) const
     } else {
         double s = (K - C) / t;
         //return line.getPointFor(s);
-        if(s > 0)
+        if(s > 0.00001)
             intersections.push_back(Intersection(line.getPointFor(s), s, (Object*)this));
     }
     return intersections;

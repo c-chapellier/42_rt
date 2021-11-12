@@ -46,11 +46,12 @@ class Engine
 
         void manageLoadingBar();
 
-        std::vector<Intersection> getIntersections(Line ray);
+        std::vector<Intersection> getIntersections(const Line &ray) const;
         std::vector<Intersection> sortIntersections(std::vector<Intersection> intersections, int size);
         void drawPixel(std::vector<Intersection> intersections, Pixel &pixel, int height, int width, Line &ray);
         Color getColor(Intersection &inter, int height, int width, Line &ray, int index);
         void applyLights(Intersection &inter, Color &color);
+        Color getReflectedColor(const Color &c1, const Color &c2, double factor) const;
 
     public:
         Engine(std::string config_file);

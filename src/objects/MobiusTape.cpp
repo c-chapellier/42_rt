@@ -63,7 +63,7 @@ std::vector<Intersection> MobiusTape::intersect(const Line &line) const
 
     std::vector<Intersection> intersections;
     for (double s : solutions) {
-        if (s > 0) {
+        if (s > 0.00001) {
             Point p(
                 line.getP().getX() + s * line.getV().getX(),
                 line.getP().getY() + s * line.getV().getY(),

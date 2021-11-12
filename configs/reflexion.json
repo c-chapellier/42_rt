@@ -33,7 +33,7 @@
             "colors": [
                 "mirror"
             ],
-            "reflection": 100
+            "reflection": 50
         },
         {
             "type": "Sphere",

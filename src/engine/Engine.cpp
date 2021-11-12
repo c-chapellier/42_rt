@@ -132,7 +132,7 @@ void Engine::findObjects(const Camera &camera, std::vector< std::vector<Point> >
     }
 }
 
-std::vector<Intersection> Engine::getIntersections(Line ray)
+std::vector<Intersection> Engine::getIntersections(const Line &ray) const
 {
     std::vector<Intersection> intersections;
 
@@ -198,6 +198,11 @@ Color Engine::getColor(Intersection &inter, int height, int width, Line &ray, in
                 if (c.getO() == 255)
                     break;
             }
+            if(new_intersections.size() != 0)
+                c = getReflectedColor(
+                    inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP()), 
+                    c, 
+                    (double)inter.getObj()->getReflexion() / 100.0);
             if(new_intersections.size() == 0)
                 c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
         } 
@@ -209,6 +214,16 @@ Color Engine::getColor(Intersection &inter, int height, int width, Line &ray, in
     double angle = RADIAN(inter.getObj()->angleWithAt(ray, inter));
     c = c.add(this->config.getAmbientColor()).reduceOf(cos(angle) / 1.1);
     return c;
+}
+
+Color Engine::getReflectedColor(const Color &c1, const Color &c2, double factor) const
+{
+    return Color(
+        c1.getR() + (int)((double)((double)c2.getR() - (double)c1.getR()) * factor),
+        c1.getG() + (int)((double)((double)c2.getG() - (double)c1.getG()) * factor),
+        c1.getB() + (int)((double)((double)c2.getB() - (double)c1.getB()) * factor),
+        c1.getO()
+    );
 }
 
 void Engine::applyLights(Intersection &inter, Color &color)

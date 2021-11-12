@@ -66,7 +66,7 @@ std::vector<Intersection> Quadratic::intersect(const Line &line) const
 
     std::vector<Intersection> intersections;
     for (double s : solutions) {
-        if (s > 0) {
+        if (s > 0.00001) {
             double x = x1 + a * s;
             double y = y1 + b * s;
             double z = z1 + c * s;

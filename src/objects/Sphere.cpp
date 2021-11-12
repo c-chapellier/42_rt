@@ -52,7 +52,7 @@ std::vector<Intersection> Sphere::intersect(const Line &line) const
     std::vector<Intersection> intersections;
     for (double s: solutions)
     {
-        if (s > 0)
+        if (s > 0.00001)
         {
             Point tmp(
                 line.getP().getX() + line.getV().getX() * s,

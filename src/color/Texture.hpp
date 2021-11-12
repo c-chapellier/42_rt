@@ -21,6 +21,7 @@ class Texture
         float speed = 1;
         std::string file;
         SDL_Surface *img;
+        int opacity;
     public:
         Texture();
         Texture(std::string type);
@@ -45,6 +46,7 @@ class Texture
         void setWOffset(float w);
         void setSpeed(float s);
         void setFile(std::string file);
+        void setOpacity(int o);
 
         Color getImageTextureAt(double h, double w);
 };

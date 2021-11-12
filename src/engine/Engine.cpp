@@ -62,6 +62,7 @@ void Engine::run()
 
     for (auto const& camera : this->cameras)
     {
+        this->current_pixel = 0;
         std::vector< std::vector<Point> > screen = camera->getScreen(config);
         
         std::vector< std::vector<Pixel> > pixels;
@@ -278,6 +279,14 @@ bool Engine::getNextPixel(int &height, int &width)
     return true;
 }
 
+bool Engine::blackObjectsContains(const Point &p) const
+{
+    for (auto const& obj : this->black_objects)
+        if (obj->contains(p))
+            return true;
+    return false;
+}
+
 void Engine::manageLoadingBar()
 {
     int a, b = 0;
@@ -455,14 +464,6 @@ Color Engine::alphaBlending(const Color &c1, const Color &c2)
 *             PERLIN NOISE               *
 
 * * * * * * * * * * * * * * * * * * * * */
-
-bool Engine::blackObjectsContains(const Point &p) const
-{
-    for (auto const& obj : this->black_objects)
-        if (obj->contains(p))
-            return true;
-    return false;
-}
 
 float Engine::interpolate(float a0, float a1, float w)
 {

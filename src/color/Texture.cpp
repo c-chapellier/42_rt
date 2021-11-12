@@ -9,6 +9,7 @@ Texture::Texture()
     setWOffset(0);
     setSpeed(1);
     setFile("NoFile");
+    setOpacity(255);
     img = NULL;
 }
 Texture::Texture(std::string type)
@@ -20,6 +21,7 @@ Texture::Texture(std::string type)
     setWOffset(0);
     setSpeed(1);
     setFile("NoFile");
+    setOpacity(255);
     img = NULL;
 }
 Texture::Texture(std::string type, std::string file)
@@ -31,6 +33,7 @@ Texture::Texture(std::string type, std::string file)
     setWOffset(0);
     setSpeed(1);
     setFile(file);
+    setOpacity(255);
 }
 Texture::Texture(std::string type, int value1)
 {
@@ -41,6 +44,7 @@ Texture::Texture(std::string type, int value1)
     setWOffset(0);
     setSpeed(1);
     setFile("NoFile");
+    setOpacity(255);
     img = NULL;
 }
 Texture::Texture(std::string type, int value1, int value2)
@@ -52,6 +56,7 @@ Texture::Texture(std::string type, int value1, int value2)
     setWOffset(0);
     setSpeed(1);
     setFile("NoFile");
+    setOpacity(255);
     img = NULL;
 }
 Texture::Texture(std::string type, int value1, int value2, std::string file)
@@ -63,6 +68,7 @@ Texture::Texture(std::string type, int value1, int value2, std::string file)
     setWOffset(0);
     setSpeed(1);
     setFile(file);
+    setOpacity(255);
 }
 Texture::~Texture(){}
 
@@ -147,13 +153,58 @@ void Texture::setSpeed(float s)
         throw "Texture speed can not be under 0";
     this->speed = s;
 }
+void Texture::setOpacity(int o)
+{
+    if(o < 0 || o > 255)
+        throw "Texture opacity must be between 0 and 255";
+    this->opacity = o;
+}
 
+// https://wiki.libsdl.org/SDL_PixelFormat
 Color Texture::getImageTextureAt(double h, double w)
 {
     int height = floor((double)img->h * mod(h + h_offset, 1.0));
     int width = floor((double)img->w * mod(w * speed + w_offset, 1.0));
-    int r = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3)];
-    int g = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3) + 1];
-    int b = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3) + 2];
-    return Color(r, g, b, 255);
+
+    if (img->format->BytesPerPixel == 1) {
+        Uint8 index = ((uint8_t*)img->pixels)[height * img->w + width];
+        SDL_Color *color = &img->format->palette->colors[index];
+        return Color(color->r, color->g, color->b, color->a);
+    } else if (img->format->BytesPerPixel == 3) {
+        int r = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3)];
+        int g = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3) + 1];
+        int b = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3) + 2];
+        return Color(r, g, b, opacity);
+    } else if (img->format->BytesPerPixel == 4) {
+        Uint8 red, green, blue, alpha;
+        Uint32 temp, pixel;
+        pixel = *(Uint32*)&((uint8_t*)img->pixels)[(height * img->w + width) * 4];
+
+        /* Get Red component */
+        temp = pixel & img->format->Rmask;  /* Isolate red component */
+        temp = temp >> img->format->Rshift; /* Shift it down to 8-bit */
+        temp = temp << img->format->Rloss;  /* Expand to a full 8-bit number */
+        red = (Uint8)temp;
+
+        /* Get Green component */
+        temp = pixel & img->format->Gmask;  /* Isolate green component */
+        temp = temp >> img->format->Gshift; /* Shift it down to 8-bit */
+        temp = temp << img->format->Gloss;  /* Expand to a full 8-bit number */
+        green = (Uint8)temp;
+
+        /* Get Blue component */
+        temp = pixel & img->format->Bmask;  /* Isolate blue component */
+        temp = temp >> img->format->Bshift; /* Shift it down to 8-bit */
+        temp = temp << img->format->Bloss;  /* Expand to a full 8-bit number */
+        blue = (Uint8)temp;
+
+        /* Get Alpha component */
+        temp = pixel & img->format->Amask;  /* Isolate alpha component */
+        temp = temp >> img->format->Ashift; /* Shift it down to 8-bit */
+        temp = temp << img->format->Aloss;  /* Expand to a full 8-bit number */
+        alpha = (Uint8)temp;
+
+        return Color(red, green, blue, alpha);
+    }
+    throw "this kind of texture can not be loaded";
 }

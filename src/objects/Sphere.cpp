@@ -79,24 +79,46 @@ Line Sphere::getReflectedRayAt(Intersection &intersection, const Line &line) con
 
 Color Sphere::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
-    screenWidth = 0;
+    height = width;
+    screenWidth = screen_height;
 
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
-        double p = (double)((double)height / (double)screen_height);
+        double ratio = intersection.getZ() > this->p.getZ() ?
+            (this->r - (intersection.getZ() - this->p.getZ())) / (2 * this->r) :
+            (this->r + (this->p.getZ() - intersection.getZ())) / (2 * this->r);
+            
         return Color(
-            this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * p),
-            this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * p),
-            this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * p),
-            this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * p)
+            this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * ratio),
+            this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * ratio),
+            this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * ratio),
+            this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * ratio)
         );
     } else if (this->texture.getType() == "Grid") {
-        return this->getColor(((height / this->texture.getValue1()) + (width / this->texture.getValue2())) % 2);
+        // value1 = rows
+        // value2 = cols
+        double z = intersection.getZ() - this->getP().getZ() + this->r;
+        double fy = (2 * this->r) / (double)this->texture.getValue1();
+        int y = (int)(z / fy);
+
+        Point tmp(this->getP().getX(), this->getP().getY(), intersection.getZ());
+        Vector v(tmp, intersection);
+        Vector x_axis(0, 1, 0);
+        double alpha = v.angleWith(x_axis);
+        alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
+        int fx = 360 / this->texture.getValue2();
+        int x = alpha / fx;
+        
+        return this->getColor((x + y) % 2);
     } else if (this->texture.getType() == "VerticalLined") {
-        return this->getColor((width / this->texture.getValue1()) % 2);
+        if (intersection.getY() > 0)
+            return this->getColor(((int)intersection.getY() / this->texture.getValue1()) % 2);
+        return this->getColor((abs((int)intersection.getY() / this->texture.getValue1()) + 1) % 2);
     } else if (this->texture.getType() == "HorizontalLined") {
-        return this->getColor((height / this->texture.getValue1()) % 2);
+        if (intersection.getZ() > 0)
+            return this->getColor(((int)intersection.getZ() / this->texture.getValue1()) % 2);
+        return this->getColor((abs((int)intersection.getZ() / this->texture.getValue1()) + 1) % 2);
     } else if (this->texture.getType() == "Image") {
         return TextureAplicator::applyTextureOnSphereAt(*this, intersection);
     } else {

@@ -27,6 +27,7 @@ Texture Parser::getTexture(nlohmann::json json) {
         try { texture.setHOffset(t["hOffset"]); } catch(...) { texture.setHOffset(0); }
         try { texture.setWOffset(t["wOffset"]); } catch(...) { texture.setWOffset(0); }
         try { texture.setSpeed(t["speed"]); } catch(...) { texture.setSpeed(1); }
+        try { texture.setOpacity(t["opacity"]); } catch(...) { }
         return texture;
     } else {
         Texture texture(

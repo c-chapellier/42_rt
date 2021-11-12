@@ -2,97 +2,42 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
-    "precision": 2,
-    "ambient": [20, 20, 20, 0],
-    "blur": [255, 255, 255, 0],
-    "filter": "None",
+    "precision": 3,
+    "colors" : {
+        "red": [234, 15, 34, 255],
+        "green": [15, 234, 34, 255],
+        "blue": [15, 34, 234, 255],
+        "ambient": [20, 20, 20, 0],
+        "yellow":[212, 212, 34, 255],
+        "grey":[245, 145, 180, 255],
+        "mirror": [212, 225, 226, 255]
+    },
+    "ambient": "ambient",
     "cameras": [
         {
             "coordinates": [-150, 0, 0],
             "direction": [1, 0, 0],
             "aperture": 90
+        },
+        {
+            "coordinates": [0, 150, 0],
+            "direction": [0, -1, 0],
+            "aperture": 90
         }
-    ],
-    "lights": [
-
     ],
     "objects": [
         {
-            "type": "Quadratic",
-            "name": "Sphere",
-            "coordinates": [0, 0, 3],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -100],
-            "colors": [
-                [255, 40, 40, 255]
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Quadratic",
-            "name": "Sphere",
-            "coordinates": [0, 0, -3],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -100],
-            "colors": [
-                [255, 40, 40, 255]
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Quadratic",
-            "name": "Sphere",
-            "coordinates": [0, 3, 0],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -100],
-            "colors": [
-                [40, 40, 255, 255]
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Quadratic",
-            "name": "Sphere",
-            "coordinates": [0, -3, 0],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -100],
-            "colors": [
-                [40, 40, 255, 255]
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Quadratic",
-            "name": "Sphere",
+            "type": "Sphere",
             "coordinates": [0, 0, 0],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -2000],
+            "radius" : 30,
             "colors": [
-                [135, 206, 250, 100]
+                "red",
+                "blue",
+                "green"
             ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Quadratic",
-            "name": "Sphere",
-            "coordinates": [0, 0, 0],
-            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -2500],
-            "colors": [
-                [135, 250, 250, 100]
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
+            "texture" : {
+                "type": "Grid",
+                "values": [8, 8]
             }
         }
     ]

@@ -58,7 +58,7 @@ void Engine::run()
 
     auto start = std::chrono::high_resolution_clock::now();
   
-    this->loadingBar->add(10);
+    //this->loadingBar->add(10);
 
     for (auto const& camera : this->cameras)
     {
@@ -86,7 +86,7 @@ void Engine::run()
         std::cout << "applyPrecision" << std::endl;
         this->applyPrecision(pixels);
 
-        this->loadingBar->add(30 / this->cameras.size());
+        //this->loadingBar->add(30 / this->cameras.size());
 
         std::cout << "load_image" << std::endl;
         this->win->load_image(this->img);
@@ -110,9 +110,9 @@ void Engine::threadedFindObjects(const Camera &camera, std::vector< std::vector<
     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
         threads.push_back(std::thread(&Engine::findObjects, this, camera, std::ref(screen), std::ref(pixels)));
     
-    std::cout << "manageLoadingBar" << std::endl;
-    this->manageLoadingBar();
-    std::cout << "end manageLoadingBar" << std::endl;
+    // std::cout << "manageLoadingBar" << std::endl;
+    // this->manageLoadingBar();
+    // std::cout << "end manageLoadingBar" << std::endl;
 
     for (auto &th : threads)
         th.join();

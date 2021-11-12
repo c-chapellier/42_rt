@@ -1,16 +1,14 @@
 {
-    "name": "sphere",
+    "name": "Triangles",
     "width": 600,
     "height": 600,
+    "precision": 2,
     "colors" : {
         "red": [234, 15, 34, 255],
         "blue": [15, 34, 234, 255],
         "ambient": [20, 20, 20, 0]
     },
-    "precision": 2,
     "ambient": "ambient",
-    "blur": 0,
-    "filter": "None",
     "lights": [
         {
             "coordinates": [-1000, 400, 400],
@@ -33,11 +31,7 @@
             "rotation": [20, 90, 0],
             "colors": [
                 "red"
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
+            ]
         },
         {
             "type": "Polygon",
@@ -47,19 +41,7 @@
             "rotation": [20, 90, 0],
             "colors": [
                 "blue"
-            ],
-            "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
+            ]
         }
-    ],
-    "blackObjects": {
-        "blackSpheres": [
-            {
-                "coordinates": [0, 20, 20],
-                "radius": 30
-            }
-        ]
-    }
+    ]
 }

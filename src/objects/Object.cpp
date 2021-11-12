@@ -19,14 +19,14 @@ Color Object::getColor() const
 {
     if (this->colors.size() == 0)
         throw "Bad index for accessing color of the object";
-    return this->colors[0];
+    return Color(this->colors[0]);
 }
 
 Color Object::getColor(int i) const
 {
     if (i < 0 || i > (int)this->colors.size())
         throw "Bad index for accessing color of the object";
-    return this->colors[i];
+    return Color(this->colors[i]);
 }
 
 Texture Object::getTexture() const

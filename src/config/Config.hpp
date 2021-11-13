@@ -12,6 +12,7 @@ class Config
         int blur;
         std::string filter;
         bool perlinNoise;
+        int maxReflexion;
     public:
         Config();
         ~Config();
@@ -23,6 +24,7 @@ class Config
         int getBlur() const;
         std::string getFilter() const;
         bool getPerlinNoise() const;
+        int getMaxReflection() const;
 
         void setHeight(int h);
         void setWidth(int w);
@@ -31,4 +33,5 @@ class Config
         void setBlur(int b);
         void setFilter(const std::string &filter);
         void setPerlinNoise(bool perlinNoise);
+        void setMaxReflection(int max);
 };

@@ -185,7 +185,7 @@ Color Engine::getColor(Intersection &inter, int height, int width, Line &ray, in
 {
     Color c;
     if (inter.getObj()->getReflexion() != 0) {
-        if (index >= maxReflexion)
+        if (index >= this->config.getMaxReflection())
             c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
         else {
             // find the new vector

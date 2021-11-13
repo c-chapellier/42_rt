@@ -4,6 +4,7 @@ Config::Config()
     : ambient_color(), blur(0)
 {
     setFilter("None");
+    this->maxReflexion = 2;
 }
 
 Config::~Config()
@@ -38,6 +39,10 @@ std::string Config::getFilter() const
 bool Config::getPerlinNoise() const
 {
     return this->perlinNoise;
+}
+int Config::getMaxReflection() const
+{
+    return this->maxReflexion;
 }
 
 void Config::setHeight(int h)
@@ -82,4 +87,11 @@ void Config::setFilter(const std::string &filter)
 void Config::setPerlinNoise(bool perlinNoise)
 {
     this->perlinNoise = perlinNoise;
+}
+
+void Config::setMaxReflection(int max)
+{
+    if (max <= 0)
+        throw "Reflection index must sup or equal to 1";
+    this->maxReflexion = max;
 }

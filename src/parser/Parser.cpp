@@ -381,5 +381,6 @@ Config Parser::getConfig()
     try { config.setBlur(this->j["blur"]); } catch(...) { config.setBlur(0); }
     try { config.setFilter(this->j["filter"]); } catch(...) { config.setFilter("None"); }
     try { config.setPerlinNoise(this->j["perlinNoise"]); } catch(...) { config.setPerlinNoise(false); }
+    try { config.setMaxReflection(this->j["maxReflection"]); } catch(...) { config.setMaxReflection(2); }
     return config;
 }

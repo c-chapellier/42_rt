@@ -1,0 +1,91 @@
+{
+    "name": "BlackBox",
+    "height": 800,
+    "width": 800,
+    "precision": 2,
+    "colors" : {
+        "red": [255, 0, 0, 255],
+        "ambient": [20, 20, 20, 200],
+        "white": [255, 255, 255, 255],
+        "mirror": [212, 225, 226, 255]
+    },
+    "ambient": "ambient",
+    "maxReflection": 10,
+    "cameras": [
+        {
+            "coordinates": [-180, 0, 0],
+            "direction": [1, 0, 0],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [-1000, 500, 200],
+            "color": "white"
+        }
+    ],
+    "objects": [
+        {
+            "type": "Plane",
+            "point": [0, 0, -100],
+            "normal": [0, 0, 1],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Plane",
+            "point": [0, 0, 100],
+            "normal": [0, 0, -1],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Plane",
+            "point": [0, 100, 0],
+            "normal": [0, -1, 0],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Plane",
+            "point": [0, -100, 0],
+            "normal": [0, 1, 0],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Plane",
+            "point": [100, 0, 0],
+            "normal": [-1, 0, 0],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Plane",
+            "point": [-200, 0, 0],
+            "normal": [1, 0, 0],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, 0, 0],
+            "radius" : 20,
+            "colors": [
+                "red"
+            ]
+        }
+    ]
+}

@@ -21,8 +21,6 @@ class Engine
         int current_pixel;
         std::mutex get_pixel_mtx;
 
-        int maxReflexion = 2;
-
         // const unsigned int nbrOfThreads = 1;
         const unsigned int nbrOfThreads = std::thread::hardware_concurrency();
 

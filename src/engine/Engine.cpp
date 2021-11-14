@@ -52,6 +52,61 @@ Engine::~Engine()
 
 * * * * * * * * * * * * * * * * * * * * */
 
+void Engine::runVideo()
+{
+    std::cout << "run Video" << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+  
+    //this->loadingBar->add(10);
+
+    for (auto const& camera : this->cameras)
+    {
+        double dist = abs(camera->getP().getX());
+        int max = 360;
+        for (int i = 0; i < max; ++i) {
+            
+            this->current_pixel = 0;
+            double angle = i * (360.0 / (double)max);
+            std::cout << angle << std::endl;
+            double x = dist * cos(RADIAN(angle));
+            double y = dist * sin(RADIAN(angle));
+            camera->setX(x);
+            camera->setY(y);
+            camera->setV(-x, -y, 0);
+            std::cout << camera->getP().getX() << " " << camera->getP().getY() << std::endl;
+            std::vector< std::vector<Point> > screen = camera->getScreen(config);
+            
+            std::vector< std::vector<Pixel> > pixels;
+            pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width, Pixel(0, 0, 0, 0, INFINITY)));
+
+            this->threadedFindObjects(*camera, screen, pixels);
+            this->applyPerlinNoise(pixels);
+            this->applyFilter(pixels);
+            this->applyBlur(pixels);
+
+            // std::cout << "apply3D" << std::endl;
+            //this->apply3D(pixels);
+
+            this->applyPrecision(pixels);
+
+            //this->loadingBar->add(30 / this->cameras.size());
+
+            this->win->load_image(this->img);
+        }
+        break;
+    }
+
+    std::cout << "set_image" << std::endl;
+    this->win->set_image();
+
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    std::cout << "Loaded: " << duration.count() << " milliseconds" << std::endl;
+
+    this->win->startVideo();
+}
+
 void Engine::run()
 {
     std::cout << "run" << std::endl;

@@ -36,6 +36,19 @@ Vector::~Vector()
 {
 }
 
+void Vector::setX(double x)
+{
+    this->x = x;
+}
+void Vector::setY(double y)
+{
+    this->y = y;
+}
+void Vector::setZ(double z)
+{
+    this->z = z;
+}
+
 double Vector::getX() const
 {
     return this->x;

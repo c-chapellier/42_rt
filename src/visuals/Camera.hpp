@@ -25,5 +25,10 @@ class Camera
         Point getP() const;
         Vector getV() const;
 
+        void setX(double x);
+        void setY(double y);
+        void setZ(double z);
+        void setV(double x, double y, double z);
+
         std::vector< std::vector<Point> > getScreen(const Config &config) const;
 };

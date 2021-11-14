@@ -10,7 +10,7 @@
         "mirror": [212, 225, 226, 255]
     },
     "ambient": "ambient",
-    "maxReflection": 10,
+    "maxReflection": 5,
     "cameras": [
         {
             "coordinates": [-180, 0, 0],

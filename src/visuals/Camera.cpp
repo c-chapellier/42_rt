@@ -31,6 +31,25 @@ Vector Camera::getV() const
     return this->v;
 }
 
+void Camera::setX(double x)
+{
+    this->p.setX(x);
+}
+void Camera::setY(double y)
+{
+    this->p.setY(y);
+}
+void Camera::setZ(double z)
+{
+    this->p.setZ(z);
+}
+void Camera::setV(double x, double y, double z)
+{
+    this->v.setX(x);
+    this->v.setY(y);
+    this->v.setZ(z);
+}
+
 // find the distance debtween the camera and the screen : d
 // find the center of the screen as we look in the X direction
 // find all the points of the screen center on X axis

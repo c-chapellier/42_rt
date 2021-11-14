@@ -24,6 +24,10 @@ class Vector
         Vector(const Vector &vector, double div);
         ~Vector();
 
+        void setX(double x);
+        void setY(double y);
+        void setZ(double z);
+
         double getX() const;
         double getY() const;
         double getZ() const;

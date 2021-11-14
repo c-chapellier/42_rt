@@ -73,6 +73,15 @@ void Window::pause()
     }
 }
 
+void Window::startVideo()
+{
+    while (true)
+    {
+        this->set_next_image();
+        std::cout << "next: " << this->img_index << std::endl;
+    }
+}
+
 void Window::stream(Image &img)
 {
     if (!img.is_valid(this->height, this->width))

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "../../include/SDL2/SDL.h"
 #include "../image/Image.hpp"
@@ -31,6 +32,7 @@ class Window
         void clear();
         void refresh();
         void pause();
+        void startVideo();
 
         void stream(Image &img);
 

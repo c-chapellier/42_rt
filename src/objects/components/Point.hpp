@@ -24,7 +24,6 @@ class Point
         double getY() const;
         double getZ() const;
 
-
         void setX(double x);
         void setY(double y);
         void setZ(double z);

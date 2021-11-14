@@ -56,4 +56,5 @@ class Engine
         ~Engine();
 
         void run();
+        void runVideo();
 };

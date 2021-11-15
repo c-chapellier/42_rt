@@ -19,6 +19,13 @@
         {
             "coordinates": [-9990, 0, 0],
             "direction": [1, 0, 0],
+            "up": [0, 0, 1],
+            "aperture": 90
+        },
+        {
+            "coordinates": [0, 0, 9990],
+            "direction": [0, 0, -1],
+            "up": [1, 0, 0],
             "aperture": 90
         }
     ],
@@ -32,7 +39,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/milky-way.jpg"
+                "file": "textures/solarSystem/milky-way.jpg"
             }
         },
         {
@@ -44,7 +51,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/sun.jpg"
+                "file": "textures/solarSystem/sun.jpg"
             }
         },
         {
@@ -56,7 +63,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/mercury.jpg"
+                "file": "textures/solarSystem/mercury.jpg"
             }
         },
         {
@@ -68,7 +75,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/venus.jpg"
+                "file": "textures/solarSystem/venus.jpg"
             }
         },
         {
@@ -80,7 +87,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/earth.jpg"
+                "file": "textures/solarSystem/earth.jpg"
             }
         },
         {
@@ -92,7 +99,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/mars.jpg"
+                "file": "textures/solarSystem/mars.jpg"
             }
         },
         {
@@ -104,7 +111,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/jupiter.jpg"
+                "file": "textures/solarSystem/jupiter.jpg"
             }
         },
         {
@@ -116,7 +123,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/saturn.jpg"
+                "file": "textures/solarSystem/saturn.jpg"
             }
         },
         {
@@ -143,7 +150,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/uranus.jpg"
+                "file": "textures/solarSystem/uranus.jpg"
             }
         },
         {
@@ -165,7 +172,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/neptune.jpg"
+                "file": "textures/solarSystem/neptune.jpg"
             }
         },
         {
@@ -177,7 +184,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/pluto.jpg"
+                "file": "textures/solarSystem/pluto.jpg"
             }
         }
     ]

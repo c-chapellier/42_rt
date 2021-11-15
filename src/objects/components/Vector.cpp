@@ -73,6 +73,14 @@ Vector Vector::getNormalized() const
     return Vector(x / magnitude, y /magnitude, z / magnitude);
 }
 
+void Vector::normalize()
+{
+    double magnitude = getMagnitude();
+    this->x /= magnitude;
+    this->y /= magnitude;
+    this->z /= magnitude;
+}
+
 double Vector::scalarProduct(const Vector &v) const
 {
     return (this->x * v.x) + (this->y * v.y) + (this->z * v.z);
@@ -156,6 +164,50 @@ int Vector::directionXZ(const Vector &v) const
 
     double d = v1r.scalarProductXY(v2);
     return d > 0 ? CLOCK_WISE : ANTI_CLOCK_WISE;
+}
+
+double Vector::scalarProduct(const Vector &v1, const Vector &v2)
+{
+    return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+}
+double Vector::dotProduct(const Vector &v1, const Vector &v2)
+{
+    return Vector::scalarProduct(v1, v2);
+}
+Vector Vector::crossProduct(const Vector &v1, const Vector &v2)
+{
+    return Vector(
+        (v1.y * v2.z) - (v2.y * v1.z),
+        -(v1.x * v2.z) + (v2.x * v1.z),
+        (v1.x * v2.y) - (v2.x * v1.y)
+    );
+}
+
+Vector &Vector::operator=(const Vector &v)
+{
+    this->x = v.x;
+    this->y = v.y;
+    this->z = v.z;
+    return *this;
+}
+
+Vector operator+(const Vector &v1, const Vector &v2){
+    return Vector(v1.getX() + v2.getX(), v1.getY() + v2.getY(), v1.getZ() + v2.getZ());
+}
+Vector operator-(const Vector &v1, const Vector &v2){
+    return Vector(v1.getX() - v2.getX(), v1.getY() - v2.getY(), v1.getZ() - v2.getZ());
+}
+Vector operator*(const Vector &v1, const Vector &v2){
+    return Vector(v1.getX() * v2.getX(), v1.getY() * v2.getY(), v1.getZ() * v2.getZ());
+}
+
+Vector operator*(const Vector &v1, const double d)
+{
+    return Vector(v1.getX() * d, v1.getY() * d, v1.getZ() * d);
+}
+Vector operator*(const Vector &v1, const int d)
+{
+    return Vector(v1.getX() * d, v1.getY() * d, v1.getZ() * d);
 }
 
 std::ostream& operator<< (std::ostream& out, const Vector& vector)

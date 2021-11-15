@@ -1,0 +1,192 @@
+{
+    "name": "Reflection",
+    "height": 800,
+    "width": 800,
+    "precision": 2,
+    "colors" : {
+        "red": [255, 0, 0, 255],
+        "green": [0, 255, 0, 255],
+        "blue": [0, 0, 255, 255],
+        "yellow": [255, 255, 0, 255],
+        "transparent": [255, 255, 255, 0],
+        "random": [128, 37, 235, 255],
+        "ambient": [20, 20, 20, 200],
+        "white": [255, 255, 255, 255],
+        "mirror": [212, 225, 226, 255]
+    },
+    "ambient": "ambient",
+    "cameras": [
+        {
+            "coordinates": [-800, 0, 450],
+            "direction": [2, 0, -1],
+            "up": [0, 0, 1],
+            "aperture": 90
+        },
+        {
+            "coordinates": [0, 0, 800],
+            "direction": [0, 0, -1],
+            "up": [1, 0, 0],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [-1000, 500, 200],
+            "color": "white"
+        }
+    ],
+    "objects": [
+        {
+            "type": "Plane",
+            "point": [0, 0, 0],
+            "normal": [0, 0, 1],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 50
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [-200, -200, 70],
+            "radius" : 70,
+            "colors": [
+                "red",
+                "green"
+            ],
+            "texture": {
+                "type": "Grid",
+                "values":[20, 20]
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [-200, 0, 70],
+            "radius" : 70,
+            "colors": [
+                "red",
+                "blue"
+            ],
+            "texture": {
+                "type": "Gradient",
+                "values":[0, 0]
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [-200, 200, 70],
+            "radius" : 70,
+            "colors": [
+                "red",
+                "blue"
+            ],
+            "texture": {
+                "type": "HorizontalLined",
+                "values":[10, 10]
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, -200, 70],
+            "radius" : 70,
+            "colors": [
+                "random"
+            ]
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, 0, 70],
+            "radius" : 70,
+            "colors": [
+                "red"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, 200, 70],
+            "radius" : 70,
+            "colors": [
+                "yellow",
+                "transparent"
+            ],
+            "texture": {
+                "type": "Grid",
+                "values":[10, 10]
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, -200, 70],
+            "radius" : 70,
+            "colors": [
+                "red",
+                "green"
+            ],
+            "texture": {
+                "type": "VerticalLined",
+                "values":[20, 20]
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, 0, 70],
+            "radius" : 70,
+            "colors": [
+                "red"
+            ],
+            "reflection": 100
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, 200, 70],
+            "radius" : 70,
+            "colors": [
+                "yellow",
+                "transparent"
+            ],
+            "texture": {
+                "type": "Grid",
+                "values":[10, 10]
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [200, -200, 70],
+            "radius" : 70,
+            "colors": [
+                "red",
+                "green"
+            ],
+            "texture": {
+                "type": "VerticalLined",
+                "values":[20, 20]
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [200, 0, 70],
+            "radius" : 70,
+            "colors": [
+                "red"
+            ],
+            "texture": {
+                "type": "Image",
+                "file": "textures/poolBallSkins/Ball15.jpg"
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [200, 200, 70],
+            "radius" : 70,
+            "colors": [
+                "mirror",
+                "transparent"
+            ],
+            "texture": {
+                "type": "VerticalLined",
+                "values":[20, 20]
+            },
+            "reflection": 100
+        }
+    ]
+}

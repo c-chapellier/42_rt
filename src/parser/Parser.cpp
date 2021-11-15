@@ -321,6 +321,9 @@ std::list<Camera*> Parser::getCameras()
             cam["direction"][0],
             cam["direction"][1],
             cam["direction"][2],
+            cam["up"][0],
+            cam["up"][1],
+            cam["up"][2],
             cam["aperture"]
         ));
     }

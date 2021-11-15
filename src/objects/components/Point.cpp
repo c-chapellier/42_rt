@@ -129,8 +129,13 @@ Point &Point::operator=(const Point &p)
     this->z = p.z;
     return *this;
 }
+Point operator+(const Point &p, const Vector &v)
+{
+    Point tmp(p.x + v.getX(), p.y + v.getY(), p.z + v.getZ());
+    return Point(tmp);
+}
 
-bool operator==(const Point& p1, const Point& p2)
+bool operator==(const Point &p1, const Point &p2)
 {
     return p1.getX() == p2.getX() && p1.getY() == p2.getY() && p1.getZ() == p2.getZ();
 }

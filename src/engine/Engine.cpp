@@ -75,8 +75,8 @@ void Engine::runVideo()
             camera->setY(y);
             camera->setV(-x, -y, 0);
             std::cout << camera->getP().getX() << " " << camera->getP().getY() << std::endl;
-            std::vector< std::vector<Point> > screen = camera->getScreen(config);
-            
+            std::vector< std::vector<Point> > screen = camera->getScreen();
+            camera->update(config);
             std::vector< std::vector<Pixel> > pixels;
             pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width, Pixel(0, 0, 0, 0, INFINITY)));
 
@@ -117,8 +117,9 @@ void Engine::run()
 
     for (auto const& camera : this->cameras)
     {
+        camera->update(config);
         this->current_pixel = 0;
-        std::vector< std::vector<Point> > screen = camera->getScreen(config);
+        std::vector< std::vector<Point> > screen = camera->getScreen();
         
         std::vector< std::vector<Pixel> > pixels;
         pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width, Pixel(0, 0, 0, 0, INFINITY)));

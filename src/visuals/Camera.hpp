@@ -9,17 +9,31 @@
 #include "../objects/Plane.hpp"
 
 class Config;
+/*
 
+V
+^
+|
+|
+|
+ - - - - -> U
+*/
 class Camera
 {
     private:
-        Point p;
-        Vector v;
+        Point coordinates;
+        Vector direction;
+        Vector up;
         double angle;
+
+        Vector U;
+        Vector V;
+        Point screenCenter;
+        int height;
+        int width;
         
     public:
-        Camera(double px, double py, double pz, double vx, double vy, double vz, double a);
-        Camera(const Point &p, const Vector &v, double a);
+        Camera(double cx, double cy, double cz, double dx, double dy, double dz, double ux, double uy, double uz, double a);
         ~Camera();
 
         Point getP() const;
@@ -30,5 +44,8 @@ class Camera
         void setZ(double z);
         void setV(double x, double y, double z);
 
-        std::vector< std::vector<Point> > getScreen(const Config &config) const;
+        void update(const Config &config);
+
+        Point getPoint(double h, double w) const;
+        std::vector< std::vector<Point> > getScreen() const;
 };

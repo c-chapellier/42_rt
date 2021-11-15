@@ -6,10 +6,6 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
-    Vector v(-1, 1, 0);
-
-    //std::cout << v.reflection(Vector(1, 0, 0)) << std::endl;
-
     try
     {
         if (argc < 2)

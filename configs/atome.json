@@ -17,11 +17,19 @@
         {
             "coordinates": [-150, 0, 0],
             "direction": [1, 0, 0],
+            "up": [0, 0, 1],
             "aperture": 90
         },
         {
             "coordinates": [-150, 150, 0],
             "direction": [1, -1, 0],
+            "up": [0, 0, 1],
+            "aperture": 90
+        },
+        {
+            "coordinates": [0, 0, 150],
+            "direction": [0, 0, -1],
+            "up": [1, 0, 0],
             "aperture": 90
         }
     ],

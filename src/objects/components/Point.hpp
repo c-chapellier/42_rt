@@ -35,7 +35,7 @@ class Point
         Point rotateAroundZ(double alpha) const;
 
         Point &operator=(const Point &p);
-
-        friend bool operator==(const Point& p1, const Point& p2);
+        friend Point operator+(const Point &p, const Vector &v);
+        friend bool operator==(const Point &p1, const Point &p2);
         friend std::ostream& operator<<(std::ostream& out, const Point& point);
 };

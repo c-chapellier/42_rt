@@ -34,6 +34,8 @@ class Vector
         double getMagnitude() const;
         Vector getNormalized() const;
 
+        void normalize();
+
         double scalarProduct(const Vector &v) const;
         double dotProduct(const Vector &v) const;
         double crossProductMagnitude(const Vector &v) const;
@@ -47,6 +49,18 @@ class Vector
         double crossProductXZ(const Vector &v) const;
         double scalarProductXY(const Vector &v) const;
         double scalarProductXZ(const Vector &v) const;
+
+        static double scalarProduct(const Vector &v1, const Vector &v2);
+        static double dotProduct(const Vector &v1, const Vector &v2);
+        static Vector crossProduct(const Vector &v1, const Vector &v2);
+
+        Vector &operator=(const Vector &v);
+        friend Vector operator+(const Vector &v1, const Vector &v2);
+        friend Vector operator-(const Vector &v1, const Vector &v2);
+        friend Vector operator*(const Vector &v1, const Vector &v2);
+
+        friend Vector operator*(const Vector &v1, const double d);
+        friend Vector operator*(const Vector &v1, const int d);
 
         friend std::ostream& operator<<(std::ostream& out, const Vector &vector);
 };

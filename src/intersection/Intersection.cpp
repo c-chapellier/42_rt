@@ -44,5 +44,15 @@ Intersection &Intersection::operator=(const Intersection &inter)
     this->p = inter.p;
     this->dist = inter.dist;
     this->obj = inter.obj;
+    this->tr = inter.tr;
     return *this;
+}
+
+std::ostream& operator<< (std::ostream& out, const Intersection& inter)
+{
+    out << "Intersection{" << std::endl 
+    << inter.getP() << std::endl
+    << "Dist(" << inter.dist << ")" << std::endl
+    << "}" << std::endl;
+    return out;
 }

@@ -9,7 +9,7 @@
         "blue": [0, 0, 255, 255],
         "yellow": [255, 255, 0, 255],
         "transparent": [255, 255, 255, 0],
-        "random": [128, 37, 235, 255],
+        "random": [23, 37, 235, 255],
         "ambient": [20, 20, 20, 200],
         "white": [255, 255, 255, 255],
         "mirror": [212, 225, 226, 255]
@@ -171,7 +171,7 @@
             ],
             "texture": {
                 "type": "Image",
-                "file": "textures/poolBallSkins/Ball15.jpg"
+                "file": "textures/realPictures/besixWood.jpg"
             }
         },
         {

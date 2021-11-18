@@ -246,9 +246,7 @@ Color Engine::getColor(Intersection &inter, int height, int width, Line &ray, in
         else {
             // find the new vector
             Line reflected_ray = inter.getObj()->getReflectedRayAt(inter, ray);
-            // find all intersections
             std::vector<Intersection> new_intersections = getIntersections(reflected_ray);
-            // sort all intersections
             new_intersections = sortIntersections(new_intersections, new_intersections.size());
             // get color
             for (unsigned long i = 0; i < new_intersections.size(); ++i) {
@@ -270,8 +268,8 @@ Color Engine::getColor(Intersection &inter, int height, int width, Line &ray, in
     }
     // apply lights
     applyLights(inter, c);
-    double angle = RADIAN(inter.getObj()->angleWithAt(ray, inter));
-    c = c.add(this->config.getAmbientColor()).reduceOf(cos(angle) / 1.1);
+    double angle = inter.getObj()->angleWithAt(ray, inter);
+    c = c.add(this->config.getAmbientColor()).reduceOf(cos(RADIAN(angle)) / 1.1);
     return c;
 }
 
@@ -297,22 +295,24 @@ void Engine::applyLights(Intersection &inter, Color &color)
         {
             std::vector<Intersection> tmp = obj->intersect(ray);
             for(unsigned long k = 0; k < tmp.size(); ++k) {
-                if(!blackObjectsContains(tmp[k].getP()) && tmp[k].getDist() < dist)
+                if(!blackObjectsContains(tmp[k].getP()) && tmp[k].getP().distWith(light->getP()) < dist - 0.00001)
                     intersections.push_back(tmp[k]);
             }
         }
 
         double dist_min = INFINITY;
+        bool shining = true;
         //double opacity = 0;
 
         for (unsigned int i = 0; i < intersections.size(); ++i) {
             if (intersections[i].getDist() < dist_min) {
                 dist_min = intersections[i].getDist();
+                shining = false;
                 break;
             }
         }
 
-        if (dist_min != INFINITY)
+        if (shining)
         {
             double obj_light_angle = RADIAN(inter.getObj()->angleWithAt(ray, inter));
                                 

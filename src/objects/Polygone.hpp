@@ -10,18 +10,18 @@ class Triangle;
 
 class Polygone : public Object
 {
-private:
-    std::vector<Triangle> triangles;
+    private:
+        std::vector<Triangle*> triangles;
 
-public:
-    Polygone(std::vector<Triangle> triangles);
-    Polygone(std::vector<Triangle> triangles, const Color &color);
-    ~Polygone();
+    public:
+        Polygone(std::vector<Triangle*> triangles);
+        Polygone(std::vector<Triangle*> triangles, const Color &color);
+        ~Polygone();
 
-    std::vector<Intersection> intersect(const Line &line) const;
-    double angleWithAt(const Line &line, const Intersection &intersection) const;
-    Line getReflectedRayAt(Intersection &intersection, const Line &line) const;
-    Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
+        std::vector<Intersection> intersect(const Line &line) const;
+        double angleWithAt(const Line &line, const Intersection &intersection) const;
+        Line getReflectedRayAt(Intersection &intersection, const Line &line) const;
+        Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
 };
 
 // Cube Coordinates size 0 0 0

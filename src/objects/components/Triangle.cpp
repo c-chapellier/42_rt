@@ -9,6 +9,10 @@ Triangle::Triangle(const Point &p1, const Point &p2, const Point &p3)
     : p1(p1), p2(p2), p3(p3)
 {
 }
+Triangle::Triangle(Point *p1, Point *p2, Point *p3)
+    : p1(p1), p2(p2), p3(p3)
+{
+}
 
 Triangle::Triangle(const Triangle &triangle)
     : p1(triangle.p1), p2(triangle.p2), p3(triangle.p3)
@@ -42,7 +46,7 @@ Plane Triangle::getPlane() const
 std::vector<Intersection> Triangle::intersect(const Line &l) const
 {
     Plane plane(this->p1, this->p2, this->p3);
-    double area = plane.getV().getMagnitude() / 2;
+    double area = plane.getV().getMagnitude();
 
     std::vector<Intersection> intersections;
     std::vector<Intersection> tmp = plane.intersect(l);
@@ -52,9 +56,9 @@ std::vector<Intersection> Triangle::intersect(const Line &l) const
         Vector pb(inter.getP(), this->p2);
         Vector pc(inter.getP(), this->p3);
         double alpha, beta, gama;
-        alpha = pb.crossProductMagnitude(pc) / (2 * area);
-        beta = pc.crossProductMagnitude(pa) / (2 * area);
-        gama = pa.crossProductMagnitude(pb) / (2 * area);
+        alpha = pb.crossProductMagnitude(pc) / area;
+        beta = pc.crossProductMagnitude(pa) / area;
+        gama = pa.crossProductMagnitude(pb) / area;
 
         if(alpha >= 0 && alpha <= 1 &&
             beta >= 0 && beta <= 1 &&

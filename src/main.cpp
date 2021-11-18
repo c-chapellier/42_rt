@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
         Engine(argv[1]).run();
         
         IMG_Quit();
+        system("leaks rt");
         //texture();
     }
     catch (const std::exception& e)

@@ -18,6 +18,7 @@ class Point
         Point();
         Point(const double x, const double y, const double z);
         Point(const Point &point);
+        Point(Point *point);
         ~Point();
 
         double getX() const;

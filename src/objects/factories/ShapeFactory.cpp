@@ -37,10 +37,10 @@ std::vector<Object *> ShapeFactory::createSphereCircle(const Point &p, double ra
     for (int i = 0; i < nb_sphere; ++i) {
         double angle = i * (360 / nb_sphere);
         Point p1(radius * cos(RADIAN(angle)),radius * sin(RADIAN(angle)), 0);
-        Transformer::rotateAroundX(p1, alpha);
-        Transformer::rotateAroundY(p1, beta);
-        Transformer::rotateAroundZ(p1, gama);
-        Transformer::translate(p1, p);
+        Transformer::rotateAroundX(&p1, alpha);
+        Transformer::rotateAroundY(&p1, beta);
+        Transformer::rotateAroundZ(&p1, gama);
+        Transformer::translate(&p1, p);
         objects.push_back(new Quadratic(p1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(sphere_radius, 2)));
     }
     return objects;

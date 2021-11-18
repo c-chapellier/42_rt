@@ -13,14 +13,15 @@
     "ambient": "ambient",
     "lights": [
         {
-            "coordinates": [-1000, 1000, 0],
+            "coordinates": [-1000, 400, 400],
             "color": "white"
         }
     ],
     "cameras": [
         {
-            "coordinates": [-200, 0, 0],
+            "coordinates": [-300, 0, 0],
             "direction": [1, 0, 0],
+            "up": [0, 0, 1],
             "aperture": 90
         }
     ],
@@ -28,9 +29,9 @@
         {
             "type": "Polygon",
             "name": "Star",
-            "coordinates": [0, 100, 50],
-            "values": [50, 50, 30, 4],
-            "rotation": [0, 0, 0],
+            "coordinates": [0, 0, 0],
+            "values": [50, 20, 10, 5],
+            "rotation": [45, -90, 0],
             "colors": [
                 "red"
             ]

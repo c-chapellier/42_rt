@@ -24,4 +24,6 @@ class Intersection
         Triangle *getTr() const;
 
         Intersection &operator=(const Intersection &inter);
+
+        friend std::ostream& operator<<(std::ostream& out, const Intersection& point);
 };

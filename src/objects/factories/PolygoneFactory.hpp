@@ -9,6 +9,7 @@ class PolygoneFactory
 {
     private:
         PolygoneFactory();
+        static void deleteVector(std::vector<Point*> points);
 
         static Polygone *create1NEdron(const Point &p, int precision, double height, double r, double alpha, double beta, double gama);
         static Polygone *create2NEdron(const Point &p, int precision, double height, double r, double alpha, double beta, double gama);

@@ -1,12 +1,12 @@
 #include "Polygone.hpp"
 
-Polygone::Polygone(std::vector<Triangle> triangles) : Object(), triangles(triangles)
+Polygone::Polygone(std::vector<Triangle*> triangles) : Object(), triangles(triangles)
 {
     if (triangles.size() == 0)
         throw "Can not create a polygone without any triangle";
 }
 
-Polygone::Polygone(std::vector<Triangle> triangles, const Color &color) : Object(color), triangles(triangles)
+Polygone::Polygone(std::vector<Triangle*> triangles, const Color &color) : Object(color), triangles(triangles)
 {
     if (triangles.size() == 0)
         throw "Can not create a polygone without any triangle";
@@ -14,7 +14,9 @@ Polygone::Polygone(std::vector<Triangle> triangles, const Color &color) : Object
 
 Polygone::~Polygone()
 {
-
+    for(unsigned long i = 0; i < triangles.size(); ++i) {
+        delete(triangles[i]);
+    }
 }
 
 std::vector<Intersection> Polygone::intersect(const Line &line) const
@@ -22,9 +24,9 @@ std::vector<Intersection> Polygone::intersect(const Line &line) const
     std::vector<Intersection> intersections;
 
     for (unsigned long i = 0; i < this->triangles.size(); ++i) {
-        std::vector<Intersection> tmp = triangles[i].intersect(line);
+        std::vector<Intersection> tmp = triangles[i]->intersect(line);
         for(Intersection inter : tmp) {
-            intersections.push_back(Intersection(inter.getP(), inter.getDist(), (Object*)this, (Triangle*)&triangles[i]));
+            intersections.push_back(Intersection(inter.getP(), inter.getDist(), (Object*)this, triangles[i]));
         }
     }
     return intersections;
@@ -32,7 +34,7 @@ std::vector<Intersection> Polygone::intersect(const Line &line) const
 
 double Polygone::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    return intersection.getTr()->getPlane().angleWith(line);
+    return intersection.getTr()->getPlane().angleWith(line.getV());
 }
 
 Line Polygone::getReflectedRayAt(Intersection &intersection, const Line &line) const

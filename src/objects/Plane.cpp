@@ -65,10 +65,6 @@ std::vector<Intersection> Plane::intersect(const Line &line) const
 double Plane::angleWith(const Vector &v) const
 {
     double d = this->v.getMagnitude() * v.getMagnitude();
-
-    if (d == 0.0)
-        std::cout << "Plane::angleWith: div by 0" << std::endl;
-
     return DEGREE(asin((this->v.scalarProduct(v) / d)));
 }
 

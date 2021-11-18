@@ -12,6 +12,9 @@ Point::Point(const double x, const double y, const double z) : x(x), y(y), z(z)
 Point::Point(const Point &point) : x(point.x), y(point.y), z(point.z)
 {
 }
+Point::Point(Point *point) : x(point->x), y(point->y), z(point->z)
+{
+}
 
 Point::~Point()
 {

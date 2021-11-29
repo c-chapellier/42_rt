@@ -83,6 +83,21 @@ std::list<Object *> Parser::getObjects()
 
             objects.push_back(sp);
 
+        } else if (obj["type"] == "Cylinder") {
+            Cylinder *cl = new Cylinder(
+                obj["radius"]
+            );
+
+            for (auto const& color : obj["colors"])
+                cl->addColor(this->colorManager->getColor(color));
+
+            cl->setTexture(getTexture(obj));
+            
+            nlohmann::json tmp = obj;
+            try { cl->setReflexion(tmp["reflection"]); } catch(...) {}
+
+            objects.push_back(cl);
+
         } else if (obj["type"] == "Circle") {
             Circle *c = new Circle(
                 obj["coordinates"][0], 

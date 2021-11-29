@@ -1,0 +1,41 @@
+{
+    "name": "Reflection",
+    "height": 800,
+    "width": 800,
+    "precision": 2,
+    "colors" : {
+        "red": [255, 0, 0, 255],
+        "green": [0, 255, 0, 255],
+        "blue": [0, 0, 255, 255],
+        "yellow": [255, 255, 0, 255],
+        "transparent": [255, 255, 255, 0],
+        "random": [23, 37, 235, 255],
+        "ambient": [20, 20, 20, 200],
+        "white": [255, 255, 255, 255],
+        "mirror": [212, 225, 226, 255]
+    },
+    "ambient": "ambient",
+    "cameras": [
+        {
+            "coordinates": [-800, 0, 0],
+            "direction": [2, 0, 0],
+            "up": [0, 0, 1],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [-1000, 500, 200],
+            "color": "white"
+        }
+    ],
+    "objects": [
+        {
+            "type": "Cylinder",
+            "radius": 30,
+            "colors": [
+                "red"
+            ]
+        }
+    ]
+}

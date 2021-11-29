@@ -138,6 +138,17 @@ Point operator+(const Point &p, const Vector &v)
     return Point(tmp);
 }
 
+Point operator+(const Point &p1, const Point &p2)
+{
+    Point tmp(p1.x + p2.x, p1.y + p2.y, p1.z + p2.z);
+    return Point(tmp);
+}
+Point operator-(const Point &p1, const Point &p2)
+{
+    Point tmp(p1.x - p2.x, p1.y - p2.y, p1.z - p2.z);
+    return Point(tmp);
+}
+
 bool operator==(const Point &p1, const Point &p2)
 {
     return p1.getX() == p2.getX() && p1.getY() == p2.getY() && p1.getZ() == p2.getZ();

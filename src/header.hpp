@@ -39,6 +39,7 @@
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
+#include "objects/Cylinder.hpp"
 #include "objects/Circle.hpp"
 #include "objects/MobiusTape.hpp"
 #include "objects/Quadratic.hpp"
@@ -50,6 +51,7 @@
 #include "objects/components/Vector.hpp"
 #include "objects/components/Line.hpp"
 #include "objects/components/Triangle.hpp"
+#include "objects/components/Transform.hpp"
 
 #include "objects/factories/AlphaFactory.hpp"
 #include "objects/factories/PolygoneFactory.hpp"

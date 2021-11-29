@@ -37,6 +37,8 @@ class Point
 
         Point &operator=(const Point &p);
         friend Point operator+(const Point &p, const Vector &v);
+        friend Point operator+(const Point &p1, const Point &p2);
+        friend Point operator-(const Point &p1, const Point &p2);
         friend bool operator==(const Point &p1, const Point &p2);
         friend std::ostream& operator<<(std::ostream& out, const Point& point);
 };

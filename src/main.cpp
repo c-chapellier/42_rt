@@ -6,6 +6,19 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
+    Matrix m1(2, 2);
+    Matrix m2(3, 3);
+    Matrix m3(3, 3);
+    for(int i = 0; i < 3; ++i) {
+        for(int j = 0; j < 3; ++j) {
+            m3[i][j] = i * 3 + j + (rand() % 3);
+        }
+    }
+
+    std::cout << m1 << m2 << m3 << std::endl;
+    m3.inverse();
+    std::cout << m1 << m2 << m3 << std::endl;
+
     try
     {
         if (argc < 2)
@@ -20,7 +33,6 @@ int main(int argc, char *argv[])
         Engine(argv[1]).run();
         
         IMG_Quit();
-        system("leaks rt");
         //texture();
     }
     catch (const std::exception& e)

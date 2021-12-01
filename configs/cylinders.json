@@ -17,22 +17,31 @@
     "ambient": "ambient",
     "cameras": [
         {
-            "coordinates": [-800, 0, 0],
-            "direction": [2, 0, 0],
+            "coordinates": [-800, 0, 450],
+            "direction": [2, 0, -1],
             "up": [0, 0, 1],
             "aperture": 90
         }
     ],
     "lights": [
         {
-            "coordinates": [-1000, 500, 200],
+            "coordinates": [-800, 0, 200],
             "color": "white"
         }
     ],
     "objects": [
         {
+            "type": "Plane",
+            "point": [0, 0, 0],
+            "normal": [0, 0, 1],
+            "colors": [
+                "mirror"
+            ],
+            "reflection": 50
+        },
+        {
             "type": "Cylinder",
-            "radius": 30,
+            "radius": 60,
             "colors": [
                 "red"
             ]

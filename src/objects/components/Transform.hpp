@@ -1,7 +1,9 @@
 #pragma once
 
+#include "./../../headers/define.hpp"
 #include "./../../solver/Matrix.hpp"
 #include "./Point.hpp"
+#include "./Vector.hpp"
 
 class Transform
 {
@@ -30,5 +32,8 @@ class Transform
         Matrix getForwardMatrix() const;
         Matrix &getBackwardMatrix();
         Matrix getBackwardMatrix() const;
+
+        Vector apply(const Vector &v, int type) const;
+        Point apply(const Point &p, int type) const;
 
 };

@@ -13,6 +13,9 @@
 #define CLOCK_WISE 1
 #define ANTI_CLOCK_WISE 0
 
+#define FORWARD 1
+#define BACKWARD 2
+
 double neg(double x);
 double pos(double x);
 double mod(double x, double z);

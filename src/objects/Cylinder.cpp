@@ -8,52 +8,28 @@ Cylinder::~Cylinder(){}
 
 std::vector<Intersection> Cylinder::intersect(const Line &line) const
 {
-    Point p1 = line.getP();
-    Point p2 = line.getP().applyVector(line.getV());
-    Matrix p1m(1, 4);
-    p1m[0][0] = p1.getX();
-    p1m[0][1] = p1.getY();
-    p1m[0][2] = p1.getZ();
-    p1m[0][3] = 1;
-
-    Matrix p2m(1, 4);
-    p2m[0][0] = p2.getX();
-    p2m[0][1] = p2.getY();
-    p2m[0][2] = p2.getZ();
-    p2m[0][3] = 1;
-
-    Matrix p1mm = this->tr.getBackwardMatrix() * p1m;
-    Matrix p2mm = this->tr.getBackwardMatrix() * p2m;
-
-    Point new_p(p1mm[0][0], p1mm[0][1], p1mm[0][2]);
-    Vector new_v(p2mm[0][0] - p1mm[0][0], p2mm[0][1] - p1mm[0][1], p2mm[0][2] - p1mm[0][2]);
-    new_v.normalize();
+    Vector back = this->tr.apply(line.getV(), BACKWARD);
+    back.normalize();
 
     double a, b, c;
-    a = pow(new_v.getX(), 2) + pow(new_v.getY(), 2);
-    b = 2 * new_p.getX() * new_v.getX() + 2 * new_p.getY() * new_v.getY();
-    c = pow(new_p.getX(), 2) + pow(new_p.getY(), 2) - pow(this->r, 2);
+    a = pow(back.getX(), 2) + pow(back.getY(), 2);
+    b = 2 * back.getP1()->getX() * back.getX() + 2 * back.getP1()->getY() * back.getY();
+    c = pow(back.getP1()->getX(), 2) + pow(back.getP1()->getY(), 2) - pow(this->r, 2);
 
     std::list<double> solutions = EquationSolver::solveQuadraticEquation(a, b, c);
 
     std::vector<Intersection> intersections;
     for (double s : solutions) {
         if (s > 0.00001) {
-            Matrix origin(1, 4);
-            origin = this->tr.getForwardMatrix() * origin;
-            Point oriii(origin[0][0], origin[0][1], origin[0][2]);
+            Point origin = this->tr.apply(Point(0, 0, 0), FORWARD);
             Point p(
-                new_p.getX() + s * new_v.getX(),
-                new_p.getY() + s * new_v.getY(),
-                new_p.getZ() + s * new_v.getZ()
+                back.getP1()->getX() + s * back.getX(),
+                back.getP1()->getY() + s * back.getY(),
+                back.getP1()->getZ() + s * back.getZ()
             );
-            Matrix tmp(1, 4);
-            tmp[0][0] = p.getX();
-            tmp[0][1] = p.getY();
-            tmp[0][2] = p.getZ();
-            tmp = this->tr.getForwardMatrix() * tmp;
-            Point pp(tmp[0][0], tmp[0][1], tmp[0][2]);
-            pp = pp - oriii;
+            Point pp = this->tr.apply(p, FORWARD);
+            pp = pp - origin;
+            s = (pp.getX() - line.getP().getX()) / line.getV().getX();
             intersections.push_back(Intersection(pp, s, (Object*)this));
         }
     }
@@ -62,7 +38,16 @@ std::vector<Intersection> Cylinder::intersect(const Line &line) const
 
 double Cylinder::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    return 0;
+    // go to imaginary world
+    Point tmp = this->tr.apply(intersection.getP(), BACKWARD);
+    // find the point on cylinder axis
+    Point h(0, 0, tmp.getZ());
+    // return to real world
+    Point l = this->tr.apply(h, FORWARD);
+    // get the plane
+    Plane pl(l, intersection.getP());
+    // return the intersection
+    return pl.angleWithAt(line, intersection);
 }
 
 Line Cylinder::getReflectedRayAt(Intersection &intersection, const Line &line) const
@@ -72,6 +57,7 @@ Line Cylinder::getReflectedRayAt(Intersection &intersection, const Line &line) c
 
 Color Cylinder::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
+    //Point tmp = this->tr.apply(intersection, BACKWARD);
     screenWidth = intersection.getX();
 
     if (this->texture.getType() == "Uniform") {

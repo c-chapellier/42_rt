@@ -1,7 +1,7 @@
 #include "Transform.hpp"
 
 Transform::Transform()
-    : alpha(90), beta(0), gama(0), translation(0, 0, 0), scaling(1, 1, 1), forward_matrix(4, 4), backward_matrix(4, 4)
+    : alpha(45), beta(0), gama(0), translation(0, 0, 0), scaling(1, 1, 1), forward_matrix(4, 4), backward_matrix(4, 4)
 {
 
 }
@@ -87,4 +87,26 @@ Matrix &Transform::getBackwardMatrix()
 Matrix Transform::getBackwardMatrix() const
 {
     return this->backward_matrix;
+}
+
+Vector Transform::apply(const Vector &v, int type) const
+{
+    return Vector(apply(*v.getP1(), type), apply(*v.getP2(), type));
+}
+Point Transform::apply(const Point &p, int type) const
+{
+    Matrix m_p1(1, 4);
+    m_p1[0][0] = p.getX();
+    m_p1[0][1] = p.getY();
+    m_p1[0][2] = p.getZ();
+    m_p1[0][3] = 1;
+
+    Matrix m1(1, 4);
+    if(type == FORWARD) {
+        m1 = this->forward_matrix * m_p1;
+    } else {
+        m1 = this->backward_matrix * m_p1;
+    }
+
+    return Point(m1[0][0], m1[0][1], m1[0][2]);
 }

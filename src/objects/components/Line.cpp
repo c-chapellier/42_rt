@@ -15,6 +15,11 @@ Line::Line(const Point &a, const Point &b)
 {
 }
 
+Line::Line(const Point &a, double x, double y, double z)
+    :p(a), v(a, x, y, z)
+{
+}
+
 Line::~Line()
 {
 }

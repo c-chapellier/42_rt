@@ -14,6 +14,8 @@ class Vector
         double x;
         double y;
         double z;
+        Point *p1;
+        Point *p2;
         
     public:
         Vector(const double x, const double y, const double z);
@@ -21,7 +23,7 @@ class Vector
         Vector(const Point &p, const double x, const double y, const double z);
         Vector(const double x, const double y, const double z, const Point &p);
         Vector(const Vector &vector);
-        Vector(const Vector &vector, double div);
+        // Vector(const Vector &vector, double div);
         ~Vector();
 
         void setX(double x);
@@ -31,6 +33,8 @@ class Vector
         double getX() const;
         double getY() const;
         double getZ() const;
+        Point *getP1() const;
+        Point *getP2() const;
         double getMagnitude() const;
         Vector getNormalized() const;
 

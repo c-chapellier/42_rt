@@ -87,7 +87,11 @@ double Plane::angleWithAt(const Line &line, const Intersection &intersection) co
 Line Plane::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
     Vector ref = v.getReflectionOf(line.getV());
-    return Line(intersection.getP(), ref);
+    // return Line(intersection.getP(), ref);
+    return Line(intersection.getP(), 
+                ref.getX() + intersection.getP().getX(),
+                ref.getY() + intersection.getP().getY(),
+                ref.getZ() + intersection.getP().getZ());
 }
 
 Color Plane::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const

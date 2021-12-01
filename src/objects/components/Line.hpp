@@ -17,6 +17,7 @@ class Line
         Line(double px, double py, double pz, double vx, double vy, double vz);
         Line(const Point &p, const Vector &v);
         Line(const Point &a, const Point &b);
+        Line(const Point &a, double x, double y, double z);
         ~Line();
 
         Point &getP();

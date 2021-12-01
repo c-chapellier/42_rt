@@ -3,6 +3,7 @@
 #include "Object.hpp"
 #include "./../solver/Matrix.hpp"
 #include "./../header.hpp"
+#include "./../headers/define.hpp"
 #include "./components/Transform.hpp"
 
 class Intersection;

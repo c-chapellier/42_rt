@@ -1,39 +1,49 @@
 #include "Vector.hpp"
 
-Vector::Vector(const double x, const double y, const double z) : x(x), y(y), z(z)
+Vector::Vector(const double x, const double y, const double z)
+    : x(x), y(y), z(z)
 {
+    this->p1 = new Point(0, 0, 0);
+    this->p2 = new Point(x, y, z);
 }
 
 Vector::Vector(const Point &p1, const Point &p2)
+    : x(p2.getX() - p1.getX()), y(p2.getY() - p1.getY()), z(p2.getZ() - p1.getZ())
 {
-    this->x = p2.getX() - p1.getX();
-    this->y = p2.getY() - p1.getY();
-    this->z = p2.getZ() - p1.getZ();
+    this->p1 = new Point(p1);
+    this->p2 = new Point(p2);
 }
 
 Vector::Vector(const Point &p, const double x, const double y, const double z)
+    : x(x - p.getX()), y(y - p.getY()), z(z - p.getZ())
 {
-    this->x = x - p.getX();
-    this->y = y - p.getY();
-    this->z = z - p.getZ();
+    this->p1 = new Point(p);
+    this->p2 = new Point(x, y, z);
 }
+
 Vector::Vector(const double x, const double y, const double z, const Point &p)
+    : x(p.getX() - x), y(p.getY() - y), z(p.getZ() - z)
 {
-    this->x = p.getX() - x;
-    this->y = p.getY() - y;
-    this->z = p.getZ() - z;
+    this->p1 = new Point(x, y, z);
+    this->p2 = new Point(p);
 }
 
-Vector::Vector(const Vector &vector) : x(vector.x), y(vector.y), z(vector.z)
+Vector::Vector(const Vector &vector)
+    : x(vector.x), y(vector.y), z(vector.z)
 {
+    this->p1 = new Point(vector.p1);
+    this->p2 = new Point(vector.p2);
 }
 
-Vector::Vector(const Vector &vector, double div) : x(vector.x / div), y(vector.y / div), z(vector.z / div)
-{
-}
+// Vector::Vector(const Vector &vector, double div)
+//     : x(vector.x / div), y(vector.y / div), z(vector.z / div)
+// {
+// }
 
 Vector::~Vector()
 {
+    delete(p1);
+    delete(p2);
 }
 
 void Vector::setX(double x)
@@ -60,6 +70,15 @@ double Vector::getY() const
 double Vector::getZ() const
 {
     return this->z;
+}
+
+Point *Vector::getP1() const
+{
+    return this->p1;
+}
+Point *Vector::getP2() const
+{
+    return this->p2;
 }
 
 double Vector::getMagnitude() const
@@ -138,7 +157,9 @@ double Vector::crossProductXY(const Vector &v) const
 
 int Vector::directionXY(const Vector &v) const
 {
-    Vector v1(*this, this->getMagnitude());
+    //Vector v1(*this, this->getMagnitude());
+    Vector v1(*this);
+    v1.normalize();
     Vector v2(v.getX() / v.getMagnitude(), v.getY() / v.getMagnitude(), 0);
     Vector v1r(v1.getY(), -v1.getX(), 0);
 
@@ -158,7 +179,9 @@ double Vector::crossProductXZ(const Vector &v) const
 
 int Vector::directionXZ(const Vector &v) const
 {
-    Vector v1(*this, this->getMagnitude());
+    //Vector v1(*this, this->getMagnitude());
+    Vector v1(*this);
+    v1.normalize();
     Vector v2(v.getX() / v.getMagnitude(), 0, v.getZ() / v.getMagnitude());
     Vector v1r(v1.getZ(), 0, -v1.getX());
 
@@ -188,6 +211,10 @@ Vector &Vector::operator=(const Vector &v)
     this->x = v.x;
     this->y = v.y;
     this->z = v.z;
+    delete(this->p1);
+    delete(this->p2);
+    this->p1 = new Point(v.p1);
+    this->p2 = new Point(v.p2);
     return *this;
 }
 

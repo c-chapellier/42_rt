@@ -57,25 +57,67 @@ Line Cylinder::getReflectedRayAt(Intersection &intersection, const Line &line) c
 
 Color Cylinder::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
-    //Point tmp = this->tr.apply(intersection, BACKWARD);
+    Point tmp = this->tr.apply(intersection, BACKWARD);
     screenWidth = intersection.getX();
 
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
-        double p = (double)((double)height / (double)screen_height);
-        return Color(
-            this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * p),
-            this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * p),
-            this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * p),
-            this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * p)
-        );
+        // get the value of Z as absolute
+        int z_value = tmp.getZ() >= 0 ?   (int)(tmp.getZ() / (double)this->texture.getValue1()) :
+                                    (int)((abs(tmp.getZ())) / this->texture.getValue1());
+        // get the ratio of gradient
+        double gr =  (tmp.getZ() >= 0 ?    mod(tmp.getZ(), this->texture.getValue1()) :
+                                        mod(abs(tmp.getZ()), this->texture.getValue1()))
+                    / (double)this->texture.getValue1();
+        return  (z_value % 2 == 0 ? 
+                Color(
+                    this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * gr),
+                    this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * gr),
+                    this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * gr),
+                    this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * gr)
+                ) :
+                Color(
+                    this->getColor(1).getR() + (int)((double)((double)this->getColor(0).getR() - (double)this->getColor(1).getR()) * gr),
+                    this->getColor(1).getG() + (int)((double)((double)this->getColor(0).getG() - (double)this->getColor(1).getG()) * gr),
+                    this->getColor(1).getB() + (int)((double)((double)this->getColor(0).getB() - (double)this->getColor(1).getB()) * gr),
+                    this->getColor(1).getO() + (int)((double)((double)this->getColor(0).getO() - (double)this->getColor(1).getO()) * gr)
+                )
+            );
     } else if (this->texture.getType() == "Grid") {
-        return this->getColor(((height / this->texture.getValue1()) + (width / this->texture.getValue2())) % 2);
+        // Combine vertical and horizontal lined
+        // horizontal
+        int r = tmp.getZ() >= 0 ?   (int)(tmp.getZ() / this->texture.getValue1()) :
+                                    (int)((abs(tmp.getZ()) + this->texture.getValue1()) / this->texture.getValue1());
+
+        // vertical
+        Vector v(0, 0, 0, tmp.getX(), tmp.getY(), 0);
+        Vector x_axis(0, 1, 0);
+        double alpha = v.angleWith(x_axis);
+        alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
+        double circumference = this->r * 2 * M_PI;
+        double length = RADIAN(alpha) / (2 * M_PI) * circumference;
+        double lineSize = circumference / (double)this->texture.getValue2();
+
+        return this->getColor((r + (int)(length / lineSize)) % 2);
     } else if (this->texture.getType() == "VerticalLined") {
-        return this->getColor((width / this->texture.getValue1()) % 2);
+        // get the angle between intersection and x_axis
+        Vector v(0, 0, 0, tmp.getX(), tmp.getY(), 0);
+        Vector x_axis(0, 1, 0);
+        double alpha = v.angleWith(x_axis);
+        alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
+
+        // get the length of the line from y = 0
+        double circumference = this->r * 2 * M_PI;
+        double length = RADIAN(alpha) / (2 * M_PI) * circumference;
+        double lineSize = circumference / (double)this->texture.getValue1();
+        
+        return this->getColor((int)(length / lineSize) % 2);
     } else if (this->texture.getType() == "HorizontalLined") {
-        return this->getColor((height / this->texture.getValue1()) % 2);
+        // find the Z intersection
+        int r = tmp.getZ() >= 0 ?   (int)(tmp.getZ() / this->texture.getValue1()) :
+                                    (int)((abs(tmp.getZ()) + this->texture.getValue1()) / this->texture.getValue1());
+        return this->getColor(r % 2);
     } else if (this->texture.getType() == "Image") {
         throw "Texture type has no power here";
     } else {

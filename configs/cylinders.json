@@ -24,27 +24,20 @@
         }
     ],
     "lights": [
-        {
-            "coordinates": [-800, 0, 200],
-            "color": "white"
-        }
+
     ],
     "objects": [
-        {
-            "type": "Plane",
-            "point": [0, 0, 0],
-            "normal": [0, 0, 1],
-            "colors": [
-                "mirror"
-            ],
-            "reflection": 50
-        },
         {
             "type": "Cylinder",
             "radius": 60,
             "colors": [
-                "red"
-            ]
+                "red",
+                "white"
+            ],
+            "texture": {
+                "type": "Gradient",
+                "values": [100, 10]
+            }
         }
     ]
 }

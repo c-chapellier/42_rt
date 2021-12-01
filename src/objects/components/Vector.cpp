@@ -7,6 +7,13 @@ Vector::Vector(const double x, const double y, const double z)
     this->p2 = new Point(x, y, z);
 }
 
+Vector::Vector(const double x1, const double y1, const double z1, const double x2, const double y2, const double z2)
+    : x(x2 - x1), y(y2 - y1), z(z2 - z1)
+{
+    this->p1 = new Point(x1, y1, z1);
+    this->p2 = new Point(x2, y2, z2);
+}
+
 Vector::Vector(const Point &p1, const Point &p2)
     : x(p2.getX() - p1.getX()), y(p2.getY() - p1.getY()), z(p2.getZ() - p1.getZ())
 {

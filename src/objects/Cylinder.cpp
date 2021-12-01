@@ -1,6 +1,6 @@
 #include "Cylinder.hpp"
 
-Cylinder::Cylinder(double r) : r(r), tr()
+Cylinder::Cylinder(double r) : r(r)
 {
     tr.updateMatrices();
 }

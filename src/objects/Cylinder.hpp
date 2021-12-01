@@ -4,7 +4,6 @@
 #include "./../solver/Matrix.hpp"
 #include "./../header.hpp"
 #include "./../headers/define.hpp"
-#include "./components/Transform.hpp"
 
 class Intersection;
 
@@ -12,7 +11,7 @@ class Cylinder : public Object
 {
     private:
         double r;
-        Transform tr;
+
     public:
         Cylinder(double r);
         ~Cylinder();

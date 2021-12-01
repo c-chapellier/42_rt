@@ -4,7 +4,6 @@
 #include "./../solver/Matrix.hpp"
 #include "./../header.hpp"
 #include "./../headers/define.hpp"
-#include "./components/Transform.hpp"
 
 class Intersection;
 
@@ -12,7 +11,7 @@ class Cone : public Object
 {
     private:
         double alpha;
-        Transform tr;
+
     public:
         Cone(double alpha);
         ~Cone();

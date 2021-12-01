@@ -39,6 +39,16 @@ Texture Parser::getTexture(nlohmann::json json) {
     }
 }
 
+void Parser::setTransform(Object *obj, nlohmann::json json)
+{
+    try { obj->setAlpha(json["alpha"]); } catch(...){}
+    try { obj->setBeta(json["beta"]); } catch(...){}
+    try { obj->setGama(json["gama"]); } catch(...){}
+    try { obj->setTranslation(json["coordinates"][0], json["coordinates"][1], json["coordinates"][2]); } catch(...){}
+    try { obj->setScaling(json["scaling"][0], json["scaling"][1], json["scaling"][2]); } catch(...){}
+    obj->updateMatrix();
+}
+
 std::list<Object *> Parser::getObjects()
 {
     std::list<Object *> objects;
@@ -61,12 +71,13 @@ std::list<Object *> Parser::getObjects()
             plane->setTexture(getTexture(obj));
 
             nlohmann::json tmp = obj;
+            setTransform(plane, tmp);
             try { plane->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(plane);
 
         } else if (obj["type"] == "Sphere") {
-            Sphere *sp = new Sphere(
+            Sphere *sphere = new Sphere(
                 obj["coordinates"][0], 
                 obj["coordinates"][1], 
                 obj["coordinates"][2], 
@@ -74,47 +85,50 @@ std::list<Object *> Parser::getObjects()
             );
 
             for (auto const& color : obj["colors"])
-                sp->addColor(this->colorManager->getColor(color));
+                sphere->addColor(this->colorManager->getColor(color));
 
-            sp->setTexture(getTexture(obj));
+            sphere->setTexture(getTexture(obj));
             
             nlohmann::json tmp = obj;
-            try { sp->setReflexion(tmp["reflection"]); } catch(...) {}
+            setTransform(sphere, tmp);
+            try { sphere->setReflexion(tmp["reflection"]); } catch(...) {}
 
-            objects.push_back(sp);
+            objects.push_back(sphere);
 
         } else if (obj["type"] == "Cylinder") {
-            Cylinder *cl = new Cylinder(
+            Cylinder *cylinder = new Cylinder(
                 obj["radius"]
             );
 
             for (auto const& color : obj["colors"])
-                cl->addColor(this->colorManager->getColor(color));
+                cylinder->addColor(this->colorManager->getColor(color));
 
-            cl->setTexture(getTexture(obj));
+            cylinder->setTexture(getTexture(obj));
             
             nlohmann::json tmp = obj;
-            try { cl->setReflexion(tmp["reflection"]); } catch(...) {}
+            setTransform(cylinder, tmp);
+            try { cylinder->setReflexion(tmp["reflection"]); } catch(...) {}
 
-            objects.push_back(cl);
+            objects.push_back(cylinder);
 
         } else if (obj["type"] == "Cone") {
-            Cone *cn = new Cone(
+            Cone *cone = new Cone(
                 obj["angle"]
             );
 
             for (auto const& color : obj["colors"])
-                cn->addColor(this->colorManager->getColor(color));
+                cone->addColor(this->colorManager->getColor(color));
 
-            cn->setTexture(getTexture(obj));
+            cone->setTexture(getTexture(obj));
             
             nlohmann::json tmp = obj;
-            try { cn->setReflexion(tmp["reflection"]); } catch(...) {}
+            setTransform(cone, tmp);
+            try { cone->setReflexion(tmp["reflection"]); } catch(...) {}
 
-            objects.push_back(cn);
+            objects.push_back(cone);
 
         } else if (obj["type"] == "Circle") {
-            Circle *c = new Circle(
+            Circle *circle = new Circle(
                 obj["coordinates"][0], 
                 obj["coordinates"][1], 
                 obj["coordinates"][2],
@@ -126,17 +140,18 @@ std::list<Object *> Parser::getObjects()
             );
 
             for (auto const& color : obj["colors"])
-                c->addColor(this->colorManager->getColor(color));
+                circle->addColor(this->colorManager->getColor(color));
 
-            c->setTexture(getTexture(obj));
+            circle->setTexture(getTexture(obj));
 
             nlohmann::json tmp = obj;
-            try { c->setReflexion(tmp["reflection"]); } catch(...) {}
+            setTransform(circle, tmp);
+            try { circle->setReflexion(tmp["reflection"]); } catch(...) {}
 
-            objects.push_back(c);
+            objects.push_back(circle);
 
         } else if (obj["type"] == "MobiusTape") {
-            MobiusTape *mt = new MobiusTape(
+            MobiusTape *mobiusTape = new MobiusTape(
                 obj["coordinates"][0], 
                 obj["coordinates"][1], 
                 obj["coordinates"][2],
@@ -150,14 +165,15 @@ std::list<Object *> Parser::getObjects()
             );
 
             for (auto const& color : obj["colors"])
-                mt->addColor(this->colorManager->getColor(color));
+                mobiusTape->addColor(this->colorManager->getColor(color));
 
-            mt->setTexture(getTexture(obj));
+            mobiusTape->setTexture(getTexture(obj));
 
             nlohmann::json tmp = obj;
-            try { mt->setReflexion(tmp["reflection"]); } catch(...) {}
+            setTransform(mobiusTape, tmp);
+            try { mobiusTape->setReflexion(tmp["reflection"]); } catch(...) {}
             
-            objects.push_back(mt);
+            objects.push_back(mobiusTape);
 
         } else if (obj["type"] == "Quadratic") {
             Point coordinates(
@@ -184,96 +200,99 @@ std::list<Object *> Parser::getObjects()
             quadratic->setTexture(getTexture(obj));
 
             nlohmann::json tmp = obj;
+            setTransform(quadratic, tmp);
             try { quadratic->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(quadratic);
 
         } else if (obj["type"] == "CubicSurface") {
-            CubicSurface *cs = new CubicSurface(
+            CubicSurface *cubicSurface = new CubicSurface(
                 obj["coordinates"][0], 
                 obj["coordinates"][1], 
                 obj["coordinates"][2]
             );
             nlohmann::json tmp = obj;
-            try { cs->setX3(tmp["x3"]); } catch (...) {}
-            try { cs->setY3(tmp["y3"]); } catch (...) {}
-            try { cs->setZ3(tmp["z3"]); } catch (...) {}
-            try { cs->setX2Y(tmp["x2y"]); } catch (...) {}
-            try { cs->setX2Z(tmp["x2z"]); } catch (...) {}
-            try { cs->setY2X(tmp["y2x"]); } catch (...) {}
-            try { cs->setY2Z(tmp["y2z"]); } catch (...) {}
-            try { cs->setZ2X(tmp["z2x"]); } catch (...) {}
-            try { cs->setZ2Y(tmp["z2y"]); } catch (...) {}
-            try { cs->setXYZ(tmp["xyz"]); } catch (...) {}
-            try { cs->setX2(tmp["x2"]); } catch (...) {}
-            try { cs->setY2(tmp["y2"]); } catch (...) {}
-            try { cs->setZ2(tmp["z2"]); } catch (...) {}
-            try { cs->setXY(tmp["xy"]); } catch (...) {}
-            try { cs->setXZ(tmp["xz"]); } catch (...) {}
-            try { cs->setYZ(tmp["yz"]); } catch (...) {}
-            try { cs->setX(tmp["x"]); } catch (...) {}
-            try { cs->setY(tmp["y"]); } catch (...) {}
-            try { cs->setZ(tmp["z"]); } catch (...) {}
-            try { cs->setK(tmp["k"]); } catch (...) {}
+            setTransform(cubicSurface, tmp);
+            try { cubicSurface->setX3(tmp["x3"]); } catch (...) {}
+            try { cubicSurface->setY3(tmp["y3"]); } catch (...) {}
+            try { cubicSurface->setZ3(tmp["z3"]); } catch (...) {}
+            try { cubicSurface->setX2Y(tmp["x2y"]); } catch (...) {}
+            try { cubicSurface->setX2Z(tmp["x2z"]); } catch (...) {}
+            try { cubicSurface->setY2X(tmp["y2x"]); } catch (...) {}
+            try { cubicSurface->setY2Z(tmp["y2z"]); } catch (...) {}
+            try { cubicSurface->setZ2X(tmp["z2x"]); } catch (...) {}
+            try { cubicSurface->setZ2Y(tmp["z2y"]); } catch (...) {}
+            try { cubicSurface->setXYZ(tmp["xyz"]); } catch (...) {}
+            try { cubicSurface->setX2(tmp["x2"]); } catch (...) {}
+            try { cubicSurface->setY2(tmp["y2"]); } catch (...) {}
+            try { cubicSurface->setZ2(tmp["z2"]); } catch (...) {}
+            try { cubicSurface->setXY(tmp["xy"]); } catch (...) {}
+            try { cubicSurface->setXZ(tmp["xz"]); } catch (...) {}
+            try { cubicSurface->setYZ(tmp["yz"]); } catch (...) {}
+            try { cubicSurface->setX(tmp["x"]); } catch (...) {}
+            try { cubicSurface->setY(tmp["y"]); } catch (...) {}
+            try { cubicSurface->setZ(tmp["z"]); } catch (...) {}
+            try { cubicSurface->setK(tmp["k"]); } catch (...) {}
 
             for(auto const& color : obj["colors"])
-                cs->addColor(this->colorManager->getColor(color));
+                cubicSurface->addColor(this->colorManager->getColor(color));
 
-            cs->setTexture(getTexture(obj));
-            try { cs->setReflexion(tmp["reflection"]); } catch(...) {}
+            cubicSurface->setTexture(getTexture(obj));
+            try { cubicSurface->setReflexion(tmp["reflection"]); } catch(...) {}
 
-            objects.push_back(cs);
+            objects.push_back(cubicSurface);
 
         } else if (obj["type"] == "QuarticSurface") {
-            QuarticSurface *qs = new QuarticSurface(
+            QuarticSurface *quarticSurface = new QuarticSurface(
                 obj["coordinates"][0], 
                 obj["coordinates"][1], 
                 obj["coordinates"][2]
             );
             nlohmann::json tmp = obj;
-            try { qs->setX4(tmp["x4"]); } catch (...) {}
-            try { qs->setY4(tmp["y4"]); } catch (...) {}
-            try { qs->setZ4(tmp["z4"]); } catch (...) {}
-            try { qs->setX3Y(tmp["x3y"]); } catch (...) {}
-            try { qs->setX3Z(tmp["x3z"]); } catch (...) {}
-            try { qs->setY3X(tmp["y3x"]); } catch (...) {}
-            try { qs->setY3Z(tmp["y3z"]); } catch (...) {}
-            try { qs->setZ3X(tmp["z3x"]); } catch (...) {}
-            try { qs->setZ3Y(tmp["z3y"]); } catch (...) {}
-            try { qs->setX2YZ(tmp["x2yz"]); } catch (...) {}
-            try { qs->setY2XZ(tmp["y2xz"]); } catch (...) {}
-            try { qs->setZ2XY(tmp["z2yx"]); } catch (...) {}
-            try { qs->setX2Y2(tmp["x2y2"]); } catch (...) {}
-            try { qs->setX2Z2(tmp["x2z2"]); } catch (...) {}
-            try { qs->setY2Z2(tmp["y2z2"]); } catch (...) {}
-            try { qs->setX3(tmp["x3"]); } catch (...) {}
-            try { qs->setY3(tmp["y3"]); } catch (...) {}
-            try { qs->setZ3(tmp["z3"]); } catch (...) {}
-            try { qs->setX2Y(tmp["x2y"]); } catch (...) {}
-            try { qs->setX2Z(tmp["x2z"]); } catch (...) {}
-            try { qs->setY2X(tmp["y2x"]); } catch (...) {}
-            try { qs->setY2Z(tmp["y2z"]); } catch (...) {}
-            try { qs->setZ2X(tmp["z2x"]); } catch (...) {}
-            try { qs->setZ2Y(tmp["z2y"]); } catch (...) {}
-            try { qs->setXYZ(tmp["xyz"]); } catch (...) {}
-            try { qs->setX2(tmp["x2"]); } catch (...) {}
-            try { qs->setY2(tmp["y2"]); } catch (...) {}
-            try { qs->setZ2(tmp["z2"]); } catch (...) {}
-            try { qs->setXY(tmp["xy"]); } catch (...) {}
-            try { qs->setXZ(tmp["xz"]); } catch (...) {}
-            try { qs->setYZ(tmp["yz"]); } catch (...) {}
-            try { qs->setX(tmp["x"]); } catch (...) {}
-            try { qs->setY(tmp["y"]); } catch (...) {}
-            try { qs->setZ(tmp["z"]); } catch (...) {}
-            try { qs->setK(tmp["k"]); } catch (...) {}
+            setTransform(quarticSurface, tmp);
+            try { quarticSurface->setX4(tmp["x4"]); } catch (...) {}
+            try { quarticSurface->setY4(tmp["y4"]); } catch (...) {}
+            try { quarticSurface->setZ4(tmp["z4"]); } catch (...) {}
+            try { quarticSurface->setX3Y(tmp["x3y"]); } catch (...) {}
+            try { quarticSurface->setX3Z(tmp["x3z"]); } catch (...) {}
+            try { quarticSurface->setY3X(tmp["y3x"]); } catch (...) {}
+            try { quarticSurface->setY3Z(tmp["y3z"]); } catch (...) {}
+            try { quarticSurface->setZ3X(tmp["z3x"]); } catch (...) {}
+            try { quarticSurface->setZ3Y(tmp["z3y"]); } catch (...) {}
+            try { quarticSurface->setX2YZ(tmp["x2yz"]); } catch (...) {}
+            try { quarticSurface->setY2XZ(tmp["y2xz"]); } catch (...) {}
+            try { quarticSurface->setZ2XY(tmp["z2yx"]); } catch (...) {}
+            try { quarticSurface->setX2Y2(tmp["x2y2"]); } catch (...) {}
+            try { quarticSurface->setX2Z2(tmp["x2z2"]); } catch (...) {}
+            try { quarticSurface->setY2Z2(tmp["y2z2"]); } catch (...) {}
+            try { quarticSurface->setX3(tmp["x3"]); } catch (...) {}
+            try { quarticSurface->setY3(tmp["y3"]); } catch (...) {}
+            try { quarticSurface->setZ3(tmp["z3"]); } catch (...) {}
+            try { quarticSurface->setX2Y(tmp["x2y"]); } catch (...) {}
+            try { quarticSurface->setX2Z(tmp["x2z"]); } catch (...) {}
+            try { quarticSurface->setY2X(tmp["y2x"]); } catch (...) {}
+            try { quarticSurface->setY2Z(tmp["y2z"]); } catch (...) {}
+            try { quarticSurface->setZ2X(tmp["z2x"]); } catch (...) {}
+            try { quarticSurface->setZ2Y(tmp["z2y"]); } catch (...) {}
+            try { quarticSurface->setXYZ(tmp["xyz"]); } catch (...) {}
+            try { quarticSurface->setX2(tmp["x2"]); } catch (...) {}
+            try { quarticSurface->setY2(tmp["y2"]); } catch (...) {}
+            try { quarticSurface->setZ2(tmp["z2"]); } catch (...) {}
+            try { quarticSurface->setXY(tmp["xy"]); } catch (...) {}
+            try { quarticSurface->setXZ(tmp["xz"]); } catch (...) {}
+            try { quarticSurface->setYZ(tmp["yz"]); } catch (...) {}
+            try { quarticSurface->setX(tmp["x"]); } catch (...) {}
+            try { quarticSurface->setY(tmp["y"]); } catch (...) {}
+            try { quarticSurface->setZ(tmp["z"]); } catch (...) {}
+            try { quarticSurface->setK(tmp["k"]); } catch (...) {}
 
             for(auto const& color : obj["colors"])
-                qs->addColor(this->colorManager->getColor(color));
+                quarticSurface->addColor(this->colorManager->getColor(color));
 
-            qs->setTexture(getTexture(obj));
-            try { qs->setReflexion(tmp["reflection"]); } catch(...) {}
+            quarticSurface->setTexture(getTexture(obj));
+            try { quarticSurface->setReflexion(tmp["reflection"]); } catch(...) {}
 
-            objects.push_back(qs);
+            objects.push_back(quarticSurface);
 
         } else if (obj["type"] == "Polygon") {
             Point coordinates(
@@ -299,6 +318,7 @@ std::list<Object *> Parser::getObjects()
             polygon->setTexture(getTexture(obj));
 
             nlohmann::json tmp = obj;
+            setTransform(polygon, tmp);
             try { polygon->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(polygon);

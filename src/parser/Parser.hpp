@@ -15,6 +15,7 @@ class Parser
         ColorManager *colorManager;
 
         Texture getTexture(nlohmann::json json);
+        void setTransform(Object *obj, nlohmann::json json);
     public:
         Parser(std::string config_file);
         ~Parser();

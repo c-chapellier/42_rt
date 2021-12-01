@@ -1,7 +1,7 @@
 #include "Cone.hpp"
 
 Cone::Cone(double alpha)
-    : alpha(alpha), tr()
+    : alpha(alpha)
 {
     tr.updateMatrices();
 }
@@ -44,7 +44,7 @@ double Cone::angleWithAt(const Line &line, const Intersection &intersection) con
     Point tmp = this->tr.apply(intersection.getP(), BACKWARD);
     // get angle
     double angle = 90 - (180 - 90 - alpha);
-    double offset = tan(RADIAN(alpha)) * abs(tmp.getZ());
+    double offset = tan(RADIAN(angle)) * abs(tmp.getZ());
     Point h(0, 0, tmp.getZ() > 0 ? tmp.getZ() + offset : tmp.getZ() - offset);
     // return to real world
     Point l = this->tr.apply(h, FORWARD);

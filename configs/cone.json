@@ -38,9 +38,10 @@
                 "white"
             ],
             "texture": {
-                "type": "Gradient",
+                "type": "Grid",
                 "values": [100, 40]
-            }
+            },
+            "alpha": 30
         }
     ]
 }

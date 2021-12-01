@@ -17,8 +17,8 @@
     "ambient": "ambient",
     "cameras": [
         {
-            "coordinates": [-800, 0, 450],
-            "direction": [2, 0, -1],
+            "coordinates": [-800, 0, 0],
+            "direction": [2, 0, 0],
             "up": [0, 0, 1],
             "aperture": 90
         }
@@ -31,15 +31,15 @@
     ],
     "objects": [
         {
-            "type": "Cylinder",
-            "radius": 60,
+            "type": "Cone",
+            "angle": 30,
             "colors": [
                 "red",
                 "white"
             ],
             "texture": {
                 "type": "Gradient",
-                "values": [100, 10]
+                "values": [100, 40]
             }
         }
     ]

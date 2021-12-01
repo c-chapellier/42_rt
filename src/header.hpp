@@ -40,6 +40,7 @@
 #include "objects/Plane.hpp"
 #include "objects/Sphere.hpp"
 #include "objects/Cylinder.hpp"
+#include "objects/Cone.hpp"
 #include "objects/Circle.hpp"
 #include "objects/MobiusTape.hpp"
 #include "objects/Quadratic.hpp"

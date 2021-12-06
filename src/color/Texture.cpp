@@ -160,6 +160,19 @@ void Texture::setOpacity(int o)
     this->opacity = o;
 }
 
+int Texture::getImgHeight() const
+{
+    if(img)
+        return img->h;
+    throw "No image";
+}
+int Texture::getImgWidth() const
+{
+    if(img)
+        return img->w;
+    throw "No image";
+}
+
 // https://wiki.libsdl.org/SDL_PixelFormat
 Color Texture::getImageTextureAt(double h, double w)
 {

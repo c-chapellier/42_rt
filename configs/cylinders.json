@@ -17,8 +17,8 @@
     "ambient": "ambient",
     "cameras": [
         {
-            "coordinates": [-800, 0, 0],
-            "direction": [2, 0, 0],
+            "coordinates": [0, 0, 0],
+            "direction": [1, 0, 0],
             "up": [0, 0, 1],
             "aperture": 90
         }
@@ -32,19 +32,19 @@
     "objects": [
         {
             "type": "Cylinder",
-            "radius": 60,
+            "radius": 70,
             "colors": [
                 "red",
                 "white"
             ],
             "texture": {
-                "type": "Grid",
-                "values": [100, 100]
+                "type": "Image",
+                "file": "textures/solarSystem/earth.jpg"
             },
             "alpha": 45,
             "beta": 0,
             "gama": 0,
-            "coordinates": [-500, 200, 200],
+            "coordinates": [350, 0, 0],
             "scaling": [1, 1, 1]
         }
     ]

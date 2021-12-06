@@ -2,10 +2,13 @@
 
 #include "./../objects/Object.hpp"
 #include "./../objects/Sphere.hpp"
+#include "./../objects/Cylinder.hpp"
 
-class Sphere;
-class Object;
 class Point;
+class Object;
+class Sphere;
+class Cylinder;
+
 
 class TextureAplicator
 {
@@ -15,4 +18,5 @@ class TextureAplicator
         static Color applyTexture(Object *o, Point &intersection);
 
         static Color applyTextureOnSphereAt(const Sphere &sp, const Point &intersection);
+        static Color applyTextureOnCylinderAt(const Cylinder &cl, const Point &intersection);
 };

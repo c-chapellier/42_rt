@@ -48,5 +48,8 @@ class Texture
         void setFile(std::string file);
         void setOpacity(int o);
 
+        int getImgHeight() const;
+        int getImgWidth() const;
+
         Color getImageTextureAt(double h, double w);
 };

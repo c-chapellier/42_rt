@@ -1,11 +1,7 @@
 #include "MobiusTape.hpp"
 
-MobiusTape::MobiusTape(double px, double py, double pz) : p(px, py, pz), A(1), B(1), C(1), D(1), E(1), F(1), G(1)
-{
-
-}
-MobiusTape::MobiusTape(double px, double py, double pz, double A, double B, double C, double D, double E, double F, double G)
-: p(px, py, pz), A(A), B(B), C(C), D(D), E(E), F(F), G(G)
+MobiusTape::MobiusTape(double A, double B, double C, double D, double E, double F, double G)
+    : A(A), B(B), C(C), D(D), E(E), F(F), G(G)
 {
 
 }
@@ -13,13 +9,15 @@ MobiusTape::~MobiusTape(){}
 
 std::vector<Intersection> MobiusTape::intersect(const Line &line) const
 {
-    double alpha = line.getP().getX() - this->p.getX();
-    double beta = line.getP().getY() - this->p.getY();
-    double gama = line.getP().getZ() - this->p.getZ();
+    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
 
-    double a = line.getV().getX();
-    double b = line.getV().getY();
-    double c = line.getV().getZ();
+    double alpha = local_vector.getP1()->getX();
+    double beta = local_vector.getP1()->getY();
+    double gama = local_vector.getP1()->getZ();
+
+    double a = local_vector.getX();
+    double b = local_vector.getY();
+    double c = local_vector.getZ();
 
     double x3 = A * pow(a, 2) * b +
                 B * pow(c, 2) * b +
@@ -64,12 +62,14 @@ std::vector<Intersection> MobiusTape::intersect(const Line &line) const
     std::vector<Intersection> intersections;
     for (double s : solutions) {
         if (s > 0.00001) {
-            Point p(
-                line.getP().getX() + s * line.getV().getX(),
-                line.getP().getY() + s * line.getV().getY(),
-                line.getP().getZ() + s * line.getV().getZ()
+            Point local_point(
+                local_vector.getP1()->getX() + s * local_vector.getX(),
+                local_vector.getP1()->getY() + s * local_vector.getY(),
+                local_vector.getP1()->getZ() + s * local_vector.getZ()
             );
-            intersections.push_back(Intersection(p, s, (Object*)this));
+            Point real_point = this->tr.apply(local_point, TO_REAL);
+            double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
+            intersections.push_back(Intersection(real_point, dist, (Object*)this));
         }
     }
     return intersections;
@@ -77,30 +77,30 @@ std::vector<Intersection> MobiusTape::intersect(const Line &line) const
 
 Plane MobiusTape::tangentAt(const Point &intersection) const
 {
-    double x, x1, y, y1, z, z1;
+    Point local_point = this->tr.apply(intersection, TO_LOCAL);
+
+    double x, y, z;
     x = intersection.getX();
-    x1 = this->p.getX();
     y = intersection.getY();
-    y1 = this->p.getY();
     z = intersection.getZ();
-    z1 = this->p.getZ();
 
-    double fx = 2 * A * (x - x1) * (y - y1) -
-                2 * E * (z - z1) -
-                4 * F * (x - x1) * (z - z1);
+    double fx = 2 * A * (x) * (y) -
+                2 * E * (z) -
+                4 * F * (x) * (z);
 
-    double fy = A * pow((x - x1), 2) +
-                B * pow((z - z1), 2) +
-                3 * C * (y - y1) -
+    double fy = A * pow((x), 2) +
+                B * pow((z), 2) +
+                3 * C * (y) -
                 D -
-                4 * G * (y - y1) * (z - z1);
+                4 * G * (y) * (z);
 
-    double fz = 2 * B * (y - y1) * (z - z1) -
-                2 * E * (x - x1) -
-                2 * F * pow((x - x1), 2) -
-                2 * G * pow((y - y1), 2);
+    double fz = 2 * B * (y) * (z) -
+                2 * E * (x) -
+                2 * F * pow((x), 2) -
+                2 * G * pow((y), 2);
 
-    return Plane(intersection, fx, fy, fz);
+    Point tmp = this->tr.apply(Point(fx, fy, fz), TO_REAL);
+    return Plane(intersection, tmp);
 }
 
 double MobiusTape::angleWithAt(const Line &line, const Intersection &intersection) const
@@ -120,21 +120,15 @@ Color MobiusTape::getColorAt(int height, int width, int screen_height, int scree
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
-        double p = (double)((double)height / (double)screen_height);
-        return Color(
-            this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * p),
-            this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * p),
-            this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * p),
-            this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * p)
-        );
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "Grid") {
-        return this->getColor(((height / this->texture.getValue1()) + (width / this->texture.getValue2())) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "VerticalLined") {
-        return this->getColor((width / this->texture.getValue1()) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "HorizontalLined") {
-        return this->getColor((height / this->texture.getValue1()) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "Image") {
-        throw "Texture type Image ca't be apply here";
+        throw "Texture unsupported";
     } else {
         throw "Should never happen";
     }

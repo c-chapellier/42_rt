@@ -14,11 +14,7 @@
         {
             "coordinates": [-1000, 0, 0],
             "direction": [1, 0, 0],
-            "aperture": 90
-        },
-        {
-            "coordinates": [0, 0, 1000],
-            "direction": [0, 0, -1],
+            "up": [0, 0, 1],
             "aperture": 90
         }
     ],
@@ -31,12 +27,16 @@
     "objects": [
         {
             "type": "MobiusTape",
-            "coordinates": [0, 0, 0],
             "values": [1, 1, 1, 1, 1, 1, 1],
             "colors": [
                 "red",
                 "blue"
-            ]
+            ],
+            "alpha": 0,
+            "beta": 0,
+            "gama": 0,
+            "coordinates": [0, 0, 0],
+            "scaling": [1, 1, 1]
         }
     ]
 }

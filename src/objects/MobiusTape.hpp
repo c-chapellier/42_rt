@@ -10,13 +10,11 @@ class Intersection;
 class MobiusTape : public Object
 {
     private:
-        Point p;
         double A, B, C, D, E, F, G;
 
         Plane tangentAt(const Point &intersection) const;
     public:
-        MobiusTape(double px, double py, double pz);
-        MobiusTape(double px, double py, double pz, double A, double B, double C, double D, double E, double F, double G);
+        MobiusTape(double A, double B, double C, double D, double E, double F, double G);
         ~MobiusTape();
 
         std::vector<Intersection> intersect(const Line &line) const;;

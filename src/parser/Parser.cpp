@@ -162,9 +162,6 @@ std::list<Object *> Parser::getObjects()
 
         } else if (obj["type"] == "MobiusTape") {
             MobiusTape *mobiusTape = new MobiusTape(
-                obj["coordinates"][0], 
-                obj["coordinates"][1], 
-                obj["coordinates"][2],
                 obj["values"][0],
                 obj["values"][1],
                 obj["values"][2],

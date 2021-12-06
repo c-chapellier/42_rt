@@ -229,11 +229,7 @@ std::list<Object *> Parser::getObjects()
             objects.push_back(cubicSurface);
 
         } else if (obj["type"] == "QuarticSurface") {
-            QuarticSurface *quarticSurface = new QuarticSurface(
-                obj["coordinates"][0], 
-                obj["coordinates"][1], 
-                obj["coordinates"][2]
-            );
+            QuarticSurface *quarticSurface = new QuarticSurface();
             nlohmann::json tmp = obj;
             setTransform(quarticSurface, tmp);
             try { quarticSurface->setX4(tmp["x4"]); } catch (...) {}

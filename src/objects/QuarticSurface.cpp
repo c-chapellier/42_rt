@@ -1,6 +1,6 @@
 #include "QuarticSurface.hpp"
 
-QuarticSurface::QuarticSurface(double px, double py, double pz) : p(px, py, pz)
+QuarticSurface::QuarticSurface()
 {
     this->C1 = 0;
     this->C2 = 0;
@@ -78,12 +78,13 @@ void QuarticSurface::setK(double C35) { this->C35 = C35; }
 
 std::vector<Intersection> QuarticSurface::intersect(const Line &line) const
 {
-    double a = line.getV().getX();
-    double b = line.getV().getY();
-    double c = line.getV().getZ();
-    double alpha = line.getP().getX() - this->p.getX();
-    double beta = line.getP().getY() - this->p.getY();
-    double gama = line.getP().getZ() - this->p.getZ();
+    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
+    double a = local_vector.getX();
+    double b = local_vector.getY();
+    double c = local_vector.getZ();
+    double alpha = local_vector.getP1()->getX();
+    double beta = local_vector.getP1()->getY();
+    double gama = local_vector.getP1()->getZ();
 
     double t4 = C1 * pow(a, 4) +
                 C2 * pow(b, 4) +
@@ -235,12 +236,14 @@ std::vector<Intersection> QuarticSurface::intersect(const Line &line) const
 
     for (double s : solutions) {
         if (s > 0.00001) {
-            Point p(
+            Point local_point(
                 line.getP().getX() + s * line.getV().getX(),
                 line.getP().getY() + s * line.getV().getY(),
                 line.getP().getZ() + s * line.getV().getZ()
             );
-            intersections.push_back(Intersection(p, s, (Object*)this));
+            Point real_point = this->tr.apply(local_point, TO_REAL);
+            double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
+            intersections.push_back(Intersection(real_point, dist, (Object*)this));
         }
     }
     return intersections;
@@ -248,78 +251,76 @@ std::vector<Intersection> QuarticSurface::intersect(const Line &line) const
 
 Plane QuarticSurface::tangentAt(const Point &intersection) const
 {
-    double x = intersection.getX();
-    double y = intersection.getY();
-    double z = intersection.getZ();
-    double x0 = this->p.getX();
-    double y0 = this->p.getY();
-    double z0 = this->p.getZ();
+    Point local_point = this->tr.apply(intersection, TO_LOCAL);
+    double x = local_point.getX();
+    double y = local_point.getY();
+    double z = local_point.getZ();
 
-    double fx = C1 * 4 * pow(x - x0, 3) +
-                C4 * 3 * pow(x - x0, 2) * (y - y0) +
-                C5 * 3 * pow(x - x0, 2) * (y - y0) +
-                C6 * pow(y - y0, 3) +
-                C8 * pow(z - z0, 3) +
-                C10 * 2 * (x - x0) * pow(y - y0, 2) +
-                C11 * 2 * (x - x0) * pow(z - z0, 2) +
-                C13 * 2 * (x - x0) * (y - y0) * (z - z0) +
-                C14 * pow(y - y0, 2) * (z - z0) +
-                C15 * pow(z - z0, 2) * (y - y0) +
-                C16 * 3 * pow(x - x0, 2) +
-                C19 * 2 * (x - x0) * (y - y0) +
-                C20 * 2 * (x - x0) * (z - z0) +
-                C21 * pow(y - y0, 2) +
-                C23 * pow(z - z0, 2) +
-                C25 * (y - y0) * (z - z0) +
-                C26 * 2 * (x - x0) +
-                C29 * (y - y0) +
-                C30 * (z - z0) +
+    double fx = C1 * 4 * pow(x, 3) +
+                C4 * 3 * pow(x, 2) * (y) +
+                C5 * 3 * pow(x, 2) * (y) +
+                C6 * pow(y, 3) +
+                C8 * pow(z, 3) +
+                C10 * 2 * (x) * pow(y, 2) +
+                C11 * 2 * (x) * pow(z, 2) +
+                C13 * 2 * (x) * (y) * (z) +
+                C14 * pow(y, 2) * (z) +
+                C15 * pow(z, 2) * (y) +
+                C16 * 3 * pow(x, 2) +
+                C19 * 2 * (x) * (y) +
+                C20 * 2 * (x) * (z) +
+                C21 * pow(y, 2) +
+                C23 * pow(z, 2) +
+                C25 * (y) * (z) +
+                C26 * 2 * (x) +
+                C29 * (y) +
+                C30 * (z) +
                 C32;
 
-    double fy = C2 * 4 * pow(y - y0, 3) +
-                C4 * pow(x - x0, 3) +
-                C6 * 3 * pow(y - y0, 2) * (x - x0) +
-                C7 * 3 * pow(y - y0, 2) * (z - z0) +
-                C9 * pow(z - z0, 3) +
-                C10 * 2 * pow(x - x0, 2) * (y - y0) +
-                C12 * 2 * pow(z - z0, 2) * (y - y0) +
-                C13 * pow(x -x0, 2) * (z - z0) +
-                C14 * 2 * (x - x0) * (y - y0) * (z - z0) +
-                C15 * pow(z -z0, 2) * (x - x0) +
-                C17 * 3 * pow(y - y0, 2) +
-                C19 * pow(x - x0, 2) +
-                C21 * 2 * (y - y0) * (x - x0) +
-                C22 * 2 * (y - y0) * (z - z0) +
-                C24 * pow(z - z0, 2) +
-                C25 * (x - x0) * (z - z0) +
-                C27 * 2 * (y - y0) +
-                C29 * (x - x0) +
-                C31 * (z - z0) +
+    double fy = C2 * 4 * pow(y, 3) +
+                C4 * pow(x, 3) +
+                C6 * 3 * pow(y, 2) * (x) +
+                C7 * 3 * pow(y, 2) * (z) +
+                C9 * pow(z, 3) +
+                C10 * 2 * pow(x, 2) * (y) +
+                C12 * 2 * pow(z, 2) * (y) +
+                C13 * pow(x, 2) * (z) +
+                C14 * 2 * (x) * (y) * (z) +
+                C15 * pow(z, 2) * (x) +
+                C17 * 3 * pow(y, 2) +
+                C19 * pow(x, 2) +
+                C21 * 2 * (y) * (x) +
+                C22 * 2 * (y) * (z) +
+                C24 * pow(z, 2) +
+                C25 * (x) * (z) +
+                C27 * 2 * (y) +
+                C29 * (x) +
+                C31 * (z) +
                 C33;
 
-    double fz = C3 * 4 * pow(z - z0, 3) +
-                C5 * pow(x - x0, 3) +
-                C7 * pow(y - y0, 3) +
-                C8 * 3 * pow(z - z0, 2) * (x - x0) +
-                C9 * 3 * pow(z - z0, 2) * (y - y0) +
-                C11 * 2 * pow(x - x0, 2) * (z - z0) +
-                C12 * 2 * pow(y - y0, 2) * (z - z0) +
-                C13 * pow(x - x0, 2) * (y - y0) +
-                C14 * pow(y - y0, 2) * (x - x0) +
-                C15 * 2 * (x - x0) * (y - y0) * (z - z0) +
-                C18 * 3 * pow(z - z0, 2) +
-                C20 * pow(x - x0, 2) +
-                C22 * pow(y - y0, 2) +
-                C23 * 2 * (z - z0) * (x - x0) +
-                C24 * 2 * (z - z0) * (y - y0) +
-                C25 * (x - x0) * (y - y0) +
-                C28 * 2 * (z - z0) +
-                C30 * (x - x0) +
-                C31 * (y - y0) +
+    double fz = C3 * 4 * pow(z, 3) +
+                C5 * pow(x, 3) +
+                C7 * pow(y, 3) +
+                C8 * 3 * pow(z, 2) * (x) +
+                C9 * 3 * pow(z, 2) * (y) +
+                C11 * 2 * pow(x, 2) * (z) +
+                C12 * 2 * pow(y, 2) * (z) +
+                C13 * pow(x, 2) * (y) +
+                C14 * pow(y, 2) * (x) +
+                C15 * 2 * (x) * (y) * (z) +
+                C18 * 3 * pow(z, 2) +
+                C20 * pow(x, 2) +
+                C22 * pow(y, 2) +
+                C23 * 2 * (z) * (x) +
+                C24 * 2 * (z) * (y) +
+                C25 * (x) * (y) +
+                C28 * 2 * (z) +
+                C30 * (x) +
+                C31 * (y) +
                 C34;
 
-
-    return Plane(intersection, fx, fy, fz);
+    Point tmp = this->tr.apply(Point(fx, fy, fz), TO_REAL);
+    return Plane(intersection, tmp);
 }
 
 double QuarticSurface::angleWithAt(const Line &line, const Intersection &intersection) const
@@ -334,26 +335,18 @@ Line QuarticSurface::getReflectedRayAt(Intersection &intersection, const Line &l
 
 Color QuarticSurface::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
-    screenWidth = intersection.getX();
-
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
-        double p = (double)((double)height / (double)screen_height);
-        return Color(
-            this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * p),
-            this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * p),
-            this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * p),
-            this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * p)
-        );
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "Grid") {
-        return this->getColor(((height / this->texture.getValue1()) + (width / this->texture.getValue2())) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "VerticalLined") {
-        return this->getColor((width / this->texture.getValue1()) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "HorizontalLined") {
-        return this->getColor((height / this->texture.getValue1()) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "Image") {
-        throw "Texture type Image ca't be apply here";
+        throw "Texture unsupported";
     } else {
         throw "Should never happen";
     }

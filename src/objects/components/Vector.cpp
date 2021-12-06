@@ -66,6 +66,14 @@ void Vector::setZ(double z)
     this->z = z;
 }
 
+void Vector::setP1(const Point &p)
+{
+    delete(this->p1);
+    this->p1 = new Point(p);
+    delete(this->p2);
+    this->p2 = new Point(p1->getX() + x, p1->getY() + y, p1->getZ() + z);
+}
+
 double Vector::getX() const
 {
     return this->x;

@@ -31,6 +31,8 @@ class Vector
         void setY(double y);
         void setZ(double z);
 
+        void setP1(const Point &p);
+
         double getX() const;
         double getY() const;
         double getZ() const;

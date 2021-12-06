@@ -51,9 +51,9 @@ std::vector<Intersection> Sphere::intersect(const Line &line) const
         if (s > 0.00001)
         {
             Point local_intersection(
-                line.getP().getX() + line.getV().getX() * s,
-                line.getP().getY() + line.getV().getY() * s,
-                line.getP().getZ() + line.getV().getZ() * s
+                local.getP1()->getX() + local.getX() * s,
+                local.getP1()->getY() + local.getY() * s,
+                local.getP1()->getZ() + local.getZ() * s
             );
             Point real_intersection = this->tr.apply(local_intersection, TO_REAL);
             double dist = (real_intersection.getX() - line.getP().getX()) / line.getV().getX();
@@ -72,7 +72,9 @@ double Sphere::angleWithAt(const Line &line, const Intersection &intersection) c
 Line Sphere::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
     Vector v(this->tr.getTranslation(), intersection.getP());
-    return Line(intersection.getP(), v.getReflectionOf(line.getV()));
+    Vector tmp = v.getReflectionOf(line.getV());
+    tmp.setP1(intersection.getP());
+    return Line(intersection.getP(), tmp);
 }
 
 Color Sphere::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
@@ -113,12 +115,12 @@ Color Sphere::getColorAt(int height, int width, int screen_height, int screenWid
         alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
 
         // Horizontal
-        double z = local_intersection.getZ() >= 0 ?
+        double ratio = local_intersection.getZ() >= 0 ?
             this->r - local_intersection.getZ() :
             this->r + abs(local_intersection.getZ());
         double lineWidth = this->r * 2 / texture.getValue1();
 
-        return this->getColor(((int)(alpha / lineRadian) + (int)(z / lineWidth)) % 2);
+        return this->getColor(((int)(alpha / lineRadian) + (int)(ratio / lineWidth)) % 2);
     } else if (this->texture.getType() == "VerticalLined") {
         /*
             The first value of the texture is the number of vertical sections
@@ -143,11 +145,11 @@ Color Sphere::getColorAt(int height, int width, int screen_height, int screenWid
                 - Get the height ratio
                 - Get the line width
         */
-        double z = local_intersection.getZ() >= 0 ?
+        double ratio = local_intersection.getZ() > 0 ?
             this->r - local_intersection.getZ() :
             this->r + abs(local_intersection.getZ());
         double lineWidth = this->r * 2 / texture.getValue1();
-        return this->getColor((int)(z / lineWidth) % 2);
+        return this->getColor((int)(ratio / lineWidth) % 2);
     } else if (this->texture.getType() == "Image") {
         return TextureAplicator::applyTextureOnSphereAt(*this, local_intersection);
     } else {

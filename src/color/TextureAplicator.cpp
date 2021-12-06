@@ -15,6 +15,7 @@ Color TextureAplicator::applyTextureOnSphereAt(const Sphere &sp, const Point &in
     double y_ratio = intersection.getZ() >= 0 ?
             sp.getR() - intersection.getZ() :
             sp.getR() + abs(intersection.getZ());
+    y_ratio /= sp.getR() * 2;
 
     Vector v(0, 0, 0, intersection.getX(), intersection.getY(), 0);
     Vector x_axis(0, 1, 0);

@@ -91,9 +91,10 @@ Point Transform::apply(const Point &p, int type) const
 
     Matrix m1(1, 4);
     if(type == TO_LOCAL) {
-        m1 = this->forward_matrix * m_p1;
-    } else {
         m1 = this->backward_matrix * m_p1;
+    } else {
+        m1 = this->forward_matrix * m_p1;
+        
     }
 
     return Point(m1[0][0], m1[0][1], m1[0][2]);

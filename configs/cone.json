@@ -17,8 +17,8 @@
     "ambient": "ambient",
     "cameras": [
         {
-            "coordinates": [-800, 0, 0],
-            "direction": [2, 0, 0],
+            "coordinates": [0, 0, 0],
+            "direction": [1, 0, 0],
             "up": [0, 0, 1],
             "aperture": 90
         }
@@ -39,12 +39,12 @@
             ],
             "texture": {
                 "type": "Grid",
-                "values": [40, 40]
+                "values": [40, 10]
             },
             "alpha": 0,
             "beta": 0,
             "gama": 0,
-            "coordinates": [500, 0, 0],
+            "coordinates": [400, 0, 0],
             "scaling": [1, 1, 1]
         }
     ]

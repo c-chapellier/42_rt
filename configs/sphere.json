@@ -10,10 +10,10 @@
         "white": [255, 255, 255, 255]
     },
     "ambient": "ambient",
-    "precision": 3,
+    "precision": 1,
     "cameras": [
         {
-            "coordinates": [-100, 0, 0],
+            "coordinates": [0, 0, 0],
             "direction": [1, 0, 0],
             "up": [0, 0, 1],
             "aperture": 90
@@ -28,16 +28,16 @@
             "radius" : 30,
             "colors": [
                 "red",
-                "blue"
+                "white"
             ],
             "texture": {
-                "type": "HorizontalLined",
-                "values": [10, 10]
+                "type": "Image",
+                "file": "textures/solarSystem/earth.jpg"
             },
-            "alpha": 0,
+            "alpha": 30,
             "beta": 0,
             "gama": 0,
-            "coordinates": [0, 0, -10],
+            "coordinates": [100, 20, 20],
             "scaling": [1, 1, 1]
         }
     ]

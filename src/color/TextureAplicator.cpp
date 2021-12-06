@@ -29,18 +29,35 @@ Color TextureAplicator::applyTextureOnSphereAt(const Sphere &sp, const Point &in
 Color TextureAplicator::applyTextureOnCylinderAt(const Cylinder &cl, const Point &intersection)
 {
     int imgH = cl.getTexture().getImgHeight();
-    int imgW = cl.getTexture().getImgWidth();
 
     double y_ratio = intersection.getZ() >= 0 ?
             intersection.getZ() :
             (double)imgH - abs(intersection.getZ());
-    y_ratio = mod(y_ratio, imgH) / imgH;
+    y_ratio = fmin(mod(y_ratio, imgH) / imgH, 1);
 
     Vector v(0, 0, 0, intersection.getX(), intersection.getY(), 0);
     Vector x_axis(0, 1, 0);
     double alpha = v.angleWith(x_axis);
     alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
-    double x_ratio = alpha / 360;
+    double x_ratio = fmin(alpha / 360, 1);
 
     return cl.getTexture().getImageTextureAt(y_ratio, x_ratio);
+}
+
+Color TextureAplicator::applyTextureOnConeAt(const Cone &cn, const Point &intersection)
+{
+    int imgH = cn.getTexture().getImgHeight();
+
+    double y_ratio = intersection.getZ() >= 0 ?
+            intersection.getZ() :
+            (double)imgH - abs(intersection.getZ());
+    y_ratio = fmin(mod(y_ratio, imgH) / imgH, 1);
+
+    Vector v(0, 0, 0, intersection.getX(), intersection.getY(), 0);
+    Vector x_axis(0, 1, 0);
+    double alpha = v.angleWith(x_axis);
+    alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
+    double x_ratio = fmin(alpha / 360, 1);
+
+    return cn.getTexture().getImageTextureAt(y_ratio, x_ratio);
 }

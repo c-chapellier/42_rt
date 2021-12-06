@@ -133,7 +133,7 @@ Color Cone::getColorAt(int height, int width, int screen_height, int screenWidth
                         (int)((abs(local_point.getZ()) + this->texture.getValue1()));
         return this->getColor((int)(ratio / this->texture.getValue1()) % 2);
     } else if (this->texture.getType() == "Image") {
-        throw "Texture type has no power here";
+        return TextureAplicator::applyTextureOnConeAt(*this, local_point);
     } else {
         throw "Should never happen";
     }

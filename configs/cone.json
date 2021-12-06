@@ -38,8 +38,8 @@
                 "white"
             ],
             "texture": {
-                "type": "Grid",
-                "values": [40, 10]
+                "type": "Image",
+                "file": "textures/solarSystem/earth.jpg"
             },
             "alpha": 0,
             "beta": 0,

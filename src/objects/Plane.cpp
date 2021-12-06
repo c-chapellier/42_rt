@@ -96,8 +96,6 @@ Line Plane::getReflectedRayAt(Intersection &intersection, const Line &line) cons
 
 Color Plane::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
-    screenWidth = intersection.getX();
-
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {

@@ -75,7 +75,21 @@ std::list<Object *> Parser::getObjects()
 
             objects.push_back(plane);
 
-        } else if (obj["type"] == "Sphere") {
+        } else if (obj["type"] == "PlaneObj") {
+            PlaneObj *plane = new PlaneObj();
+
+            for (auto const& color : obj["colors"])
+                plane->addColor(this->colorManager->getColor(color));
+
+            plane->setTexture(getTexture(obj));
+
+            nlohmann::json tmp = obj;
+            setTransform(plane, tmp);
+            try { plane->setReflexion(tmp["reflection"]); } catch(...) {}
+
+            objects.push_back(plane);
+
+        }else if (obj["type"] == "Sphere") {
             Sphere *sphere = new Sphere(
                 obj["radius"]
             );

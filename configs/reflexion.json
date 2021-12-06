@@ -2,12 +2,13 @@
     "name": "Reflection",
     "height": 600,
     "width": 600,
-    "precision": 2,
+    "precision": 1,
     "colors" : {
         "red": [255, 0, 0, 255],
         "green": [0, 255, 0, 255],
         "blue": [0, 0, 255, 255],
         "ambient": [20, 20, 20, 200],
+        "black": [0, 0, 0, 255],
         "white": [255, 255, 255, 255],
         "mirror": [212, 225, 226, 255]
     },
@@ -16,6 +17,7 @@
         {
             "coordinates": [-100, 0, 0],
             "direction": [1, 0, 0],
+            "up":[0, 0, 1],
             "aperture": 90
         }
     ],
@@ -27,37 +29,20 @@
     ],
     "objects": [
         {
-            "type": "Plane",
-            "point": [0, 0, -70],
-            "normal": [0, 0, 1],
+            "type": "PlaneObj",
             "colors": [
-                "mirror"
+                "black",
+                "white"
             ],
-            "reflection": 50
-        },
-        {
-            "type": "Sphere",
-            "coordinates": [200, 70, 0],
-            "radius" : 40,
-            "colors": [
-                "red"
-            ]
-        },
-        {
-            "type": "Sphere",
-            "coordinates": [200, 0, 0],
-            "radius" : 40,
-            "colors": [
-                "green"
-            ]
-        },
-        {
-            "type": "Sphere",
-            "coordinates": [200, -70, 0],
-            "radius" : 40,
-            "colors": [
-                "blue"
-            ]
+            "texture": {
+                "type": "Grid",
+                "values": [8, 8]
+            },
+            "alpha": 0,
+            "beta": 0,
+            "gama": 0,
+            "coordinates": [0, 0, 0],
+            "scaling": [1, 1, 1]
         }
     ]
 }

@@ -38,6 +38,7 @@
 
 #include "objects/Object.hpp"
 #include "objects/Plane.hpp"
+#include "objects/PlaneObj.hpp"
 #include "objects/Sphere.hpp"
 #include "objects/Cylinder.hpp"
 #include "objects/Cone.hpp"

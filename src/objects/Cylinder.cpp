@@ -62,12 +62,14 @@ Color Cylinder::getColorAt(int height, int width, int screen_height, int screenW
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
         // get the value of Z as absolute
-        int z_value = local_point.getZ() >= 0 ?   (int)(local_point.getZ() / (double)this->texture.getValue1()) :
-                                    (int)((abs(local_point.getZ())) / this->texture.getValue1());
+        int z_value = local_point.getZ() >= 0 ?
+            (int)(local_point.getZ() / (double)this->texture.getValue1()) :
+            (int)((abs(local_point.getZ())) / this->texture.getValue1());
         // get the ratio of gradient
-        double gr =  (local_point.getZ() >= 0 ?    mod(local_point.getZ(), this->texture.getValue1()) :
-                                        mod(abs(local_point.getZ()), this->texture.getValue1()))
-                    / (double)this->texture.getValue1();
+        double gr =  (local_point.getZ() >= 0 ?
+            mod(local_point.getZ(), this->texture.getValue1()) :
+            mod(abs(local_point.getZ()), this->texture.getValue1()))
+            / (double)this->texture.getValue1();
         return  (z_value % 2 == 0 ? 
                 Color(
                     this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * gr),

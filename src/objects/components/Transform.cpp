@@ -3,7 +3,7 @@
 Transform::Transform()
     : alpha(0), beta(0), gama(0), translation(0, 0, 0), scaling(1, 1, 1), forward_matrix(4, 4), backward_matrix(4, 4)
 {
-
+    updateMatrices();
 }
 Transform::~Transform() {}
 

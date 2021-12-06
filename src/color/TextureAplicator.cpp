@@ -61,3 +61,21 @@ Color TextureAplicator::applyTextureOnConeAt(const Cone &cn, const Point &inters
 
     return cn.getTexture().getImageTextureAt(y_ratio, x_ratio);
 }
+
+Color TextureAplicator::applyTextureOnPlaneAt(const PlaneObj &pl, const Point &intersection)
+{
+    int imgH = pl.getTexture().getImgHeight();
+    int imgW = pl.getTexture().getImgWidth();
+
+    double h_ratio = intersection.getX() >= 0 ?
+        intersection.getX() :
+        (double)imgH - abs(intersection.getX());
+    h_ratio = fmin(mod(h_ratio, imgH) / imgH, 1);
+
+    double w_ratio = intersection.getY() >= 0 ?
+        intersection.getY() :
+        (double)imgW - abs(intersection.getY());
+    w_ratio = fmin(mod(w_ratio, imgW) / imgW, 1);
+
+    return pl.getTexture().getImageTextureAt(h_ratio, w_ratio);
+}

@@ -133,7 +133,6 @@ void Texture::setFile(std::string file)
     if(file == "NoFile")
         return ;
     this->img = IMG_Load(file.c_str());
-    std::cout << file << std::endl;
     if (this->img == nullptr) {
         throw "IMG_Load: Failed to load required jpg and png support!";
     } 

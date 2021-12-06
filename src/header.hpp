@@ -43,7 +43,7 @@
 #include "objects/Cone.hpp"
 #include "objects/Circle.hpp"
 #include "objects/MobiusTape.hpp"
-#include "objects/Quadratic.hpp"
+#include "objects/QuadraticSurface.hpp"
 #include "objects/CubicSurface.hpp"
 #include "objects/QuarticSurface.hpp"
 #include "objects/Polygone.hpp"

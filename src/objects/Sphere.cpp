@@ -1,26 +1,11 @@
 #include "Sphere.hpp"
 
-Sphere::Sphere(const Point &p, double r) : Object(), p(p), r(r)
-{
-
-}
-
-Sphere::Sphere(double x, double y, double z, double r) : Object(), p(x, y, z), r(r)
-{
-
-}
-
-Sphere::Sphere(double x, double y, double z, double r, const Color &color) : Object(color), p(x, y, z), r(r)
+Sphere::Sphere(double r) : Object(), r(r)
 {
 
 }
 
 Sphere::~Sphere(){};
-
-Point Sphere::getP() const
-{
-    return this->p;
-}
 
 double Sphere::getR() const
 {

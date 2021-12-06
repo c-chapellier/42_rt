@@ -16,17 +16,6 @@ std::vector<Object *> ShapeFactory::createShape(const std::string &type, const P
 std::vector<Object *> ShapeFactory::createDNA(const Point &p) {
     std::vector<Object *> objects;
 
-    int height = 30;
-    int width = 100;
-
-    for (int i = 0; i < 15; ++i) {
-        double alpha = i * (360 / 6);
-        double beta = alpha + 180;
-        Point p1(p.getX() + (width / 2) * cos(RADIAN(alpha)), p.getY() + (width / 2) * sin(RADIAN(alpha)), p.getZ() + (i * height));
-        Point p2(p.getX() + (width / 2) * cos(RADIAN(beta)), p.getY() + (width / 2) * sin(RADIAN(beta)), p.getZ() + (i * height));
-        objects.push_back(new Quadratic(p1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -80));
-        objects.push_back(new Quadratic(p2, 1, 1, 1, 0, 0, 0, 0, 0, 0, -80));
-    }
     return objects;
 }
 
@@ -35,13 +24,13 @@ std::vector<Object *> ShapeFactory::createSphereCircle(const Point &p, double ra
     std::vector<Object *> objects;
 
     for (int i = 0; i < nb_sphere; ++i) {
-        double angle = i * (360 / nb_sphere);
-        Point p1(radius * cos(RADIAN(angle)),radius * sin(RADIAN(angle)), 0);
-        Transformer::rotateAroundX(&p1, alpha);
-        Transformer::rotateAroundY(&p1, beta);
-        Transformer::rotateAroundZ(&p1, gama);
-        Transformer::translate(&p1, p);
-        objects.push_back(new Quadratic(p1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(sphere_radius, 2)));
+        // double angle = i * (360 / nb_sphere);
+        // Point p1(radius * cos(RADIAN(angle)),radius * sin(RADIAN(angle)), 0);
+        // Transformer::rotateAroundX(&p1, alpha);
+        // Transformer::rotateAroundY(&p1, beta);
+        // Transformer::rotateAroundZ(&p1, gama);
+        // Transformer::translate(&p1, p);
+        // objects.push_back(new Quadratic(p1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -pow(sphere_radius, 2)));
     }
     return objects;
 }

@@ -39,18 +39,14 @@
     ],
     "objects": [
         {
-            "type": "Quadratic",
+            "type": "QuadraticSurface",
             "name": "Elipsoide",
             "coordinates": [100,-100, 0],
             "values": [1, 5, 1, 0, 0, 0, 0, 0, 0, -600],
             "colors": [
                 "green",
                 "grey"
-            ],
-            "texture": {
-                "type": "HorizontalLined",
-                "values": [20, 0]
-            }
+            ]
         },
         {
             "type": "Sphere",
@@ -61,32 +57,24 @@
             ]
         },
         {
-            "type": "Quadratic",
+            "type": "QuadraticSurface",
             "name": "Cylinder",
             "coordinates": [100, 0, 0],
             "values": [1, 1, 0, 0, 0, 0, 0, 0, 4, -600],
             "colors": [
                 "yellow",
                 "red"
-            ],
-            "texture": {
-                "type": "Grid",
-                "values": [20, 20]
-            }
+            ]
         },
         {
-            "type": "Quadratic",
+            "type": "QuadraticSurface",
             "name": "Cone",
             "coordinates": [100, 80, 0],
             "values": [3, 5, -1, 0, 0, 0, 0, 0, 0, 0],
             "colors": [
                 "green",
                 "blue"
-            ],
-            "texture": {
-                "type": "Gradient",
-                "values": [0, 0]
-            }
+            ]
         }
     ]
 }

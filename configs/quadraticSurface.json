@@ -1,0 +1,57 @@
+{
+    "name": "sphere",
+    "width": 900,
+    "height": 900,
+    "precision": 2,
+    "colors" : {
+        "red": [234, 15, 34, 255],
+        "white": [255, 255, 255, 255]
+
+    },
+    "ambient": "ambient",
+    "effects": {
+        "transformation": {
+            "x_axis" : {
+                "sin": {
+                    "amplitude" : 50,
+                    "frequency" : 3
+                }
+            },
+            "z_axis" : {
+                "sin": {
+                    "amplitude" : 50,
+                    "frequency" : 3
+                }
+            }
+        }
+    },
+    "cameras": [
+        {
+            "coordinates": [0, 0, 0],
+            "direction": [1, 0, 0],
+            "up":[0, 0, 1],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+        {
+            "coordinates": [-800, 0, 200],
+            "color": "white"
+        }
+    ],
+    "objects": [
+        {
+            "type": "QuadraticSurface",
+            "name": "Elipsoide",
+            "values": [1, 1, 1, 0, 0, 0, 0, 0, 0, -600],
+            "colors": [
+                "red"
+            ],
+            "alpha": 0,
+            "beta": 0,
+            "gama": 0,
+            "coordinates": [200, 0, 0],
+            "scaling": [1, 1, 1]
+        }
+    ]
+}

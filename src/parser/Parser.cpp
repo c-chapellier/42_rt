@@ -16,7 +16,6 @@ Parser::~Parser()
 Texture Parser::getTexture(nlohmann::json json) {
     nlohmann::json t = json["texture"];
     if (t == nullptr) {
-        std::cout << "no texture" << std::endl;
         Texture texture;
         return texture;
     } else if (t["type"] == "Image") {
@@ -78,9 +77,6 @@ std::list<Object *> Parser::getObjects()
 
         } else if (obj["type"] == "Sphere") {
             Sphere *sphere = new Sphere(
-                obj["coordinates"][0], 
-                obj["coordinates"][1], 
-                obj["coordinates"][2], 
                 obj["radius"]
             );
 
@@ -175,14 +171,8 @@ std::list<Object *> Parser::getObjects()
             
             objects.push_back(mobiusTape);
 
-        } else if (obj["type"] == "Quadratic") {
-            Point coordinates(
-                obj["coordinates"][0], 
-                obj["coordinates"][1], 
-                obj["coordinates"][2]
-            );
-            Quadratic *quadratic = new Quadratic(
-                coordinates,
+        } else if (obj["type"] == "QuadraticSurface") {
+            QuadraticSurface *quadratic = new QuadraticSurface(
                 obj["values"][0],
                 obj["values"][1],
                 obj["values"][2],

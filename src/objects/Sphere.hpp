@@ -8,15 +8,11 @@ class Intersection;
 class Sphere : public Object
 {
     private:
-        Point p;
         double r;
     public:
-        Sphere(const Point &p, double r);
-        Sphere(double x, double y, double z, double r);
-        Sphere(double x, double y, double z, double r, const Color &color);
+        Sphere(double r);
         ~Sphere();
 
-        Point getP() const;
         double getR() const;
 
         std::vector<Intersection> intersect(const Line &line) const;

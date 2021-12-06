@@ -2,7 +2,7 @@
     "name": "Reflection",
     "height": 800,
     "width": 800,
-    "precision": 2,
+    "precision": 1,
     "colors" : {
         "red": [255, 0, 0, 255],
         "green": [0, 255, 0, 255],
@@ -17,8 +17,8 @@
     "ambient": "ambient",
     "cameras": [
         {
-            "coordinates": [-800, 0, 450],
-            "direction": [2, 0, -1],
+            "coordinates": [-800, 0, 0],
+            "direction": [2, 0, 0],
             "up": [0, 0, 1],
             "aperture": 90
         }
@@ -38,9 +38,14 @@
                 "white"
             ],
             "texture": {
-                "type": "Gradient",
-                "values": [100, 10]
-            }
+                "type": "Grid",
+                "values": [100, 100]
+            },
+            "alpha": 45,
+            "beta": 0,
+            "gama": 0,
+            "coordinates": [-500, 200, 200],
+            "scaling": [1, 1, 1]
         }
     ]
 }

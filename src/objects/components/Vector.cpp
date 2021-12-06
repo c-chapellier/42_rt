@@ -93,18 +93,14 @@ double Vector::getMagnitude() const
     return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
 }
 
-Vector Vector::getNormalized() const
-{
-    double magnitude = getMagnitude();
-    return Vector(x / magnitude, y /magnitude, z / magnitude);
-}
-
 void Vector::normalize()
 {
     double magnitude = getMagnitude();
     this->x /= magnitude;
     this->y /= magnitude;
     this->z /= magnitude;
+    delete(this->p2);
+    this->p2 = new Point(p1->getX() + x, p1->getY() + y, p1->getZ() + z);
 }
 
 double Vector::scalarProduct(const Vector &v) const

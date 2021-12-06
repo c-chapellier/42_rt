@@ -2,7 +2,7 @@
     "name": "Reflection",
     "height": 800,
     "width": 800,
-    "precision": 2,
+    "precision": 1,
     "colors" : {
         "red": [255, 0, 0, 255],
         "green": [0, 255, 0, 255],
@@ -39,9 +39,13 @@
             ],
             "texture": {
                 "type": "Grid",
-                "values": [100, 40]
+                "values": [40, 40]
             },
-            "alpha": 30
+            "alpha": 0,
+            "beta": 0,
+            "gama": 0,
+            "coordinates": [500, 0, 0],
+            "scaling": [1, 1, 1]
         }
     ]
 }

@@ -16,6 +16,9 @@
 #define FORWARD 1
 #define BACKWARD 2
 
+#define TO_REAL 1
+#define TO_LOCAL 2
+
 double neg(double x);
 double pos(double x);
 double mod(double x, double z);

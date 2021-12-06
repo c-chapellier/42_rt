@@ -37,7 +37,6 @@ class Vector
         Point *getP1() const;
         Point *getP2() const;
         double getMagnitude() const;
-        Vector getNormalized() const;
 
         void normalize();
 

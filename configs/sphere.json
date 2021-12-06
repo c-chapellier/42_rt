@@ -3,7 +3,7 @@
     "height": 600,
     "width": 600,
     "colors" : {
-        "red": [255, 0, 0, 20],
+        "red": [255, 0, 0, 255],
         "green": [0, 255, 0, 80],
         "blue": [0, 0, 255, 255],
         "ambient": [20, 20, 20, 200],
@@ -20,39 +20,25 @@
         }
     ],
     "lights": [
-        {
-            "coordinates": [-1000, 500, 200],
-            "color": "white"
-        }
+
     ],
     "objects": [
         {
             "type": "Sphere",
-            "coordinates": [0, 0, -10],
             "radius" : 30,
             "colors": [
-                "red"
-            ]
-        },
-        {
-            "type": "Sphere",
-            "coordinates": [0, 15, 10],
-            "radius" : 30,
-            "colors": [
-                "green"
+                "red",
+                "blue"
             ],
             "texture": {
-                "type": "Uniform",
-                "values": [0, 0]
-            }
-        },
-        {
-            "type": "Sphere",
-            "coordinates": [0, -15, 10],
-            "radius" : 30,
-            "colors": [
-                "blue"
-            ]
+                "type": "HorizontalLined",
+                "values": [10, 10]
+            },
+            "alpha": 0,
+            "beta": 0,
+            "gama": 0,
+            "coordinates": [0, 0, -10],
+            "scaling": [1, 1, 1]
         }
     ]
 }

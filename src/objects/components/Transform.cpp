@@ -72,21 +72,9 @@ void Transform::updateMatrices()
     backward_matrix.inverse();
 }
 
-Matrix &Transform::getForwardMatrix()
+Point Transform::getTranslation() const
 {
-    return this->forward_matrix;
-}
-Matrix Transform::getForwardMatrix() const
-{
-    return this->forward_matrix;
-}
-Matrix &Transform::getBackwardMatrix()
-{
-    return this->backward_matrix;
-}
-Matrix Transform::getBackwardMatrix() const
-{
-    return this->backward_matrix;
+    return this->translation;
 }
 
 Vector Transform::apply(const Vector &v, int type) const
@@ -102,7 +90,7 @@ Point Transform::apply(const Point &p, int type) const
     m_p1[0][3] = 1;
 
     Matrix m1(1, 4);
-    if(type == FORWARD) {
+    if(type == TO_LOCAL) {
         m1 = this->forward_matrix * m_p1;
     } else {
         m1 = this->backward_matrix * m_p1;

@@ -2,7 +2,7 @@
     "name": "Reflection",
     "height": 800,
     "width": 800,
-    "precision": 2,
+    "precision": 1,
     "colors" : {
         "red": [255, 0, 0, 255],
         "green": [0, 255, 0, 255],
@@ -20,12 +20,6 @@
             "coordinates": [-800, 0, 450],
             "direction": [2, 0, -1],
             "up": [0, 0, 1],
-            "aperture": 90
-        },
-        {
-            "coordinates": [0, 0, 800],
-            "direction": [0, 0, -1],
-            "up": [1, 0, 0],
             "aperture": 90
         }
     ],

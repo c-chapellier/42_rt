@@ -8,7 +8,7 @@ Cylinder::~Cylinder(){}
 
 std::vector<Intersection> Cylinder::intersect(const Line &line) const
 {
-    Vector back = this->tr.apply(line.getV(), BACKWARD);
+    Vector back = this->tr.apply(line.getV(), TO_LOCAL);
     back.normalize();
 
     double a, b, c;
@@ -21,16 +21,14 @@ std::vector<Intersection> Cylinder::intersect(const Line &line) const
     std::vector<Intersection> intersections;
     for (double s : solutions) {
         if (s > 0.00001) {
-            Point origin = this->tr.apply(Point(0, 0, 0), FORWARD);
-            Point p(
+            Point local_point(
                 back.getP1()->getX() + s * back.getX(),
                 back.getP1()->getY() + s * back.getY(),
                 back.getP1()->getZ() + s * back.getZ()
             );
-            Point pp = this->tr.apply(p, FORWARD);
-            pp = pp - origin;
-            s = (pp.getX() - line.getP().getX()) / line.getV().getX();
-            intersections.push_back(Intersection(pp, s, (Object*)this));
+            Point real_point = this->tr.apply(local_point, TO_REAL);
+            double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
+            intersections.push_back(Intersection(real_point, dist, (Object*)this));
         }
     }
     return intersections;
@@ -39,13 +37,13 @@ std::vector<Intersection> Cylinder::intersect(const Line &line) const
 double Cylinder::angleWithAt(const Line &line, const Intersection &intersection) const
 {
     // go to imaginary world
-    Point tmp = this->tr.apply(intersection.getP(), BACKWARD);
+    Point local_point = this->tr.apply(intersection.getP(), TO_LOCAL);
     // find the point on cylinder axis
-    Point h(0, 0, tmp.getZ());
+    Point local_height(0, 0, local_point.getZ());
     // return to real world
-    Point l = this->tr.apply(h, FORWARD);
+    Point real_height = this->tr.apply(local_height, TO_REAL);
     // get the plane
-    Plane pl(l, intersection.getP());
+    Plane pl(real_height, intersection.getP());
     // return the intersection
     return pl.angleWithAt(line, intersection);
 }
@@ -57,18 +55,18 @@ Line Cylinder::getReflectedRayAt(Intersection &intersection, const Line &line) c
 
 Color Cylinder::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
 {
-    Point tmp = this->tr.apply(intersection, BACKWARD);
+    Point local_point = this->tr.apply(intersection, TO_LOCAL);
     screenWidth = intersection.getX();
 
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
         // get the value of Z as absolute
-        int z_value = tmp.getZ() >= 0 ?   (int)(tmp.getZ() / (double)this->texture.getValue1()) :
-                                    (int)((abs(tmp.getZ())) / this->texture.getValue1());
+        int z_value = local_point.getZ() >= 0 ?   (int)(local_point.getZ() / (double)this->texture.getValue1()) :
+                                    (int)((abs(local_point.getZ())) / this->texture.getValue1());
         // get the ratio of gradient
-        double gr =  (tmp.getZ() >= 0 ?    mod(tmp.getZ(), this->texture.getValue1()) :
-                                        mod(abs(tmp.getZ()), this->texture.getValue1()))
+        double gr =  (local_point.getZ() >= 0 ?    mod(local_point.getZ(), this->texture.getValue1()) :
+                                        mod(abs(local_point.getZ()), this->texture.getValue1()))
                     / (double)this->texture.getValue1();
         return  (z_value % 2 == 0 ? 
                 Color(
@@ -85,39 +83,51 @@ Color Cylinder::getColorAt(int height, int width, int screen_height, int screenW
                 )
             );
     } else if (this->texture.getType() == "Grid") {
-        // Combine vertical and horizontal lined
-        // horizontal
-        int r = tmp.getZ() >= 0 ?   (int)(tmp.getZ() / this->texture.getValue1()) :
-                                    (int)((abs(tmp.getZ()) + this->texture.getValue1()) / this->texture.getValue1());
+        /*
+            The first value of the texture is the number of vertical sections
+            The second value is the width of horizontal lines
+            To find the right color:
+                - Combine vertical and horizontal
+        */
 
-        // vertical
-        Vector v(0, 0, 0, tmp.getX(), tmp.getY(), 0);
-        Vector x_axis(0, 1, 0);
-        double alpha = v.angleWith(x_axis);
-        alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
-        double circumference = this->r * 2 * M_PI;
-        double length = RADIAN(alpha) / (2 * M_PI) * circumference;
-        double lineSize = circumference / (double)this->texture.getValue2();
-
-        return this->getColor((r + (int)(length / lineSize)) % 2);
-    } else if (this->texture.getType() == "VerticalLined") {
-        // get the angle between intersection and x_axis
-        Vector v(0, 0, 0, tmp.getX(), tmp.getY(), 0);
+        // Vertical
+        double lineRadian = 360.0 / texture.getValue1();
+        Vector v(0, 0, 0, local_point.getX(), local_point.getY(), 0);
         Vector x_axis(0, 1, 0);
         double alpha = v.angleWith(x_axis);
         alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
 
-        // get the length of the line from y = 0
-        double circumference = this->r * 2 * M_PI;
-        double length = RADIAN(alpha) / (2 * M_PI) * circumference;
-        double lineSize = circumference / (double)this->texture.getValue1();
+        // Horizontal
+        double ratio = local_point.getZ() >= 0 ?
+                        (int)(local_point.getZ()) :
+                        (int)((abs(local_point.getZ()) + this->texture.getValue2()));
         
-        return this->getColor((int)(length / lineSize) % 2);
+        return this->getColor(((int)(alpha / lineRadian) + (int)(ratio / this->texture.getValue2())) % 2);
+    } else if (this->texture.getType() == "VerticalLined") {
+        /*
+            The first value of the texture is the number of vertical sections
+            The second value is unused
+            To find the right color:
+                - Get section length as degree
+        */
+        double lineRadian = 360.0 / texture.getValue1();
+        Vector v(0, 0, 0, local_point.getX(), local_point.getY(), 0);
+        Vector x_axis(0, 1, 0);
+        double alpha = v.angleWith(x_axis);
+        alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
+
+        return this->getColor((int)(alpha / lineRadian) % 2);
     } else if (this->texture.getType() == "HorizontalLined") {
-        // find the Z intersection
-        int r = tmp.getZ() >= 0 ?   (int)(tmp.getZ() / this->texture.getValue1()) :
-                                    (int)((abs(tmp.getZ()) + this->texture.getValue1()) / this->texture.getValue1());
-        return this->getColor(r % 2);
+        /*
+            The first value of the texture is the width of horizontal lines
+            The second value is unused
+            To find the right color:
+                - Get the height ratio
+        */
+        double ratio = local_point.getZ() >= 0 ?
+                        (int)(local_point.getZ()) :
+                        (int)((abs(local_point.getZ()) + this->texture.getValue1()));
+        return this->getColor((int)(ratio / this->texture.getValue1()) % 2);
     } else if (this->texture.getType() == "Image") {
         throw "Texture type has no power here";
     } else {

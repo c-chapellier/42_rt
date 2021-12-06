@@ -28,10 +28,7 @@ class Transform
 
         void updateMatrices();
 
-        Matrix &getForwardMatrix();
-        Matrix getForwardMatrix() const;
-        Matrix &getBackwardMatrix();
-        Matrix getBackwardMatrix() const;
+        Point getTranslation() const;
 
         Vector apply(const Vector &v, int type) const;
         Point apply(const Point &p, int type) const;

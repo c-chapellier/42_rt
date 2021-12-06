@@ -196,11 +196,7 @@ std::list<Object *> Parser::getObjects()
             objects.push_back(quadratic);
 
         } else if (obj["type"] == "CubicSurface") {
-            CubicSurface *cubicSurface = new CubicSurface(
-                obj["coordinates"][0], 
-                obj["coordinates"][1], 
-                obj["coordinates"][2]
-            );
+            CubicSurface *cubicSurface = new CubicSurface();
             nlohmann::json tmp = obj;
             setTransform(cubicSurface, tmp);
             try { cubicSurface->setX3(tmp["x3"]); } catch (...) {}

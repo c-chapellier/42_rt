@@ -9,12 +9,11 @@ class Intersection;
 class CubicSurface : public Object
 {
     private:
-        Point p;
         double A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T;
 
         Plane tangentAt(const Point &intersection) const;
     public:
-        CubicSurface(double px, double py, double pz);
+        CubicSurface();
         ~CubicSurface();
 
         void setX3(double A);

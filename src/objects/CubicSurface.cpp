@@ -1,6 +1,6 @@
 #include "CubicSurface.hpp"
 
-CubicSurface::CubicSurface(double px, double py, double pz) : p(px, py, pz)
+CubicSurface::CubicSurface()
 {
     this->A = 0;
     this->B = 0;
@@ -48,12 +48,15 @@ void CubicSurface::setK(double T) { this->T = T; }
 
 std::vector<Intersection> CubicSurface::intersect(const Line &line) const
 {
-    double a = line.getV().getX();
-    double b = line.getV().getY();
-    double c = line.getV().getZ();
-    double alpha = line.getP().getX() - this->p.getX();
-    double beta = line.getP().getY() - this->p.getY();
-    double gama = line.getP().getZ() - this->p.getZ();
+
+    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
+
+    double a = local_vector.getX();
+    double b = local_vector.getY();
+    double c = local_vector.getZ();
+    double alpha = local_vector.getP1()->getX();
+    double beta = local_vector.getP1()->getY();
+    double gama = local_vector.getP1()->getZ();
 
     double t3 = A * pow(a, 3) +
                 B * pow(b, 3) +
@@ -129,12 +132,14 @@ std::vector<Intersection> CubicSurface::intersect(const Line &line) const
     std::vector<Intersection> intersections;
     for (double s : solutions) {
         if (s > 0.00001) {
-            Point p(
+            Point local_point(
                 line.getP().getX() + s * line.getV().getX(),
                 line.getP().getY() + s * line.getV().getY(),
                 line.getP().getZ() + s * line.getV().getZ()
             );
-            intersections.push_back(Intersection(p, s, (Object*)this));
+                Point real_point = this->tr.apply(local_point, TO_REAL);
+                double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
+                intersections.push_back(Intersection(real_point, dist, (Object*)this));
         }
     }
     return intersections;
@@ -142,46 +147,46 @@ std::vector<Intersection> CubicSurface::intersect(const Line &line) const
 
 Plane CubicSurface::tangentAt(const Point &intersection) const
 {
-    double x = intersection.getX();
-    double y = intersection.getY();
-    double z = intersection.getZ();
-    double x0 = this->p.getX();
-    double y0 = this->p.getY();
-    double z0 = this->p.getZ();
+    Point local_point = this->tr.apply(intersection, TO_LOCAL);
+    double x = local_point.getX();
+    double y = local_point.getY();
+    double z = local_point.getZ();
 
-    double fx = A * 3 * pow(x - x0, 2) +
-                D * 2 * (x - x0) * (y - y0) +
-                E * 2 * (x - x0) * (z - z0) +
-                F * pow(y - y0, 2) +
-                H * pow(z - z0, 2) +
-                J * (y - y0) * (z - z0) +
-                K * 2 * (x - x0) +
-                N * (y - y0) +
-                O * (z - z0) +
+    double fx = A * 3 * x * x +
+                D * 2 * x * y +
+                E * 2 * x * z +
+                F * y * y +
+                H * z * z +
+                J * y * z +
+                K * 2 * x +
+                N * y +
+                O * z +
                 Q;
 
-    double fy = B * 3 * pow(y - y0, 2) +
-                D * pow(x - x0, 2) +
-                F * 2 * (y - y0) * (x - x0) +
-                G * 2 * (y - y0) * (z - z0) +
-                I * pow(z - z0, 2) +
-                J * (x - x0) * (z - z0) +
-                L * 2 * (y - y0) +
-                N * (x - x0) +
-                P * (z - z0) +
+    double fy = B * 3 * y * y +
+                D * x * x +
+                F * 2 * y * x +
+                G * 2 * y * z +
+                I * z * z +
+                J * x * z +
+                L * 2 * y +
+                N * x +
+                P * z +
                 R;
 
-    double fz = C * 3 * pow(z - z0, 2) +
-                E * pow(x - x0, 2) +
-                G * pow(y - y0, 2) +
-                H * 2 * (z - z0) * (x - x0) +
-                I * 2 * (z - z0) * (y - y0) +
-                J * (x - x0) * (y - y0) +
-                M * 2 * (z - z0) +
-                O * (x - x0) +
-                P * (y - y0) +
+    double fz = C * 3 * z * z +
+                E * x * x +
+                G * y * y +
+                H * 2 * z * x +
+                I * 2 * z * y +
+                J * x * y +
+                M * 2 * z +
+                O * x +
+                P * y +
                 S;
-    return Plane(intersection, fx, fy, fz); 
+    
+    Point tmp = this->tr.apply(Point(fx, fy, fz), TO_REAL);
+    return Plane(intersection, tmp);
 }
 
 double CubicSurface::angleWithAt(const Line &line, const Intersection &intersection) const
@@ -201,21 +206,15 @@ Color CubicSurface::getColorAt(int height, int width, int screen_height, int scr
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
-        double p = (double)((double)height / (double)screen_height);
-        return Color(
-            this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * p),
-            this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * p),
-            this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * p),
-            this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * p)
-        );
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "Grid") {
-        return this->getColor(((height / this->texture.getValue1()) + (width / this->texture.getValue2())) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "VerticalLined") {
-        return this->getColor((width / this->texture.getValue1()) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "HorizontalLined") {
-        return this->getColor((height / this->texture.getValue1()) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "Image") {
-        throw "Texture type Image ca't be apply here";
+        throw "Texture unsupported";
     } else {
         throw "Should never happen";
     }

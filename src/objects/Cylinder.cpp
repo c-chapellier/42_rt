@@ -47,21 +47,20 @@ void Cylinder::intersect(std::vector<Intersection> *intersections, const Line &l
 
 double Cylinder::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    // go to imaginary world
-    Point local_point = this->tr.apply(intersection.getRealPoint(), TO_LOCAL);
-    // find the point on cylinder axis
-    Point local_height(0, 0, local_point.getZ());
-    // return to real world
+    Point local_height(0, 0, intersection.getLocalPoint().getZ());
     Point real_height = this->tr.apply(local_height, TO_REAL);
-    // get the plane
     Plane pl(real_height, intersection.getRealPoint());
-    // return the intersection
     return pl.angleWithAt(line, intersection);
 }
 
 Line Cylinder::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
-    return Line(1, 1, 1, 1, 1, 1);
+    Point local_height(0, 0, intersection.getLocalPoint().getZ());
+    Point real_height = this->tr.apply(local_height, TO_REAL);
+    Vector normal(real_height, intersection.getRealPoint());
+    Vector reflexion =  normal.getReflectionOf(line.getV());
+    reflexion.setP1(intersection.getRealPoint());
+    return Line(intersection.getRealPoint(), reflexion);
 }
 
 Color Cylinder::getColorAt(const Point &intersection) const

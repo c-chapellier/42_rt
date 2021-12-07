@@ -2,7 +2,7 @@
     "name": "sphere",
     "width": 600,
     "height": 600,
-    "precision": 2,
+    "precision": 1,
     "colors" : {
         "red": [234, 15, 34, 255],
         "blue": [15, 34, 234, 255],
@@ -30,8 +30,8 @@
             "type": "Polygon",
             "name": "Tape",
             "coordinates": [0, 0, 0],
-            "values": [30, 20, 3, 0],
-            "rotation": [0, 0, 0],
+            "values": [80, 40, 3, 0],
+            "rotation": [0, 30, 0],
             "colors": [
                 "red"
             ]

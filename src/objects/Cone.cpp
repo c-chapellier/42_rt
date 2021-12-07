@@ -47,22 +47,24 @@ void Cone::intersect(std::vector<Intersection> *intersections, const Line &line)
 
 double Cone::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    // go to imaginary world
-    Point local_point = this->tr.apply(intersection.getRealPoint(), TO_LOCAL);
-    // get angle
     double angle = 90 - (180 - 90 - alpha);
-    double offset = tan(RADIAN(angle)) * abs(local_point.getZ());
-    Point h(0, 0, local_point.getZ() > 0 ? local_point.getZ() + offset : local_point.getZ() - offset);
-    // return to real world
-    Point real_point = this->tr.apply(h, TO_REAL);
-    // get the plane
-    Plane pl(real_point, intersection.getRealPoint());
+    double offset = tan(RADIAN(angle)) * abs(intersection.getLocalPoint().getZ());
+    Point local_height(0, 0, intersection.getLocalPoint().getZ() > 0 ? intersection.getLocalPoint().getZ() + offset : intersection.getLocalPoint().getZ() - offset);
+    Point real_height = this->tr.apply(local_height, TO_REAL);
+    Plane pl(real_height, intersection.getRealPoint());
     return pl.angleWithAt(line, intersection);
 }
 
 Line Cone::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
-    return Line(1, 1, 1, 1, 1, 1);
+    double angle = 90 - (180 - 90 - alpha);
+    double offset = tan(RADIAN(angle)) * abs(intersection.getLocalPoint().getZ());
+    Point local_height(0, 0, intersection.getLocalPoint().getZ() > 0 ? intersection.getLocalPoint().getZ() + offset : intersection.getLocalPoint().getZ() - offset);
+    Point real_height = this->tr.apply(local_height, TO_REAL);
+    Vector normal(real_height, intersection.getRealPoint());
+    Vector reflexion =  normal.getReflectionOf(line.getV());
+    reflexion.setP1(intersection.getRealPoint());
+    return Line(intersection.getRealPoint(), reflexion);
 }
 
 Color Cone::getColorAt(const Point &intersection) const

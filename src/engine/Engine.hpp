@@ -31,7 +31,6 @@ class Engine
         void findObjects(const Point &cam, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
         void applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels);
         void applyFilter(std::vector< std::vector<Pixel> > &pixels);
-        void apply3D(std::vector< std::vector<Pixel> > &pixels);
         void applyBlur(std::vector< std::vector<Pixel> > &pixels);
         void applyPrecision(std::vector< std::vector<Pixel> > &pixels);
 
@@ -56,5 +55,5 @@ class Engine
         ~Engine();
 
         void run();
-        void runVideo();
+        // void runVideo();
 };

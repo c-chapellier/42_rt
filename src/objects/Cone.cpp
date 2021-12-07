@@ -1,5 +1,11 @@
 #include "Cone.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 Cone::Cone(double alpha)
     : alpha(alpha)
 {
@@ -7,6 +13,12 @@ Cone::Cone(double alpha)
 }
 
 Cone::~Cone() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Cone::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

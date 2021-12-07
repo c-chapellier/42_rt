@@ -1,13 +1,22 @@
 #include "QuadraticSurface.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 QuadraticSurface::QuadraticSurface(double A, double B, double C, double D, double E, double F, double G, double H, double I, double J)
     : Object(), A(A), B(B), C(C), D(D), E(E), F(F), G(G), H(H), I(I), J(J)
-{
-}
+{}
 
-QuadraticSurface::~QuadraticSurface()
-{
-}
+QuadraticSurface::~QuadraticSurface() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void QuadraticSurface::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

@@ -1,5 +1,11 @@
 #include "Object.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 Object::Object()
     : texture(), tr()
 {
@@ -14,6 +20,12 @@ Object::Object(const Color &color)
 }
 
 Object::~Object() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                GETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 Color Object::getColor() const
 {
@@ -38,6 +50,12 @@ int Object::getReflexion() const
 {
     return this->reflexion;
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                SETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Object::addColor(const Color &color)
 {

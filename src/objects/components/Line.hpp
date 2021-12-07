@@ -26,9 +26,7 @@ class Line
         Vector getV() const;
 
         double distWith(const Point &p) const;
-
         Point getPointFor(double t) const;
-        Point getPointAt(double dist) const;
 
         friend std::ostream& operator<< (std::ostream& out, const Line& line);
 };

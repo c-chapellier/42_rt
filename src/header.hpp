@@ -22,8 +22,6 @@
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_timer.h>
 
-#include "exceptions/NoInterException.hpp"
-
 #include "loadingBar/LoadingBar.hpp"
 #include "window/Window.hpp"
 #include "visuals/Camera.hpp"

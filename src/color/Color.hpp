@@ -7,24 +7,23 @@
 class Color
 {
     private:
-        int r;
-        int g;
-        int b;
-        int o;
+        unsigned char r;
+        unsigned char g;
+        unsigned char b;
+        unsigned char o;
 
         void generateRandomColor();
         int getByO(int c);
     public:
         Color();
-        Color(int o);
         Color(int r, int g, int b);
         Color(int r, int g, int b, int o);
         ~Color();
 
-        int getR() const;
-        int getG() const;
-        int getB() const;
-        int getO() const;
+        unsigned char getR() const;
+        unsigned char getG() const;
+        unsigned char getB() const;
+        unsigned char getO() const;
         double getPR() const;
         double getPG() const;
         double getPB() const;

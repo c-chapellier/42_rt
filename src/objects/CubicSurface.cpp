@@ -1,5 +1,11 @@
 #include "CubicSurface.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 CubicSurface::CubicSurface()
 {
     this->A = 0;
@@ -25,6 +31,12 @@ CubicSurface::CubicSurface()
 }
 CubicSurface::~CubicSurface() {}
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                SETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 void CubicSurface::setX3(double A) { this->A = A; }
 void CubicSurface::setY3(double B) { this->B = B; }
 void CubicSurface::setZ3(double C) { this->C = C; }
@@ -45,6 +57,12 @@ void CubicSurface::setX(double Q) { this->Q = Q; }
 void CubicSurface::setY(double R) { this->R = R; }
 void CubicSurface::setZ(double S) { this->S = S; }
 void CubicSurface::setK(double T) { this->T = T; }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void CubicSurface::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

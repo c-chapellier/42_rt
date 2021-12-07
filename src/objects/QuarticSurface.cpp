@@ -1,5 +1,11 @@
 #include "QuarticSurface.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 QuarticSurface::QuarticSurface()
 {
     this->C1 = 0;
@@ -40,6 +46,12 @@ QuarticSurface::QuarticSurface()
 }
 QuarticSurface::~QuarticSurface() {}
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                SETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 void QuarticSurface::setX4(double C1) { this->C1 = C1; }
 void QuarticSurface::setY4(double C2) { this->C2 = C2; }
 void QuarticSurface::setZ4(double C3) { this->C3 = C3; }
@@ -75,6 +87,12 @@ void QuarticSurface::setX(double C32) { this->C32 = C32; }
 void QuarticSurface::setY(double C33) { this->C33 = C33; }
 void QuarticSurface::setZ(double C34) { this->C34 = C34; }   
 void QuarticSurface::setK(double C35) { this->C35 = C35; }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void QuarticSurface::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

@@ -1,47 +1,36 @@
 #include "Triangle.hpp"
 
-Triangle::Triangle(double p1x, double p1y, double p1z, double p2x, double p2y, double p2z, double p3x, double p3y, double p3z)
-    : p1(p1x, p1y, p1z), p2(p2x, p2y, p2z), p3(p3x, p3y, p3z)
-{
-}
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 Triangle::Triangle(const Point &p1, const Point &p2, const Point &p3)
     : p1(p1), p2(p2), p3(p3)
-{
-}
+{}
 Triangle::Triangle(Point *p1, Point *p2, Point *p3)
     : p1(p1), p2(p2), p3(p3)
-{
-}
+{}
 
-Triangle::Triangle(const Triangle &triangle)
-    : p1(triangle.p1), p2(triangle.p2), p3(triangle.p3)
-{
-}
+Triangle::~Triangle() {}
 
-Triangle::~Triangle()
-{
-}
+/* * * * * * * * * * * * * * * * * * * * *
 
-Point &Triangle::getP1()
-{
-    return this->p1;
-}
+*                GETTER                  *
 
-Point &Triangle::getP2()
-{
-    return this->p2;
-}
-
-Point &Triangle::getP3()
-{
-    return this->p3;
-}
+* * * * * * * * * * * * * * * * * * * * */
 
 Plane Triangle::getPlane() const
 {
     return Plane(this->p1, this->p2, this->p3);
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                FUNCTIONS               *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Triangle::intersect(std::vector<Intersection> *intersections, const Line &l, Object *obj) const
 {

@@ -1,16 +1,33 @@
 #include "Sphere.hpp"
 
-Sphere::Sphere(double r) : Object(), r(r)
-{
+/* * * * * * * * * * * * * * * * * * * * *
 
-}
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
+Sphere::Sphere(double r)
+    : Object(), r(r)
+{}
 
 Sphere::~Sphere(){};
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                GETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 double Sphere::getR() const
 {
     return this->r;
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                FUNCTIONS               *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Sphere::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

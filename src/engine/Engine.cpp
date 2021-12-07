@@ -80,7 +80,7 @@ void Engine::runVideo()
             std::vector< std::vector<Pixel> > pixels;
             pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width, Pixel(0, 0, 0, 0, INFINITY)));
 
-            this->threadedFindObjects(*camera, screen, pixels);
+            this->threadedFindObjects(camera->getP(), screen, pixels);
             this->applyPerlinNoise(pixels);
             this->applyFilter(pixels);
             this->applyBlur(pixels);
@@ -125,7 +125,7 @@ void Engine::run()
         pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width, Pixel(0, 0, 0, 0, INFINITY)));
 
         std::cout << "findObjects" << std::endl;
-        this->threadedFindObjects(*camera, screen, pixels);
+        this->threadedFindObjects(camera->getP(), screen, pixels);
         
         std::cout << "applyPerlinNoise" << std::endl;
         this->applyPerlinNoise(pixels);
@@ -153,12 +153,12 @@ void Engine::run()
     this->win->pause();
 }
 
-void Engine::threadedFindObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
+void Engine::threadedFindObjects(const Point &point_of_vue, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
 {
     std::vector<std::thread> threads;
 
     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-        threads.push_back(std::thread(&Engine::findObjects, this, camera.getP(), std::ref(screen), std::ref(pixels)));
+        threads.push_back(std::thread(&Engine::findObjects, this, point_of_vue, std::ref(screen), std::ref(pixels)));
     
     // std::cout << "manageLoadingBar" << std::endl;
     // this->manageLoadingBar();
@@ -257,7 +257,7 @@ Color Engine::getColor(Intersection &inter, Line &ray, int index)
                     break;
             }
             if(new_intersections.size() != 0)
-                c = getReflectedColor(
+                getReflectedColor(
                     inter.getObj()->getColorAt(inter.getLocalPoint()), 
                     c, 
                     (double)inter.getObj()->getReflexion() / 100.0);
@@ -274,14 +274,18 @@ Color Engine::getColor(Intersection &inter, Line &ray, int index)
     return c;
 }
 
-Color Engine::getReflectedColor(const Color &c1, const Color &c2, double factor) const
+void Engine::getReflectedColor(const Color &c1, Color &c2, double factor) const
 {
-    return Color(
-        c1.getR() + (int)((double)((double)c2.getR() - (double)c1.getR()) * factor),
-        c1.getG() + (int)((double)((double)c2.getG() - (double)c1.getG()) * factor),
-        c1.getB() + (int)((double)((double)c2.getB() - (double)c1.getB()) * factor),
-        c1.getO()
-    );
+    c2.setR(c1.getR() + (int)((double)(c2.getR() - c1.getR()) * factor));
+    c2.setG(c1.getG() + (int)((double)(c2.getG() - c1.getG()) * factor));
+    c2.setB(c1.getB() + (int)((double)(c2.getB() - c1.getB()) * factor));
+    c2.setO(c1.getO());
+    // return Color(
+    //     c1.getR() + (int)((double)(c2.getR() - c1.getR()) * factor),
+    //     c1.getG() + (int)((double)(c2.getG() - c1.getG()) * factor),
+    //     c1.getB() + (int)((double)(c2.getB() - c1.getB()) * factor),
+    //     c1.getO()
+    // );
 }
 
 void Engine::applyLights(Intersection &inter, Color &color)

@@ -1,11 +1,34 @@
 #include "Transform.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 Transform::Transform()
     : alpha(0), beta(0), gama(0), translation(0, 0, 0), scaling(1, 1, 1), forward_matrix(4, 4), backward_matrix(4, 4)
 {
     updateMatrices();
 }
 Transform::~Transform() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                GETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
+
+Point Transform::getTranslation() const
+{
+    return this->translation;
+}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                SETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Transform::setAlpha(double alpha)
 {
@@ -72,15 +95,17 @@ void Transform::updateMatrices()
     backward_matrix.inverse();
 }
 
-Point Transform::getTranslation() const
-{
-    return this->translation;
-}
+/* * * * * * * * * * * * * * * * * * * * *
+
+*              FUNCTIONS                 *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 Vector Transform::apply(const Vector &v, int type) const
 {
     return Vector(apply(*v.getP1(), type), apply(*v.getP2(), type));
 }
+
 Point Transform::apply(const Point &p, int type) const
 {
     Matrix m_p1(1, 4);

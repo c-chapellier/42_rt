@@ -1,11 +1,22 @@
 #include "MobiusTape.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 MobiusTape::MobiusTape(double A, double B, double C, double D, double E, double F, double G)
     : A(A), B(B), C(C), D(D), E(E), F(F), G(G)
-{
+{}
 
-}
-MobiusTape::~MobiusTape(){}
+MobiusTape::~MobiusTape() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void MobiusTape::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

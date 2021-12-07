@@ -1,5 +1,11 @@
 #include "Vector.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 Vector::Vector(const double x, const double y, const double z)
     : x(x), y(y), z(z)
 {
@@ -42,25 +48,64 @@ Vector::Vector(const Vector &vector)
     this->p2 = new Point(vector.p2);
 }
 
-// Vector::Vector(const Vector &vector, double div)
-//     : x(vector.x / div), y(vector.y / div), z(vector.z / div)
-// {
-// }
-
 Vector::~Vector()
 {
     delete(p1);
     delete(p2);
 }
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                GETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
+
+double Vector::getX() const
+{
+    return this->x;
+}
+
+double Vector::getY() const
+{
+    return this->y;
+}
+
+double Vector::getZ() const
+{
+    return this->z;
+}
+
+Point *Vector::getP1() const
+{
+    return this->p1;
+}
+
+Point *Vector::getP2() const
+{
+    return this->p2;
+}
+
+double Vector::getMagnitude() const
+{
+    return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
+}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                SETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 void Vector::setX(double x)
 {
     this->x = x;
 }
+
 void Vector::setY(double y)
 {
     this->y = y;
 }
+
 void Vector::setZ(double z)
 {
     this->z = z;
@@ -74,33 +119,6 @@ void Vector::setP1(const Point &p)
     this->p2 = new Point(p1->getX() + x, p1->getY() + y, p1->getZ() + z);
 }
 
-double Vector::getX() const
-{
-    return this->x;
-}
-double Vector::getY() const
-{
-    return this->y;
-}
-double Vector::getZ() const
-{
-    return this->z;
-}
-
-Point *Vector::getP1() const
-{
-    return this->p1;
-}
-Point *Vector::getP2() const
-{
-    return this->p2;
-}
-
-double Vector::getMagnitude() const
-{
-    return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
-}
-
 void Vector::normalize()
 {
     double magnitude = getMagnitude();
@@ -110,6 +128,12 @@ void Vector::normalize()
     delete(this->p2);
     this->p2 = new Point(p1->getX() + x, p1->getY() + y, p1->getZ() + z);
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 double Vector::scalarProduct(const Vector &v) const
 {
@@ -204,10 +228,12 @@ double Vector::scalarProduct(const Vector &v1, const Vector &v2)
 {
     return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 }
+
 double Vector::dotProduct(const Vector &v1, const Vector &v2)
 {
     return Vector::scalarProduct(v1, v2);
 }
+
 Vector Vector::crossProduct(const Vector &v1, const Vector &v2)
 {
     return Vector(
@@ -216,6 +242,12 @@ Vector Vector::crossProduct(const Vector &v1, const Vector &v2)
         (v1.x * v2.y) - (v2.x * v1.y)
     );
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*              OPERATORS                 *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 Vector &Vector::operator=(const Vector &v)
 {
@@ -232,9 +264,11 @@ Vector &Vector::operator=(const Vector &v)
 Vector operator+(const Vector &v1, const Vector &v2){
     return Vector(v1.getX() + v2.getX(), v1.getY() + v2.getY(), v1.getZ() + v2.getZ());
 }
+
 Vector operator-(const Vector &v1, const Vector &v2){
     return Vector(v1.getX() - v2.getX(), v1.getY() - v2.getY(), v1.getZ() - v2.getZ());
 }
+
 Vector operator*(const Vector &v1, const Vector &v2){
     return Vector(v1.getX() * v2.getX(), v1.getY() * v2.getY(), v1.getZ() * v2.getZ());
 }
@@ -243,6 +277,7 @@ Vector operator*(const Vector &v1, const double d)
 {
     return Vector(v1.getX() * d, v1.getY() * d, v1.getZ() * d);
 }
+
 Vector operator*(const Vector &v1, const int d)
 {
     return Vector(v1.getX() * d, v1.getY() * d, v1.getZ() * d);

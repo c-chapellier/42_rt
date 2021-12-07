@@ -1,31 +1,37 @@
 #include "Plane.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 Plane::Plane(const double px, const double py, const double pz, const double vx, const double vy, const double vz)
     : Object(), p(px, py, pz), v(vx, vy, vz)
-{
-}
+{}
 
 Plane::Plane(const Point &p1, const Point &p2) : Object(), p(p1), v(p2, p1)
 {}
 
 Plane::Plane(const Point &p, const Vector &v)
     : Object(), p(p), v(v)
-{
-}
+{}
 
 Plane::Plane(const Point &p, double vx, double vy, double vz)
     : Object(), p(p), v(vx, vy, vz)
-{
-}
+{}
 
 Plane::Plane(const Point &p1, const Point &p2, const Point &p3)
     : Object(), p(p1), v(Vector(p1, p2).crossProduct(Vector(p1, p3)))
-{
-}
+{}
 
-Plane::~Plane()
-{
-}
+Plane::~Plane() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                GETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 Point Plane::getP() const
 {
@@ -35,6 +41,12 @@ Vector Plane::getV() const
 {
     return this->v;
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Plane::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
@@ -46,12 +58,11 @@ void Plane::intersect(std::vector<Intersection> *intersections, const Line &line
     double C = (a * line.getP().getX()) + (b * line.getP().getY()) + (c * line.getP().getZ());
 
     if (t == 0 && C != K) {
-        //throw NoInterException("Line do not intersect the plane");
+        
     } else if (t == 0 && C == K) {
-        //throw NoInterException("Line do not intersect the plane");
+        
     } else {
         double s = (K - C) / t;
-        //return line.getPointFor(s);
         if(s > 0.00001)
             intersections->push_back(Intersection(line.getPointFor(s), line.getPointFor(s), s, (Object*)this));
     }
@@ -109,6 +120,12 @@ Color Plane::getColorAt(const Point &intersection) const
         throw "Should never happen";
     }
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               OPERATORS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 std::ostream& operator<< (std::ostream& out, const Plane& plane)
 {

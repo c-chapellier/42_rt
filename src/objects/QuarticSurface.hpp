@@ -2,7 +2,8 @@
 
 #include <math.h>
 #include "Object.hpp"
-#include "./../exceptions/NoInterException.hpp"
+#include "./../header.hpp"
+
 class Intersection;
 
 class QuarticSurface : public Object

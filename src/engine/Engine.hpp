@@ -26,7 +26,7 @@ class Engine
 
         std::vector< std::vector<Vector> > GRADIENT;
 
-        void threadedFindObjects(const Camera &camera, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
+        void threadedFindObjects(const Point &point_of_vue, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
         bool getNextPixel(int &height, int &width);
         void findObjects(const Point &cam, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
         void applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels);
@@ -49,7 +49,7 @@ class Engine
         void drawPixel(std::vector<Intersection> &intersections, Pixel &pixel, Line &ray);
         Color getColor(Intersection &inter, Line &ray, int index);
         void applyLights(Intersection &inter, Color &color);
-        Color getReflectedColor(const Color &c1, const Color &c2, double factor) const;
+        void getReflectedColor(const Color &c1, Color &c2, double factor) const;
 
     public:
         Engine(std::string config_file);

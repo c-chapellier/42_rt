@@ -1,10 +1,24 @@
 #include "Cylinder.hpp"
 
-Cylinder::Cylinder(double r) : r(r)
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
+Cylinder::Cylinder(double r)
+    : r(r)
 {
     tr.updateMatrices();
 }
-Cylinder::~Cylinder(){}
+
+Cylinder::~Cylinder() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Cylinder::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

@@ -2,8 +2,8 @@
 
 
 #include "Object.hpp"
+#include "./../header.hpp"
 #include "./../solver/EquationSolver.hpp"
-#include "../exceptions/NoInterException.hpp"
 
 class Intersection;
 

@@ -1,11 +1,24 @@
 #include "Circle.hpp"
 
-Circle::Circle(double R, double r) : R(R), r(r)
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
+Circle::Circle(double R, double r)
+    : R(R), r(r)
 {
     if (r >= R || r < 0 || R < 0)
         throw "Impossible circle";
 }
 Circle::~Circle() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Circle::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

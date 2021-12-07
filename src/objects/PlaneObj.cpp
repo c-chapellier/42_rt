@@ -1,12 +1,23 @@
 #include "PlaneObj.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 PlaneObj::PlaneObj(){}
 PlaneObj::~PlaneObj(){}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void PlaneObj::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
     Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
-    Vector normal(0, 0, 1);
 
     if (local_vector.getZ() == 0) {
         // line in the plane

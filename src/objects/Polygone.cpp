@@ -1,12 +1,12 @@
 #include "Polygone.hpp"
 
-Polygone::Polygone(std::vector<Triangle*> triangles) : Object(), triangles(triangles)
-{
-    if (triangles.size() == 0)
-        throw "Can not create a polygone without any triangle";
-}
+/* * * * * * * * * * * * * * * * * * * * *
 
-Polygone::Polygone(std::vector<Triangle*> triangles, const Color &color) : Object(color), triangles(triangles)
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
+Polygone::Polygone(std::vector<Triangle*> triangles) : Object(), triangles(triangles)
 {
     if (triangles.size() == 0)
         throw "Can not create a polygone without any triangle";
@@ -18,6 +18,12 @@ Polygone::~Polygone()
         delete(triangles[i]);
     }
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               FUNCTIONS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Polygone::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {

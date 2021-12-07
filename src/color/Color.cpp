@@ -1,18 +1,17 @@
 #include "Color.hpp"
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*       CONSTRUCTORS & DESTRUCTOR        *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 Color::Color()
 {
-    this->setR(0);
-    this->setG(0);
-    this->setB(0);
-    //this->generateRandomColor();
+    this->r = 0;
+    this->g = 0;
+    this->b = 0;
     this->o = 0;
-}
-
-Color::Color(int o)
-{
-    this->generateRandomColor();
-    this->setO(o);
 }
 Color::Color(int r, int g, int b)
 {
@@ -30,22 +29,29 @@ Color::Color(int r, int g, int b, int o)
 }
 Color::~Color(){}
 
-int Color::getR() const
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                GETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
+
+unsigned char Color::getR() const
 {
     return this->r;
 }
-int Color::getG() const
+unsigned char Color::getG() const
 {
     return this->g;
 }
-int Color::getB() const
+unsigned char Color::getB() const
 {
     return this->b;
 }
-int Color::getO() const
+unsigned char Color::getO() const
 {
     return this->o;
 }
+
 double Color::getPR() const
 {
     return (double)this->r / 255;
@@ -60,8 +66,14 @@ double Color::getPB() const
 }
 double Color::getP() const
 {
-    return (double)((double)this->o / (double)255);
+    return (double)this->o / 255;
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                SETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 void Color::setR(int r)
 {
@@ -80,18 +92,11 @@ void Color::setO(int o)
     this->o = o < 0 ? (0) : (o > 255 ? (255): (o));
 }
 
-void Color::generateRandomColor()
-{
-    this->r = rand() % 256;
-    this->g = rand() % 256;
-    this->b = rand() % 256;
-}
-int Color::getByO(int c)
-{
-    double p = (double)((double)this->o / (double)255);
-    double res = (double)c * p;
-    return (int)res;
-}
+/* * * * * * * * * * * * * * * * * * * * *
+
+*               MODIFIERS                *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 Color Color::reduceOf(double ratio) const
 {
@@ -106,24 +111,27 @@ Color Color::reduceOf(double ratio) const
     new_g = (double)this->g * (1.0 - ratio);
     new_b = (double)this->b * (1.0 - ratio);
 
-    return Color((int)new_r, (int)new_g, (int)new_b, this->o);
+    return Color(new_r, new_g, new_b, o);
 }
 
 Color Color::add(const Color &c)
 {
-    this->r += c.getR();
-    this->g += c.getG();
-    this->b += c.getB();
+    int r_tmp = this->r + c.r;
+    int g_tmp = this->g + c.g;
+    int b_tmp = this->b + c.b;
 
-    if (this->r > 255)
-        this->r = 255;   
-    if (this->g > 255)
-        this->g = 255;    
-    if (this->b > 255)
-        this->b = 255;
-        
-    return Color(this->r, this->g, this->b, this->o);
+    this->r = r_tmp > 255 ? 255 : r_tmp;
+    this->g = g_tmp > 255 ? 255 : g_tmp;
+    this->b = b_tmp > 255 ? 255 : b_tmp;
+
+    return *this;
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*              OPERATORS                 *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 Color &Color::operator=(const Color &p)
 {
@@ -137,10 +145,10 @@ Color &Color::operator=(const Color &p)
 std::ostream& operator<< (std::ostream& out, const Color& color)
 {
     out << "Color : {" << std::endl
-    << "\tr: " << color.r << std::endl
-    << "\tg: " << color.g << std::endl
-    << "\tb: " << color.b << std::endl
-    << "\to: " << color.o << std::endl
+    << "\tr: " << (int)color.r << std::endl
+    << "\tg: " << (int)color.g << std::endl
+    << "\tb: " << (int)color.b << std::endl
+    << "\to: " << (int)color.o << std::endl
     << '}' << std::endl;
     return out;
 }

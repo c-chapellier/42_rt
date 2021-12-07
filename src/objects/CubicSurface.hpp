@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Object.hpp"
-#include "./../exceptions/NoInterException.hpp"
+#include "./../header.hpp"
 
 class Intersection;
 

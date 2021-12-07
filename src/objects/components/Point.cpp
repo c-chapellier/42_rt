@@ -1,24 +1,33 @@
 #include "Point.hpp"
 
-Point::Point(): x(0), y(0), z(0)
-{
+/* * * * * * * * * * * * * * * * * * * * *
 
-}
+*       CONSTRUCTORS & DESTRUCTOR        *
 
-Point::Point(const double x, const double y, const double z) : x(x), y(y), z(z)
-{
-}
+* * * * * * * * * * * * * * * * * * * * */
 
-Point::Point(const Point &point) : x(point.x), y(point.y), z(point.z)
-{
-}
-Point::Point(Point *point) : x(point->x), y(point->y), z(point->z)
-{
-}
+Point::Point()
+    : x(0), y(0), z(0)
+{}
 
-Point::~Point()
-{
-}
+Point::Point(const double x, const double y, const double z)
+    : x(x), y(y), z(z)
+{}
+
+Point::Point(const Point &point)
+    : x(point.x), y(point.y), z(point.z)
+{}
+Point::Point(Point *point)
+    : x(point->x), y(point->y), z(point->z)
+{}
+
+Point::~Point() {}
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                GETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 double Point::getX() const
 {
@@ -33,6 +42,12 @@ double Point::getZ() const
     return this->z;
 }
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                SETTER                  *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 void Point::setX(double x)
 {
     this->x = x;
@@ -46,14 +61,15 @@ void Point::setZ(double z)
     this->z = z;
 }
 
+/* * * * * * * * * * * * * * * * * * * * *
+
+*                FUNCTIONS               *
+
+* * * * * * * * * * * * * * * * * * * * */
+
 double Point::distWith(const Point &p) const
 {
     return sqrt(pow(p.x - this->x, 2) + pow(p.y - this->y, 2) + pow(p.z - this->z, 2));
-}
-
-Point Point::applyVector(const Vector &vector) const
-{
-    return Point(this->x + vector.getX(), this->y + vector.getY(), this->z + vector.getZ());
 }
 
 Point Point::rotateAroundX(double alpha) const
@@ -124,6 +140,12 @@ Point Point::rotateAroundZ(double alpha) const
 
     return Point(new_x, new_y, this->z);
 }
+
+/* * * * * * * * * * * * * * * * * * * * *
+
+*              OPERATORS                 *
+
+* * * * * * * * * * * * * * * * * * * * */
 
 Point &Point::operator=(const Point &p)
 {

@@ -7,7 +7,7 @@ MobiusTape::MobiusTape(double A, double B, double C, double D, double E, double 
 }
 MobiusTape::~MobiusTape(){}
 
-std::vector<Intersection> MobiusTape::intersect(const Line &line) const
+void MobiusTape::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
     Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
 
@@ -59,7 +59,6 @@ std::vector<Intersection> MobiusTape::intersect(const Line &line) const
 
     std::list<double> solutions = EquationSolver::solveCubicEquation(x3, x2, x1, x0);
 
-    std::vector<Intersection> intersections;
     for (double s : solutions) {
         if (s > 0.00001) {
             Point local_point(
@@ -69,10 +68,9 @@ std::vector<Intersection> MobiusTape::intersect(const Line &line) const
             );
             Point real_point = this->tr.apply(local_point, TO_REAL);
             double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
-            intersections.push_back(Intersection(real_point, dist, (Object*)this));
+            intersections->push_back(Intersection(real_point, local_point, dist, (Object*)this));
         }
     }
-    return intersections;
 }
 
 Plane MobiusTape::tangentAt(const Point &intersection) const
@@ -105,18 +103,16 @@ Plane MobiusTape::tangentAt(const Point &intersection) const
 
 double MobiusTape::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    return this->tangentAt(intersection.getP()).angleWith(line);
+    return this->tangentAt(intersection.getRealPoint()).angleWith(line);
 }
 
 Line MobiusTape::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
-    return this->tangentAt(intersection.getP()).getReflectedRayAt(intersection, line);
+    return this->tangentAt(intersection.getRealPoint()).getReflectedRayAt(intersection, line);
 }
 
-Color MobiusTape::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
+Color MobiusTape::getColorAt(const Point &intersection) const
 {
-    screenWidth = intersection.getX();
-
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {

@@ -25,5 +25,5 @@ class Triangle
         Point &getP3();
         Plane getPlane() const;
 
-        std::vector<Intersection> intersect(const Line &l) const;
+        void intersect(std::vector<Intersection> *intersections, const Line &l, Object *obj) const;
 };

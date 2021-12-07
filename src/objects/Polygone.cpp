@@ -19,17 +19,11 @@ Polygone::~Polygone()
     }
 }
 
-std::vector<Intersection> Polygone::intersect(const Line &line) const
+void Polygone::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
-    std::vector<Intersection> intersections;
-
     for (unsigned long i = 0; i < this->triangles.size(); ++i) {
-        std::vector<Intersection> tmp = triangles[i]->intersect(line);
-        for(Intersection inter : tmp) {
-            intersections.push_back(Intersection(inter.getP(), inter.getDist(), (Object*)this, triangles[i]));
-        }
+        triangles[i]->intersect(intersections, line, (Object*)this);
     }
-    return intersections;
 }
 
 double Polygone::angleWithAt(const Line &line, const Intersection &intersection) const
@@ -42,28 +36,20 @@ Line Polygone::getReflectedRayAt(Intersection &intersection, const Line &line) c
     return intersection.getTr()->getPlane().getReflectedRayAt(intersection, line);
 }
 
-Color Polygone::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
+Color Polygone::getColorAt(const Point &intersection) const
 {
-    screenWidth = intersection.getX();
-
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
-        double p = (double)((double)height / (double)screen_height);
-        return Color(
-            this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * p),
-            this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * p),
-            this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * p),
-            this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * p)
-        );
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "Grid") {
-        return this->getColor(((height / this->texture.getValue1()) + (width / this->texture.getValue2())) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "VerticalLined") {
-        return this->getColor((width / this->texture.getValue1()) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "HorizontalLined") {
-        return this->getColor((height / this->texture.getValue1()) % 2);
+        throw "Texture unsupported";
     } else if (this->texture.getType() == "Image") {
-        throw "Texture type Image ca't be apply here";
+        throw "Texture unsupported";
     } else {
         throw "Should never happen";
     }

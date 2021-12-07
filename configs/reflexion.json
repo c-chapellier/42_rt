@@ -15,8 +15,8 @@
     "ambient": "ambient",
     "cameras": [
         {
-            "coordinates": [-100, 0, 0],
-            "direction": [1, 0, 0],
+            "coordinates": [-400, 0, 200],
+            "direction": [1, 0, -0.5],
             "up":[0, 0, 1],
             "aperture": 90
         }
@@ -36,12 +36,64 @@
             ],
             "texture": {
                 "type": "Grid",
-                "values": [8, 8]
+                "values": [50, 50]
             },
+            "alpha": 0,
+            "beta": 0,
+            "gama": 45,
+            "coordinates": [0, 0, -70],
+            "scaling": [1, 1, 1]
+        },
+        {
+            "type": "PlaneObj",
+            "colors": [
+                "mirror"
+            ],
+            
+            "reflection": 50,
+            "alpha": 0,
+            "beta": 90,
+            "gama": 0,
+            "coordinates": [100, 0, -70],
+            "scaling": [1, 1, 1]
+        },
+        {
+            "type": "Sphere",
+            "colors": [
+                "red"
+            ],
+            "radius": 50,
+            "reflection": 10,
+            "alpha": 0,
+            "beta": 0,
+            "gama": 0,
+            "coordinates": [0, -100, 0],
+            "scaling": [1, 1, 1]
+        },
+        {
+            "type": "Sphere",
+            "colors": [
+                "green"
+            ],
+            "radius": 50,
+            "reflection": 10,
             "alpha": 0,
             "beta": 0,
             "gama": 0,
             "coordinates": [0, 0, 0],
+            "scaling": [1, 1, 1]
+        },
+        {
+            "type": "Sphere",
+            "colors": [
+                "blue"
+            ],
+            "radius": 50,
+            "reflection": 10,
+            "alpha": 0,
+            "beta": 0,
+            "gama": 0,
+            "coordinates": [0, 100, 0],
             "scaling": [1, 1, 1]
         }
     ]

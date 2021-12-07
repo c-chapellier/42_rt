@@ -54,6 +54,12 @@ std::list<Object *> Parser::getObjects()
 
     for (auto const& obj : this->j["objects"])
     {
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *                 PLANE                  *
+
+        * * * * * * * * * * * * * * * * * * * * */
+
         if (obj["type"] == "Plane") {
             Plane *plane = new Plane(
                 obj["point"][0], 
@@ -75,6 +81,12 @@ std::list<Object *> Parser::getObjects()
 
             objects.push_back(plane);
 
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *             PLANE OBJ                  *
+
+        * * * * * * * * * * * * * * * * * * * * */
+
         } else if (obj["type"] == "PlaneObj") {
             PlaneObj *plane = new PlaneObj();
 
@@ -88,6 +100,12 @@ std::list<Object *> Parser::getObjects()
             try { plane->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(plane);
+
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *                 SPHERE                 *
+
+        * * * * * * * * * * * * * * * * * * * * */
 
         }else if (obj["type"] == "Sphere") {
             Sphere *sphere = new Sphere(
@@ -105,6 +123,12 @@ std::list<Object *> Parser::getObjects()
 
             objects.push_back(sphere);
 
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *               CYLINDER                 *
+
+        * * * * * * * * * * * * * * * * * * * * */
+
         } else if (obj["type"] == "Cylinder") {
             Cylinder *cylinder = new Cylinder(
                 obj["radius"]
@@ -120,6 +144,12 @@ std::list<Object *> Parser::getObjects()
             try { cylinder->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(cylinder);
+
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *                 CONE                   *
+
+        * * * * * * * * * * * * * * * * * * * * */
 
         } else if (obj["type"] == "Cone") {
             Cone *cone = new Cone(
@@ -137,14 +167,14 @@ std::list<Object *> Parser::getObjects()
 
             objects.push_back(cone);
 
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *                 CIRCLE                 *
+
+        * * * * * * * * * * * * * * * * * * * * */
+
         } else if (obj["type"] == "Circle") {
             Circle *circle = new Circle(
-                obj["coordinates"][0], 
-                obj["coordinates"][1], 
-                obj["coordinates"][2],
-                obj["normal"][0], 
-                obj["normal"][1], 
-                obj["normal"][2],
                 obj["externRadius"],
                 obj["internRadius"]
             );
@@ -159,6 +189,12 @@ std::list<Object *> Parser::getObjects()
             try { circle->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(circle);
+
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *             MOBIUS TAPE                *
+
+        * * * * * * * * * * * * * * * * * * * * */
 
         } else if (obj["type"] == "MobiusTape") {
             MobiusTape *mobiusTape = new MobiusTape(
@@ -181,6 +217,12 @@ std::list<Object *> Parser::getObjects()
             try { mobiusTape->setReflexion(tmp["reflection"]); } catch(...) {}
             
             objects.push_back(mobiusTape);
+
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *           QUADRATIC SURFACE            *
+
+        * * * * * * * * * * * * * * * * * * * * */
 
         } else if (obj["type"] == "QuadraticSurface") {
             QuadraticSurface *quadratic = new QuadraticSurface(
@@ -205,6 +247,12 @@ std::list<Object *> Parser::getObjects()
             try { quadratic->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(quadratic);
+
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *             CUBIC SURFACE              *
+
+        * * * * * * * * * * * * * * * * * * * * */
 
         } else if (obj["type"] == "CubicSurface") {
             CubicSurface *cubicSurface = new CubicSurface();
@@ -238,6 +286,12 @@ std::list<Object *> Parser::getObjects()
             try { cubicSurface->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(cubicSurface);
+
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *            QUARTIC SURFACE             *
+
+        * * * * * * * * * * * * * * * * * * * * */
 
         } else if (obj["type"] == "QuarticSurface") {
             QuarticSurface *quarticSurface = new QuarticSurface();
@@ -287,6 +341,12 @@ std::list<Object *> Parser::getObjects()
 
             objects.push_back(quarticSurface);
 
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *                 POLYGON                *
+
+        * * * * * * * * * * * * * * * * * * * * */
+
         } else if (obj["type"] == "Polygon") {
             Point coordinates(
                 obj["coordinates"][0], 
@@ -315,6 +375,12 @@ std::list<Object *> Parser::getObjects()
             try { polygon->setReflexion(tmp["reflection"]); } catch(...) {}
 
             objects.push_back(polygon);
+
+        /* * * * * * * * * * * * * * * * * * * * *
+
+        *                 SHAPE                  *
+
+        * * * * * * * * * * * * * * * * * * * * */
 
         } else if (obj["type"] == "Shape") {
             Point coordinates(

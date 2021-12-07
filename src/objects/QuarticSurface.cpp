@@ -76,7 +76,7 @@ void QuarticSurface::setY(double C33) { this->C33 = C33; }
 void QuarticSurface::setZ(double C34) { this->C34 = C34; }   
 void QuarticSurface::setK(double C35) { this->C35 = C35; }
 
-std::vector<Intersection> QuarticSurface::intersect(const Line &line) const
+void QuarticSurface::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
     Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
     double a = local_vector.getX();
@@ -232,8 +232,6 @@ std::vector<Intersection> QuarticSurface::intersect(const Line &line) const
                 C35;
 
     std::list<double> solutions = EquationSolver::solveQuarticEquation(t4, t3, t2, t1, t0);
-    std::vector<Intersection> intersections;
-
     for (double s : solutions) {
         if (s > 0.00001) {
             Point local_point(
@@ -243,10 +241,9 @@ std::vector<Intersection> QuarticSurface::intersect(const Line &line) const
             );
             Point real_point = this->tr.apply(local_point, TO_REAL);
             double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
-            intersections.push_back(Intersection(real_point, dist, (Object*)this));
+            intersections->push_back(Intersection(real_point, local_point, dist, (Object*)this));
         }
     }
-    return intersections;
 }
 
 Plane QuarticSurface::tangentAt(const Point &intersection) const
@@ -325,15 +322,15 @@ Plane QuarticSurface::tangentAt(const Point &intersection) const
 
 double QuarticSurface::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    return this->tangentAt(intersection.getP()).angleWith(line);
+    return this->tangentAt(intersection.getRealPoint()).angleWith(line);
 }
 
 Line QuarticSurface::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
-    return this->tangentAt(intersection.getP()).getReflectedRayAt(intersection, line);
+    return this->tangentAt(intersection.getRealPoint()).getReflectedRayAt(intersection, line);
 }
 
-Color QuarticSurface::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
+Color QuarticSurface::getColorAt(const Point &intersection) const
 {
     if (this->texture.getType() == "Uniform") {
         return this->getColor();

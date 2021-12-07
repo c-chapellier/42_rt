@@ -25,14 +25,14 @@ class Plane : public Object
         Point getP() const;
         Vector getV() const;
 
-        std::vector<Intersection> intersect(const Line &line) const;
         double angleWith(const Line &line) const;
         double angleWith(const Vector &v) const;
         double angleWith(const Plane &p) const;
+
+        void intersect(std::vector<Intersection> *intersections, const Line &line) const;
         double angleWithAt(const Line &line, const Intersection &intersection) const;
         Line getReflectedRayAt(Intersection &intersection, const Line &line) const;
-
-        Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
+        Color getColorAt(const Point &intersection) const;
 
         friend std::ostream& operator<<(std::ostream& out, const Plane& plane);
 };

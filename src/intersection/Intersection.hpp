@@ -7,18 +7,18 @@ class Triangle;
 class Intersection
 {
     private:
-        Point p;
+        Point real_point;
+        Point local_point;
         double dist;
         Object *obj;
         Triangle *tr;
     public:
-        Intersection(double px, double py, double pz, double dist, Object *obj);
-        Intersection(const Point &p, double dist, Object *obj);
-        Intersection(double px, double py, double pz, double dist, Object *obj, Triangle *tr);
-        Intersection(const Point &p, double dist, Object *obj, Triangle *tr);
+        Intersection(const Point &real, const Point &local, double dist, Object *obj);
+        Intersection(const Point &real, const Point &local, double dist, Object *obj, Triangle *tr);
         ~Intersection();
 
-        Point getP() const;
+        Point getRealPoint() const;
+        Point getLocalPoint() const;
         double getDist() const;
         Object *getObj() const;
         Triangle *getTr() const;

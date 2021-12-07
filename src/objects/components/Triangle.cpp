@@ -43,18 +43,18 @@ Plane Triangle::getPlane() const
     return Plane(this->p1, this->p2, this->p3);
 }
 
-std::vector<Intersection> Triangle::intersect(const Line &l) const
+void Triangle::intersect(std::vector<Intersection> *intersections, const Line &l, Object *obj) const
 {
     Plane plane(this->p1, this->p2, this->p3);
     double area = plane.getV().getMagnitude();
 
-    std::vector<Intersection> intersections;
-    std::vector<Intersection> tmp = plane.intersect(l);
+    std::vector<Intersection> tmp;
+    plane.intersect(&tmp, l);
 
     for (Intersection inter : tmp) {
-        Vector pa(inter.getP(), this->p1);
-        Vector pb(inter.getP(), this->p2);
-        Vector pc(inter.getP(), this->p3);
+        Vector pa(inter.getRealPoint(), this->p1);
+        Vector pb(inter.getRealPoint(), this->p2);
+        Vector pc(inter.getRealPoint(), this->p3);
         double alpha, beta, gama;
         alpha = pb.crossProductMagnitude(pc) / area;
         beta = pc.crossProductMagnitude(pa) / area;
@@ -65,8 +65,6 @@ std::vector<Intersection> Triangle::intersect(const Line &l) const
             gama >= 0 && gama <= 1 &&
             alpha + beta + gama < 1.001 && alpha + beta + gama > 0.990
         )
-            intersections.push_back(Intersection(inter));
+            intersections->push_back(Intersection(inter.getRealPoint(), inter.getLocalPoint(), inter.getDist(), obj, (Triangle*)this));
     }
-
-    return intersections;
 }

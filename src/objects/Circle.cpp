@@ -1,48 +1,61 @@
 #include "Circle.hpp"
 
-Circle::Circle(double px, double py, double pz, double vx, double vy, double vz, double R, double r)
-    : plane(new Plane(px, py, pz, vx, vy, vz)), R(R), r(r)
+Circle::Circle(double R, double r) : R(R), r(r)
 {
-    if (r >= R)
+    if (r >= R || r < 0 || R < 0)
         throw "Impossible circle";
 }
-Circle::~Circle() {
-    delete this->plane;
-}
+Circle::~Circle() {}
 
-std::vector<Intersection> Circle::intersect(const Line &line) const
+void Circle::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
-    std::vector<Intersection> tmp = this->plane->intersect(line);
+    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
+    Vector normal(0, 0, 1);
 
-    std::vector<Intersection> intersections;
-    for (Intersection i : tmp) {
-        double dist = i.getP().distWith(this->plane->getP());
-        if ( dist <= this->R && dist >= this->r) {
-            intersections.push_back(Intersection(i.getP(), i.getDist(), (Object*)this));
+    if (local_vector.getZ() == 0) {
+        // line in the plane
+    } else {
+        double s = -local_vector.getP1()->getZ() / local_vector.getZ();
+        if(s > 0.00001) {
+            Point origin(0, 0, 0);
+            Point local_point(
+                local_vector.getP1()->getX() + s * local_vector.getX(),
+                local_vector.getP1()->getY() + s * local_vector.getY(),
+                local_vector.getP1()->getZ() + s * local_vector.getZ()
+            );
+            if (local_point.distWith(origin) <= R && local_point.distWith(origin) >= r) {
+                Point real_point = this->tr.apply(local_point, TO_REAL);
+                double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
+                intersections->push_back(Intersection(real_point, local_point, dist, (Object*)this));
+            }
+            
         }
     }
-    return intersections;
 }
 
 double Circle::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    intersection.getP();
-    return this->plane->angleWith(line);
+    Vector local_normal(0, 0, 1);
+    Vector real_normal = this->tr.apply(local_normal, TO_REAL);
+    return real_normal.angleWith(line.getV());
 }
 
 Line Circle::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
-    return this->plane->getReflectedRayAt(intersection, line);
+    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
+    Vector local_reflexion(local_vector.getX(), local_vector.getY(), -local_vector.getZ());
+    Vector real_reflexion = this->tr.apply(local_vector, TO_REAL);
+    real_reflexion.setP1(intersection.getRealPoint());
+    return Line(intersection.getRealPoint(), real_reflexion);
 }
 
-Color Circle::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
+Color Circle::getColorAt(const Point &intersection) const
 {
-    screenWidth = screen_height;
-
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {
-        double ratio = (intersection.distWith(this->plane->getP()) - this->r) / (this->R - this->r);
+        double dist = intersection.distWith(Point(0, 0, 0));
+        double ratio = dist - r / (R - r);
         return Color(
             this->getColor(0).getR() + (int)((double)((double)this->getColor(1).getR() - (double)this->getColor(0).getR()) * ratio),
             this->getColor(0).getG() + (int)((double)((double)this->getColor(1).getG() - (double)this->getColor(0).getG()) * ratio),

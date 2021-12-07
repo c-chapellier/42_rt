@@ -59,8 +59,8 @@ class QuarticSurface : public Object
 
         void setK(double C35);
 
-        std::vector<Intersection> intersect(const Line &line) const;
+        void intersect(std::vector<Intersection> *intersections, const Line &line) const;
         double angleWithAt(const Line &line, const Intersection &intersection) const;
         Line getReflectedRayAt(Intersection &intersection, const Line &line) const;
-        Color getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const;
+        Color getColorAt(const Point &intersection) const;
 };

@@ -130,16 +130,12 @@ void Engine::run()
         std::cout << "applyPerlinNoise" << std::endl;
         this->applyPerlinNoise(pixels);
 
-        std::cout << "applyFilter" << std::endl;
         this->applyFilter(pixels);
-
-        std::cout << "applyBlur" << std::endl;
         this->applyBlur(pixels);
 
         // std::cout << "apply3D" << std::endl;
         //this->apply3D(pixels);
 
-        std::cout << "applyPrecision" << std::endl;
         this->applyPrecision(pixels);
 
         //this->loadingBar->add(30 / this->cameras.size());
@@ -148,8 +144,6 @@ void Engine::run()
         this->win->load_image(this->img);
         std::cout << "end load_image" << std::endl;
     }
-
-    std::cout << "set_image" << std::endl;
     this->win->set_image();
 
     auto stop = std::chrono::high_resolution_clock::now();
@@ -184,30 +178,37 @@ void Engine::findObjects(const Point &cam, std::vector< std::vector<Point> > &sc
         if (height >= this->precision_height || width >= this->precision_width)
             continue;
         Line ray(cam, screen[height][width]);
-        std::vector<Intersection> intersections = getIntersections(ray);
-
-        intersections = sortIntersections(intersections, intersections.size());
-        drawPixel(intersections, pixels[height][width], height, width, ray);
+        std::vector<Intersection> intersections;
+        getIntersections(&intersections, ray);
+        sortIntersections(intersections, intersections.size());
+        try {
+            drawPixel(intersections, pixels[height][width], ray);
+        } catch (const char*e) {
+            std::cout << e << std::endl;
+        }
     }
 }
 
-std::vector<Intersection> Engine::getIntersections(const Line &ray) const
+void Engine::getIntersections(std::vector<Intersection>  *intersections, const Line &ray) const
 {
-    std::vector<Intersection> intersections;
-
     for (auto const& obj : this->objects)
     {
-        std::vector<Intersection> tmp = obj->intersect(ray);
-        for (unsigned long i = 0; i < tmp.size(); ++i) {
-            if(!blackObjectsContains(tmp[i].getP()))
-                intersections.push_back(tmp[i]);
-        }
+        obj->intersect(intersections, ray);
+        // if(this->black_objects.size() != 0) {
+        //     for (auto it = intersections->begin(); it != intersections->end(); ) {
+        //         if(blackObjectsContains(it->getLocalPoint()))
+        //             intersections->erase(it);
+        //     }
+        // }
+        // for (unsigned long i = 0; i < tmp.size(); ++i) {
+        //     if(!blackObjectsContains(tmp[i].getRealPoint()))
+        //         intersections.push_back(tmp[i]);
+        // }
     }
-    return intersections;
 }
 
 // bubble sort : average O(n²)
-std::vector<Intersection> Engine::sortIntersections(std::vector<Intersection> intersections, int size)
+void Engine::sortIntersections(std::vector<Intersection> &intersections, int size)
 {
     for (int i = 0; i < size - 1; ++i) { 
         bool swapped = false;
@@ -222,14 +223,13 @@ std::vector<Intersection> Engine::sortIntersections(std::vector<Intersection> in
         if(!swapped)
             break;
     }
-    return intersections;
 }
 
-void Engine::drawPixel(std::vector<Intersection> intersections, Pixel &pixel, int height, int width, Line &ray)
+void Engine::drawPixel(std::vector<Intersection> &intersections, Pixel &pixel, Line &ray)
 {
     Color c = pixel.getColor();
     for (unsigned long i = 0; i < intersections.size(); ++i) {
-        Color tmp = getColor(intersections[i], height, width, ray, 1);
+        Color tmp = getColor(intersections[i], ray, 1);
         c = alphaBlending(c, tmp);
         if (c.getO() == 255)
             break;
@@ -237,39 +237,40 @@ void Engine::drawPixel(std::vector<Intersection> intersections, Pixel &pixel, in
     pixel.setColor(c);
 }
 
-Color Engine::getColor(Intersection &inter, int height, int width, Line &ray, int index)
+Color Engine::getColor(Intersection &inter, Line &ray, int index)
 {
     Color c;
     if (inter.getObj()->getReflexion() != 0) {
         if (index >= this->config.getMaxReflection())
-            c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
+            c = inter.getObj()->getColorAt(inter.getLocalPoint());
         else {
             // find the new vector
             Line reflected_ray = inter.getObj()->getReflectedRayAt(inter, ray);
-            std::vector<Intersection> new_intersections = getIntersections(reflected_ray);
-            new_intersections = sortIntersections(new_intersections, new_intersections.size());
+            std::vector<Intersection> new_intersections;
+            getIntersections(&new_intersections, reflected_ray);
+            sortIntersections(new_intersections, new_intersections.size());
             // get color
             for (unsigned long i = 0; i < new_intersections.size(); ++i) {
-                Color tmp = getColor(new_intersections[i], height, width, reflected_ray, index + 1);
+                Color tmp = getColor(new_intersections[i], reflected_ray, index + 1);
                 c = alphaBlending(c, tmp);
                 if (c.getO() == 255)
                     break;
             }
             if(new_intersections.size() != 0)
                 c = getReflectedColor(
-                    inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP()), 
+                    inter.getObj()->getColorAt(inter.getLocalPoint()), 
                     c, 
                     (double)inter.getObj()->getReflexion() / 100.0);
             if(new_intersections.size() == 0)
-                c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
+                c = inter.getObj()->getColorAt(inter.getLocalPoint());
         } 
     } else {
-        c = inter.getObj()->getColorAt(height, width, this->precision_height, this->precision_width, inter.getP());
+        c = inter.getObj()->getColorAt(inter.getLocalPoint());
     }
     // apply lights
     applyLights(inter, c);
     double angle = inter.getObj()->angleWithAt(ray, inter);
-    c = c.add(this->config.getAmbientColor()).reduceOf(cos(RADIAN(angle)) / 1.1);
+    c = c.add(this->config.getAmbientColor()).reduceOf(abs(cos(RADIAN(angle))) / 1.1);
     return c;
 }
 
@@ -287,17 +288,25 @@ void Engine::applyLights(Intersection &inter, Color &color)
 {
     for (auto const& light : this->lights)
     {
-        Line ray(light->getP(), inter.getP());
-        double dist = inter.getP().distWith(light->getP());
+        Line ray(light->getP(), inter.getRealPoint());
+        // double dist = inter.getRealPoint().distWith(light->getP());
 
         std::vector<Intersection> intersections;
         for (auto const& obj : this->objects)
         {
-            std::vector<Intersection> tmp = obj->intersect(ray);
-            for(unsigned long k = 0; k < tmp.size(); ++k) {
-                if(!blackObjectsContains(tmp[k].getP()) && tmp[k].getP().distWith(light->getP()) < dist - 0.00001)
-                    intersections.push_back(tmp[k]);
-            }
+            obj->intersect(&intersections, ray);
+            // for (auto it = intersections.begin(); it != intersections.end(); ) {
+            //     if(
+            //         blackObjectsContains(it->getRealPoint()) || 
+            //         it->getRealPoint().distWith(light->getP()) > dist - 0.00001 ||
+            //         it->getRealPoint().distWith(light->getP()) < 0
+            //     )
+            //         intersections.erase(it);
+            // }
+            // for(unsigned long k = 0; k < tmp.size(); ++k) {
+            //     if(!blackObjectsContains(tmp[k].getRealPoint()) && tmp[k].getRealPoint().distWith(light->getP()) < dist - 0.00001)
+            //         intersections.push_back(tmp[k]);
+            // }
         }
 
         double dist_min = INFINITY;
@@ -316,7 +325,7 @@ void Engine::applyLights(Intersection &inter, Color &color)
         {
             double obj_light_angle = RADIAN(inter.getObj()->angleWithAt(ray, inter));
                                 
-            color = color.add(light->getColor().reduceOf(cos(obj_light_angle) / 1.1));
+            color = color.add(light->getColor().reduceOf(abs(cos(obj_light_angle)) / 1.1));
         }
     }
 }

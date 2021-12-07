@@ -46,7 +46,7 @@ void CubicSurface::setY(double R) { this->R = R; }
 void CubicSurface::setZ(double S) { this->S = S; }
 void CubicSurface::setK(double T) { this->T = T; }
 
-std::vector<Intersection> CubicSurface::intersect(const Line &line) const
+void CubicSurface::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
 
     Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
@@ -128,8 +128,6 @@ std::vector<Intersection> CubicSurface::intersect(const Line &line) const
                 T;
 
     std::list<double> solutions = EquationSolver::solveCubicEquation(t3, t2, t1, t0);
-
-    std::vector<Intersection> intersections;
     for (double s : solutions) {
         if (s > 0.00001) {
             Point local_point(
@@ -139,10 +137,9 @@ std::vector<Intersection> CubicSurface::intersect(const Line &line) const
             );
                 Point real_point = this->tr.apply(local_point, TO_REAL);
                 double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
-                intersections.push_back(Intersection(real_point, dist, (Object*)this));
+                intersections->push_back(Intersection(real_point, local_point, dist, (Object*)this));
         }
     }
-    return intersections;
 }
 
 Plane CubicSurface::tangentAt(const Point &intersection) const
@@ -191,18 +188,16 @@ Plane CubicSurface::tangentAt(const Point &intersection) const
 
 double CubicSurface::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    return this->tangentAt(intersection.getP()).angleWith(line);
+    return this->tangentAt(intersection.getRealPoint()).angleWith(line);
 }
 
 Line CubicSurface::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
-    return this->tangentAt(intersection.getP()).getReflectedRayAt(intersection, line);
+    return this->tangentAt(intersection.getRealPoint()).getReflectedRayAt(intersection, line);
 }
 
-Color CubicSurface::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
+Color CubicSurface::getColorAt(const Point &intersection) const
 {
-    screenWidth = intersection.getX();
-
     if (this->texture.getType() == "Uniform") {
         return this->getColor();
     } else if (this->texture.getType() == "Gradient") {

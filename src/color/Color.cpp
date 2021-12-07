@@ -95,8 +95,10 @@ int Color::getByO(int c)
 
 Color Color::reduceOf(double ratio) const
 {
-    if (ratio < 0.0 || ratio > 1.0)
+    if (ratio < 0.0 || ratio > 1.0){
+        std::cout << ratio << std::endl;
         throw "Color::reduceOf percentage bad";
+    }
 
     double new_r, new_g, new_b;
 

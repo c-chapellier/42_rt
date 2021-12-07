@@ -36,7 +36,7 @@ Vector Plane::getV() const
     return this->v;
 }
 
-std::vector<Intersection> Plane::intersect(const Line &line) const
+void Plane::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
     double a = this->v.getX();
     double b = this->v.getY();
@@ -44,8 +44,7 @@ std::vector<Intersection> Plane::intersect(const Line &line) const
     double K = ((a * (this->p.getX() * -1)) + (b * (this->p.getY() * -1)) + (c * (this->p.getZ() * -1))) * -1;
     double t = (a * line.getV().getX()) + (b * line.getV().getY()) + (c * line.getV().getZ());
     double C = (a * line.getP().getX()) + (b * line.getP().getY()) + (c * line.getP().getZ());
-    
-    std::vector<Intersection> intersections;
+
     if (t == 0 && C != K) {
         //throw NoInterException("Line do not intersect the plane");
     } else if (t == 0 && C == K) {
@@ -54,9 +53,8 @@ std::vector<Intersection> Plane::intersect(const Line &line) const
         double s = (K - C) / t;
         //return line.getPointFor(s);
         if(s > 0.00001)
-            intersections.push_back(Intersection(line.getPointFor(s), s, (Object*)this));
+            intersections->push_back(Intersection(line.getPointFor(s), line.getPointFor(s), s, (Object*)this));
     }
-    return intersections;
 }
 
 //          a . b
@@ -80,21 +78,20 @@ double Plane::angleWith(const Plane &p) const
 
 double Plane::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    intersection.getP();
+    intersection.getRealPoint();
     return this->angleWith(line.getV());
 }
 
 Line Plane::getReflectedRayAt(Intersection &intersection, const Line &line) const
 {
     Vector ref = v.getReflectionOf(line.getV());
-    // return Line(intersection.getP(), ref);
-    return Line(intersection.getP(), 
-                ref.getX() + intersection.getP().getX(),
-                ref.getY() + intersection.getP().getY(),
-                ref.getZ() + intersection.getP().getZ());
+    return Line(intersection.getRealPoint(), 
+                ref.getX() + intersection.getRealPoint().getX(),
+                ref.getY() + intersection.getRealPoint().getY(),
+                ref.getZ() + intersection.getRealPoint().getZ());
 }
 
-Color Plane::getColorAt(int height, int width, int screen_height, int screenWidth, const Point &intersection) const
+Color Plane::getColorAt(const Point &intersection) const
 {
     if (this->texture.getType() == "Uniform") {
         return this->getColor();

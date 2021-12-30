@@ -20,14 +20,14 @@ QuadraticSurface::~QuadraticSurface() {}
 
 void QuadraticSurface::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
-    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
+    Line local_line = this->tr.apply(line, TO_LOCAL);
     double x1, y1, z1, a, b, c, t0, t1, t2;
-    x1 = local_vector.getP1()->getX();
-    y1 = local_vector.getP1()->getY();
-    z1 = local_vector.getP1()->getZ();
-    a = local_vector.getX();
-    b = local_vector.getY();
-    c = local_vector.getZ();
+    x1 = local_line.getPX();
+    y1 = local_line.getPY();
+    z1 = local_line.getPZ();
+    a = local_line.getX();
+    b = local_line.getY();
+    c = local_line.getZ();
 
     t0 = A * x1 * x1 + 
         B * y1 * y1 + 
@@ -125,26 +125,16 @@ double QuadraticSurface::angleWithAt(const Line &line, const Intersection &inter
     return this->tangentAt(intersection.getRealPoint()).angleWith(line);
 }
 
-Line QuadraticSurface::getReflectedRayAt(Intersection &intersection, const Line &line) const
+Line QuadraticSurface::getReflectedRayAt(const Intersection &intersection, const Line &line) const
 {
     return this->tangentAt(intersection.getRealPoint()).getReflectedRayAt(intersection, line);
 }
 
 Color QuadraticSurface::getColorAt(const Point &intersection) const
 {
-    if (this->texture.getType() == "Uniform") {
+    if (this->texture.getType() == UNIFORM) {
         return this->getColor();
-    } else if (this->texture.getType() == "Gradient") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "Grid") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "VerticalLined") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "HorizontalLined") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "Image") {
-        throw "Texture unsupported";
     } else {
-        throw "Should never happen";
+        throw "Texture unsupported";
     }
 }

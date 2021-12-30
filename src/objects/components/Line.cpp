@@ -50,11 +50,41 @@ Vector Line::getV() const
     return this->v;
 }
 
+double Line::getX() const
+{
+    return this->v.getX();
+}
+double Line::getY() const
+{
+    return this->v.getY();
+}
+double Line::getZ() const
+{
+    return this->v.getZ();
+}
+double Line::getPX() const
+{
+    return this->p.getX();
+}
+double Line::getPY() const
+{
+    return this->p.getY();
+}
+double Line::getPZ() const
+{
+    return this->p.getZ();
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
 
 *              FUNCTIONS                 *
 
 * * * * * * * * * * * * * * * * * * * * */
+
+void Line::normalize()
+{
+    this->v.normalize();
+}
 
 double Line::distWith(const Point &p) const
 {

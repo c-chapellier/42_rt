@@ -61,7 +61,6 @@
 #include "blackObjects/BlackSphere.hpp"
 #include "blackObjects/BlackCylinder.hpp"
 
-#include "solver/Complex.hpp"
 #include "solver/Matrix.hpp"
 #include "solver/EquationSolver.hpp"
 

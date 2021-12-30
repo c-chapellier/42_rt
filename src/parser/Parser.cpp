@@ -6,11 +6,22 @@ Parser::Parser(std::string config_file)
     f >> this->j;
 
     this->colorManager = new ColorManager(this->j["colors"]);
+    initTextureMap();
 }
 
 Parser::~Parser()
 {
     delete this->colorManager;
+}
+
+void Parser::initTextureMap()
+{
+    texture_map.insert(std::pair<std::string, char>("Uniform", UNIFORM));
+    texture_map.insert(std::pair<std::string, char>("Gradient", GRADIENT));
+    texture_map.insert(std::pair<std::string, char>("Grid", GRID));
+    texture_map.insert(std::pair<std::string, char>("VerticalLined", VERTICAL_LINED));
+    texture_map.insert(std::pair<std::string, char>("HorizontalLined", HORIZONTAL_LINED));
+    texture_map.insert(std::pair<std::string, char>("Image", IMAGE));
 }
 
 Texture Parser::getTexture(nlohmann::json json) {
@@ -20,17 +31,17 @@ Texture Parser::getTexture(nlohmann::json json) {
         return texture;
     } else if (t["type"] == "Image") {
         Texture texture(
-            t["type"],
+            IMAGE,
             (std::string)t["file"]
         );
         try { texture.setHOffset(t["hOffset"]); } catch(...) { texture.setHOffset(0); }
         try { texture.setWOffset(t["wOffset"]); } catch(...) { texture.setWOffset(0); }
         try { texture.setSpeed(t["speed"]); } catch(...) { texture.setSpeed(1); }
-        try { texture.setOpacity(t["opacity"]); } catch(...) { }
+        // try { texture.setOpacity(t["opacity"]); } catch(...) { }
         return texture;
     } else {
         Texture texture(
-            t["type"],
+            texture_map.at(t["type"]),
             t["values"][0],
             t["values"][1]
         );
@@ -40,12 +51,23 @@ Texture Parser::getTexture(nlohmann::json json) {
 
 void Parser::setTransform(Object *obj, nlohmann::json json)
 {
-    try { obj->setAlpha(json["alpha"]); } catch(...){}
-    try { obj->setBeta(json["beta"]); } catch(...){}
-    try { obj->setGama(json["gama"]); } catch(...){}
-    try { obj->setTranslation(json["coordinates"][0], json["coordinates"][1], json["coordinates"][2]); } catch(...){}
-    try { obj->setScaling(json["scaling"][0], json["scaling"][1], json["scaling"][2]); } catch(...){}
-    obj->updateMatrix();
+    double alpha, beta, gama, scaling_x, scaling_y, scaling_z, translation_x, translation_y, translation_z;
+    alpha = (json["alpha"] != nullptr) ? (double)json["alpha"] : 0;
+    beta = (json["beta"] != nullptr) ? (double)json["beta"] : 0;
+    gama = (json["gama"] != nullptr) ? (double)json["gama"] : 0;
+    scaling_x = 1;
+    scaling_y = 1;
+    scaling_z = 1;
+    try { scaling_x = json["scaling"][0]; } catch(...) {}
+    try { scaling_y = json["scaling"][1]; } catch(...) {}
+    try { scaling_z = json["scaling"][2]; } catch(...) {}
+    translation_x = 0;
+    translation_y = 0;
+    translation_z = 0;
+    try { translation_x = json["coordinates"][0]; } catch(...) {}
+    try { translation_y = json["coordinates"][1]; } catch(...) {}
+    try { translation_z = json["coordinates"][2]; } catch(...) {}
+    obj->updateMatrix(alpha, beta, gama, scaling_x, scaling_y, scaling_z, translation_x, translation_y, translation_z);
 }
 
 std::list<Object *> Parser::getObjects()
@@ -61,33 +83,6 @@ std::list<Object *> Parser::getObjects()
         * * * * * * * * * * * * * * * * * * * * */
 
         if (obj["type"] == "Plane") {
-            Plane *plane = new Plane(
-                obj["point"][0], 
-                obj["point"][1], 
-                obj["point"][2], 
-                obj["normal"][0], 
-                obj["normal"][1], 
-                obj["normal"][2]
-            );
-
-            for (auto const& color : obj["colors"])
-                plane->addColor(this->colorManager->getColor(color));
-
-            plane->setTexture(getTexture(obj));
-
-            nlohmann::json tmp = obj;
-            setTransform(plane, tmp);
-            try { plane->setReflexion(tmp["reflection"]); } catch(...) {}
-
-            objects.push_back(plane);
-
-        /* * * * * * * * * * * * * * * * * * * * *
-
-        *             PLANE OBJ                  *
-
-        * * * * * * * * * * * * * * * * * * * * */
-
-        } else if (obj["type"] == "PlaneObj") {
             PlaneObj *plane = new PlaneObj();
 
             for (auto const& color : obj["colors"])

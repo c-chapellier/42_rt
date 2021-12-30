@@ -9,49 +9,35 @@
 Vector::Vector(const double x, const double y, const double z)
     : x(x), y(y), z(z)
 {
-    this->p1 = new Point(0, 0, 0);
-    this->p2 = new Point(x, y, z);
 }
 
 Vector::Vector(const double x1, const double y1, const double z1, const double x2, const double y2, const double z2)
     : x(x2 - x1), y(y2 - y1), z(z2 - z1)
 {
-    this->p1 = new Point(x1, y1, z1);
-    this->p2 = new Point(x2, y2, z2);
 }
 
 Vector::Vector(const Point &p1, const Point &p2)
     : x(p2.getX() - p1.getX()), y(p2.getY() - p1.getY()), z(p2.getZ() - p1.getZ())
 {
-    this->p1 = new Point(p1);
-    this->p2 = new Point(p2);
 }
 
 Vector::Vector(const Point &p, const double x, const double y, const double z)
     : x(x - p.getX()), y(y - p.getY()), z(z - p.getZ())
 {
-    this->p1 = new Point(p);
-    this->p2 = new Point(x, y, z);
 }
 
 Vector::Vector(const double x, const double y, const double z, const Point &p)
     : x(p.getX() - x), y(p.getY() - y), z(p.getZ() - z)
 {
-    this->p1 = new Point(x, y, z);
-    this->p2 = new Point(p);
 }
 
 Vector::Vector(const Vector &vector)
     : x(vector.x), y(vector.y), z(vector.z)
 {
-    this->p1 = new Point(vector.p1);
-    this->p2 = new Point(vector.p2);
 }
 
 Vector::~Vector()
 {
-    delete(p1);
-    delete(p2);
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -73,16 +59,6 @@ double Vector::getY() const
 double Vector::getZ() const
 {
     return this->z;
-}
-
-Point *Vector::getP1() const
-{
-    return this->p1;
-}
-
-Point *Vector::getP2() const
-{
-    return this->p2;
 }
 
 double Vector::getMagnitude() const
@@ -111,22 +87,12 @@ void Vector::setZ(double z)
     this->z = z;
 }
 
-void Vector::setP1(const Point &p)
-{
-    delete(this->p1);
-    this->p1 = new Point(p);
-    delete(this->p2);
-    this->p2 = new Point(p1->getX() + x, p1->getY() + y, p1->getZ() + z);
-}
-
 void Vector::normalize()
 {
     double magnitude = getMagnitude();
     this->x /= magnitude;
     this->y /= magnitude;
     this->z /= magnitude;
-    delete(this->p2);
-    this->p2 = new Point(p1->getX() + x, p1->getY() + y, p1->getZ() + z);
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -254,10 +220,6 @@ Vector &Vector::operator=(const Vector &v)
     this->x = v.x;
     this->y = v.y;
     this->z = v.z;
-    delete(this->p1);
-    delete(this->p2);
-    this->p1 = new Point(v.p1);
-    this->p2 = new Point(v.p2);
     return *this;
 }
 

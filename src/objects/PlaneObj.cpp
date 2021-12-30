@@ -17,17 +17,17 @@ PlaneObj::~PlaneObj(){}
 
 void PlaneObj::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
-    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
+    Line local_line = this->tr.apply(line, TO_LOCAL);
 
-    if (local_vector.getZ() == 0) {
+    if (local_line.getZ() == 0) {
         // line in the plane
     } else {
-        double s = -local_vector.getP1()->getZ() / local_vector.getZ();
+        double s = -local_line.getPZ() / local_line.getZ();
         if(s > 0.00001) {
             Point local_point(
-                local_vector.getP1()->getX() + s * local_vector.getX(),
-                local_vector.getP1()->getY() + s * local_vector.getY(),
-                local_vector.getP1()->getZ() + s * local_vector.getZ()
+                local_line.getPX() + s * local_line.getX(),
+                local_line.getPY() + s * local_line.getY(),
+                local_line.getPZ() + s * local_line.getZ()
             );
             Point real_point = this->tr.apply(local_point, TO_REAL);
             double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
@@ -43,22 +43,22 @@ double PlaneObj::angleWithAt(const Line &line, const Intersection &intersection)
     return real_normal.angleWith(line.getV());
 }
 
-Line PlaneObj::getReflectedRayAt(Intersection &intersection, const Line &line) const
+Line PlaneObj::getReflectedRayAt(const Intersection &intersection, const Line &line) const
 {
     Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
     Vector local_reflexion(local_vector.getX(), local_vector.getY(), -local_vector.getZ());
     Vector real_reflexion = this->tr.apply(local_vector, TO_REAL);
-    real_reflexion.setP1(intersection.getRealPoint());
     return Line(intersection.getRealPoint(), real_reflexion);
 }
 
 Color PlaneObj::getColorAt(const Point &intersection) const
 {
-    if (this->texture.getType() == "Uniform") {
+    char type = this->texture.getType();
+    if (type == UNIFORM) {
         return this->getColor();
-    } else if (this->texture.getType() == "Gradient") {
+    } else if (type == GRADIENT) {
         throw "Texture unsupported";
-    } else if (this->texture.getType() == "Grid") {
+    } else if (type == GRID) {
         /*
             The first value of the texture is the square width
             The second value of the texture is unused
@@ -71,7 +71,7 @@ Color PlaneObj::getColorAt(const Point &intersection) const
             abs(intersection.getY()) + texture.getValue2();
 
         return this->getColor(((int)(ratio1 / texture.getValue1()) + (int)(ratio2 / texture.getValue2())) % 2);
-    } else if (this->texture.getType() == "VerticalLined") {
+    } else if (type == VERTICAL_LINED) {
         /*
             The first value of the texture is the line width
             The second value of the texture is unused
@@ -80,7 +80,7 @@ Color PlaneObj::getColorAt(const Point &intersection) const
             intersection.getY() :
             abs(intersection.getY()) + texture.getValue1();
         return this->getColor((int)(ratio / texture.getValue1()) % 2);
-    } else if (this->texture.getType() == "HorizontalLined") {
+    } else if (type == HORIZONTAL_LINED) {
         /*
             The first value of the texture is the line width
             The second value of the texture is unused
@@ -89,7 +89,7 @@ Color PlaneObj::getColorAt(const Point &intersection) const
             intersection.getX() :
             abs(intersection.getX()) + texture.getValue1();
         return this->getColor((int)(ratio / texture.getValue1()) % 2);
-    } else if (this->texture.getType() == "Image") {
+    } else if (type == IMAGE) {
         return TextureAplicator::applyTextureOnPlaneAt(*this, intersection);
     } else {
         throw "Should never happen";

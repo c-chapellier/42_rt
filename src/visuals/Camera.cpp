@@ -35,6 +35,11 @@ Vector Camera::getV() const
     return this->direction;
 }
 
+Point Camera::getPoint(int hh, int ww, bool x) const
+{
+    return getPoint((double)(hh - ((double)height / 2)) / height, (double)(ww - ((double)width / 2)) / width);
+}
+
 Point Camera::getPoint(double h, double w) const
 {
     Point tmp = this->screenCenter + (this->U * w);
@@ -50,7 +55,7 @@ std::vector< std::vector<Point> > Camera::getScreen() const
 
     for (int h = 0; h < height; ++h) {
         for (int w = 0; w < width; ++w) {
-            screen[h][w] = getPoint((h - (height / 2)) / (double)height, (w - (width / 2)) / (double)width);
+            screen[h][w] = getPoint((double)(h - (height / 2)) / (double)height, (double)(w - (width / 2)) / (double)width);
         }
     }
     return screen;

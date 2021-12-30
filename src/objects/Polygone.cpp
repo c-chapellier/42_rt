@@ -37,26 +37,16 @@ double Polygone::angleWithAt(const Line &line, const Intersection &intersection)
     return intersection.getTr()->getPlane().angleWith(line.getV());
 }
 
-Line Polygone::getReflectedRayAt(Intersection &intersection, const Line &line) const
+Line Polygone::getReflectedRayAt(const Intersection &intersection, const Line &line) const
 {
     return intersection.getTr()->getPlane().getReflectedRayAt(intersection, line);
 }
 
 Color Polygone::getColorAt(const Point &intersection) const
 {
-    if (this->texture.getType() == "Uniform") {
+    if (this->texture.getType() == UNIFORM) {
         return this->getColor();
-    } else if (this->texture.getType() == "Gradient") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "Grid") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "VerticalLined") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "HorizontalLined") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "Image") {
-        throw "Texture unsupported";
     } else {
-        throw "Should never happen";
+        throw "Texture unsupported";
     }
 }

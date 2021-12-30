@@ -4,8 +4,6 @@
 #include <math.h>
 #include <iostream>
 
-#include "Complex.hpp"
-
 class EquationSolver
 {
     public:

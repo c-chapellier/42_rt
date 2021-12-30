@@ -4,15 +4,11 @@
 #include "./../../solver/Matrix.hpp"
 #include "./Point.hpp"
 #include "./Vector.hpp"
+#include "./Line.hpp"
 
 class Transform
 {
     private:
-        double alpha;
-        double beta;
-        double gama;
-        Point translation;
-        Point scaling;
         Matrix forward_matrix;
         Matrix backward_matrix;
 
@@ -20,17 +16,19 @@ class Transform
         Transform();
         ~Transform();
 
-        void setAlpha(double alpha);
-        void setBeta(double beta);
-        void setGama(double gama);
-        void setTranslation(double x, double y, double z);
-        void setScaling(double x, double y, double z);
+        void updateMatrices(
+            double alpha, 
+            double beta, 
+            double gama, 
+            double scaling_x, 
+            double scaling_y, 
+            double scaling_z, 
+            double translation_x,
+            double translation_y,
+            double translation_z
+        );
 
-        void updateMatrices();
-
-        Point getTranslation() const;
-
-        Vector apply(const Vector &v, int type) const;
         Point apply(const Point &p, int type) const;
-
+        Vector apply(const Vector &v, int type) const;
+        Line apply(const Line &l, int type) const;
 };

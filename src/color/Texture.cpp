@@ -2,17 +2,17 @@
 
 Texture::Texture()
 {
-    setType("Uniform");
+    setType(UNIFORM);
     setValue1(0);
     setValue2(0);
     setHOffset(0);
     setWOffset(0);
     setSpeed(1);
     setFile("NoFile");
-    setOpacity(255);
+    //setOpacity(255);
     img = NULL;
 }
-Texture::Texture(std::string type)
+Texture::Texture(char type)
 {
     setType(type);
     setValue1(0);
@@ -21,10 +21,10 @@ Texture::Texture(std::string type)
     setWOffset(0);
     setSpeed(1);
     setFile("NoFile");
-    setOpacity(255);
+    //setOpacity(255);
     img = NULL;
 }
-Texture::Texture(std::string type, std::string file)
+Texture::Texture(char type, std::string file)
 {
     setType(type);
     setValue1(0);
@@ -33,9 +33,9 @@ Texture::Texture(std::string type, std::string file)
     setWOffset(0);
     setSpeed(1);
     setFile(file);
-    setOpacity(255);
+    //setOpacity(255);
 }
-Texture::Texture(std::string type, int value1)
+Texture::Texture(char type, int value1)
 {
     setType(type);
     setValue1(value1);
@@ -44,10 +44,10 @@ Texture::Texture(std::string type, int value1)
     setWOffset(0);
     setSpeed(1);
     setFile("NoFile");
-    setOpacity(255);
+    //setOpacity(255);
     img = NULL;
 }
-Texture::Texture(std::string type, int value1, int value2)
+Texture::Texture(char type, int value1, int value2)
 {
     setType(type);
     setValue1(value1);
@@ -56,10 +56,10 @@ Texture::Texture(std::string type, int value1, int value2)
     setWOffset(0);
     setSpeed(1);
     setFile("NoFile");
-    setOpacity(255);
+    //setOpacity(255);
     img = NULL;
 }
-Texture::Texture(std::string type, int value1, int value2, std::string file)
+Texture::Texture(char type, int value1, int value2, std::string file)
 {
     setType(type);
     setValue1(value1);
@@ -68,11 +68,11 @@ Texture::Texture(std::string type, int value1, int value2, std::string file)
     setWOffset(0);
     setSpeed(1);
     setFile(file);
-    setOpacity(255);
+    //setOpacity(255);
 }
 Texture::~Texture(){}
 
-std::string Texture::getType() const
+char Texture::getType() const
 {
     return this->type;
 }
@@ -103,15 +103,15 @@ std::string Texture::getFile() const
     return this->file;
 }
 
-void Texture::setType(std::string type)
+void Texture::setType(char type)
 {
     if(
-        type != "Uniform" && 
-        type != "Gradient" && 
-        type != "Grid" && 
-        type != "VerticalLined" &&
-        type != "HorizontalLined" &&
-        type != "Image"
+        type != UNIFORM && 
+        type != GRADIENT && 
+        type != GRID && 
+        type != VERTICAL_LINED &&
+        type != HORIZONTAL_LINED &&
+        type != IMAGE
     )
         throw "Unknown type of texture";
     this->type = type;
@@ -152,12 +152,12 @@ void Texture::setSpeed(float s)
         throw "Texture speed can not be under 0";
     this->speed = s;
 }
-void Texture::setOpacity(int o)
-{
-    if(o < 0 || o > 255)
-        throw "Texture opacity must be between 0 and 255";
-    this->opacity = o;
-}
+// void Texture::setOpacity(int o)
+// {
+//     if(o < 0 || o > 255)
+//         throw "Texture opacity must be between 0 and 255";
+//     this->opacity = o;
+// }
 
 int Texture::getImgHeight() const
 {
@@ -186,7 +186,7 @@ Color Texture::getImageTextureAt(double h, double w)
         int r = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3)];
         int g = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3) + 1];
         int b = (int)((uint8_t*)img->pixels)[((height * img->w + width) * 3) + 2];
-        return Color(r, g, b, opacity);
+        return Color(r, g, b, 255);
     } else if (img->format->BytesPerPixel == 4) {
         Uint8 red, green, blue, alpha;
         Uint32 temp, pixel;

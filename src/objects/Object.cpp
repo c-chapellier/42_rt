@@ -46,7 +46,7 @@ Texture Object::getTexture() const
     return this->texture;
 }
 
-int Object::getReflexion() const
+char Object::getReflexion() const
 {
     return this->reflexion;
 }
@@ -74,32 +74,16 @@ void Object::setReflexion(int r)
     this->reflexion = r;
 }
 
-void Object::setAlpha(double alpha)
-{
-    tr.setAlpha(alpha);
-}
-
-void Object::setBeta(double beta)
-{
-    tr.setBeta(beta);
-}
-
-void Object::setGama(double gama)
-{
-    tr.setGama(gama);
-}
-
-void Object::setTranslation(double x, double y, double z)
-{
-    tr.setTranslation(x, y, z);
-}
-
-void Object::setScaling(double x, double y, double z)
-{
-    tr.setScaling(x, y, z);
-}
-
-void Object::updateMatrix()
-{
-    tr.updateMatrices();
+void Object::updateMatrix(
+    double alpha, 
+    double beta, 
+    double gama, 
+    double scaling_x, 
+    double scaling_y, 
+    double scaling_z,
+    double translation_x,
+    double translation_y,
+    double translation_z
+) {
+    tr.updateMatrices(alpha, beta, gama, scaling_x, scaling_y, scaling_z, translation_x, translation_y, translation_z);
 }

@@ -9,7 +9,6 @@
 Cone::Cone(double alpha)
     : alpha(alpha)
 {
-    tr.updateMatrices();
 }
 
 Cone::~Cone() {}
@@ -22,21 +21,21 @@ Cone::~Cone() {}
 
 void Cone::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
-    Vector back = this->tr.apply(line.getV(), TO_LOCAL);
-    back.normalize();
+    Line local_line = this->tr.apply(line, TO_LOCAL);
+    local_line.normalize();
 
     double a, b, c;
-    a = pow(back.getX(), 2) + pow(back.getY(), 2) - (pow(back.getZ(), 2) * pow(tan(RADIAN(alpha)), 2));
-    b = 2 * back.getP1()->getX() * back.getX() + 2 * back.getP1()->getY() * back.getY() - 2 * back.getP1()->getZ() * back.getZ() * tan(RADIAN(alpha));
-    c = pow(back.getP1()->getX(), 2) + pow(back.getP1()->getY(), 2) - pow(back.getP1()->getZ() * tan(RADIAN(alpha)), 2);
+    a = pow(local_line.getX(), 2) + pow(local_line.getY(), 2) - (pow(local_line.getZ(), 2) * pow(tan(RADIAN(alpha)), 2));
+    b = 2 * local_line.getPX() * local_line.getX() + 2 * local_line.getPY() * local_line.getY() - 2 * local_line.getPZ() * local_line.getZ() * tan(RADIAN(alpha));
+    c = pow(local_line.getPX(), 2) + pow(local_line.getPY(), 2) - pow(local_line.getPZ() * tan(RADIAN(alpha)), 2);
 
     std::list<double> solutions = EquationSolver::solveQuadraticEquation(a, b, c);
     for (double s : solutions) {
         if (s > 0.00001) {
             Point local_point(
-                back.getP1()->getX() + s * back.getX(),
-                back.getP1()->getY() + s * back.getY(),
-                back.getP1()->getZ() + s * back.getZ()
+                local_line.getPX() + s * local_line.getX(),
+                local_line.getPY() + s * local_line.getY(),
+                local_line.getPZ() + s * local_line.getZ()
             );
             Point real_point = this->tr.apply(local_point, TO_REAL);
             double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
@@ -55,7 +54,7 @@ double Cone::angleWithAt(const Line &line, const Intersection &intersection) con
     return pl.angleWithAt(line, intersection);
 }
 
-Line Cone::getReflectedRayAt(Intersection &intersection, const Line &line) const
+Line Cone::getReflectedRayAt(const Intersection &intersection, const Line &line) const
 {
     double angle = 90 - (180 - 90 - alpha);
     double offset = tan(RADIAN(angle)) * abs(intersection.getLocalPoint().getZ());
@@ -63,15 +62,15 @@ Line Cone::getReflectedRayAt(Intersection &intersection, const Line &line) const
     Point real_height = this->tr.apply(local_height, TO_REAL);
     Vector normal(real_height, intersection.getRealPoint());
     Vector reflexion =  normal.getReflectionOf(line.getV());
-    reflexion.setP1(intersection.getRealPoint());
     return Line(intersection.getRealPoint(), reflexion);
 }
 
 Color Cone::getColorAt(const Point &intersection) const
 {
-    if (this->texture.getType() == "Uniform") {
+    char type = this->texture.getType();
+    if (type == UNIFORM) {
         return this->getColor();
-    } else if (this->texture.getType() == "Gradient") {
+    } else if (type == GRADIENT) {
         // get the value of Z as absolute
         int z_value = intersection.getZ() >= 0 ?   
             (int)(intersection.getZ() / (double)this->texture.getValue1()) :
@@ -95,7 +94,7 @@ Color Cone::getColorAt(const Point &intersection) const
                     this->getColor(1).getO() + (int)((double)((double)this->getColor(0).getO() - (double)this->getColor(1).getO()) * gr)
                 )
             );
-    } else if (this->texture.getType() == "Grid") {
+    } else if (type == GRID) {
         /*
             The first value of the texture is the number of vertical sections
             The second value is the width of horizontal lines
@@ -117,7 +116,7 @@ Color Cone::getColorAt(const Point &intersection) const
         
         return this->getColor(((int)(alpha / lineRadian) + (int)(ratio / this->texture.getValue2())) % 2);
         
-    } else if (this->texture.getType() == "VerticalLined") {
+    } else if (type == VERTICAL_LINED) {
         /*
             The first value of the texture is the number of vertical sections
             The second value is unused
@@ -131,7 +130,7 @@ Color Cone::getColorAt(const Point &intersection) const
         alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
 
         return this->getColor((int)(alpha / lineRadian) % 2);
-    } else if (this->texture.getType() == "HorizontalLined") {
+    } else if (type == HORIZONTAL_LINED) {
         /*
             The first value of the texture is the width of horizontal lines
             The second value is unused
@@ -142,7 +141,7 @@ Color Cone::getColorAt(const Point &intersection) const
                         (int)(intersection.getZ()) :
                         (int)((abs(intersection.getZ()) + this->texture.getValue1()));
         return this->getColor((int)(ratio / this->texture.getValue1()) % 2);
-    } else if (this->texture.getType() == "Image") {
+    } else if (type == IMAGE) {
         return TextureAplicator::applyTextureOnConeAt(*this, intersection);
     } else {
         throw "Should never happen";

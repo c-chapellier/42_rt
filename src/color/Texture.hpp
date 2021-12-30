@@ -13,7 +13,7 @@
 class Texture
 {
     private:
-        std::string type;
+        char type;
         int value1;
         int value2;
         float h_offset = 0;
@@ -21,17 +21,17 @@ class Texture
         float speed = 1;
         std::string file;
         SDL_Surface *img;
-        int opacity;
+        //char opacity;
     public:
         Texture();
-        Texture(std::string type);
-        Texture(std::string type, std::string file);
-        Texture(std::string type, int value1);
-        Texture(std::string type, int value1, int value2);
-        Texture(std::string type, int value1, int value2, std::string file);
+        Texture(char type);
+        Texture(char type, std::string file);
+        Texture(char type, int value1);
+        Texture(char type, int value1, int value2);
+        Texture(char type, int value1, int value2, std::string file);
         ~Texture();
 
-        std::string getType() const;
+        char getType() const;
         int getValue1() const;
         int getValue2() const;
         float getHOffset() const;
@@ -39,14 +39,14 @@ class Texture
         float getSpeed() const;
         std::string getFile() const;
 
-        void setType(std::string type);
+        void setType(char type);
         void setValue1(int v1);
         void setValue2(int v2);
         void setHOffset(float h);
         void setWOffset(float w);
         void setSpeed(float s);
         void setFile(std::string file);
-        void setOpacity(int o);
+        //void setOpacity(char o);
 
         int getImgHeight() const;
         int getImgWidth() const;

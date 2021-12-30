@@ -7,22 +7,10 @@
 * * * * * * * * * * * * * * * * * * * * */
 
 Transform::Transform()
-    : alpha(0), beta(0), gama(0), translation(0, 0, 0), scaling(1, 1, 1), forward_matrix(4, 4), backward_matrix(4, 4)
+    : forward_matrix(4, 4), backward_matrix(4, 4)
 {
-    updateMatrices();
 }
 Transform::~Transform() {}
-
-/* * * * * * * * * * * * * * * * * * * * *
-
-*                GETTER                  *
-
-* * * * * * * * * * * * * * * * * * * * */
-
-Point Transform::getTranslation() const
-{
-    return this->translation;
-}
 
 /* * * * * * * * * * * * * * * * * * * * *
 
@@ -30,44 +18,28 @@ Point Transform::getTranslation() const
 
 * * * * * * * * * * * * * * * * * * * * */
 
-void Transform::setAlpha(double alpha)
-{
-    this->alpha = alpha;
-}
-void Transform::setBeta(double beta)
-{
-    this->beta = beta;
-}
-void Transform::setGama(double gama)
-{
-    this->gama = gama;
-}
-void Transform::setTranslation(double x, double y, double z)
-{
-    this->translation.setX(x);
-    this->translation.setY(y);
-    this->translation.setZ(z);
-}
-void Transform::setScaling(double x, double y, double z)
-{
-    this->scaling.setX(x);
-    this->scaling.setY(y);
-    this->scaling.setZ(z);
-}
-
-void Transform::updateMatrices()
-{
+void Transform::updateMatrices(
+    double alpha, 
+    double beta, 
+    double gama, 
+    double scaling_x, 
+    double scaling_y, 
+    double scaling_z,
+    double translation_x,
+    double translation_y,
+    double translation_z
+) {
     Matrix m_trans(4, 4);
     m_trans.unit();
-    m_trans[3][0] = translation.getX();
-    m_trans[3][1] = translation.getY();
-    m_trans[3][2] = translation.getZ();
+    m_trans[3][0] = translation_x;
+    m_trans[3][1] = translation_y;
+    m_trans[3][2] = translation_z;
 
     Matrix m_scale(4, 4);
     m_scale.unit();
-    m_scale[0][0] = scaling.getX();
-    m_scale[1][1] = scaling.getY();
-    m_scale[2][2] = scaling.getZ();
+    m_scale[0][0] = scaling_x;
+    m_scale[1][1] = scaling_y;
+    m_scale[2][2] = scaling_z;
 
     Matrix m_rotate_x(4, 4);
     m_rotate_x.unit();
@@ -103,7 +75,20 @@ void Transform::updateMatrices()
 
 Vector Transform::apply(const Vector &v, int type) const
 {
-    return Vector(apply(*v.getP1(), type), apply(*v.getP2(), type));
+    Matrix m_p1(1, 4);
+    m_p1[0][0] = v.getX();
+    m_p1[0][1] = v.getY();
+    m_p1[0][2] = v.getZ();
+    m_p1[0][3] = 1;
+
+    Matrix m1(1, 4);
+    if(type == TO_LOCAL) {
+        m1 = this->backward_matrix * m_p1;
+    } else {
+        m1 = this->forward_matrix * m_p1;
+    }
+
+    return Vector(m1[0][0], m1[0][1], m1[0][2]);
 }
 
 Point Transform::apply(const Point &p, int type) const
@@ -123,4 +108,9 @@ Point Transform::apply(const Point &p, int type) const
     }
 
     return Point(m1[0][0], m1[0][1], m1[0][2]);
+}
+
+Line Transform::apply(const Line &l, int type) const
+{
+    return Line(apply(l.getP(), type), apply(l.getV(), type));
 }

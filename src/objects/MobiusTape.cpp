@@ -20,15 +20,15 @@ MobiusTape::~MobiusTape() {}
 
 void MobiusTape::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
-    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
+    Line local_line = this->tr.apply(line, TO_LOCAL);
 
-    double alpha = local_vector.getP1()->getX();
-    double beta = local_vector.getP1()->getY();
-    double gama = local_vector.getP1()->getZ();
+    double alpha = local_line.getPX();
+    double beta = local_line.getPY();
+    double gama = local_line.getPZ();
 
-    double a = local_vector.getX();
-    double b = local_vector.getY();
-    double c = local_vector.getZ();
+    double a = local_line.getX();
+    double b = local_line.getY();
+    double c = local_line.getZ();
 
     double x3 = A * pow(a, 2) * b +
                 B * pow(c, 2) * b +
@@ -73,9 +73,9 @@ void MobiusTape::intersect(std::vector<Intersection> *intersections, const Line 
     for (double s : solutions) {
         if (s > 0.00001) {
             Point local_point(
-                local_vector.getP1()->getX() + s * local_vector.getX(),
-                local_vector.getP1()->getY() + s * local_vector.getY(),
-                local_vector.getP1()->getZ() + s * local_vector.getZ()
+                local_line.getPX() + s * local_line.getX(),
+                local_line.getPY() + s * local_line.getY(),
+                local_line.getPZ() + s * local_line.getZ()
             );
             Point real_point = this->tr.apply(local_point, TO_REAL);
             double dist = (real_point.getX() - line.getP().getX()) / line.getV().getX();
@@ -117,26 +117,16 @@ double MobiusTape::angleWithAt(const Line &line, const Intersection &intersectio
     return this->tangentAt(intersection.getRealPoint()).angleWith(line);
 }
 
-Line MobiusTape::getReflectedRayAt(Intersection &intersection, const Line &line) const
+Line MobiusTape::getReflectedRayAt(const Intersection &intersection, const Line &line) const
 {
     return this->tangentAt(intersection.getRealPoint()).getReflectedRayAt(intersection, line);
 }
 
 Color MobiusTape::getColorAt(const Point &intersection) const
 {
-    if (this->texture.getType() == "Uniform") {
+    if (this->texture.getType() == UNIFORM) {
         return this->getColor();
-    } else if (this->texture.getType() == "Gradient") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "Grid") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "VerticalLined") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "HorizontalLined") {
-        throw "Texture unsupported";
-    } else if (this->texture.getType() == "Image") {
-        throw "Texture unsupported";
     } else {
-        throw "Should never happen";
+        throw "Texture unsupported";
     }
 }

@@ -46,6 +46,7 @@ class Camera
 
         void update(const Config &config);
 
+        Point getPoint(int h, int w, bool x) const;
         Point getPoint(double h, double w) const;
         std::vector< std::vector<Point> > getScreen() const;
 };

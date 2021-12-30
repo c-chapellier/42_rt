@@ -22,19 +22,19 @@ Circle::~Circle() {}
 
 void Circle::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
-    Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
+    Line local_line = this->tr.apply(line, TO_LOCAL);
     Vector normal(0, 0, 1);
 
-    if (local_vector.getZ() == 0) {
+    if (local_line.getZ() == 0) {
         // line in the plane
     } else {
-        double s = -local_vector.getP1()->getZ() / local_vector.getZ();
+        double s = -local_line.getPZ() / local_line.getZ();
         if(s > 0.00001) {
             Point origin(0, 0, 0);
             Point local_point(
-                local_vector.getP1()->getX() + s * local_vector.getX(),
-                local_vector.getP1()->getY() + s * local_vector.getY(),
-                local_vector.getP1()->getZ() + s * local_vector.getZ()
+                local_line.getPX() + s * local_line.getX(),
+                local_line.getPY() + s * local_line.getY(),
+                local_line.getPZ() + s * local_line.getZ()
             );
             if (local_point.distWith(origin) <= R && local_point.distWith(origin) >= r) {
                 Point real_point = this->tr.apply(local_point, TO_REAL);
@@ -53,20 +53,20 @@ double Circle::angleWithAt(const Line &line, const Intersection &intersection) c
     return real_normal.angleWith(line.getV());
 }
 
-Line Circle::getReflectedRayAt(Intersection &intersection, const Line &line) const
+Line Circle::getReflectedRayAt(const Intersection &intersection, const Line &line) const
 {
     Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
     Vector local_reflexion(local_vector.getX(), local_vector.getY(), -local_vector.getZ());
     Vector real_reflexion = this->tr.apply(local_vector, TO_REAL);
-    real_reflexion.setP1(intersection.getRealPoint());
     return Line(intersection.getRealPoint(), real_reflexion);
 }
 
 Color Circle::getColorAt(const Point &intersection) const
 {
-    if (this->texture.getType() == "Uniform") {
+    char type = this->texture.getType();
+    if (type == UNIFORM) {
         return this->getColor();
-    } else if (this->texture.getType() == "Gradient") {
+    } else if (type == GRADIENT) {
         double dist = intersection.distWith(Point(0, 0, 0));
         double ratio = dist - r / (R - r);
         return Color(
@@ -75,13 +75,13 @@ Color Circle::getColorAt(const Point &intersection) const
             this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * ratio),
             this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * ratio)
         );
-    } else if (this->texture.getType() == "Grid") {
+    } else if (type == GRID) {
         throw "Texture unsupported";
-    } else if (this->texture.getType() == "VerticalLined") {
+    } else if (type == VERTICAL_LINED) {
         throw "Texture unsupported";
-    } else if (this->texture.getType() == "HorizontalLined") {
+    } else if (type == HORIZONTAL_LINED) {
         throw "Texture unsupported";
-    } else if (this->texture.getType() == "Image") {
+    } else if (type == IMAGE) {
         throw "Texture unsupported";
     } else {
         throw "Should never happen";

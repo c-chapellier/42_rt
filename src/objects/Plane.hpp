@@ -9,7 +9,7 @@ class Intersection;
 // Equation:
 // aX + bY +cZ = K
 
-class Plane : public Object
+class Plane
 {
     private:
         Point p;
@@ -31,8 +31,7 @@ class Plane : public Object
 
         void intersect(std::vector<Intersection> *intersections, const Line &line) const;
         double angleWithAt(const Line &line, const Intersection &intersection) const;
-        Line getReflectedRayAt(Intersection &intersection, const Line &line) const;
-        Color getColorAt(const Point &intersection) const;
+        Line getReflectedRayAt(const Intersection &intersection, const Line &line) const;
 
         friend std::ostream& operator<<(std::ostream& out, const Plane& plane);
 };

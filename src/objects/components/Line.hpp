@@ -25,6 +25,14 @@ class Line
         Vector &getV();
         Vector getV() const;
 
+        double getX() const;
+        double getY() const;
+        double getZ() const;
+        double getPX() const;
+        double getPY() const;
+        double getPZ() const;
+
+        void normalize();
         double distWith(const Point &p) const;
         Point getPointFor(double t) const;
 

@@ -1,0 +1,55 @@
+{
+    "name": "sphere",
+    "height": 600,
+    "width": 600,
+    "colors" : {
+        "red": [255, 0, 0, 20],
+        "green": [0, 255, 0, 80],
+        "blue": [0, 0, 255, 255],
+        "ambient": [20, 20, 20, 200],
+        "white": [255, 255, 255, 255]
+    },
+    "ambient": "ambient",
+    "precision": 3,
+    "cameras": [
+        {
+            "coordinates": [-100, 0, 0],
+            "direction": [1, 0, 0],
+            "up": [0, 0, 1],
+            "aperture": 90
+        }
+    ],
+    "lights": [
+
+    ],
+    "objects": [
+        {
+            "type": "Sphere",
+            "coordinates": [0, 0, -10],
+            "radius" : 30,
+            "colors": [
+                "red"
+            ]
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, 15, 10],
+            "radius" : 30,
+            "colors": [
+                "green"
+            ],
+            "texture": {
+                "type": "Uniform",
+                "values": [0, 0]
+            }
+        },
+        {
+            "type": "Sphere",
+            "coordinates": [0, -15, 10],
+            "radius" : 30,
+            "colors": [
+                "blue"
+            ]
+        }
+    ]
+}

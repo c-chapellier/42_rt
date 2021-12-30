@@ -24,6 +24,8 @@ Engine::Engine(std::string config_file)
     this->win = new Window(this->config.getHeight(), this->config.getWidth());
     this->loadingBar = new LoadingBar(this->win);
 
+    this->current_cam = NULL;
+
     this->precision_height = this->config.getHeight() * this->config.getPrecision();
     this->precision_width = this->config.getWidth() * this->config.getPrecision();
 
@@ -114,15 +116,17 @@ void Engine::run()
 
     for (auto const& camera : this->cameras)
     {
+        current_cam = camera;
+
         camera->update(config);
         this->current_pixel = 0;
-        std::vector< std::vector<Point> > screen = camera->getScreen();
+        // std::vector< std::vector<Point> > screen = camera->getScreen();
         
         std::vector< std::vector<Pixel> > pixels;
         pixels.resize(this->precision_height, std::vector<Pixel>(this->precision_width, Pixel(0, 0, 0, 0, INFINITY)));
 
         std::cout << "findObjects" << std::endl;
-        this->threadedFindObjects(camera->getP(), screen, pixels);
+        this->threadedFindObjects(pixels);
 
         this->applyPerlinNoise(pixels);
         this->applyFilter(pixels);
@@ -144,12 +148,12 @@ void Engine::run()
     this->win->pause();
 }
 
-void Engine::threadedFindObjects(const Point &point_of_vue, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
+void Engine::threadedFindObjects(std::vector< std::vector<Pixel> > &pixels)
 {
     std::vector<std::thread> threads;
 
     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-        threads.push_back(std::thread(&Engine::findObjects, this, point_of_vue, std::ref(screen), std::ref(pixels)));
+        threads.push_back(std::thread(&Engine::findObjects, this, std::ref(pixels)));
     
     // std::cout << "manageLoadingBar" << std::endl;
     // this->manageLoadingBar();
@@ -160,7 +164,7 @@ void Engine::threadedFindObjects(const Point &point_of_vue, std::vector< std::ve
 
 }
 
-void Engine::findObjects(const Point &cam, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels)
+void Engine::findObjects(std::vector< std::vector<Pixel> > &pixels)
 {
     int height, width;
 
@@ -168,7 +172,7 @@ void Engine::findObjects(const Point &cam, std::vector< std::vector<Point> > &sc
     {
         if (height >= this->precision_height || width >= this->precision_width)
             continue;
-        Line ray(cam, screen[height][width]);
+        Line ray(current_cam->getP(), current_cam->getPoint(height, width, true));
         std::vector<Intersection> intersections;
         getIntersections(&intersections, ray);
         sortIntersections(intersections, intersections.size());
@@ -185,16 +189,12 @@ void Engine::getIntersections(std::vector<Intersection>  *intersections, const L
     for (auto const& obj : this->objects)
     {
         obj->intersect(intersections, ray);
-        // if(this->black_objects.size() != 0) {
-        //     for (auto it = intersections->begin(); it != intersections->end(); ) {
-        //         if(blackObjectsContains(it->getLocalPoint()))
-        //             intersections->erase(it);
-        //     }
-        // }
-        // for (unsigned long i = 0; i < tmp.size(); ++i) {
-        //     if(!blackObjectsContains(tmp[i].getRealPoint()))
-        //         intersections.push_back(tmp[i]);
-        // }
+    }
+    if(this->black_objects.size() != 0) {
+        for (auto it = intersections->begin(); it != intersections->end(); ) {
+            if(blackObjectsContains(it->getLocalPoint()))
+                intersections->erase(it);
+        }
     }
 }
 
@@ -228,7 +228,7 @@ void Engine::drawPixel(std::vector<Intersection> &intersections, Pixel &pixel, L
     pixel.setColor(c);
 }
 
-Color Engine::getColor(Intersection &inter, Line &ray, int index)
+Color Engine::getColor(const Intersection &inter, const Line &ray, int index)
 {
     Color c;
     if (inter.getObj()->getReflexion() != 0) {
@@ -249,9 +249,10 @@ Color Engine::getColor(Intersection &inter, Line &ray, int index)
             }
             if(new_intersections.size() != 0)
                 getReflectedColor(
-                    inter.getObj()->getColorAt(inter.getLocalPoint()), 
-                    c, 
-                    (double)inter.getObj()->getReflexion() / 100.0);
+                    inter.getObj()->getColorAt(inter.getLocalPoint()),
+                    c,
+                    (double)inter.getObj()->getReflexion() / 100.0
+                );
             if(new_intersections.size() == 0)
                 c = inter.getObj()->getColorAt(inter.getLocalPoint());
         } 
@@ -279,7 +280,7 @@ void Engine::getReflectedColor(const Color &c1, Color &c2, double factor) const
     // );
 }
 
-void Engine::applyLights(Intersection &inter, Color &color)
+void Engine::applyLights(const Intersection &inter, Color &color)
 {
     for (auto const& light : this->lights)
     {
@@ -288,33 +289,33 @@ void Engine::applyLights(Intersection &inter, Color &color)
 
         std::vector<Intersection> intersections;
         for (auto const& obj : this->objects)
-        {
             obj->intersect(&intersections, ray);
-            for (auto it = intersections.begin(); it != intersections.end(); ) {
-                if(
-                    blackObjectsContains(it->getRealPoint()) || 
-                    it->getRealPoint().distWith(light->getP()) > dist - 0.00001 ||
-                    it->getRealPoint().distWith(light->getP()) < 0
-                )
-                    intersections.erase(it);
-            }
-            // for(unsigned long k = 0; k < tmp.size(); ++k) {
-            //     if(!blackObjectsContains(tmp[k].getRealPoint()) && tmp[k].getRealPoint().distWith(light->getP()) < dist - 0.00001)
-            //         intersections.push_back(tmp[k]);
-            // }
+        for (auto it = intersections.begin(); it != intersections.end(); ) {
+            if(
+                blackObjectsContains(it->getRealPoint()) || 
+                it->getRealPoint().distWith(light->getP()) > dist - 0.00001
+            )
+                intersections.erase(it);
         }
+        
 
         double dist_min = INFINITY;
         bool shining = true;
         //double opacity = 0;
 
-        for (unsigned int i = 0; i < intersections.size(); ++i) {
-            if (intersections[i].getDist() < dist_min) {
-                dist_min = intersections[i].getDist();
-                shining = false;
-                break;
-            }
+        if(intersections.size() != 0) {
+            sortIntersections(intersections, intersections.size());
+            dist_min = intersections[0].getDist();
+            shining = false;
         }
+
+        // for (unsigned int i = 0; i < intersections.size(); ++i) {
+        //     if (intersections[i].getDist() < dist_min) {
+        //         dist_min = intersections[i].getDist();
+        //         shining = false;
+        //         break;
+        //     }
+        // }
 
         if (shining)
         {
@@ -528,7 +529,7 @@ float Engine::dotGridGradient(int ix, int iy, float x, float y)
     float dy = y - (float)iy;
 
     // Compute the dot-product
-    return (dx * this->GRADIENT[iy][ix].getX()) + (dy * this->GRADIENT[iy][ix].getY());
+    return (dx * this->GRADIENT_NOISE[iy][ix].getX()) + (dy * this->GRADIENT_NOISE[iy][ix].getY());
 }
 
 float Engine::perlin(float x, float y)
@@ -567,7 +568,7 @@ void Engine::initGradient()
             y = rand() % 2 == 0 ? (y) : (-y);
             tmp.push_back(Vector(x, y, 0));
         }
-        this->GRADIENT.push_back(tmp);
+        this->GRADIENT_NOISE.push_back(tmp);
     }
 }
 

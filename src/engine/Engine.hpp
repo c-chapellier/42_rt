@@ -18,17 +18,19 @@ class Engine
         int precision_height;
         int precision_width;
 
+        Camera *current_cam;
+
         int current_pixel;
         std::mutex get_pixel_mtx;
 
         // const unsigned int nbrOfThreads = 1;
         const unsigned int nbrOfThreads = std::thread::hardware_concurrency();
 
-        std::vector< std::vector<Vector> > GRADIENT;
+        std::vector< std::vector<Vector> > GRADIENT_NOISE;
 
-        void threadedFindObjects(const Point &point_of_vue, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
+        void threadedFindObjects(std::vector< std::vector<Pixel> > &pixels);
         bool getNextPixel(int &height, int &width);
-        void findObjects(const Point &cam, std::vector< std::vector<Point> > &screen, std::vector< std::vector<Pixel> > &pixels);
+        void findObjects(std::vector< std::vector<Pixel> > &pixels);
         void applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels);
         void applyFilter(std::vector< std::vector<Pixel> > &pixels);
         void applyBlur(std::vector< std::vector<Pixel> > &pixels);
@@ -46,8 +48,8 @@ class Engine
         void getIntersections(std::vector<Intersection> *intersections, const Line &ray) const;
         void sortIntersections(std::vector<Intersection> &intersections, int size);
         void drawPixel(std::vector<Intersection> &intersections, Pixel &pixel, Line &ray);
-        Color getColor(Intersection &inter, Line &ray, int index);
-        void applyLights(Intersection &inter, Color &color);
+        Color getColor(const Intersection &inter, const Line &ray, int index);
+        void applyLights(const Intersection &inter, Color &color);
         void getReflectedColor(const Color &c1, Color &c2, double factor) const;
 
     public:

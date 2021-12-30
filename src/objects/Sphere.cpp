@@ -31,19 +31,18 @@ double Sphere::getR() const
 
 void Sphere::intersect(std::vector<Intersection> *intersections, const Line &line) const
 {
-    Vector local = this->tr.apply(line.getV(), TO_LOCAL);
-    local.normalize();
-    double a, b, c;
+    Line local_line = this->tr.apply(line, TO_LOCAL);
+    local_line.normalize();
 
-    a = 1;
+    double a = 1;
 
-    b = 2 * local.getP1()->getX() * local.getX()
-        + 2 * local.getP1()->getY() * local.getY()
-        + 2 * local.getP1()->getZ() * local.getZ();
+    double b = 2 * local_line.getPX() * local_line.getX()
+        + 2 * local_line.getPY() * local_line.getY()
+        + 2 * local_line.getPZ() * local_line.getZ();
         
-    c = local.getP1()->getX() * local.getP1()->getX()
-        + local.getP1()->getY() * local.getP1()->getY()
-        + local.getP1()->getZ() * local.getP1()->getZ()
+    double c = local_line.getPX() * local_line.getPX()
+        + local_line.getPY() * local_line.getPY()
+        + local_line.getPZ() * local_line.getPZ()
         - this->r * this->r;
 
     std::list<double> solutions = EquationSolver::solveQuadraticEquation(a, b, c);
@@ -52,12 +51,12 @@ void Sphere::intersect(std::vector<Intersection> *intersections, const Line &lin
         if (s > 0.00001)
         {
             Point local_intersection(
-                local.getP1()->getX() + local.getX() * s,
-                local.getP1()->getY() + local.getY() * s,
-                local.getP1()->getZ() + local.getZ() * s
+                local_line.getPX() + local_line.getX() * s,
+                local_line.getPY() + local_line.getY() * s,
+                local_line.getPZ() + local_line.getZ() * s
             );
             Point real_intersection = this->tr.apply(local_intersection, TO_REAL);
-            double dist = (real_intersection.getX() - line.getP().getX()) / line.getV().getX();
+            double dist = (real_intersection.getX() - line.getPX()) / line.getX();
             intersections->push_back(Intersection(real_intersection, local_intersection, dist, (Object*)this));
         }
     }
@@ -65,22 +64,25 @@ void Sphere::intersect(std::vector<Intersection> *intersections, const Line &lin
 
 double Sphere::angleWithAt(const Line &line, const Intersection &intersection) const
 {
-    return Plane(this->tr.getTranslation(), intersection.getRealPoint()).angleWith(line);
+    Point real_origin = this->tr.apply(Point(0, 0, 0), TO_REAL);
+    return Plane(real_origin, intersection.getRealPoint()).angleWith(line);
 }
 
-Line Sphere::getReflectedRayAt(Intersection &intersection, const Line &line) const
+Line Sphere::getReflectedRayAt(const Intersection &intersection, const Line &line) const
 {
-    Vector v(this->tr.getTranslation(), intersection.getRealPoint());
+    Point real_origin = this->tr.apply(Point(0, 0, 0), TO_REAL);
+    Vector v(real_origin, intersection.getRealPoint());
     Vector tmp = v.getReflectionOf(line.getV());
-    tmp.setP1(intersection.getRealPoint());
     return Line(intersection.getRealPoint(), tmp);
 }
 
 Color Sphere::getColorAt(const Point &intersection) const
 {
-    if (this->texture.getType() == "Uniform") {
+    char type = this->texture.getType();
+
+    if (type == UNIFORM) {
         return this->getColor();
-    } else if (this->texture.getType() == "Gradient") {
+    } else if (type == GRADIENT) {
         /*
             To find the right color:
                 - Get Z value as a ratio of height
@@ -95,7 +97,7 @@ Color Sphere::getColorAt(const Point &intersection) const
             this->getColor(0).getB() + (int)((double)((double)this->getColor(1).getB() - (double)this->getColor(0).getB()) * ratio),
             this->getColor(0).getO() + (int)((double)((double)this->getColor(1).getO() - (double)this->getColor(0).getO()) * ratio)
         );
-    } else if (this->texture.getType() == "Grid") {
+    } else if (type == GRID) {
         /*
             The first value of the texture is the number of vertical sections
             The second value is the number of horizontal lines
@@ -118,7 +120,7 @@ Color Sphere::getColorAt(const Point &intersection) const
         double lineWidth = this->r * 2 / texture.getValue1();
 
         return this->getColor(((int)(alpha / lineRadian) + (int)(ratio / lineWidth)) % 2);
-    } else if (this->texture.getType() == "VerticalLined") {
+    } else if (type == VERTICAL_LINED) {
         /*
             The first value of the texture is the number of vertical sections
             The second value is unused
@@ -134,7 +136,7 @@ Color Sphere::getColorAt(const Point &intersection) const
         alpha = v.directionXY(x_axis) == CLOCK_WISE ? (360 - alpha) : (alpha);
 
         return this->getColor((int)(alpha / lineRadian) % 2);
-    } else if (this->texture.getType() == "HorizontalLined") {
+    } else if (type == HORIZONTAL_LINED) {
         /*
             The first value of the texture is the number of horizontal lines
             The second value is unused
@@ -147,7 +149,7 @@ Color Sphere::getColorAt(const Point &intersection) const
             this->r + abs(intersection.getZ());
         double lineWidth = this->r * 2 / texture.getValue1();
         return this->getColor((int)(ratio / lineWidth) % 2);
-    } else if (this->texture.getType() == "Image") {
+    } else if (type == IMAGE) {
         return TextureAplicator::applyTextureOnSphereAt(*this, intersection);
     } else {
         throw "Should never happen";

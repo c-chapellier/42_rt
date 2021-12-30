@@ -19,7 +19,7 @@ class Object
         std::vector<Color> colors;
         Texture texture;
         Transform tr;
-        int reflexion;
+        char reflexion;
         
     public:
         Object();
@@ -30,23 +30,28 @@ class Object
         Color getColor() const;
         Color getColor(int i) const;
         Texture getTexture() const;
-        int getReflexion() const;
+        char getReflexion() const;
 
         // modifier
         void addColor(const Color &color);
         void setTexture(const Texture &texture);
         void setReflexion(int r);
 
-        void setAlpha(double alpha);
-        void setBeta(double beta);
-        void setGama(double gama);
-        void setTranslation(double x, double y, double z);
-        void setScaling(double x, double y, double z);
-        void updateMatrix();
+        void updateMatrix(
+            double alpha, 
+            double beta, 
+            double gama, 
+            double scaling_x, 
+            double scaling_y, 
+            double scaling_z,
+            double translation_x,
+            double translation_y,
+            double translation_z
+        );
 
         // pure methodes
         virtual void intersect(std::vector<Intersection> *intersections, const Line &line) const = 0;
         virtual double angleWithAt(const Line &line, const Intersection &intersection) const = 0;
-        virtual Line getReflectedRayAt(Intersection &intersection, const Line &line) const = 0;
+        virtual Line getReflectedRayAt(const Intersection &intersection, const Line &line) const = 0;
         virtual Color getColorAt(const Point &intersection) const = 0;
 };

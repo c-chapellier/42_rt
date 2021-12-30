@@ -16,6 +16,13 @@
 #define TO_REAL 1
 #define TO_LOCAL 2
 
+#define UNIFORM 1
+#define GRADIENT 2
+#define GRID 3
+#define VERTICAL_LINED 4
+#define HORIZONTAL_LINED 5
+#define IMAGE 6
+
 double neg(double x);
 double pos(double x);
 double mod(double x, double z);

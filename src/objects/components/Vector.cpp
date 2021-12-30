@@ -63,7 +63,7 @@ double Vector::getZ() const
 
 double Vector::getMagnitude() const
 {
-    return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
+    return sqrt(x * x + y * y + z * z);
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -140,7 +140,7 @@ double Vector::angleWith(const Vector &v) const
 
 Vector Vector::getReflectionOf(const Vector &d) const
 {
-    double coef = (2 * d.dotProduct(*this)) / pow(getMagnitude(), 2);
+    double coef = (2 * d.dotProduct(*this)) / (getMagnitude() * getMagnitude());
     Vector tmp(coef * this->getX(), coef * this->getY(), coef * this->getZ());
     Vector res(d.getX() - tmp.getX(), d.getY() - tmp.getY(), d.getZ() - tmp.getZ());
     return res;
@@ -158,7 +158,6 @@ double Vector::crossProductXY(const Vector &v) const
 
 int Vector::directionXY(const Vector &v) const
 {
-    //Vector v1(*this, this->getMagnitude());
     Vector v1(*this);
     v1.normalize();
     Vector v2(v.getX() / v.getMagnitude(), v.getY() / v.getMagnitude(), 0);
@@ -180,7 +179,6 @@ double Vector::crossProductXZ(const Vector &v) const
 
 int Vector::directionXZ(const Vector &v) const
 {
-    //Vector v1(*this, this->getMagnitude());
     Vector v1(*this);
     v1.normalize();
     Vector v2(v.getX() / v.getMagnitude(), 0, v.getZ() / v.getMagnitude());

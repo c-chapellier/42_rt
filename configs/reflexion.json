@@ -29,7 +29,7 @@
     ],
     "objects": [
         {
-            "type": "PlaneObj",
+            "type": "Plane",
             "colors": [
                 "black",
                 "white"
@@ -45,7 +45,7 @@
             "scaling": [1, 1, 1]
         },
         {
-            "type": "PlaneObj",
+            "type": "Plane",
             "colors": [
                 "mirror"
             ],
@@ -76,7 +76,7 @@
                 "green"
             ],
             "radius": 50,
-            "reflection": 10,
+            "reflection": 30,
             "alpha": 0,
             "beta": 0,
             "gama": 0,
@@ -89,7 +89,7 @@
                 "blue"
             ],
             "radius": 50,
-            "reflection": 10,
+            "reflection": 70,
             "alpha": 0,
             "beta": 0,
             "gama": 0,

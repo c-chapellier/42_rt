@@ -76,43 +76,43 @@ void CubicSurface::intersect(std::vector<Intersection> *intersections, const Lin
     double beta = local_line.getPY();
     double gama = local_line.getPZ();
 
-    double t3 = A * pow(a, 3) +
-                B * pow(b, 3) +
-                C * pow(c, 3) +
-                D * pow(a, 2) * b +
-                E * pow(a, 2) * c +
-                F * pow(b, 2) * a +
-                G * pow(b, 2) * c +
-                H * pow(c, 2) * a +
-                I * pow(c, 2) * b +
+    double t3 = A * a * a * a +
+                B * b * b * b +
+                C * c * c * c +
+                D * a * a * b +
+                E * a * a * c +
+                F * b * b * a +
+                G * b * b * c +
+                H * c * c * a +
+                I * c * c * b +
                 J * a * b * c;
     
-    double t2 = A * 3 * pow(a, 2) * alpha +
-                B * 3 * pow(b, 2) * beta +
-                C * 3 * pow(c, 2) * gama +
-                D * ((2 * a * b * alpha) + (pow(a, 2) * beta)) +
-                E * ((2 * a * c * alpha) + (pow(a, 2) * gama)) +
-                F * ((2 * b * a * beta) + (pow(b, 2) * alpha)) +
-                G * ((2 * b * c * beta) + (pow(b, 2) * gama)) +
-                H * ((2 * c * a * gama) + (pow(c, 2) * alpha)) +
-                I * ((2 * c * b * beta) + (pow(c, 2) * beta)) +
+    double t2 = A * 3 * a * a * alpha +
+                B * 3 * b * b * beta +
+                C * 3 * c * c * gama +
+                D * ((2 * a * b * alpha) + (a * a * beta)) +
+                E * ((2 * a * c * alpha) + (a * a * gama)) +
+                F * ((2 * b * a * beta) + (b * b * alpha)) +
+                G * ((2 * b * c * beta) + (b * b * gama)) +
+                H * ((2 * c * a * gama) + (c * c * alpha)) +
+                I * ((2 * c * b * beta) + (c * c * beta)) +
                 J * ((a * c * beta) + (b * c * alpha) + (a * b * gama)) +
-                K * pow(a, 2) +
-                L * pow(b, 2) +
-                M * pow(c, 2) +
+                K * a * a +
+                L * b * b +
+                M * c * c +
                 N * a * b +
                 O * a * c +
                 P * b * c;
 
-    double t1 = A * 3 * pow(alpha, 2) * a +
-                B * 3 * pow(beta, 2) * b +
-                C * 3 * pow(gama, 2) * c +
-                D * ((pow(a, 2) * b) + (2 * a * alpha * beta)) +
-                E * ((pow(a, 2) * c) + (2 * a * alpha * gama)) +
-                F * ((pow(b, 2) * a) + (2 * b * beta * alpha)) +
-                G * ((pow(b, 2) * c) + (2 * b * beta * gama)) +
-                H * ((pow(c, 2) * a) + (2 * c * gama * alpha)) +
-                I * ((pow(c, 2) * b) + (2 * c * gama * beta)) +
+    double t1 = A * 3 * alpha * alpha * a +
+                B * 3 * beta * beta * b +
+                C * 3 * gama * gama * c +
+                D * ((a * a * b) + (2 * a * alpha * beta)) +
+                E * ((a * a * c) + (2 * a * alpha * gama)) +
+                F * ((b * b * a) + (2 * b * beta * alpha)) +
+                G * ((b * b * c) + (2 * b * beta * gama)) +
+                H * ((c * c * a) + (2 * c * gama * alpha)) +
+                I * ((c * c * b) + (2 * c * gama * beta)) +
                 J * ((c * alpha * beta) + (b * alpha * gama) + (a * beta * gama)) +
                 K * 2 * a * alpha +
                 L * 2 * b * beta +
@@ -124,19 +124,19 @@ void CubicSurface::intersect(std::vector<Intersection> *intersections, const Lin
                 R * b +
                 S * c;
 
-    double t0 = A * pow(alpha, 3) +
-                B * pow(beta, 3) +
-                C * pow(gama, 3) +
-                D * pow(a, 2) * beta +
-                E * pow(a, 2) * gama +
-                F * pow(b, 2) * alpha +
-                G * pow(b, 2) * gama +
-                H * pow(c, 2) * alpha +
-                I * pow(c, 2) * beta +
+    double t0 = A * alpha * alpha * alpha +
+                B * beta * beta * beta +
+                C * gama * gama * gama +
+                D * a * a * beta +
+                E * a * a * gama +
+                F * b * b * alpha +
+                G * b * b * gama +
+                H * c * c * alpha +
+                I * c * c * beta +
                 J * alpha * beta * gama +
-                K * pow(alpha, 2) +
-                L * pow(beta, 2) +
-                M * pow(gama, 2) +
+                K * alpha * alpha +
+                L * beta * beta +
+                M * gama * gama +
                 N * alpha * beta +
                 O * alpha * gama +
                 P * beta + gama +

@@ -63,7 +63,7 @@ void Transformer::rotateAroundX(Point *p, double alpha)
 {
     if (alpha == 0)
         return;
-    double dist = sqrt(pow(p->getY(), 2) + pow(p->getZ(), 2));
+    double dist = sqrt(p->getY() * p->getY() + p->getZ() * p->getZ());
     double beta = getAngle(p->getY(), p->getZ());
     double gama = beta + alpha;
     p->setZ(dist * sin(RADIAN(gama)));
@@ -79,7 +79,7 @@ void Transformer::rotateAroundY(Point *p, double alpha)
 {
     if (alpha == 0)
         return;
-    double dist = sqrt(pow(p->getX(), 2) + pow(p->getZ(), 2));
+    double dist = sqrt(p->getX() * p->getX() + p->getZ() * p->getZ());
     double beta = getAngle(p->getX(), p->getZ());
     double gama = beta + alpha;
     p->setX(dist * cos(RADIAN(gama)));
@@ -95,7 +95,7 @@ void Transformer::rotateAroundZ(Point *p, double alpha)
 {
     if (alpha == 0)
         return;
-    double dist = sqrt(pow(p->getX(), 2) + pow(p->getY(), 2));
+    double dist = sqrt(p->getX() * p->getX() + p->getY() * p->getY());
     double beta = getAngle(p->getX(), p->getY());
     double gama = beta + alpha;
     p->setX(dist * cos(RADIAN(gama)));

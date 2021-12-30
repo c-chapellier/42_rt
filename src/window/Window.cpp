@@ -113,11 +113,8 @@ void Window::load_image(Image *img)
     if (!img->is_valid(this->height, this->width))
         throw "Image and window dimensions do not match.";
 
-    std::cout << "image loaded 2" << std::endl;
     Image new_img(img);
-    std::cout << "image loaded 3" << std::endl;
     this->imgs.push_back(new_img);
-    std::cout << "image loaded 4" << std::endl;
 }
 
 void Window::set_image()

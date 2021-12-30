@@ -25,9 +25,15 @@ void Cylinder::intersect(std::vector<Intersection> *intersections, const Line &l
     local_line.normalize();
 
     double a, b, c;
-    a = pow(local_line.getX(), 2) + pow(local_line.getY(), 2);
-    b = 2 * local_line.getPX() * local_line.getX() + 2 * local_line.getPY() * local_line.getY();
-    c = pow(local_line.getPX(), 2) + pow(local_line.getPY(), 2) - pow(this->r, 2);
+    a = local_line.getX() * local_line.getX()+
+        local_line.getY() * local_line.getY();
+
+    b = 2 * local_line.getPX() * local_line.getX() + 
+        2 * local_line.getPY() * local_line.getY();
+
+    c = local_line.getPX() * local_line.getPX() +
+        local_line.getPY() * local_line.getPY() -
+        this->r * this->r;
 
     std::list<double> solutions = EquationSolver::solveQuadraticEquation(a, b, c);
     for (double s : solutions) {

@@ -10,7 +10,7 @@
         "white": [255, 255, 255, 255]
     },
     "ambient": "ambient",
-    "precision": 3,
+    "precision": 1,
     "cameras": [
         {
             "coordinates": [-100, 0, 0],
@@ -20,7 +20,10 @@
         }
     ],
     "lights": [
-
+        {
+            "coordinates": [-1000, 500, 200],
+            "color": "white"
+        }
     ],
     "objects": [
         {

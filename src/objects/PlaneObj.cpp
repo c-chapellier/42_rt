@@ -46,9 +46,16 @@ double PlaneObj::angleWithAt(const Line &line, const Intersection &intersection)
 Line PlaneObj::getReflectedRayAt(const Intersection &intersection, const Line &line) const
 {
     Vector local_vector = this->tr.apply(line.getV(), TO_LOCAL);
-    Vector local_reflexion(local_vector.getX(), local_vector.getY(), -local_vector.getZ());
-    Vector real_reflexion = this->tr.apply(local_vector, TO_REAL);
-    return Line(intersection.getRealPoint(), real_reflexion);
+    Vector local_normal(0, 0, 1);
+    Vector local_reflection = local_normal.getReflectionOf(local_vector);
+    Vector real_reflection = this->tr.apply(local_reflection, TO_REAL);
+    return Line(intersection.getRealPoint(), real_reflection);
+    // Vector real_normal = this->tr.apply(Vector(0, 0, 1), TO_REAL);
+    // Vector real_reflexion = real_normal.getReflectionOf(line.getV());
+    // return Line(intersection.getRealPoint(), real_reflexion);
+    // Vector local_reflexion(local_vector.getX(), local_vector.getY(), -local_vector.getZ());
+    // Vector real_reflexion = this->tr.apply(local_vector, TO_REAL);
+    // return Line(intersection.getRealPoint(), real_reflexion);
 }
 
 Color PlaneObj::getColorAt(const Point &intersection) const

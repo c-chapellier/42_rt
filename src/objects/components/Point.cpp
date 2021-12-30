@@ -69,76 +69,11 @@ void Point::setZ(double z)
 
 double Point::distWith(const Point &p) const
 {
-    return sqrt(pow(p.x - this->x, 2) + pow(p.y - this->y, 2) + pow(p.z - this->z, 2));
-}
-
-Point Point::rotateAroundX(double alpha) const
-{
-    double dist, beta, new_angle, new_y, new_z;
-    Point p(this->x, 0, 0);
-    Vector v(p, *this);
-    Vector y_axis(0, 1, 0);
-    // current polar coordinates
-    dist = this->distWith(p);
-    beta = v.angleWith(y_axis);
-    beta = v.directionXY(y_axis) == CLOCK_WISE ? (360 - beta) : (beta); // if right turn angle = one complete turn minus himself (trigonometric circle)
-
-    // new polar coordinates
-    new_angle = mod(beta + alpha, 360);
-                
-    // new coordinates
-    new_y = cos(RADIAN(new_angle)) * dist;
-    new_z = sin(RADIAN(new_angle)) * dist;
-    new_y = new_angle <= 90 ? (pos(new_y)) : new_angle <= 270 ? (neg(new_y)) : (pos(new_y));
-    new_z = new_angle <= 180 ? (pos(new_z)) : (neg(new_z));
-    
-    return Point(this->x, new_y, new_z);
-}
-
-Point Point::rotateAroundY(double alpha) const
-{
-    double dist, beta, new_angle, new_x, new_z;
-    Point p(0, this->y, 0);
-    Vector v(p, *this);
-    Vector x_axis(1, 0, 0);
-    // current polar coordinates
-    dist = this->distWith(p);
-    beta = v.angleWith(x_axis);
-    beta = v.directionXY(x_axis) == CLOCK_WISE ? (360 - beta) : (beta); // if right turn angle = one complete turn minus himself (trigonometric circle)
-
-    // new polar coordinates
-    new_angle = mod(beta + alpha, 360);
-                
-    // new coordinates
-    new_x = cos(RADIAN(new_angle)) * dist;
-    new_z = sin(RADIAN(new_angle)) * dist;
-    new_x = new_angle <= 90 ? (pos(new_x)) : new_angle <= 270 ? (neg(new_x)) : (pos(new_x));
-    new_z = new_angle <= 180 ? (pos(new_z)) : (neg(new_z));
-
-    return Point(new_x, this->y, new_z);
-}
-
-Point Point::rotateAroundZ(double alpha) const
-{
-    double dist, beta, new_angle, new_x, new_y;
-    Point p(0, 0, this->z);
-    Vector v(p, *this);
-    Vector x_axis(1, 0, 0);
-    // current polar coordinates
-    dist = this->distWith(p);
-    beta = v.angleWith(x_axis);
-    beta = v.directionXY(x_axis) == CLOCK_WISE ? (360 - beta) : (beta); // if right turn angle = one complete turn minus himself (trigonometric circle)
-
-    // new polar coordinates
-    new_angle = mod(beta + alpha, 360);
-                
-    // new coordinates
-    new_x = cos(RADIAN(new_angle)) * dist;
-    new_y = sin(RADIAN(new_angle)) * dist;
-    new_x = new_angle <= 90 ? (pos(new_x)) : new_angle <= 270 ? (neg(new_x)) : (pos(new_x));
-    new_y = new_angle <= 180 ? (neg(new_y)) : (pos(new_y));
-
-    return Point(new_x, new_y, this->z);
+    return sqrt(
+        (p.x - this->x) * (p.x - this->x) + 
+        (p.y - this->y) * (p.y - this->y) + 
+        (p.z - this->z) * (p.z - this->z)
+    );
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -181,4 +116,3 @@ std::ostream& operator<< (std::ostream& out, const Point& point)
     out << "Point(" << point.x << ", " << point.y << ", " << point.z << ')';
     return out;
 }
-

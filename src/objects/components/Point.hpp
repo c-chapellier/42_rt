@@ -30,9 +30,6 @@ class Point
         void setZ(double z);
 
         double distWith(const Point &p) const;
-        Point rotateAroundX(double alpha) const;
-        Point rotateAroundY(double alpha) const;
-        Point rotateAroundZ(double alpha) const;
 
         Point &operator=(const Point &p);
         friend Point operator+(const Point &p, const Vector &v);

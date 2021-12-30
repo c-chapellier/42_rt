@@ -108,7 +108,7 @@ Engine::~Engine()
 
 void Engine::run()
 {
-    std::cout << "run" << std::endl;
+    std::cout << "run " << std::endl;
 
     auto start = std::chrono::high_resolution_clock::now();
   
@@ -153,7 +153,7 @@ void Engine::threadedFindObjects(std::vector< std::vector<Pixel> > &pixels)
     std::vector<std::thread> threads;
 
     for (unsigned int i = 0; i < this->nbrOfThreads; ++i)
-        threads.push_back(std::thread(&Engine::findObjects, this, std::ref(pixels)));
+        threads.push_back(std::thread(&Engine::findObjects, this, std::ref(pixels), i));
     
     // std::cout << "manageLoadingBar" << std::endl;
     // this->manageLoadingBar();
@@ -164,24 +164,44 @@ void Engine::threadedFindObjects(std::vector< std::vector<Pixel> > &pixels)
 
 }
 
-void Engine::findObjects(std::vector< std::vector<Pixel> > &pixels)
+void Engine::findObjects(std::vector< std::vector<Pixel> > &pixels, int i)
 {
-    int height, width;
+    // int height, width;
 
-    while (getNextPixel(height, width))
-    {
-        if (height >= this->precision_height || width >= this->precision_width)
-            continue;
-        Line ray(current_cam->getP(), current_cam->getPoint(height, width, true));
-        std::vector<Intersection> intersections;
-        getIntersections(&intersections, ray);
-        sortIntersections(intersections, intersections.size());
-        try {
-            drawPixel(intersections, pixels[height][width], ray);
-        } catch (const char*e) {
-            std::cout << e << std::endl;
+    // while (getNextPixel(height, width))
+    // {
+    //     if (height >= this->precision_height || width >= this->precision_width)
+    //         continue;
+    //     Line ray(current_cam->getP(), current_cam->getPoint(height, width, true));
+    //     std::vector<Intersection> intersections;
+    //     getIntersections(&intersections, ray);
+    //     sortIntersections(intersections, intersections.size());
+    //     try {
+    //         drawPixel(intersections, pixels[height][width], ray);
+    //     } catch (const char*e) {
+    //         std::cout << e << std::endl;
+    //     }
+    // }
+
+    int height = i;
+
+    while (height < this->precision_height) {
+        for (int width = 0; width < this->precision_width; ++width) {
+            Line ray(current_cam->getP(), current_cam->getPoint(height, width, true));
+            std::vector<Intersection> intersections;
+            getIntersections(&intersections, ray);
+            sortIntersections(intersections, intersections.size());
+            try {
+                drawPixel(intersections, pixels[height][width], ray);
+            } catch (const char*e) {
+                std::cout << e << std::endl;
+            }
         }
+        height += this->nbrOfThreads;
+        std::cout << height << std::endl;
     }
+
+    std::cout << "I am done here: " << i << std::endl;
 }
 
 void Engine::getIntersections(std::vector<Intersection>  *intersections, const Line &ray) const
@@ -191,7 +211,7 @@ void Engine::getIntersections(std::vector<Intersection>  *intersections, const L
         obj->intersect(intersections, ray);
     }
     if(this->black_objects.size() != 0) {
-        for (auto it = intersections->begin(); it != intersections->end(); ) {
+        for (auto it = intersections->begin(); it != intersections->end(); ++it) {
             if(blackObjectsContains(it->getLocalPoint()))
                 intersections->erase(it);
         }
@@ -222,7 +242,7 @@ void Engine::drawPixel(std::vector<Intersection> &intersections, Pixel &pixel, L
     for (unsigned long i = 0; i < intersections.size(); ++i) {
         Color tmp = getColor(intersections[i], ray, 1);
         c = alphaBlending(c, tmp);
-        if (c.getO() == 255)
+        if (c.getO() >= 250)
             break;
     }
     pixel.setColor(c);
@@ -290,14 +310,14 @@ void Engine::applyLights(const Intersection &inter, Color &color)
         std::vector<Intersection> intersections;
         for (auto const& obj : this->objects)
             obj->intersect(&intersections, ray);
-        for (auto it = intersections.begin(); it != intersections.end(); ) {
+
+        for (auto it = intersections.begin(); it != intersections.end(); ++it) {
             if(
                 blackObjectsContains(it->getRealPoint()) || 
                 it->getRealPoint().distWith(light->getP()) > dist - 0.00001
             )
                 intersections.erase(it);
         }
-        
 
         double dist_min = INFINITY;
         bool shining = true;
@@ -319,8 +339,7 @@ void Engine::applyLights(const Intersection &inter, Color &color)
 
         if (shining)
         {
-            double obj_light_angle = RADIAN(inter.getObj()->angleWithAt(ray, inter));
-                                
+            double obj_light_angle = RADIAN(inter.getObj()->angleWithAt(ray, inter));              
             color = color.add(light->getColor().reduceOf(abs(cos(obj_light_angle)) / 1.1));
         }
     }
@@ -328,8 +347,9 @@ void Engine::applyLights(const Intersection &inter, Color &color)
 
 bool Engine::getNextPixel(int &height, int &width)
 {
-    if (this->current_pixel >= this->precision_height * this->precision_width)
+    if (this->current_pixel >= this->precision_height * this->precision_width) {
         return false;
+    }
 
     this->get_pixel_mtx.lock();
 

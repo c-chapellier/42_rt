@@ -30,7 +30,7 @@ class Engine
 
         void threadedFindObjects(std::vector< std::vector<Pixel> > &pixels);
         bool getNextPixel(int &height, int &width);
-        void findObjects(std::vector< std::vector<Pixel> > &pixels);
+        void findObjects(std::vector< std::vector<Pixel> > &pixels, int i);
         void applyPerlinNoise(std::vector< std::vector<Pixel> > &pixels);
         void applyFilter(std::vector< std::vector<Pixel> > &pixels);
         void applyBlur(std::vector< std::vector<Pixel> > &pixels);

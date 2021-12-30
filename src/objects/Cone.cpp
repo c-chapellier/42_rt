@@ -25,9 +25,17 @@ void Cone::intersect(std::vector<Intersection> *intersections, const Line &line)
     local_line.normalize();
 
     double a, b, c;
-    a = pow(local_line.getX(), 2) + pow(local_line.getY(), 2) - (pow(local_line.getZ(), 2) * pow(tan(RADIAN(alpha)), 2));
-    b = 2 * local_line.getPX() * local_line.getX() + 2 * local_line.getPY() * local_line.getY() - 2 * local_line.getPZ() * local_line.getZ() * tan(RADIAN(alpha));
-    c = pow(local_line.getPX(), 2) + pow(local_line.getPY(), 2) - pow(local_line.getPZ() * tan(RADIAN(alpha)), 2);
+    a = local_line.getX() * local_line.getX() +
+        local_line.getY() * local_line.getY() -
+        local_line.getZ() * local_line.getZ() * tan(RADIAN(alpha)) * tan(RADIAN(alpha));
+
+    b = 2 * local_line.getPX() * local_line.getX() +
+        2 * local_line.getPY() * local_line.getY() -
+        2 * local_line.getPZ() * local_line.getZ() * tan(RADIAN(alpha));
+
+    c = local_line.getPX() * local_line.getPX() + 
+        local_line.getPY() * local_line.getPY()- 
+        local_line.getPZ() * tan(RADIAN(alpha)) * local_line.getPZ() * tan(RADIAN(alpha));
 
     std::list<double> solutions = EquationSolver::solveQuadraticEquation(a, b, c);
     for (double s : solutions) {

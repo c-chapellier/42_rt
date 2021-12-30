@@ -16,7 +16,7 @@ std::list<double> EquationSolver::solveQuadraticEquation(double a, double b, dou
         return solveEquation(b, c);
 
     std::list<double> solutions;
-    double delta = pow(b, 2) - (4 * a * c);
+    double delta = b * b - (4 * a * c);
     if (delta < 0) {
 
     } else if(delta == 0) {
@@ -54,15 +54,11 @@ std::list<double> EquationSolver::solveCubicEquation(double a, double b, double 
         c /= a;
         d /= a;
 
-        // double p = (b / 3) - (pow(a, 21) / 9);
-        // double q = (pow(a, 3) / 27) - ((a * b) / 6) + (c / 2);
-        // double D = pow(p, 3) + (p * q);
-
         double disc, q, r, dum1, s, t, term1, r13;
-        q = (3.0 * c - (pow(b, 2))) / 9.0;
-        r = -(27.0 * d) + b * (9.0 * c - 2.0 * (pow(b, 2)));
+        q = (3.0 * c - (b * b)) / 9.0;
+        r = -(27.0 * d) + b * (9.0 * c - 2.0 * (b * b));
         r /= 54.0;
-        disc = pow(q, 3) + pow(r, 2);
+        disc = q * q * q + r * r;
 
         term1 = (b / 3.0);
 
@@ -78,7 +74,7 @@ std::list<double> EquationSolver::solveCubicEquation(double a, double b, double 
             solutions.push_back(-(r13 + term1));
         } else { // all roots are real and unequal (to get here, q < 0)
             q = -q;
-            dum1 = pow(q, 3);
+            dum1 = q * q * q;
             dum1 = acos(r / sqrt(dum1));
             r13 = 2.0 * sqrt(q);
             solutions.push_back(-term1 + r13 * cos(dum1 / 3.0));

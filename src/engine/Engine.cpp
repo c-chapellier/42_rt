@@ -59,7 +59,7 @@ Vec3 Engine::get_color(const Ray &ray, int depth)
 {
     hit_t hit;
 
-    if (depth >= 2) return Vec3(1, 1, 1);
+    if (depth >= 10) return Vec3(1, 1, 1);
 
     if (this->hit(ray, hit))
     {
@@ -68,14 +68,14 @@ Vec3 Engine::get_color(const Ray &ray, int depth)
 
         // return Vec3(.8, .2, .2);
 
-        hit.material->scatter(ray, hit, attenuation, scattered);
-        double intensity = 1 - cos(hit.normal.angle_with(ray.direction()));
-        return attenuation * (intensity < .2 ? .2 : intensity);
+        // hit.material->scatter(ray, hit, attenuation, scattered);
+        // double intensity = 1 - cos(hit.normal.angle_with(ray.direction()));
+        // return attenuation * (intensity < .2 ? .2 : intensity);
 
-        // if (hit.material->scatter(ray, hit, attenuation, scattered))
-        //     return attenuation * this->get_color(scattered, depth + 1);
+        if (hit.material->scatter(ray, hit, attenuation, scattered))
+            return attenuation * this->get_color(scattered, depth + 1);
 
-        // return Vec3(1, 1, 1);
+        return Vec3(1, 1, 1);
     }
     
     // return Vec3(1, 1, 1);

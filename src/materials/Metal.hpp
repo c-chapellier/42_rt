@@ -12,7 +12,7 @@ public:
     bool scatter(const Ray &ray, const hit_t &hit, Vec3 &attenuation, Ray &scattered) const
     {
         Vec3 reflected = unit_vector(ray.direction()).reflect_on(hit.normal);
-        scattered = Ray(hit.intersection, reflected);
+        scattered = Ray(hit.intersection, hit.intersection + reflected);
         attenuation = albedo;
         return (dot(scattered.direction(), hit.normal) > 0);
     }

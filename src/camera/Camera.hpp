@@ -5,9 +5,8 @@
 class Camera
 {
 private:
-    Vec3 coordinates, direction, up;
-    double angle;
-    int height, width;
+    Vec3 coordinates;
+    int h_2, w_2;
 
     Vec3 v, u;
     Vec3 screenCenter;
@@ -15,5 +14,5 @@ private:
 public:
     Camera(Vec3 coordinates, Vec3 direction, Vec3 up, double angle, int height, int width);
 
-    void getRays(std::vector< std::vector<Ray> > &rays) const;
+    Ray getRay(int i, int j) const;
 };

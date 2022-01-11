@@ -16,7 +16,7 @@ public:
         if (scatter_direction.near_zero())
                 scatter_direction = hit.normal;
 
-        scattered = Ray(hit.intersection, scatter_direction);
+        scattered = Ray(hit.intersection, hit.intersection + scatter_direction);
         attenuation = albedo;
         return true;
     }

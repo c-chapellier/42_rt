@@ -1,54 +1,36 @@
 #include "Engine.hpp"
 
 Engine::Engine()
+    : camera(
+        Vec3(-10, 0, 0), Vec3(1, 0, 0), Vec3(0, 1, 0),
+        90,
+        this->height * this->precision,
+        this->width * this->precision
+    )
 {
     this->pixels.resize(this->height, std::vector<Vec3>(this->width));
-    this->rays.resize(this->height * this->precision, std::vector<Ray>(this->width * this->precision));
 
     this->win = std::make_unique<Window>(this->height, this->width);
 
-    this->objects.push_back(new Sphere(Vec3(0, 0, 0), 30, new Metal(Vec3(.8, .2, .2))));
+    this->objects.push_back(new Torus(
+        Transform(Vec3(0, 0, 0), Vec3(0, 0, .5), Vec3(1, 1, 1)),
+        new Metal(Vec3(.8, .2, .2))
+    ));
 
-    // this->objects.push_back(new Sphere(Vec3(100, -22, 0), 20, new Metal(Vec3(.8, .2, .2))));
-    // this->objects.push_back(new Sphere(Vec3(100, 22, 0), 20, new Metal(Vec3(.2, .2, .8))));
+    this->objects.push_back(new Sphere(
+        Transform(Vec3(0, 2, -2), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+        new Metal(Vec3(.2, .2, .8))
+    ));
 
-    // auto ground_material = new Lambertian(Vec3(0.5, 0.5, 0.5));
-    // this->objects.push_back(new Sphere(Vec3(0, -1000, 0), 1000, ground_material));
+    // this->objects.push_back(new Sphere(
+    //     Transform(Vec3(0, -2, -2), Vec3(1, 1, 1)),
+    //     new Metal(Vec3(.2, .8, .2))
+    // ));
 
-    // for (int a = -11; a < 11; a++) {
-    //     for (int b = -11; b < 11; b++) {
-    //         auto choose_mat = RANDOM(0, 1);
-    //         Vec3 center(a + 0.9 * RANDOM(0, 1), 0.2, b + 0.9 * RANDOM(0, 1));
-
-    //         if ((center - Vec3(4, 0.2, 0)).length() > 0.9) {
-    //             if (choose_mat < 0.8) {
-    //                 // diffuse
-    //                 auto albedo = Vec3(RANDOM(0, 1), RANDOM(0, 1), RANDOM(0, 1)) * Vec3(RANDOM(0, 1), RANDOM(0, 1), RANDOM(0, 1));
-    //                 auto sphere_material = new Lambertian(albedo);
-    //                 this->objects.push_back(new Sphere(center, 0.2, sphere_material));
-    //             } else if (choose_mat < 0.95) {
-    //                 // metal
-    //                 auto albedo = Vec3(RANDOM(.5, 1), RANDOM(.5, 1), RANDOM(.5, 1));
-    //                 // auto fuzz = RANDOM(0, .5);
-    //                 auto sphere_material = new Metal(albedo /* , fuzz */ );
-    //                 this->objects.push_back(new Sphere(center, 0.2, sphere_material));
-    //             } else {
-    //                 // glass
-    //                 // auto sphere_material = new dielectric(1.5);
-    //                 // this->objects.push_back(new Sphere(center, 0.2, sphere_material));
-    //             }
-    //         }
-    //     }
-    // }
-
-    // // auto material1 = new dielectric(1.5);
-    // // this->objects.push_back(new Sphere(Vec3(0, 1, 0), 1.0, material1));
-
-    // auto material2 = new Lambertian(Vec3(0.4, 0.2, 0.1));
-    // this->objects.push_back(new Sphere(Vec3(-4, 1, 0), 1.0, material2));
-
-    // auto material3 = new Metal(Vec3(0.7, 0.6, 0.5) /* , 0.0 */ );
-    // this->objects.push_back(new Sphere(Vec3(4, 1, 0), 1.0, material3));
+    // this->objects.push_back(new Sphere(
+    //     Transform(Vec3(0, 0, 2), Vec3(1, 1, 1)),
+    //     new Metal(Vec3(.8, .2, .2))
+    // ));
 }
 
 Engine::~Engine()
@@ -84,10 +66,16 @@ Vec3 Engine::get_color(const Ray &ray, int depth)
         Ray scattered;
         Vec3 attenuation;
 
-        if (hit.material->scatter(ray, hit, attenuation, scattered))
-            return attenuation * this->get_color(scattered, depth + 1);
+        // return Vec3(.8, .2, .2);
 
-        return Vec3(1, 1, 1);
+        hit.material->scatter(ray, hit, attenuation, scattered);
+        double intensity = 1 - cos(hit.normal.angle_with(ray.direction()));
+        return attenuation * (intensity < .2 ? .2 : intensity);
+
+        // if (hit.material->scatter(ray, hit, attenuation, scattered))
+        //     return attenuation * this->get_color(scattered, depth + 1);
+
+        // return Vec3(1, 1, 1);
     }
     
     // return Vec3(1, 1, 1);
@@ -98,7 +86,7 @@ void Engine::threads(int n_thread)
 {
     for (int i = n_thread; i < this->height; i += this->n_threads)
     {
-        // std::cout << "i " << i << std::endl;
+        !(i % 10) && std::cout << "i " << i << "\n\033[F";
         for (int j = 0; j < this->width; ++j)
         {
             this->pixels[i][j] = Vec3(0, 0, 0);
@@ -106,7 +94,8 @@ void Engine::threads(int n_thread)
             {
                 for (int pj = 0; pj < this->precision; ++pj)
                 {
-                    this->pixels[i][j] += this->get_color(this->rays[i * this->precision + pi][j * this->precision + pj], 0);
+                    Ray ray = this->camera.getRay(i * this->precision + pi, j * this->precision + pj);
+                    this->pixels[i][j] += this->get_color(ray, 0);
                 }
             }
             this->pixels[i][j] /= this->precision * this->precision;
@@ -123,16 +112,6 @@ void Engine::run()
     auto start = std::chrono::high_resolution_clock::now();
 
     std::vector<std::thread> threads;
-
-    Camera camera(
-        Vec3(-100, 0, 0), Vec3(1, 0, 0), Vec3(0, 1, 0),
-        // Vec3(13, 2, 3), -Vec3(13, 2, 3), Vec3(0, 1, 0),
-        90,
-        this->height * this->precision,
-        this->width * this->precision
-    );
-
-    camera.getRays(this->rays);
 
     for (unsigned int i = 0; i < this->n_threads; ++i)
         threads.push_back(std::thread(&Engine::threads, this, i));

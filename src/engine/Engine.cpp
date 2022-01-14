@@ -13,32 +13,32 @@ Engine::Engine()
     this->win = std::make_unique<Window>(this->height, this->width);
 
     this->objects.push_back(new Torus(
-        Transform(Vec3(0, 0, 0), Vec3(0, 0, .9), Vec3(1.4, 1.4, 1.4)),
-        new Metal(Vec3(.8, .2, .2)),
+        Transform(Vec3(0, 0, 0), Vec3(0, .8, 0), Vec3(2, 2, 2)),
+        new Diffuse(Vec3(.8, .2, .2)),
         1,
         .3
     ));
 
     // this->objects.push_back(new Torus(
     //     Transform(Vec3(0, 0, 0), Vec3(0, 0, .9), Vec3(3, 3, 3)),
-    //     new Metal(Vec3(.8, .2, .2)),
+    //     new Diffuse(Vec3(.8, .2, .2)),
     //     1,
     //     .3
     // ));
 
     this->objects.push_back(new Sphere(
         Transform(Vec3(0, 2, -2), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-        new Metal(Vec3(.2, .2, .8))
+        new Diffuse(Vec3(.2, .2, .8))
     ));
 
     this->objects.push_back(new Sphere(
         Transform(Vec3(0, -2, -2), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-        new Metal(Vec3(.2, .8, .2))
+        new Diffuse(Vec3(.2, .8, .2))
     ));
 
     // this->objects.push_back(new Sphere(
     //     Transform(Vec3(0, 0, 2), Vec3(1, 1, 1)),
-    //     new Metal(Vec3(.8, .2, .2))
+    //     new Diffuse(Vec3(.8, .2, .2))
     // ));
 }
 

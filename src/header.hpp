@@ -27,11 +27,11 @@
 
 #define RANDOM(min, max) (double)(min) + ((double)(max) - (double)(min)) * ((double)rand() / (RAND_MAX + 1.0))
 
-#define EPSILON .000001
+#define EPSILON 1e-6
 
 #define FEQUALS(a, b) (fabs(fabs(a) - fabs(b)) < EPSILON)
 
-int SolveQuartic(double c[ 5 ], double s[ 4 ]);
+#include "math/EquationSolver.hpp"
 
 #include "components/Vec3.hpp"
 #include "components/Ray.hpp"

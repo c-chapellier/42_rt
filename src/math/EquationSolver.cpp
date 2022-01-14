@@ -24,22 +24,9 @@
  *                  than once.
  */
 
-#include    <math.h>
-#ifndef M_PI
-#define M_PI          3.14159265358979323846
-#endif
+#include "EquationSolver.hpp"
 
-/* epsilon surrounding for near zero values */
-
-#define     EQN_EPS     1e-9
-#define	    IsZero(x)	((x) > -EQN_EPS && (x) < EQN_EPS)
-
-#ifdef NOCBRT
-#define     cbrt(x)     ((x) > 0.0 ? pow((double)(x), 1.0/3.0) : \
-                          ((x) < 0.0 ? -pow((double)-(x), 1.0/3.0) : 0.0))
-#endif
-
-int SolveQuadric(double c[ 3 ], double s[ 2 ])
+int EquationSolver::Quadric(double c[ 3 ], double s[ 2 ])
 {
     double p, q, D;
 
@@ -69,8 +56,19 @@ int SolveQuadric(double c[ 3 ], double s[ 2 ])
     }
 }
 
+int EquationSolver::QuadraticSphere(double c[ 3 ], double s[ 2 ])
+{
+	double d = c[ 1 ] * c[ 1 ] - c[ 2 ] * c[ 0 ];
 
-int SolveCubic(double c[ 4 ], double s[ 3 ])
+    if (d < 0.) return 0;
+
+    double sqrt_d = sqrt(d);
+    s[0] = (-c[ 1 ] - sqrt_d) / c[ 2 ];
+	s[1] = (-c[ 1 ] + sqrt_d) / c[ 2 ];
+	return 2;
+}
+
+int EquationSolver::Cubic(double c[ 4 ], double s[ 3 ])
 {
     int     i, num;
     double  sub;
@@ -142,7 +140,7 @@ int SolveCubic(double c[ 4 ], double s[ 3 ])
 }
 
 
-int SolveQuartic(double c[ 5 ], double s[ 4 ])
+int EquationSolver::Quartic(double c[ 5 ], double s[ 4 ])
 {
     double  coeffs[ 4 ];
     double  z, u, v, sub;
@@ -174,7 +172,7 @@ int SolveQuartic(double c[ 5 ], double s[ 4 ])
 		coeffs[ 2 ] = 0;
 		coeffs[ 3 ] = 1;
 
-		num = SolveCubic(coeffs, s);
+		num = EquationSolver::Cubic(coeffs, s);
 
 		s[ num++ ] = 0;
     }
@@ -187,7 +185,7 @@ int SolveQuartic(double c[ 5 ], double s[ 4 ])
 		coeffs[ 2 ] = - 1.0/2 * p;
 		coeffs[ 3 ] = 1;
 
-		(void) SolveCubic(coeffs, s);
+		(void) EquationSolver::Cubic(coeffs, s);
 
 		/* ... and take the one real solution ... */
 
@@ -216,13 +214,13 @@ int SolveQuartic(double c[ 5 ], double s[ 4 ])
 		coeffs[ 1 ] = q < 0 ? -v : v;
 		coeffs[ 2 ] = 1;
 
-		num = SolveQuadric(coeffs, s);
+		num = EquationSolver::Quadric(coeffs, s);
 
 		coeffs[ 0 ]= z + u;
 		coeffs[ 1 ] = q < 0 ? v : -v;
 		coeffs[ 2 ] = 1;
 
-		num += SolveQuadric(coeffs, s + num);
+		num += EquationSolver::Quadric(coeffs, s + num);
     }
 
     /* resubstitute */

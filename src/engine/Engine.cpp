@@ -13,19 +13,28 @@ Engine::Engine()
     this->win = std::make_unique<Window>(this->height, this->width);
 
     this->objects.push_back(new Torus(
-        Transform(Vec3(0, 0, 0), Vec3(0, 0, .5), Vec3(1, 1, 1)),
-        new Metal(Vec3(.8, .2, .2))
+        Transform(Vec3(0, 0, 0), Vec3(0, 0, .9), Vec3(1.4, 1.4, 1.4)),
+        new Metal(Vec3(.8, .2, .2)),
+        1,
+        .3
     ));
+
+    // this->objects.push_back(new Torus(
+    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, .9), Vec3(3, 3, 3)),
+    //     new Metal(Vec3(.8, .2, .2)),
+    //     1,
+    //     .3
+    // ));
 
     this->objects.push_back(new Sphere(
         Transform(Vec3(0, 2, -2), Vec3(0, 0, 0), Vec3(1, 1, 1)),
         new Metal(Vec3(.2, .2, .8))
     ));
 
-    // this->objects.push_back(new Sphere(
-    //     Transform(Vec3(0, -2, -2), Vec3(1, 1, 1)),
-    //     new Metal(Vec3(.2, .8, .2))
-    // ));
+    this->objects.push_back(new Sphere(
+        Transform(Vec3(0, -2, -2), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+        new Metal(Vec3(.2, .8, .2))
+    ));
 
     // this->objects.push_back(new Sphere(
     //     Transform(Vec3(0, 0, 2), Vec3(1, 1, 1)),
@@ -63,19 +72,15 @@ Vec3 Engine::get_color(const Ray &ray, int depth)
 
     if (this->hit(ray, hit))
     {
-        Ray scattered;
+        Ray reflected;
         Vec3 attenuation;
 
         // return Vec3(.8, .2, .2);
 
-        hit.material->scatter(ray, hit, attenuation, scattered);
-        double intensity = 1 - cos(hit.normal.angle_with(ray.direction()));
-        return attenuation * (intensity < .2 ? .2 : intensity);
+        if (hit.material->reflect(ray, hit, attenuation, reflected))
+            return attenuation * this->get_color(reflected, depth + 1);
 
-        // if (hit.material->scatter(ray, hit, attenuation, scattered))
-        //     return attenuation * this->get_color(scattered, depth + 1);
-
-        // return Vec3(1, 1, 1);
+        return attenuation;
     }
     
     // return Vec3(1, 1, 1);
@@ -105,15 +110,15 @@ void Engine::threads(int n_thread)
 
 void Engine::run()
 {
-    std::cout << "press any key ..." << std::endl;
-    std::cin.get();
+    // std::cout << "press any key ..." << std::endl;
+    // std::cin.get();
 
     std::cout << "run" << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
 
     std::vector<std::thread> threads;
 
-    for (unsigned int i = 0; i < this->n_threads; ++i)
+    for (int i = 0; i < this->n_threads; ++i)
         threads.push_back(std::thread(&Engine::threads, this, i));
 
     for (auto &th : threads)

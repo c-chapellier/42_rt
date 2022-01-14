@@ -9,7 +9,7 @@ private:
 
     std::vector<Object *> objects;
 
-    const int height = 600, width = 600, precision = 1;
+    const int height = 600, width = 600, precision = 4;
 
     // const int n_threads = std::thread::hardware_concurrency();
     const int n_threads = 1;
@@ -26,5 +26,4 @@ public:
     void threads(int n_thread);
     Vec3 get_color(const Ray &ray, int depth);
     bool hit(const Ray &ray, hit_t &hit);
-    Vec3 random_in_unit_sphere();
 };

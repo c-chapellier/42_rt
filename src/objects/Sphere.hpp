@@ -16,7 +16,7 @@ public:
         Vec3 oc = t_ray.origin();
 
         double a = t_ray.direction().squared_length();
-        double b = dot(oc, t_ray.direction());
+        double b = oc.dot(t_ray.direction());
         double c = oc.squared_length() - 1;
         double discriminant = b*b - a*c;
 
@@ -33,7 +33,7 @@ public:
         hit.t = t; 
         hit.intersection = inter;
         hit.normal = (hit.intersection - this->transform.apply_forward(Vec3(0, 0, 0))).unit_vector();
-        hit.is_front_face = dot(ray.direction(), hit.normal) < 0;
+        hit.is_front_face = ray.direction().dot(hit.normal) < 0;
         hit.normal = hit.is_front_face ? hit.normal : -hit.normal;
 
         return true;

@@ -117,7 +117,7 @@ double Matrix::determinant(const double A[4][4], int n) const
     for (int f = 0; f < n; f++)
     {
         this->getCofactor(A, temp, 0, f, n);
-        D += sign * A[0][f] *  this->determinant(temp, n - 1);
+        D += sign * A[0][f] * this->determinant(temp, n - 1);
         sign = -sign;
     }
 
@@ -140,19 +140,13 @@ void Matrix::adjoint(const double A[4][4], double adj[4][4]) const
     }
 }
 
-std::vector<double> operator*(const Matrix &m, const std::vector<double> &v)
+Vec3 operator*(const Matrix &m, const Vec3 &v)
 {
-    std::vector<double> a(4, 0);
-
-    for (int i = 0; i < 4; ++i)
-    {
-        for (int j = 0; j < 4; ++j)
-        {
-                a[i] += m[i][j] * v[j];
-        }
-    }
-
-    return a;
+    return Vec3(
+        m[0][0] * v[0] + m[0][1] * v[1] + m[0][2] * v[2] + m[0][3],
+        m[1][0] * v[0] + m[1][1] * v[1] + m[1][2] * v[2] + m[1][3],
+        m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2] + m[2][3]
+    );
 }
 
 Matrix operator*(const Matrix &m, const Matrix &m2)

@@ -8,7 +8,7 @@ public:
     Material *material;
     Transform transform;
 
-    Object(Transform transform, Material *material) : transform(transform), material(material) {}
+    Object(Transform transform, Material *material) : material(material), transform(transform) {}
     virtual ~Object() {};
     virtual bool intersect(const Ray &ray, double min, hit_t &hit) const = 0;
 

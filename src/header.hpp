@@ -1,10 +1,5 @@
 #pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <unistd.h>
-
 #include <exception>
 #include <thread>
 #include <mutex>
@@ -13,6 +8,7 @@
 #include <fstream>
 #include <chrono>
 #include <memory>
+#include <cmath>
 
 #include <vector>
 #include <list>
@@ -53,7 +49,7 @@ struct hit_t
 };
 
 #include "materials/Material.hpp"
-#include "materials/Lambertian.hpp"
+#include "materials/Diffuse.hpp"
 #include "materials/Metal.hpp"
 
 #include "objects/Object.hpp"

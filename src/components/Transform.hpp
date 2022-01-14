@@ -54,10 +54,7 @@ public:
 
     Vec3 apply_forward(const Vec3 &p) const
     {
-        std::vector<double> v { p[0], p[1], p[2], 1.0 };
-        std::vector<double> t_p = this->a * v;
-        
-        return Vec3(t_p[0], t_p[1], t_p[2]);
+        return this->a * p;
     }
 
     Ray apply_forward(const Ray &ray) const
@@ -69,10 +66,7 @@ public:
 
     Vec3 apply_backward(const Vec3 &p) const
     {
-        std::vector<double> v { p[0], p[1], p[2], 1.0 };
-        std::vector<double> t_p = this->a_inverse * v;
-        
-        return Vec3(t_p[0], t_p[1], t_p[2]);
+        return this->a_inverse * p;
     }
 
     Ray apply_backward(const Ray &ray) const

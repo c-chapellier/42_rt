@@ -5,6 +5,7 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include "Vec3.hpp"
 
 class Matrix
 {
@@ -20,7 +21,7 @@ public:
 
     Matrix inverse() const;
 
-    friend std::vector<double> operator*(const Matrix &m, const std::vector<double> &v);
+    friend Vec3 operator*(const Matrix &m, const Vec3 &v);
     friend Matrix operator*(const Matrix &m, const Matrix &m2);
     friend std::ostream &operator<<(std::ostream &os, const Matrix &m);
 

@@ -68,7 +68,7 @@ Vec3 Engine::get_color(const Ray &ray, int depth)
 {
     hit_t hit;
 
-    if (depth >= 2) return Vec3(1, 1, 1);
+    if (depth >= 10) return Vec3(1, 1, 1);
 
     if (this->hit(ray, hit))
     {

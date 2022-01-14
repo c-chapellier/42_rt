@@ -15,7 +15,7 @@ public:
 
         if (theta > M_PI_2) theta = M_PI - theta;
 
-        reflected = Ray(hit.intersection, ray.direction().reflect_on(hit.normal));
+        // reflected = Ray(hit.intersection, ray.direction().reflect_on(hit.normal));
         attenuation = this->albedo * (1 - (2 * theta) / M_PI);
 
         return false;

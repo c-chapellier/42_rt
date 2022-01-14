@@ -23,5 +23,9 @@ public:
         attenuation = this->albedo * (1 - (2 * theta) / M_PI);
 
         return true;
+
+        reflected = Ray(hit.intersection, ray.direction().reflect_on(hit.normal));
+
+        return false;
     }
 };

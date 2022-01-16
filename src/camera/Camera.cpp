@@ -10,8 +10,8 @@ Camera::Camera(Vec3 coordinates, Vec3 direction, Vec3 up, double angle, int heig
     direction = direction.unit_vector();
     up = up.unit_vector();
 
-    this->u = cross(up, direction).unit_vector();
-    this->v = -cross(this->u, direction).unit_vector();
+    this->u = -cross(up, direction).unit_vector();
+    this->v = cross(this->u, direction).unit_vector();
 
     this->screenCenter = this->coordinates + (direction * width / tan(DEGREE_TO_RADIAN(angle / 2)));
 }

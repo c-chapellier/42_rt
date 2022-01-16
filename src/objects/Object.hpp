@@ -17,12 +17,9 @@ public:
 
     double get_min_t(const Ray &ray, const Ray &t_ray, int n, double *ts, Vec3 &global_inter, Vec3 &local_inter) const
     {
-        local_inter = t_ray.point_at_parameter(ts[0]);
-        global_inter = this->transform.apply_forward(local_inter);
+        double t = INFINITY;
 
-        double t = ray.parameter_at_point(global_inter);
-
-        for (int i = 1; i < n; ++i)
+        for (int i = 0; i < n; ++i)
         {
             Vec3 local_inter_tmp = t_ray.point_at_parameter(ts[i]);
             Vec3 global_inter_tmp = this->transform.apply_forward(local_inter_tmp);

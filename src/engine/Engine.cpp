@@ -2,7 +2,7 @@
 
 Engine::Engine()
     : camera(
-        Vec3(-4, 0, 0), Vec3(1, 0, 0), Vec3(0, 1, 0),
+        Vec3(6, 0, 0), Vec3(-1, 0, 0), Vec3(0, 0, 1),
         90,
         this->height * this->precision,
         this->width * this->precision
@@ -12,19 +12,19 @@ Engine::Engine()
 
     this->win = std::make_unique<Window>(this->height, this->width);
 
-    this->objects.push_back(new MobiusTape(
-        Transform(Vec3(0, 0, 0), Vec3(0, .3, 0), Vec3(1, 1, 1)),
-        new Diffuse(),
-        new Uniform(Vec3(1, 1, 1))
-    ));
-
-    // this->objects.push_back(new Torus(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, M_PI_2, 0), Vec3(3, 3, 3)),
+    // this->objects.push_back(new MobiusTape(
+    //     Transform(Vec3(0, 0, 0), Vec3(0, M_PI_2, 0), Vec3(1, 1, 1)),
     //     new Diffuse(),
-    //     new Uniform(Vec3(1, 1, 1)),
-    //     1.2,
-    //     .3
+    //     new Uniform(Vec3(1, 1, 1))
     // ));
+
+    this->objects.push_back(new Torus(
+        Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+        new Diffuse(),
+        new Uniform(Vec3(1, 1, 1)),
+        1,
+        .5
+    ));
 
     // this->objects.push_back(new Plane(
     //     Transform(Vec3(10, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
@@ -51,6 +51,24 @@ Engine::Engine()
     //     new Diffuse(),
     //     new ChessBoard(Vec3(.2, .8, .2), Vec3(.2, .6, .2), SPHERE)
     // ));
+
+    // this->objects.push_back(new Sphere(
+    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new Uniform(Vec3(.8, .2, .2))
+    // ));
+
+    // this->objects.push_back(new Sphere(
+    //     Transform(Vec3(0, 3, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new Uniform(Vec3(.2, .8, .2))
+    // ));
+
+    // this->objects.push_back(new Sphere(
+    //     Transform(Vec3(0, 0, 3), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new Uniform(Vec3(.2, .2, .8))
+    // ));
 }
 
 Engine::~Engine()
@@ -66,7 +84,7 @@ bool Engine::hit(const Ray &ray, hit_t &hit)
 
     for (int i = 0; i < n; ++i)
     {
-        if (objects[i]->intersect(ray, .001, hit))
+        if (objects[i]->intersect(ray, EPSILON, hit))
         {
             hit.object = objects[i];
         }

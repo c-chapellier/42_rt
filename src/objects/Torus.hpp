@@ -21,16 +21,16 @@ public:
         Ray t_ray = this->transform.apply_backward(ray).unit_ray();
 
         double x0 = t_ray.origin()[0];
-        double y00 = t_ray.origin()[2];
-        double z0 = t_ray.origin()[1];
+        double y00 = t_ray.origin()[1];
+        double z0 = t_ray.origin()[2];
 
         double a = t_ray.direction()[0];
-        double b = t_ray.direction()[2];
-        double c = t_ray.direction()[1];
+        double b = t_ray.direction()[1];
+        double c = t_ray.direction()[2];
 
         double x0a = t_ray.origin()[0] * a;
-        double y0b = t_ray.origin()[2] * b;
-        double z0c = t_ray.origin()[1] * c;
+        double y0b = t_ray.origin()[1] * b;
+        double z0c = t_ray.origin()[2] * c;
 
         double a2 = a * a;
         double b2 = b * b;
@@ -48,9 +48,9 @@ public:
 
         coefs[4] = SQUARE(a2b2c2);
         coefs[3] = 4 * a2b2c2 * x0ay0bz0c;
-        coefs[2] = 2 * a2b2c2 * (x02y02z02 - r2R2) + 4*SQUARE(x0ay0bz0c) + 4*R2*b2;
-        coefs[1] = 4 * (x02y02z02 - r2R2) * x0ay0bz0c + 8*R2*y0b;
-        coefs[0] = SQUARE(x02y02z02 - r2R2) - 4*R2*(r2 - y02);
+        coefs[2] = 2 * a2b2c2 * (x02y02z02 - r2R2) + 4*SQUARE(x0ay0bz0c) + 4*R2*c2;
+        coefs[1] = 4 * (x02y02z02 - r2R2) * x0ay0bz0c + 8*R2*z0c;
+        coefs[0] = SQUARE(x02y02z02 - r2R2) - 4*R2*(r2 - z02);
         
         int n = EquationSolver::Quartic(coefs, ts);
 

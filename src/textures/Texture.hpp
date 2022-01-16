@@ -6,5 +6,5 @@ class Texture
 {
 public:
     virtual ~Texture() {};
-    virtual Vec3 get_color(const Vec3 &p) = 0;
+    virtual Vec3 get_color(const Vec3 &p) const = 0;
 };

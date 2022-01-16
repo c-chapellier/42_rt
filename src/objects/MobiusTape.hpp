@@ -8,6 +8,24 @@
 class MobiusTape : public Object
 {
 private:
+    int filter_ts(int n, double *ts, const Ray &t_ray) const
+    {
+        for (int i = 0; i < n; ++i)
+        {
+            Vec3 local_inter = t_ray.point_at_parameter(ts[i]);
+            if (ts[i] < EPSILON || (local_inter - Vec3(local_inter[0], local_inter[1], 0).unit_vector()).length() > .5)
+            {
+                for (int j = i; j < n - 1; ++j)
+                {
+                    ts[j] = ts[j + 1];
+                }
+                --n;
+                --i;
+            }
+        }
+        return n;
+    }
+    
     Vec3 normal(const Vec3 &p) const
     {
         return Vec3(
@@ -51,19 +69,7 @@ public:
 
         int n = EquationSolver::Cubic(coefs, ts);
 
-        for (int i = 0; i < n; ++i)
-        {
-            Vec3 local_inter = t_ray.point_at_parameter(ts[i]);
-            if ((fabs(ts[i]) < EPSILON) || ((local_inter - Vec3(local_inter[0], local_inter[1], 0).unit_vector()).length() > .5))
-            {
-                for (int j = i; j < n - 1; ++j)
-                {
-                    ts[j] = ts[j + 1];
-                }
-                --n;
-                --i;
-            }
-        }
+        n = this->filter_ts(n, ts, t_ray);
 
         if (n == 0) return false;
 

@@ -54,6 +54,8 @@ public:
         
         int n = EquationSolver::Quartic(coefs, ts);
 
+        n = this->filter_ts(n, ts);
+
         if (n == 0) return false;
 
         Vec3 global_inter, local_inter;

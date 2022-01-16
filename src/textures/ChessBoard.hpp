@@ -28,11 +28,10 @@ public:
             PRINT("p: " << p[0]);
             PRINT("angle: " << angle);
 
-
             int theta = (int)(angle / (M_PI / 12));
             theta = angle < 0 ? theta + 1 : theta;
 
-            return ((y+ theta) % 2) ? this->color : this->color2;
+            return ((y + theta) % 2) ? this->color : this->color2;
         }
         case TORUS:
         {

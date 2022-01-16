@@ -2,7 +2,7 @@
 
 Engine::Engine()
     : camera(
-        Vec3(6, 0, 0), Vec3(-1, 0, 0), Vec3(0, 0, 1),
+        Vec3(12, 0, 0), Vec3(-1, 0, 0), Vec3(0, 0, 1),
         90,
         this->height * this->precision,
         this->width * this->precision
@@ -13,21 +13,45 @@ Engine::Engine()
     this->win = std::make_unique<Window>(this->height, this->width);
 
     // this->objects.push_back(new MobiusTape(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, M_PI_2, 0), Vec3(1, 1, 1)),
-    //     new Diffuse(),
+    //     Transform(Vec3(0, 0, 0), Vec3(0, 1, 0), Vec3(3, 3, 3)),
+    //     new Uniform(),
     //     new Uniform(Vec3(1, 1, 1))
     // ));
 
-    this->objects.push_back(new Torus(
+    this->objects.push_back(new Sphere(
         Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-        new Diffuse(),
-        new Uniform(Vec3(1, 1, 1)),
-        1,
-        .5
+        new Mirror(),
+        new Uniform(Vec3(1, 1, 1))
     ));
 
+    this->objects.push_back(new Sphere(
+        Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(12.1, 12.1, 12.1)),
+        new Diffuse(),
+        new ChessBoard(Vec3(0, 0, 0), Vec3(1, 1, 1), SPHERE)
+    ));
+
+    // this->objects.push_back(new Torus(
+    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new Uniform(Vec3(1, 1, 1)),
+    //     1,
+    //     .5
+    // ));
+
     // this->objects.push_back(new Plane(
-    //     Transform(Vec3(10, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, M_PI_4), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new ChessBoard(Vec3(1, .2, .2), Vec3(.6, .2, .2), PLANE)
+    // ));
+
+    // this->objects.push_back(new Plane(
+    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, -M_PI_4), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new ChessBoard(Vec3(1, .2, .2), Vec3(.6, .2, .2), PLANE)
+    // ));
+
+    // this->objects.push_back(new Plane(
+    //     Transform(Vec3(18, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
     //     new Diffuse(),
     //     new ChessBoard(Vec3(1, .2, .2), Vec3(.6, .2, .2), PLANE)
     // ));
@@ -104,6 +128,8 @@ Vec3 Engine::get_color(const Ray &ray, int depth)
         Ray reflected;
 
         Vec3 color = hit.object->texture->get_color(hit.local_inter);
+
+        PRINT("[" << depth << "]: color: " << color);
 
         if (hit.object->material->reflect(ray, hit, color, reflected))
             return color * this->get_color(reflected, depth + 1);

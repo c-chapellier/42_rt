@@ -4,16 +4,23 @@
 
 class Object
 {
-public:
-    Material *material;
-    Transform transform;
-    Texture *texture;
-
-    Object(Transform transform, Material *material, Texture *texture)
-        : material(material), transform(transform), texture(texture)
-    {}
-    virtual ~Object() {};
-    virtual bool intersect(const Ray &ray, double min, hit_t &hit) const = 0;
+protected:
+    int filter_ts(int n, double *ts) const
+    {
+        for (int i = 0; i < n; ++i)
+        {
+            if (ts[i] < EPSILON)
+            {
+                for (int j = i; j < n - 1; ++j)
+                {
+                    ts[j] = ts[j + 1];
+                }
+                --n;
+                --i;
+            }
+        }
+        return n;
+    }
 
     double get_min_t(const Ray &ray, const Ray &t_ray, int n, double *ts, Vec3 &global_inter, Vec3 &local_inter) const
     {
@@ -35,4 +42,15 @@ public:
 
         return t;
     }
+
+public:
+    Material *material;
+    Transform transform;
+    Texture *texture;
+
+    Object(Transform transform, Material *material, Texture *texture)
+        : material(material), transform(transform), texture(texture)
+    {}
+    virtual ~Object() {};
+    virtual bool intersect(const Ray &ray, double min, hit_t &hit) const = 0;
 };

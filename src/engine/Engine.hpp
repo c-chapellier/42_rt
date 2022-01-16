@@ -12,6 +12,7 @@
 
 #include "../materials/Diffuse.hpp"
 #include "../materials/Metal.hpp"
+#include "../materials/Mirror.hpp"
 
 #include "../textures/Uniform.hpp"
 #include "../textures/ChessBoard.hpp"

@@ -57,10 +57,11 @@ void Window::pause(Engine *engine)
         case SDL_MOUSEBUTTONDOWN:
         {
             SDL_GetMouseState(&x, &y);
-            std::cout << x << " " << y << std::endl;
             debug = 1;
+            PRINT("x = " << x << ", y = " << y);
             Ray ray = engine->camera.getRay((engine->height - 1 - y) * engine->precision, x * engine->precision);
-            PRINT("pixel: " << engine->get_color(ray, 0));
+            Vec3 pxl = engine->get_color(ray, 0);
+            PRINT("pixel: " << pxl << std::endl);
             debug = 0;
             break;
         }

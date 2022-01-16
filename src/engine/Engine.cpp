@@ -2,7 +2,7 @@
 
 Engine::Engine()
     : camera(
-        Vec3(-10, 0, 0), Vec3(1, 0, 0), Vec3(0, 1, 0),
+        Vec3(-4, 0, 0), Vec3(1, 0, 0), Vec3(0, 1, 0),
         90,
         this->height * this->precision,
         this->width * this->precision
@@ -12,33 +12,44 @@ Engine::Engine()
 
     this->win = std::make_unique<Window>(this->height, this->width);
 
-    this->objects.push_back(new Torus(
-        Transform(Vec3(0, 0, 0), Vec3(0, .8, 0), Vec3(2, 2, 2)),
-        new Diffuse(Vec3(.8, .2, .2)),
-        1,
-        .3
+    this->objects.push_back(new MobiusTape(
+        Transform(Vec3(0, 0, 0), Vec3(0, .3, 0), Vec3(1, 1, 1)),
+        new Diffuse(),
+        new Uniform(Vec3(1, 1, 1))
     ));
 
     // this->objects.push_back(new Torus(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, .9), Vec3(3, 3, 3)),
-    //     new Diffuse(Vec3(.8, .2, .2)),
+    //     Transform(Vec3(0, 0, 0), Vec3(0, M_PI_2, 0), Vec3(3, 3, 3)),
+    //     new Diffuse(),
+    //     new Uniform(Vec3(1, 1, 1)),
+    //     1.2,
+    //     .3
+    // ));
+
+    // this->objects.push_back(new Plane(
+    //     Transform(Vec3(10, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new ChessBoard(Vec3(1, .2, .2), Vec3(.6, .2, .2), PLANE)
+    // ));
+
+    // this->objects.push_back(new Torus(
+    //     Transform(Vec3(0, 0, 0), Vec3(0, M_PI_2, 0), Vec3(3, 3, 3)),
+    //     new Diffuse(),
+    //     new ChessBoard(Vec3(.6, .6, .6), Vec3(.4, .4, .4), TORUS),
     //     1,
     //     .3
     // ));
 
-    this->objects.push_back(new Sphere(
-        Transform(Vec3(0, 2, -2), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-        new Diffuse(Vec3(.2, .2, .8))
-    ));
-
-    this->objects.push_back(new Sphere(
-        Transform(Vec3(0, -2, -2), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-        new Diffuse(Vec3(.2, .8, .2))
-    ));
+    // this->objects.push_back(new Sphere(
+    //     Transform(Vec3(0, 1.2, 0), Vec3(0, 0, M_PI_2), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new ChessBoard(Vec3(.2, .2, .8), Vec3(.2, .2, .6), SPHERE)
+    // ));
 
     // this->objects.push_back(new Sphere(
-    //     Transform(Vec3(0, 0, 2), Vec3(1, 1, 1)),
-    //     new Diffuse(Vec3(.8, .2, .2))
+    //     Transform(Vec3(0, -1.2, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
+    //     new Diffuse(),
+    //     new ChessBoard(Vec3(.2, .8, .2), Vec3(.2, .6, .2), SPHERE)
     // ));
 }
 
@@ -57,7 +68,7 @@ bool Engine::hit(const Ray &ray, hit_t &hit)
     {
         if (objects[i]->intersect(ray, .001, hit))
         {
-            hit.material = objects[i]->material;
+            hit.object = objects[i];
         }
     }
 
@@ -73,14 +84,13 @@ Vec3 Engine::get_color(const Ray &ray, int depth)
     if (this->hit(ray, hit))
     {
         Ray reflected;
-        Vec3 attenuation;
 
-        // return Vec3(.8, .2, .2);
+        Vec3 color = hit.object->texture->get_color(hit.local_inter);
 
-        if (hit.material->reflect(ray, hit, attenuation, reflected))
-            return attenuation * this->get_color(reflected, depth + 1);
+        if (hit.object->material->reflect(ray, hit, color, reflected))
+            return color * this->get_color(reflected, depth + 1);
 
-        return attenuation;
+        return color;
     }
     
     // return Vec3(1, 1, 1);
@@ -128,5 +138,5 @@ void Engine::run()
     this->win->stream(this->pixels);
 
     std::cout << "Loaded: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds" << std::endl;
-    this->win->pause();
+    this->win->pause(this);
 }

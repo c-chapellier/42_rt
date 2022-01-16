@@ -1,10 +1,7 @@
 #pragma once
 
-// #include "../header.hpp"
-
 #include <iostream>
 #include <array>
-#include <vector>
 #include "Vec3.hpp"
 
 class Matrix

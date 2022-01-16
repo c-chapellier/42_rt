@@ -1,6 +1,9 @@
 #pragma once
 
-#include "../header.hpp"
+#include "../global.hpp"
+#include "../engine/Engine.hpp"
+
+class Engine;
 
 class Window
 {
@@ -14,6 +17,6 @@ public:
 
     void clear();
     void refresh();
-    void pause();
+    void pause(Engine *engine);
     void stream(std::vector< std::vector<Vec3> > &pixels);
 };

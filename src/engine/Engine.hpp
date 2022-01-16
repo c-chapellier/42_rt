@@ -1,10 +1,26 @@
 #pragma once
 
-#include "../header.hpp"
+#include "../global.hpp"
+
+#include "../window/Window.hpp"
+#include "../camera/Camera.hpp"
+
+#include "../objects/Sphere.hpp"
+#include "../objects/Torus.hpp"
+#include "../objects/Plane.hpp"
+#include "../objects/MobiusTape.hpp"
+
+#include "../materials/Diffuse.hpp"
+#include "../materials/Metal.hpp"
+
+#include "../textures/Uniform.hpp"
+#include "../textures/ChessBoard.hpp"
+
+class Window;
 
 class Engine
 {
-private:
+public:
     std::unique_ptr<Window> win;
 
     std::vector<Object *> objects;

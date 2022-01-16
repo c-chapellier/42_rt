@@ -1,5 +1,7 @@
 #include "engine/Engine.hpp"
 
+int debug = 0;
+
 int main()
 {
     try

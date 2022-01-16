@@ -25,19 +25,49 @@ void Window::refresh()
     SDL_RenderPresent(this->renderer);
 }
 
-void Window::pause()
+void Window::pause(Engine *engine)
 {
     SDL_Event event;
+    bool debug_mode = true;
+    int x, y;
 
     while (SDL_WaitEvent(&event))
     {
         switch (event.type)
         {
         case SDL_QUIT:
+        {
             printf( "Quit\n" );
             return;
-        default:
+        }
+        case SDL_KEYDOWN:
+        {
+            switch (event.key.keysym.sym)
+            {
+            case SDLK_q:
+                printf( "Quit\n" );
+                return;
+            case SDLK_d:
+                debug_mode = !debug_mode;
+                break;
+            default:
+                break;
+            }
+        }
+        case SDL_MOUSEBUTTONDOWN:
+        {
+            SDL_GetMouseState(&x, &y);
+            std::cout << x << " " << y << std::endl;
+            debug = 1;
+            Ray ray = engine->camera.getRay((engine->height - 1 - y) * engine->precision, x * engine->precision);
+            PRINT("pixel: " << engine->get_color(ray, 0));
+            debug = 0;
             break;
+        }
+        default:
+        {
+            break;
+        }
         }
     }
 }

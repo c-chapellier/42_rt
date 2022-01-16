@@ -20,16 +20,24 @@
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_timer.h>
 
-#define PRINT(x) std::cout << x << std::endl
+#define PRINT(x) if (debug) std::cout << x << std::endl
 
 #define DEGREE_TO_RADIAN(n) ((n) * (M_PI / 180))
 #define RADIAN_TO_DEGREE(n) ((n) * (180 / M_PI))
 
 #define RANDOM(min, max) (double)(min) + ((double)(max) - (double)(min)) * ((double)rand() / (RAND_MAX + 1.0))
 
+#define SQUARE(x) ((x) * (x))
+#define CUBE(x) ((x) * (x) * (x))
+#define QUARTIC(x) ((x) * (x) * (x) * (x))
+
 #define EPSILON 1e-6
 
-#define FEQUALS(a, b) (fabs(fabs(a) - fabs(b)) < EPSILON)
+#define SPHERE 0
+#define TORUS 1
+#define PLANE 2
+
+extern int debug;
 
 #include "math/EquationSolver.hpp"
 
@@ -38,23 +46,12 @@
 #include "components/Matrix.hpp"
 #include "components/Transform.hpp"
 
-class Material;
+class Object;
 
 struct hit_t
 {
     double t;
-    Vec3 intersection, normal;
+    Vec3 local_inter, global_inter, normal;
     bool is_front_face;
-    Material *material;
+    Object *object;
 };
-
-#include "materials/Material.hpp"
-#include "materials/Diffuse.hpp"
-#include "materials/Metal.hpp"
-
-#include "objects/Object.hpp"
-#include "objects/Sphere.hpp"
-#include "objects/Torus.hpp"
-
-#include "camera/Camera.hpp"
-#include "window/Window.hpp"

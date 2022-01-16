@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../header.hpp"
+#include "../global.hpp"
+#include "../components/Vec3.hpp"
+#include "../components/Ray.hpp"
 
 class Camera
 {

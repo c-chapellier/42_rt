@@ -21,7 +21,7 @@
 class XmlSceneParser
 {
 private:    
-    std::map<const std::string, const Vec3> color_map;
+    std::map<const std::string, Vec3> color_map;
     std::map<const std::string, int> shape_map = {
         { "sphere", SPHERE },
         { "torus", TORUS },
@@ -36,6 +36,7 @@ public:
     XmlSceneParser(const std::string &file);
 
 private:
+    void init_color_map();
     Vec3 xml_to_vec3(rapidxml::xml_node<> *v) const;
     Vec3 xml_to_color(rapidxml::xml_node<> *v) const;
     Transform xml_to_transform(rapidxml::xml_node<> *v) const;

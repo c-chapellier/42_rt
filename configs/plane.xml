@@ -15,8 +15,6 @@
   </camera>
 
   <colors>
-    <color name="red" r="200" g="30" b="30" />
-    <color name="lightred" r="170" g="30" b="30" />
   </colors>
 
   <objects>
@@ -25,7 +23,7 @@
       <rotation x="0" y="0" z="0" />
       <scale x="1" y="1" z="1" />
       <diffuse />
-      <chessboard color1="red" color2="lightred" />
+      <chessboard color1="air_force_blue_raf" color2="air_force_blue_usaf" />
     </plane>
   </objects>
 

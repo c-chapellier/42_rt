@@ -12,11 +12,17 @@ protected:
     double get_min_t(const Ray &ray, const Ray &t_ray, int n, double *ts, Vec3 &global_inter, Vec3 &local_inter) const;
 
 public:
-    Material *material;
     Transform transform;
+    Material *material;
     Texture *texture;
 
     Object(Transform transform, Material *material, Texture *texture);
-    virtual ~Object() {};
+
+    virtual ~Object()
+    {
+        delete this->material;
+        delete this->texture;
+    };
+
     virtual bool intersect(const Ray &ray, double min, hit_t &hit) const = 0;
 };

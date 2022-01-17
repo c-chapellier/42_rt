@@ -14,6 +14,7 @@ private:
     Vec3 screenCenter;
         
 public:
+    Camera() {};
     Camera(Vec3 coordinates, Vec3 direction, Vec3 up, double angle, int height, int width);
 
     Ray getRay(int i, int j) const;

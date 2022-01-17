@@ -1,8 +1,8 @@
 
 #include "Object.hpp"
 
-Object::Object(Transform transform, Material *material, Texture *texture)
-    : material(material), transform(transform), texture(texture)
+Object::Object(Transform transform, Material *material, Texture *texture) :
+    transform(transform), material(material), texture(texture)
 {
     
 }

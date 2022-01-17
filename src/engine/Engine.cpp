@@ -1,98 +1,16 @@
 #include "Engine.hpp"
 
-Engine::Engine()
-    : camera(
-        Vec3(12, 0, 0), Vec3(-1, 0, 0), Vec3(0, 0, 1),
-        90,
-        this->height * this->precision,
-        this->width * this->precision
-    )
+Engine::Engine(const std::string &file) :
+    parser(file),
+    height(this->parser.height),
+    width(this->parser.width),
+    precision(this->parser.precision),
+    camera(this->parser.camera),
+    objects(this->parser.objects),
+    pixels(std::vector< std::vector<Vec3> >(this->height, std::vector<Vec3>(this->width))),
+    window(Window(this->height, this->width))
 {
-    this->pixels.resize(this->height, std::vector<Vec3>(this->width));
 
-    this->win = std::make_unique<Window>(this->height, this->width);
-
-    // this->objects.push_back(new MobiusTape(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, 1, 0), Vec3(3, 3, 3)),
-    //     new Uniform(),
-    //     new Uniform(Vec3(1, 1, 1))
-    // ));
-
-    this->objects.push_back(new Sphere(
-        Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-        new Mirror(),
-        new Uniform(Vec3(1, 1, 1))
-    ));
-
-    this->objects.push_back(new Sphere(
-        Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(12.1, 12.1, 12.1)),
-        new Diffuse(),
-        new ChessBoard(Vec3(0, 0, 0), Vec3(1, 1, 1), SPHERE)
-    ));
-
-    // this->objects.push_back(new Torus(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new Uniform(Vec3(1, 1, 1)),
-    //     1,
-    //     .5
-    // ));
-
-    // this->objects.push_back(new Plane(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, M_PI_4), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new ChessBoard(Vec3(1, .2, .2), Vec3(.6, .2, .2), PLANE)
-    // ));
-
-    // this->objects.push_back(new Plane(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, -M_PI_4), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new ChessBoard(Vec3(1, .2, .2), Vec3(.6, .2, .2), PLANE)
-    // ));
-
-    // this->objects.push_back(new Plane(
-    //     Transform(Vec3(18, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new ChessBoard(Vec3(1, .2, .2), Vec3(.6, .2, .2), PLANE)
-    // ));
-
-    // this->objects.push_back(new Torus(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, M_PI_2, 0), Vec3(3, 3, 3)),
-    //     new Diffuse(),
-    //     new ChessBoard(Vec3(.6, .6, .6), Vec3(.4, .4, .4), TORUS),
-    //     1,
-    //     .3
-    // ));
-
-    // this->objects.push_back(new Sphere(
-    //     Transform(Vec3(0, 1.2, 0), Vec3(0, 0, M_PI_2), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new ChessBoard(Vec3(.2, .2, .8), Vec3(.2, .2, .6), SPHERE)
-    // ));
-
-    // this->objects.push_back(new Sphere(
-    //     Transform(Vec3(0, -1.2, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new ChessBoard(Vec3(.2, .8, .2), Vec3(.2, .6, .2), SPHERE)
-    // ));
-
-    // this->objects.push_back(new Sphere(
-    //     Transform(Vec3(0, 0, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new Uniform(Vec3(.8, .2, .2))
-    // ));
-
-    // this->objects.push_back(new Sphere(
-    //     Transform(Vec3(0, 3, 0), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new Uniform(Vec3(.2, .8, .2))
-    // ));
-
-    // this->objects.push_back(new Sphere(
-    //     Transform(Vec3(0, 0, 3), Vec3(0, 0, 0), Vec3(1, 1, 1)),
-    //     new Diffuse(),
-    //     new Uniform(Vec3(.2, .2, .8))
-    // ));
 }
 
 Engine::~Engine()
@@ -100,7 +18,7 @@ Engine::~Engine()
     for (auto object: this->objects) delete object;
 }
 
-bool Engine::hit(const Ray &ray, hit_t &hit)
+bool Engine::hit(const Ray &ray, hit_t &hit) const
 {
     hit.t = INFINITY;
 
@@ -117,7 +35,7 @@ bool Engine::hit(const Ray &ray, hit_t &hit)
     return hit.t != INFINITY;
 }
 
-Vec3 Engine::get_color(const Ray &ray, int depth)
+Vec3 Engine::get_color(const Ray &ray, int depth) const
 {
     hit_t hit;
 
@@ -179,8 +97,62 @@ void Engine::run()
         th.join();
 
     auto stop = std::chrono::high_resolution_clock::now();
-    this->win->stream(this->pixels);
+    this->window.stream(this->pixels);
 
     std::cout << "Loaded: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds" << std::endl;
-    this->win->pause(this);
+    this->window.pause(this);
+}
+
+Vec3 Engine::get_debug_pixel(int x, int y) const
+{
+    Ray ray = this->camera.getRay((this->height - 1 - y) * this->precision, x * this->precision);
+    return this->get_color(ray, 0);
+}
+
+// define once engine is defined
+void Window::pause(Engine *engine)
+{
+    SDL_Event event;
+    bool debug_mode = true;
+    int x, y;
+
+    while (SDL_WaitEvent(&event))
+    {
+        switch (event.type)
+        {
+        case SDL_QUIT:
+        {
+            printf( "Quit\n" );
+            return;
+        }
+        case SDL_KEYDOWN:
+        {
+            switch (event.key.keysym.sym)
+            {
+            case SDLK_q:
+                printf( "Quit\n" );
+                return;
+            case SDLK_d:
+                debug_mode = !debug_mode;
+                break;
+            default:
+                break;
+            }
+        }
+        case SDL_MOUSEBUTTONDOWN:
+        {
+            SDL_GetMouseState(&x, &y);
+            debug = 1;
+            PRINT("x = " << x << ", y = " << y);
+            Vec3 pxl = engine->get_debug_pixel(x, y);
+            PRINT("pixel: " << pxl << std::endl);
+            debug = 0;
+            break;
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
 }

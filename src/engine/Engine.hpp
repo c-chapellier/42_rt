@@ -4,6 +4,8 @@
 
 #include "../parser/XmlSceneParser.hpp"
 
+#include "../saver/Saver.hpp"
+
 #include "../window/Window.hpp"
 #include "../camera/Camera.hpp"
 

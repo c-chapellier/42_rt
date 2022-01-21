@@ -97,10 +97,14 @@ void Engine::run()
         th.join();
 
     auto stop = std::chrono::high_resolution_clock::now();
-    this->window.stream(this->pixels);
+
+    Saver::toBMP("out.bmp", this->pixels);
+    std::cout << "Image saved: " << "out.bmp" << std::endl;
+
+    // this->window.stream(this->pixels);
 
     std::cout << "Loaded: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds" << std::endl;
-    this->window.pause(this);
+    // this->window.pause(this);
 }
 
 Vec3 Engine::get_debug_pixel(int x, int y) const

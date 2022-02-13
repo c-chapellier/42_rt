@@ -24,6 +24,7 @@
 class Engine
 {
 private:
+    std::string saveFile;
     XmlSceneParser parser;
 
     int height, width, precision;
@@ -37,7 +38,7 @@ private:
     // const int n_threads = 1;
 
 public:
-    Engine(const std::string &file);
+    Engine(const std::string &scene, const std::string &saveFile);
     ~Engine();
 
     void run();

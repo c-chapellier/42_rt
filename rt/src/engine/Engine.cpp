@@ -1,7 +1,8 @@
 #include "Engine.hpp"
 
-Engine::Engine(const std::string &file) :
-    parser(file),
+Engine::Engine(const std::string &scene, const std::string &saveFile) :
+    saveFile(saveFile),
+    parser(scene),
     height(this->parser.height),
     width(this->parser.width),
     precision(this->parser.precision),
@@ -63,7 +64,7 @@ void Engine::threads(int n_thread)
 {
     for (int i = n_thread; i < this->height; i += this->n_threads)
     {
-        !(i % 10) && std::cout << "i " << i << "\n\033[F";
+        !(i % 10) && std::cerr << "i " << i << "\n\033[F";
         for (int j = 0; j < this->width; ++j)
         {
             this->pixels[i][j] = Vec3(0, 0, 0);
@@ -85,7 +86,7 @@ void Engine::run()
     // std::cout << "press any key ..." << std::endl;
     // std::cin.get();
 
-    std::cout << "run" << std::endl;
+    std::cerr << "run" << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
 
     std::vector<std::thread> threads;
@@ -98,12 +99,12 @@ void Engine::run()
 
     auto stop = std::chrono::high_resolution_clock::now();
 
-    Saver::toBMP("out.bmp", this->pixels);
-    std::cout << "Image saved: " << "out.bmp" << std::endl;
+    Saver::toBMP(this->pixels, this->saveFile);
+    std::cerr << "Image saved: " << this->saveFile << std::endl;
 
     // this->window.stream(this->pixels);
 
-    std::cout << "Loaded: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds" << std::endl;
+    std::cerr << "Loaded: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds" << std::endl;
     // this->window.pause(this);
 }
 

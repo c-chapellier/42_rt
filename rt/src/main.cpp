@@ -1,20 +1,16 @@
+
+#include "global.hpp"
 #include "engine/Engine.hpp"
 
 int debug = 0;
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
-    {
-        std::cerr << "usage: " << argv[0] << " file" << std::endl;
-        return 1;
-    }
+    if (argc != 3) return 1;
 
     try
     {
-        Engine(argv[1]).run();
-        
-        IMG_Quit();
+        Engine(argv[1], argv[2]).run();
         return 0;
     }
     catch (const std::exception& e)
@@ -33,5 +29,6 @@ int main(int argc, char *argv[])
     {
         std::cerr << "catch something else" << std::endl;
     }
+
     return 1;
-}
+};

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<scene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="scene.xsd"
+>
+  <height>600</height>
+  <width>600</width>
+  <precision>4</precision>
+    
+  <camera aperture="90">
+    <position x="12" y="0" z="0" />
+    <direction x="-1" y="0" z="0" />
+    <up x="0" y="0" z="1" />
+  </camera>
+
+  <colors>
+  </colors>
+
+  <objects>
+    <torus>
+      <base>
+        <translation x="0" y="0" z="0" />
+        <rotation x="0" y="25" z="0" />
+        <scale x="1" y="1" z="1" />
+        <mirror />
+        <uniform color="white" />
+      </base>
+      <R>3</R>
+      <r>1</r>
+    </torus>
+    <plane>
+      <translation x="-6" y="0" z="0" />
+      <rotation x="0" y="0" z="45" />
+      <scale x="1" y="1" z="1" />
+      <diffuse />
+      <chessboard color1="air_force_blue_raf" color2="air_force_blue_usaf" />
+    </plane>
+    <plane>
+      <translation x="-6" y="0" z="0" />
+      <rotation x="0" y="0" z="-45" />
+      <scale x="1" y="1" z="1" />
+      <diffuse />
+      <chessboard color1="air_force_blue_raf" color2="air_force_blue_usaf" />
+    </plane>
+    <plane>
+      <translation x="13" y="0" z="0" />
+      <rotation x="0" y="0" z="0" />
+      <scale x="1" y="1" z="1" />
+      <diffuse />
+      <chessboard color1="air_force_blue_raf" color2="air_force_blue_usaf" />
+    </plane>
+    <plane>
+      <translation x="0" y="0" z="13" />
+      <rotation x="0" y="90" z="0" />
+      <scale x="1" y="1" z="1" />
+      <diffuse />
+      <chessboard color1="android_green" color2="antique_ruby" />
+    </plane>
+  </objects>
+
+</scene>

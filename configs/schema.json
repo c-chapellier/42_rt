@@ -1,0 +1,294 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome9",
+    "definitions": {
+        "Welcome9": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "schema": {
+                    "$ref": "#/definitions/Schema"
+                }
+            },
+            "required": [
+                "schema"
+            ],
+            "title": "Welcome9"
+        },
+        "Schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "complexType": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ComplexTypeElement"
+                    }
+                },
+                "simpleType": {
+                    "$ref": "#/definitions/SimpleType"
+                },
+                "element": {
+                    "$ref": "#/definitions/AttributeElement"
+                },
+                "_xmlns:xs": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "http"
+                    ]
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                }
+            },
+            "required": [
+                "__prefix",
+                "_xmlns:xs",
+                "complexType",
+                "element",
+                "simpleType"
+            ],
+            "title": "Schema"
+        },
+        "ComplexTypeElement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "attribute": {
+                    "$ref": "#/definitions/Attribute"
+                },
+                "_name": {
+                    "type": "string"
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                },
+                "sequence": {
+                    "$ref": "#/definitions/Sequence"
+                }
+            },
+            "required": [
+                "__prefix",
+                "_name"
+            ],
+            "title": "ComplexTypeElement"
+        },
+        "AttributeElement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "_name": {
+                    "type": "string"
+                },
+                "_type": {
+                    "type": "string"
+                },
+                "_use": {
+                    "$ref": "#/definitions/Use"
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                },
+                "complexType": {
+                    "$ref": "#/definitions/ElementComplexType"
+                }
+            },
+            "required": [
+                "__prefix",
+                "_name"
+            ],
+            "title": "AttributeElement"
+        },
+        "ElementComplexType": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                }
+            },
+            "required": [
+                "__prefix"
+            ],
+            "title": "ElementComplexType"
+        },
+        "Sequence": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "element": {
+                    "$ref": "#/definitions/ElementUnion"
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                },
+                "choice": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Choice"
+                    }
+                }
+            },
+            "required": [
+                "__prefix",
+                "element"
+            ],
+            "title": "Sequence"
+        },
+        "Choice": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "element": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AttributeElement"
+                    }
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                }
+            },
+            "required": [
+                "__prefix",
+                "element"
+            ],
+            "title": "Choice"
+        },
+        "ElementElementClass": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "_name": {
+                    "type": "string"
+                },
+                "_type": {
+                    "type": "string"
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                },
+                "_minOccurs": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "_maxOccurs": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "__prefix",
+                "_name",
+                "_type"
+            ],
+            "title": "ElementElementClass"
+        },
+        "SimpleType": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "restriction": {
+                    "$ref": "#/definitions/Restriction"
+                },
+                "_name": {
+                    "type": "string"
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                }
+            },
+            "required": [
+                "__prefix",
+                "_name",
+                "restriction"
+            ],
+            "title": "SimpleType"
+        },
+        "Restriction": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "minInclusive": {
+                    "$ref": "#/definitions/Inclusive"
+                },
+                "maxInclusive": {
+                    "$ref": "#/definitions/Inclusive"
+                },
+                "_base": {
+                    "type": "string"
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                }
+            },
+            "required": [
+                "__prefix",
+                "_base",
+                "maxInclusive",
+                "minInclusive"
+            ],
+            "title": "Restriction"
+        },
+        "Inclusive": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "_value": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "__prefix": {
+                    "$ref": "#/definitions/Prefix"
+                }
+            },
+            "required": [
+                "__prefix",
+                "_value"
+            ],
+            "title": "Inclusive"
+        },
+        "Attribute": {
+            "anyOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AttributeElement"
+                    }
+                },
+                {
+                    "$ref": "#/definitions/AttributeElement"
+                }
+            ],
+            "title": "Attribute"
+        },
+        "ElementUnion": {
+            "anyOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ElementElementClass"
+                    }
+                },
+                {
+                    "$ref": "#/definitions/ElementElementClass"
+                }
+            ],
+            "title": "ElementUnion"
+        },
+        "Prefix": {
+            "type": "string",
+            "enum": [
+                "xs"
+            ],
+            "title": "Prefix"
+        },
+        "Use": {
+            "type": "string",
+            "enum": [
+                "required"
+            ],
+            "title": "Use"
+        }
+    }
+}

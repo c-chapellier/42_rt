@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "intelliSenseMode": "clang-x64",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include"
+            ],
+            "macFrameworkPath": [
+                "/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}

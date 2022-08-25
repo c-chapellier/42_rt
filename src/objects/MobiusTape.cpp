@@ -1,8 +1,8 @@
 
 #include "MobiusTape.hpp"
 
-MobiusTape::MobiusTape(Transform transform, Material *material, Texture *texture)
-    : Object(transform, material, texture), r(.5)
+MobiusTape::MobiusTape(Transform transform, double refractiveIndex, Material *material, Texture *texture)
+    : Object(transform, refractiveIndex, material, texture), r(.5)
 {
 
 }

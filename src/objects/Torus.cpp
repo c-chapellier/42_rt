@@ -1,8 +1,8 @@
 
 #include "Torus.hpp"
 
-Torus::Torus(Transform transform, Material *material, Texture *texture, double R, double r)
-    : Object(transform, material, texture), R(R), r(r), R2(R*R), r2(r*r), r2R2(r2 + R2)
+Torus::Torus(Transform transform, double refractiveIndex, Material *material, Texture *texture, double R, double r)
+    : Object(transform, refractiveIndex, material, texture), R(R), r(r), R2(R*R), r2(r*r), r2R2(r2 + R2)
 {
 
 }

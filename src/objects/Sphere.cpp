@@ -1,8 +1,8 @@
 
 #include "Sphere.hpp"
 
-Sphere::Sphere(Transform transform, Material *material, Texture *texture)
-    : Object(transform, material, texture)
+Sphere::Sphere(Transform transform, double refractiveIndex, Material *material, Texture *texture)
+    : Object(transform, refractiveIndex, material, texture)
 {
     
 }

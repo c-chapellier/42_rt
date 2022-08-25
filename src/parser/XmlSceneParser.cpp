@@ -48,6 +48,7 @@ XmlSceneParser::XmlSceneParser(const std::string &file)
         {
             this->objects.push_back(new Sphere(
                 this->xml_to_transform(object),
+                std::stod(object->first_node("refractive_index")->first_attribute("n")->value()),
                 this->xml_to_material(object),
                 this->xml_to_texture(object)
             ));
@@ -56,6 +57,7 @@ XmlSceneParser::XmlSceneParser(const std::string &file)
         {
             this->objects.push_back(new Torus(
                 this->xml_to_transform(object->first_node("base")),
+                std::stod(object->first_node("base")->first_node("refractive_index")->first_attribute("n")->value()),
                 this->xml_to_material(object->first_node("base")),
                 this->xml_to_texture(object->first_node("base")),
                 std::stod(object->first_node("R")->value()),
@@ -66,6 +68,7 @@ XmlSceneParser::XmlSceneParser(const std::string &file)
         {
             this->objects.push_back(new Plane(
                 this->xml_to_transform(object),
+                std::stod(object->first_node("refractive_index")->first_attribute("n")->value()),
                 this->xml_to_material(object),
                 this->xml_to_texture(object)
             ));
@@ -74,6 +77,7 @@ XmlSceneParser::XmlSceneParser(const std::string &file)
         {
             this->objects.push_back(new MobiusTape(
                 this->xml_to_transform(object),
+                std::stod(object->first_node("refractive_index")->first_attribute("n")->value()),
                 this->xml_to_material(object),
                 this->xml_to_texture(object)
             ));
@@ -132,6 +136,10 @@ Material *XmlSceneParser::xml_to_material(rapidxml::xml_node<> *v) const
     material = v->first_node("mirror");
     if (material)
         return new Mirror();
+
+    material = v->first_node("refractive");
+    if (material)
+        return new Refractive();
 
     throw "material not good";
 }

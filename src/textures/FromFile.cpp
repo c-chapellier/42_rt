@@ -17,17 +17,22 @@ FromFile::~FromFile()
 
 Vec3 FromFile::get_color(const hit_t &hit) const
 {
-    if (hit.u < -1 || hit.u >= 1 || hit.v < -1 || hit.v >= 1)
-    {
-        printf("uv: %f %f\n", hit.u, hit.v);
-       throw "uv mapping: not in range [-1 <= x < 1]";
-    }
+    double u = hit.u, v = hit.v;
 
-    PRINT("u: " << hit.u);
-    PRINT("v: " << hit.v);
+    if (u < -1 || u >= 1 || v < -1 || v >= 1)
+        printf("uv not in range 1: %f %f %d%d%d%d\n", u, v, u < -1, u >= 1, v < -1, v >= 1);
 
-    int i = (hit.u + 1) * this->height / 2;
-    int j = (hit.v + 1) * this->width / 2;
+    PRINT("u: " << u);
+    PRINT("v: " << v);
+
+    int i = (u + 1) * this->height / 2;
+    i = i >= this->height ? this->height - 1 : i;
+    i = i < 0 ? 0 : i;
+
+    int j = (v + 1) * this->width / 2;
+    j = j >= this->width ? this->width - 1 : j;
+    j = j < 0 ? 0 : j;
+
     int n = (i * this->width + j) * this->bpp;
 
     return Vec3(

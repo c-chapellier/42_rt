@@ -1,8 +1,8 @@
 
 #include "Object.hpp"
 
-Object::Object(Transform transform, Material *material, Texture *texture) :
-    transform(transform), material(material), texture(texture)
+Object::Object(Transform transform, double refractiveIndex, Material *material, Texture *texture) :
+    transform(transform), refractiveIndex(refractiveIndex), material(material), texture(texture)
 {
     
 }

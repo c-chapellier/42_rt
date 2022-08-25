@@ -7,5 +7,9 @@ class Material
 {
 public:
     virtual ~Material() {};
-    virtual bool reflect(const Ray &ray, const hit_t &hit, Vec3 &color, Ray &reflected) const = 0;
+    virtual int reflect(const Ray &ray, const hit_t &hit, double &n, Vec3 &color, Ray &reflected) const = 0;
+
+    static const int REFLECTION_NONE = 0;
+    static const int REFLECTION_PARTIAL = 1;
+    static const int REFLECTION_TOTAL = 2;
 };

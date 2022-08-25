@@ -10,5 +10,5 @@ class Diffuse : public Material
 {
 public:
     Diffuse();
-    bool reflect(const Ray &ray, const hit_t &hit, Vec3 &color, Ray &reflected) const;
+    int reflect(const Ray &ray, const hit_t &hit, double &n, Vec3 &color, Ray &reflected) const;
 };

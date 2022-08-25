@@ -49,21 +49,26 @@
     <xs:attribute name="filename" type="xs:string" use="required"/>
   </xs:complexType>
 
+  <xs:complexType name="refractive_indextype">
+    <xs:attribute name="n" type="xs:float" use="required"/>
+  </xs:complexType>
+
   <xs:complexType name="objecttype">
     <xs:sequence>
-      <xs:element name="translation" type="vec3type"/>
-      <xs:element name="rotation" type="vec3type"/>
-      <xs:element name="scale" type="vec3type"/>
+      <xs:element name="translation" type="vec3type" use="required"/>
+      <xs:element name="rotation" type="vec3type" use="required"/>
+      <xs:element name="scale" type="vec3type" use="required"/>
+      <xs:element name="refractive_index" type="refractive_indextype" use="required"/>
       <xs:choice>
         <xs:element name="diffuse" ><xs:complexType/></xs:element>
         <xs:element name="metal" ><xs:complexType/></xs:element>
         <xs:element name="mirror" ><xs:complexType/></xs:element>
-    </xs:choice>
+      </xs:choice>
       <xs:choice>
         <xs:element name="uniform" type="uniformtype"/>
         <xs:element name="chessboard" type="chessboardtype"/>
         <xs:element name="texturefromfile" type="texturefromfiletype"/>
-    </xs:choice>
+      </xs:choice>
     </xs:sequence>
   </xs:complexType>
 

@@ -9,6 +9,6 @@
 class Plane : public Object
 {
 public:
-    Plane(Transform transform, Material *material, Texture *texture);
+    Plane(Transform transform, double refractiveIndex, Material *material, Texture *texture);
     bool intersect(const Ray &ray, double min, hit_t &hit) const;
 };

@@ -15,6 +15,6 @@ private:
     Vec3 normal(const Vec3 &p) const;
 
 public:
-    MobiusTape(Transform transform, Material *material, Texture *texture);
+    MobiusTape(Transform transform, double refractiveIndex, Material *material, Texture *texture);
     bool intersect(const Ray &ray, double min, hit_t &hit) const;
 };

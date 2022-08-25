@@ -44,7 +44,7 @@ public:
 
     void run();
     void threads(int n_thread);
-    Vec3 get_color(const Ray &ray, int depth) const;
+    Vec3 get_color(const Ray &ray, double n, int depth) const;
     bool hit(const Ray &ray, hit_t &hit) const;
     Vec3 get_debug_pixel(int x, int y) const;
 };

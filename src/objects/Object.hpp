@@ -13,10 +13,11 @@ protected:
 
 public:
     Transform transform;
+    double refractiveIndex;
     Material *material;
     Texture *texture;
 
-    Object(Transform transform, Material *material, Texture *texture);
+    Object(Transform transform, double refractiveIndex, Material *material, Texture *texture);
 
     virtual ~Object()
     {

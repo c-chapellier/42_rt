@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<scene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="scene.xsd"
+>
+  <height>600</height>
+  <width>600</width>
+  <precision>1</precision>
+    
+  <camera aperture="90">
+    <position x="3.5" y="0" z="0" />
+    <direction x="-1" y="0" z="0" />
+    <up x="0" y="0" z="1" />
+  </camera>
+
+  <colors>
+  </colors>
+
+  <objects>
+    <!-- <sphere>
+      <translation x="0" y="0" z="0" />
+      <rotation x="0" y="30" z="0" />
+      <scale x="1" y="1" z="1" />
+      <refractive_index n="10" />
+      <refractive />
+      <uniform color="red" />
+    </sphere> -->
+    <torus>
+      <base>
+        <translation x="0" y="0" z="0" />
+        <rotation x="0" y="25" z="0" />
+        <scale x="1" y="1" z="1" />
+        <refractive_index n="1.3" />
+        <refractive />
+        <uniform color="red" />
+      </base>
+      <R>1</R>
+      <r>0.3</r>
+    </torus>
+    <plane>
+      <translation x="-4" y="0" z="0" />
+      <rotation x="0" y="0" z="0" />
+      <scale x="1" y="1" z="1" />
+      <refractive_index n="2" />
+      <diffuse />
+      <texturefromfile filename="./textures/astronomy/2k_earth_daymap.jpg" />
+      <!-- <chessboard color1="white" color2="black" /> -->
+    </plane>
+  </objects>
+
+</scene>

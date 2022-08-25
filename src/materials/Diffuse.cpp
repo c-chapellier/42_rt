@@ -3,15 +3,15 @@
 
 Diffuse::Diffuse() {}
 
-bool Diffuse::reflect(const Ray &ray, const hit_t &hit, Vec3 &color, Ray &reflected) const
+int Diffuse::reflect(const Ray &ray, const hit_t &hit, double &n, Vec3 &color, Ray &reflected) const
 {
-    (void)reflected;
+    (void)reflected, (void)n;
     
     double theta = fabs(acos(ray.direction().unit_vector().dot(hit.normal.unit_vector())));
 
     if (theta > M_PI_2) theta = M_PI - theta;
 
-    color = color * (1 - (2 * theta) / M_PI);
+    color *= 1 - (M_2_PI * theta);
 
-    return false;
+    return Material::REFLECTION_NONE;
 }

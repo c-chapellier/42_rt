@@ -30,33 +30,41 @@ bool Engine::hit(const Ray &ray, hit_t &hit) const
         if (objects[i]->intersect(ray, EPSILON, hit))
         {
             hit.object = objects[i];
+            // printf("hit %p\n", hit.object);
+            // printf("hit %p\n", hit.object->texture);
         }
     }
 
     return hit.t != INFINITY;
 }
 
-Vec3 Engine::get_color(const Ray &ray, int depth) const
+Vec3 Engine::get_color(const Ray &ray, double refractiveIndex, int depth) const
 {
     hit_t hit;
 
-    if (depth >= 10) return Vec3(1, 1, 1);
+    if (depth >= 10) return Vec3(0, 0, 0);
 
     if (this->hit(ray, hit))
     {
+        // printf("IN2 %d 2 %p\n", depth, hit.object);
+        // printf("IN3 0 2 %p\n", hit.object->texture);
         Vec3 color = hit.object->texture->get_color(hit);
 
         PRINT("[" << depth << "]: color: " << color);
 
         Ray reflected;
-        if (hit.object->material->reflect(ray, hit, color, reflected))
-            return color * this->get_color(reflected, depth + 1);
-
-        return color;
+        switch (hit.object->material->reflect(ray, hit, refractiveIndex, color, reflected))
+        {
+        case Material::REFLECTION_NONE:
+            return color;
+        case Material::REFLECTION_PARTIAL:
+            return color * this->get_color(reflected, refractiveIndex, depth + 1);
+        case Material::REFLECTION_TOTAL:
+            return this->get_color(reflected, refractiveIndex, depth + 1);
+        }
     }
-    
-    // return Vec3(1, 1, 1);
-    return depth == 0 ? Vec3(0, 0, 0) : Vec3(1, 1, 1);
+
+    return Vec3(0, 0, 0);
 }
 
 void Engine::threads(int n_thread)
@@ -72,7 +80,7 @@ void Engine::threads(int n_thread)
                 for (int pj = 0; pj < this->precision; ++pj)
                 {
                     Ray ray = this->camera.getRay(i * this->precision + pi, j * this->precision + pj);
-                    this->pixels[i][j] += this->get_color(ray, 0);
+                    this->pixels[i][j] += this->get_color(ray, 1, 0);
                 }
             }
             this->pixels[i][j] /= this->precision * this->precision;
@@ -109,7 +117,7 @@ void Engine::run()
 Vec3 Engine::get_debug_pixel(int x, int y) const
 {
     Ray ray = this->camera.getRay((this->height - 1 - y) * this->precision, x * this->precision);
-    return this->get_color(ray, 0);
+    return this->get_color(ray, 1, 0);
 }
 
 // define once engine is defined

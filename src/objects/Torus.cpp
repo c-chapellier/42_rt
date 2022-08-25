@@ -65,8 +65,8 @@ bool Torus::intersect(const Ray &ray, double min, hit_t &hit) const
     hit.is_front_face = ray.direction().dot(hit.normal) < 0;
     hit.normal = hit.is_front_face ? hit.normal : -hit.normal;
 
-    hit.u = atan2(hit.local_inter[2], (sqrt(hit.local_inter[0]*hit.local_inter[0] + hit.local_inter[1]*hit.local_inter[1]) - this->R) / this->r) / M_PI;
-    hit.v = atan2(hit.local_inter[0], hit.local_inter[1]) / M_PI;
+    hit.u = -atan2(hit.local_inter[2], (sqrt(hit.local_inter[0]*hit.local_inter[0] + hit.local_inter[1]*hit.local_inter[1]) - this->R) / this->r) / M_PI;
+    hit.v = -atan2(hit.local_inter[0], hit.local_inter[1]) / M_PI;
 
     return true;
 }

@@ -22,7 +22,7 @@ Ray Camera::getRay(int i, int j) const
         this->coordinates,
         this->coordinates
             + this->screenCenter
-            + v * (i - h_2)
-            + u * (j - w_2)
+            + this->v * (i - this->h_2)
+            + this->u * (j - this->w_2)
     );
 }

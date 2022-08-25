@@ -53,8 +53,14 @@ bool MobiusTape::intersect(const Ray &ray, double min, hit_t &hit) const
     hit.normal = hit.is_front_face ? hit.normal : -hit.normal;
 
     double theta = atan2(hit.local_inter[0], hit.local_inter[1]);
-    hit.u = (hit.local_inter - Vec3(sin(theta), cos(theta), 0)).length() / this->r;
-    hit.v = theta / M_PI;
+    Vec3 center = Vec3(-sin(theta), -cos(theta), 0);
+    Vec3 dir = hit.local_inter + center;
+
+    hit.u = dir.length() / this->r;
+    if (dir.angle_with(center) < M_PI_2) hit.u = -hit.u;
+
+    hit.v = -theta / M_PI;
+    if (hit.v == 1) hit.v = 0;
 
     return true;
 }

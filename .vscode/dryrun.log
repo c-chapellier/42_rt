@@ -3,57 +3,79 @@ make: Entering directory `/Users/corentin/Documents/19/42_rt'
 echo "Creating directories"
 mkdir -p build/bmp/ build/camera/ build/components/ build/components/ build/engine/ build/ build/materials/ build/materials/ build/materials/ build/math/ build/objects/ build/objects/ build/objects/ build/objects/ build/objects/ build/parser/ build/textures/ build/textures/ build/textures/ build/window/
 mkdir -p build/bin
+ 
 /Applications/Xcode.app/Contents/Developer/usr/bin/make all
  
 make[1]: Entering directory `/Users/corentin/Documents/19/42_rt'
 echo "Compiling: src/bmp/BMP.cpp -> build/bmp/BMP.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/bmp/BMP.cpp -o build/bmp/BMP.o
+ 
 echo "Compiling: src/camera/Camera.cpp -> build/camera/Camera.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/camera/Camera.cpp -o build/camera/Camera.o
+ 
 echo "Compiling: src/components/Matrix.cpp -> build/components/Matrix.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/components/Matrix.cpp -o build/components/Matrix.o
+ 
 echo "Compiling: src/components/Transform.cpp -> build/components/Transform.o"
+ 
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/components/Transform.cpp -o build/components/Transform.o
  
 echo "Compiling: src/engine/Engine.cpp -> build/engine/Engine.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/engine/Engine.cpp -o build/engine/Engine.o
+ 
 echo "Compiling: src/main.cpp -> build/main.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/main.cpp -o build/main.o
+ 
 echo "Compiling: src/materials/Diffuse.cpp -> build/materials/Diffuse.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/materials/Diffuse.cpp -o build/materials/Diffuse.o
+ 
 echo "Compiling: src/materials/Metal.cpp -> build/materials/Metal.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/materials/Metal.cpp -o build/materials/Metal.o
+ 
 echo "Compiling: src/materials/Mirror.cpp -> build/materials/Mirror.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/materials/Mirror.cpp -o build/materials/Mirror.o
+ 
 echo "Compiling: src/math/EquationSolver.cpp -> build/math/EquationSolver.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/math/EquationSolver.cpp -o build/math/EquationSolver.o
+ 
 echo "Compiling: src/objects/MobiusTape.cpp -> build/objects/MobiusTape.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/objects/MobiusTape.cpp -o build/objects/MobiusTape.o
+ 
 echo "Compiling: src/objects/Object.cpp -> build/objects/Object.o"
+ 
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/objects/Object.cpp -o build/objects/Object.o
+ 
 echo "Compiling: src/objects/Plane.cpp -> build/objects/Plane.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/objects/Plane.cpp -o build/objects/Plane.o
+ 
 echo "Compiling: src/objects/Sphere.cpp -> build/objects/Sphere.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/objects/Sphere.cpp -o build/objects/Sphere.o
+ 
 echo "Compiling: src/objects/Torus.cpp -> build/objects/Torus.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/objects/Torus.cpp -o build/objects/Torus.o
  
 echo "Compiling: src/parser/XmlSceneParser.cpp -> build/parser/XmlSceneParser.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/parser/XmlSceneParser.cpp -o build/parser/XmlSceneParser.o
+ 
 echo "Compiling: src/textures/ChessBoard.cpp -> build/textures/ChessBoard.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/textures/ChessBoard.cpp -o build/textures/ChessBoard.o
+ 
 echo "Compiling: src/textures/FromFile.cpp -> build/textures/FromFile.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/textures/FromFile.cpp -o build/textures/FromFile.o
+ 
 echo "Compiling: src/textures/Uniform.cpp -> build/textures/Uniform.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/textures/Uniform.cpp -o build/textures/Uniform.o
+ 
 echo "Compiling: src/window/Window.cpp -> build/window/Window.o"
 c++  -std=c++17 -Wall -Wextra -g -O2 -ffast-math -I include/ -I /usr/local/include -MP -MMD -c src/window/Window.cpp -o build/window/Window.o
  
 echo "Linking: build/bin/rt"
 c++ build/bmp/BMP.o build/camera/Camera.o build/components/Matrix.o build/components/Transform.o build/engine/Engine.o build/main.o build/materials/Diffuse.o build/materials/Metal.o build/materials/Mirror.o build/math/EquationSolver.o build/objects/MobiusTape.o build/objects/Object.o build/objects/Plane.o build/objects/Sphere.o build/objects/Torus.o build/parser/XmlSceneParser.o build/textures/ChessBoard.o build/textures/FromFile.o build/textures/Uniform.o build/window/Window.o -o build/bin/rt -lSDL2_image -lSDL2
+ 
 echo "Making symlink: rt -> build/bin/rt"
 rm -f rt
 ln -s build/bin/rt rt
 make[1]: Leaving directory `/Users/corentin/Documents/19/42_rt'
+ 
 make: Leaving directory `/Users/corentin/Documents/19/42_rt'
  

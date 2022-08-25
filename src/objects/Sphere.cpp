@@ -34,7 +34,8 @@ bool Sphere::intersect(const Ray &ray, double min, hit_t &hit) const
     hit.normal = (hit.global_inter - this->transform.apply_forward(Vec3(0, 0, 0))).unit_vector();
     hit.is_front_face = ray.direction().dot(hit.normal) < 0;
     hit.normal = hit.is_front_face ? hit.normal : -hit.normal;
-    hit.u = atan2(hit.local_inter[0]*hit.local_inter[0] + hit.local_inter[1]*hit.local_inter[1], hit.local_inter[2]) / M_PI;
+
+    hit.u = atan2(hit.local_inter[0]*hit.local_inter[0] + hit.local_inter[1]*hit.local_inter[1], hit.local_inter[2]) / M_PI_2 - 1;
     hit.v = atan2(hit.local_inter[1], hit.local_inter[0]) / M_PI;
 
     return true;

@@ -8,20 +8,14 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Wed Aug 24 23:06:46 2022
+# Make data base, printed on Thu Aug 25 10:24:27 2022
 
 # Variables
 
-# environment
-VSCODE_GIT_ASKPASS_MAIN = /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
-# environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
-# environment
-NVM_INC = /Users/corentin/.nvm/versions/node/v14.19.1/include/node
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # makefile (from `Makefile', line 27)
@@ -40,26 +34,20 @@ VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupp
 _ = /usr/bin/make
 # makefile (from `build/window/Window.d', line 1)
 MAKEFILE_LIST :=  Makefile build/bmp/BMP.d build/camera/Camera.d build/components/Matrix.d build/components/Transform.d build/engine/Engine.d build/main.d build/materials/Diffuse.d build/materials/Metal.d build/materials/Mirror.d build/math/EquationSolver.d build/objects/MobiusTape.d build/objects/Object.d build/objects/Plane.d build/objects/Sphere.d build/objects/Torus.d build/parser/XmlSceneParser.d build/textures/ChessBoard.d build/textures/FromFile.d build/textures/Uniform.d build/window/Window.d
-# environment
-VSCODE_INJECTION = 1
 # makefile (from `Makefile', line 18)
 SOURCES = $(shell find $(SRC_PATH) -name '*.$(SRC_EXT)' | sort -k 1nr | cut -f2-)
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_CWD = /Users/corentin/Documents/19/42_rt
+VSCODE_CWD = /
 # environment
-PATH = /Users/corentin/.nvm/versions/node/v14.19.1/bin:/usr/local/opt/node@14/bin:/usr/local/opt/texinfo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Wireshark.app/Contents/MacOS:/Users/corentin/.nvm/versions/node/v14.19.1/bin:/usr/local/opt/node@14/bin:/usr/local/opt/texinfo/bin:/Users/corentin/.cargo/bin
-# environment
-LSCOLORS = Gxfxcxdxbxegedabagacad
+PATH = /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 # makefile (from `Makefile', line 26)
 COMPILE_FLAGS = -std=c++17 -Wall -Wextra -g -O2 -ffast-math
 # makefile (from `Makefile', line 5)
 SRC_PATH = src
 # environment
-ZDOTDIR = /var/folders/y2/8ltqn93x5v1flrfhkd7_2cdr0000gn/T/vscode-zsh
-# environment
-NVM_BIN = /Users/corentin/.nvm/versions/node/v14.19.1/bin
+LaunchInstanceID = 7BDBD49B-14EC-4AF9-913F-36F588129282
 # makefile (from `Makefile', line 7)
 BIN_PATH = $(BUILD_PATH)/bin
 # environment
@@ -67,7 +55,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.s66HG8jNPo/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.IjO0G8BhBu/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -81,35 +69,25 @@ HOME = /Users/corentin
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CLI = 1
-# environment
 VSCODE_CODE_CACHE_PATH = /Users/corentin/Library/Application Support/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
 # environment
 LOGNAME = corentin
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
-NVM_CD_FLAGS = -q
-# environment
-ZSH = /Users/corentin/.oh-my-zsh
-# environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
-MAKELEVEL := 0
-# environment
 XPC_FLAGS = 0x0
 # makefile (from `Makefile', line 6)
 BUILD_PATH = build
-# environment
-COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-SHLVL = 3
+SHLVL = 1
 # default
 MAKE_VERSION := 3.81
 # environment
@@ -120,16 +98,10 @@ USER = corentin
 BIN_NAME = rt
 # makefile (from `Makefile', line 13)
 SRC_EXT = cpp
-# environment
-LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
-# environment
-VSCODE_GIT_ASKPASS_EXTRA_ARGS = --ms-enable-electron-run-as-node
-# environment
-TERM_PROGRAM = vscode
 # default
 .VARIABLES := 
 # environment
@@ -139,8 +111,6 @@ TMPDIR = /var/folders/y2/8ltqn93x5v1flrfhkd7_2cdr0000gn/T/
 # environment
 VSCODE_IPC_HOOK = /Users/corentin/Library/Application Support/Code/1.70.2-main.sock
 # environment
-VSCODE_GIT_ASKPASS_NODE = /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper
-# environment
 MallocNanoZone = 0
 # makefile
 MAKEFLAGS = Rrqp
@@ -149,11 +119,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-TERM_PROGRAM_VERSION = 1.70.2
-# environment
-NVM_DIR = /Users/corentin/.nvm
-# environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.72610156.72610162.C1B5BAFB-7AD2-4DCC-A325-E4D7DB99FA15
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.72610156.72610162
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -162,8 +128,6 @@ XPC_SERVICE_NAME = application.com.microsoft.VSCode.72610156.72610162.C1B5BAFB-7
 __CF_USER_TEXT_ENCODING = 0x1F5:0:0
 # environment
 COMMAND_MODE = unix2003
-# environment
-GIT_ASKPASS = /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 # default
 MAKEFILES := 
 # automatic
@@ -171,11 +135,11 @@ MAKEFILES :=
 # makefile (from `Makefile', line 2)
 CXX = g++
 # environment
-PAGER = less
-# environment
 LC_ALL = C
 # makefile (from `Makefile', line 29)
 LIBS = -lSDL2_image
+# environment
+SECURITYSESSIONID = 186a5
 # automatic
 ^F = $(notdir $^)
 # makefile (from `Makefile', line 23)
@@ -185,17 +149,15 @@ SUFFIXES :=
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
-VSCODE_GIT_IPC_HANDLE = /var/folders/y2/8ltqn93x5v1flrfhkd7_2cdr0000gn/T/vscode-git-820ec5532c.sock
+MAKELEVEL := 0
 # makefile (from `Makefile', line 21)
 OBJECTS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
 # environment
 LANG = C
 # environment
-TERM = xterm-256color
-# environment
-VSCODE_PID = 35541
+VSCODE_PID = 483
 # variable set hash-table stats:
-# Load=91/1024=9%, Rehash=0, Collisions=10/196=5%
+# Load=72/1024=7%, Rehash=0, Collisions=8/177=5%
 
 # Pattern-specific Variable Values
 
@@ -203,20 +165,20 @@ VSCODE_PID = 35541
 
 # Directories
 
-# src/camera (device 16777220, inode 54956326): No files, no impossibilities so far.
-# . (device 16777220, inode 53693016): 15 files, no impossibilities.
-# src/engine (device 16777220, inode 53693217): No files, no impossibilities so far.
-# src/textures (device 16777220, inode 57507736): 9 files, no impossibilities.
-# src/math (device 16777220, inode 57298217): No files, no impossibilities so far.
-# src/window (device 16777220, inode 54955765): 4 files, no impossibilities.
-# src (device 16777220, inode 53693196): No files, no impossibilities so far.
-# src/objects (device 16777220, inode 57132429): No files, no impossibilities so far.
-# src/parser (device 16777220, inode 57707323): No files, no impossibilities so far.
-# src/components (device 16777220, inode 57132442): No files, no impossibilities so far.
-# src/bmp (device 16777220, inode 73772705): No files, no impossibilities so far.
-# src/materials (device 16777220, inode 57154664): No files, no impossibilities so far.
+# src/camera (device 16777225, inode 73789449): No files, no impossibilities so far.
+# . (device 16777225, inode 53693016): 17 files, no impossibilities.
+# src/engine (device 16777225, inode 53693217): No files, no impossibilities so far.
+# src/textures (device 16777225, inode 73789487): 9 files, no impossibilities.
+# src/math (device 16777225, inode 73789471): No files, no impossibilities so far.
+# src/window (device 16777225, inode 54955765): 4 files, no impossibilities.
+# src (device 16777225, inode 53693196): No files, no impossibilities so far.
+# src/objects (device 16777225, inode 57132429): No files, no impossibilities so far.
+# src/parser (device 16777225, inode 73789484): No files, no impossibilities so far.
+# src/components (device 16777225, inode 73789452): No files, no impossibilities so far.
+# src/bmp (device 16777225, inode 73789446): No files, no impossibilities so far.
+# src/materials (device 16777225, inode 73789463): No files, no impossibilities so far.
 
-# 28 files, no impossibilities in 12 directories.
+# 30 files, no impossibilities in 12 directories.
 
 # Implicit Rules
 
@@ -230,11 +192,10 @@ build/%.o: src/%.cpp
 
 # Files
 
- 
 build/objects/Sphere.o: src/objects/Sphere.cpp src/objects/Sphere.cpp src/objects/Sphere.hpp src/objects/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/objects/../math/EquationSolver.hpp src/objects/../components/Vec3.hpp src/objects/../components/Ray.hpp src/objects/../components/Matrix.hpp src/objects/../components/Transform.hpp src/objects/../materials/Material.hpp src/objects/../materials/../components/Vec3.hpp src/objects/../materials/../components/Ray.hpp src/objects/../textures/Texture.hpp src/objects/../textures/../global.hpp src/objects/../objects/Object.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `objects/Sphere'
-#  Last modified 2022-08-24 22:55:52
+#  Last modified 2022-08-25 00:08:16
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -246,15 +207,16 @@ build/objects/Sphere.o: src/objects/Sphere.cpp src/objects/Sphere.cpp src/object
 
 src/engine/../parser/../materials/Diffuse.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:42:01
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
+ 
 src/engine/../parser/../objects/../materials/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -270,7 +232,7 @@ include/SDL2/SDL_events.h:
 
 src/engine/../parser/../objects/MobiusTape.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 21:58:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -286,7 +248,7 @@ include/SDL2/SDL_rwops.h:
 
 src/engine/../math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -295,7 +257,7 @@ src/engine/../math/EquationSolver.hpp:
 # Not a target:
 src/materials/Metal.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:43:31
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -337,7 +299,7 @@ include/SDL2/SDL_haptic.h:
 build/objects/Object.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:48
+#  Last modified 2022-08-24 23:18:49
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -345,7 +307,7 @@ build/objects/Object.d:
 
 src/engine/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -354,7 +316,7 @@ src/engine/../components/Vec3.hpp:
 build/objects/Plane.o: src/objects/Plane.cpp src/objects/Plane.cpp src/objects/Plane.hpp src/objects/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/objects/../math/EquationSolver.hpp src/objects/../components/Vec3.hpp src/objects/../components/Ray.hpp src/objects/../components/Matrix.hpp src/objects/../components/Transform.hpp src/objects/../materials/Material.hpp src/objects/../materials/../components/Vec3.hpp src/objects/../materials/../components/Ray.hpp src/objects/../textures/Texture.hpp src/objects/../textures/../global.hpp src/objects/../objects/Object.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `objects/Plane'
-#  Last modified 2022-08-24 22:55:50
+#  Last modified 2022-08-24 23:18:51
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -374,7 +336,7 @@ include/SDL2/SDL_sensor.h:
 
 src/camera/../components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -382,12 +344,12 @@ src/camera/../components/Transform.hpp:
 
 src/objects/../components/Matrix.hpp:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+ 
 
 include/SDL2/SDL_keycode.h:
 #  Implicit rule search has been done.
@@ -399,7 +361,7 @@ include/SDL2/SDL_keycode.h:
 
 src/components/Matrix.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -408,7 +370,7 @@ src/components/Matrix.hpp:
 build/main.o: src/main.cpp src/main.cpp src/global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/math/EquationSolver.hpp src/components/Vec3.hpp src/components/Ray.hpp src/components/Matrix.hpp src/components/Transform.hpp src/engine/Engine.hpp src/engine/../global.hpp src/engine/../parser/XmlSceneParser.hpp src/engine/../parser/../global.hpp include/rapidxml/rapidxml.hpp src/engine/../parser/../camera/Camera.hpp src/engine/../parser/../camera/../global.hpp src/engine/../parser/../camera/../components/Vec3.hpp src/engine/../parser/../camera/../components/Ray.hpp src/engine/../parser/../objects/Sphere.hpp src/engine/../parser/../objects/../global.hpp src/engine/../parser/../objects/../materials/Material.hpp src/engine/../parser/../objects/../materials/../components/Vec3.hpp src/engine/../parser/../objects/../materials/../components/Ray.hpp src/engine/../parser/../objects/../textures/Texture.hpp src/engine/../parser/../objects/../textures/../global.hpp src/engine/../parser/../objects/../objects/Object.hpp src/engine/../parser/../objects/Torus.hpp src/engine/../parser/../objects/Plane.hpp src/engine/../parser/../objects/MobiusTape.hpp src/engine/../parser/../materials/Diffuse.hpp src/engine/../parser/../objects/../materials/../global.hpp src/engine/../parser/../materials/Metal.hpp src/engine/../parser/../materials/Mirror.hpp src/engine/../parser/../textures/Uniform.hpp src/engine/../parser/../textures/ChessBoard.hpp src/engine/../parser/../textures/FromFile.hpp src/engine/../bmp/BMP.hpp src/engine/../bmp/../global.hpp src/engine/../bmp/../components/Vec3.hpp src/engine/../window/Window.hpp src/engine/../window/../global.hpp src/engine/../camera/Camera.hpp src/engine/../objects/Sphere.hpp src/engine/../objects/Torus.hpp src/engine/../objects/Plane.hpp src/engine/../objects/MobiusTape.hpp src/engine/../materials/Diffuse.hpp src/engine/../materials/Metal.hpp src/engine/../materials/Mirror.hpp src/engine/../textures/Uniform.hpp src/engine/../textures/ChessBoard.hpp src/engine/../textures/FromFile.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2022-08-24 22:55:39
+#  Last modified 2022-08-24 23:18:39
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -430,7 +392,7 @@ include/SDL2/SDL_clipboard.h:
 build/materials/Metal.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:43
+#  Last modified 2022-08-24 23:18:43
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -438,7 +400,7 @@ build/materials/Metal.d:
 
 src/parser/../objects/../textures/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -446,7 +408,7 @@ src/parser/../objects/../textures/../global.hpp:
 
 src/objects/../objects/Object.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:59:35
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -454,7 +416,7 @@ src/objects/../objects/Object.hpp:
 
 src/window/Window.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:54:36
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -494,7 +456,7 @@ all: build/bin/rt
 
 src/engine/../bmp/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -510,7 +472,7 @@ include/SDL2/SDL_keyboard.h:
 
 src/engine/../textures/ChessBoard.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:36:49
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -527,7 +489,7 @@ include/SDL2/SDL_video.h:
 # Not a target:
 src/engine/Engine.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:03:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -536,7 +498,7 @@ src/engine/Engine.cpp:
 # Not a target:
 src/camera/Camera.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 18:32:36
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -544,7 +506,7 @@ src/camera/Camera.cpp:
 
 src/camera/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -552,19 +514,19 @@ src/camera/../components/Ray.hpp:
 
 src/engine/../parser/XmlSceneParser.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:39:51
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 include/SDL2/SDL_main.h:
- 
 #  Implicit rule search has been done.
 #  Last modified 2021-12-07 16:15:55
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 include/SDL2/SDL_cpuinfo.h:
@@ -577,7 +539,7 @@ include/SDL2/SDL_cpuinfo.h:
 
 src/parser/../objects/../materials/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -590,7 +552,7 @@ src/parser/../objects/../materials/../components/Ray.hpp:
 
 src/engine/../parser/../camera/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -598,7 +560,7 @@ src/engine/../parser/../camera/../components/Vec3.hpp:
 
 src/engine/../parser/../textures/FromFile.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -615,7 +577,7 @@ include/SDL2/SDL_config.h:
 build/textures/ChessBoard.o: src/textures/ChessBoard.cpp src/textures/ChessBoard.cpp src/textures/ChessBoard.hpp src/textures/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/textures/../math/EquationSolver.hpp src/textures/../components/Vec3.hpp src/textures/../components/Ray.hpp src/textures/../components/Matrix.hpp src/textures/../components/Transform.hpp src/textures/Texture.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `textures/ChessBoard'
-#  Last modified 2022-08-24 22:58:48
+#  Last modified 2022-08-24 23:19:05
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -628,7 +590,7 @@ build/textures/ChessBoard.o: src/textures/ChessBoard.cpp src/textures/ChessBoard
 build/parser/XmlSceneParser.o: src/parser/XmlSceneParser.cpp src/parser/XmlSceneParser.cpp src/parser/XmlSceneParser.hpp src/parser/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/parser/../math/EquationSolver.hpp src/parser/../components/Vec3.hpp src/parser/../components/Ray.hpp src/parser/../components/Matrix.hpp src/parser/../components/Transform.hpp include/rapidxml/rapidxml.hpp src/parser/../camera/Camera.hpp src/parser/../camera/../global.hpp src/parser/../camera/../components/Vec3.hpp src/parser/../camera/../components/Ray.hpp src/parser/../objects/Sphere.hpp src/parser/../objects/../global.hpp src/parser/../objects/../materials/Material.hpp src/parser/../objects/../materials/../components/Vec3.hpp src/parser/../objects/../materials/../components/Ray.hpp src/parser/../objects/../textures/Texture.hpp src/parser/../objects/../textures/../global.hpp src/parser/../objects/../objects/Object.hpp src/parser/../objects/Torus.hpp src/parser/../objects/Plane.hpp src/parser/../objects/MobiusTape.hpp src/parser/../materials/Diffuse.hpp src/parser/../objects/../materials/../global.hpp src/parser/../materials/Metal.hpp src/parser/../materials/Mirror.hpp src/parser/../textures/Uniform.hpp src/parser/../textures/ChessBoard.hpp src/parser/../textures/FromFile.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `parser/XmlSceneParser'
-#  Last modified 2022-08-24 22:56:02
+#  Last modified 2022-08-24 23:19:03
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -640,7 +602,7 @@ build/parser/XmlSceneParser.o: src/parser/XmlSceneParser.cpp src/parser/XmlScene
 
 src/materials/Metal.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:44:54
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -648,7 +610,7 @@ src/materials/Metal.hpp:
 
 src/parser/../objects/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -658,7 +620,7 @@ src/parser/../objects/../global.hpp:
 build/camera/Camera.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:32
+#  Last modified 2022-08-24 23:18:33
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -666,7 +628,7 @@ build/camera/Camera.d:
 
 src/bmp/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -675,7 +637,7 @@ src/bmp/../components/Vec3.hpp:
 # Not a target:
 src/materials/Diffuse.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 19:06:41
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -691,17 +653,17 @@ include/SDL2/close_code.h:
 
 src/parser/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
- 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 src/objects/MobiusTape.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:31:48
+ 
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -711,7 +673,7 @@ src/objects/MobiusTape.cpp:
 build/textures/ChessBoard.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:58:48
+#  Last modified 2022-08-24 23:19:05
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -719,7 +681,7 @@ build/textures/ChessBoard.d:
 
 src/parser/../objects/../materials/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -727,7 +689,7 @@ src/parser/../objects/../materials/../components/Vec3.hpp:
 
 src/objects/../textures/Texture.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:00:39
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -735,7 +697,7 @@ src/objects/../textures/Texture.hpp:
 
 src/textures/Texture.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:00:39
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -751,7 +713,7 @@ include/SDL2/SDL_messagebox.h:
 
 src/engine/../components/Matrix.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -761,7 +723,7 @@ src/engine/../components/Matrix.hpp:
 build/materials/Diffuse.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:41
+#  Last modified 2022-08-24 23:18:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -771,7 +733,7 @@ build/materials/Diffuse.d:
 build/objects/MobiusTape.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:46
+#  Last modified 2022-08-24 23:18:47
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -779,7 +741,7 @@ build/objects/MobiusTape.d:
 
 src/camera/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -787,7 +749,7 @@ src/camera/../global.hpp:
 
 src/engine/../parser/../objects/../textures/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -795,7 +757,7 @@ src/engine/../parser/../objects/../textures/../global.hpp:
 
 src/engine/../window/Window.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:54:36
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -803,7 +765,7 @@ src/engine/../window/Window.hpp:
 
 src/materials/../math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -811,7 +773,7 @@ src/materials/../math/EquationSolver.hpp:
 
 src/materials/../components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -826,7 +788,7 @@ src/materials/../components/Transform.hpp:
 build/components/Matrix.o: src/components/Matrix.cpp src/components/Matrix.cpp src/components/Matrix.hpp src/components/Vec3.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `components/Matrix'
-#  Last modified 2022-08-24 22:55:34
+#  Last modified 2022-08-24 23:18:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -838,7 +800,7 @@ build/components/Matrix.o: src/components/Matrix.cpp src/components/Matrix.cpp s
 
 src/camera/Camera.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 11:33:56
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -846,7 +808,7 @@ src/camera/Camera.hpp:
 
 src/parser/../materials/Mirror.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:44:44
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -862,7 +824,7 @@ include/SDL2/SDL_quit.h:
 
 src/objects/Object.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:59:35
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -871,7 +833,7 @@ src/objects/Object.hpp:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:57:46
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -887,7 +849,7 @@ include/SDL2/SDL_log.h:
 
 include/rapidxml/rapidxml.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 11:03:42
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -896,7 +858,7 @@ include/rapidxml/rapidxml.hpp:
 build/window/Window.o: src/window/Window.cpp src/window/Window.cpp src/window/Window.hpp src/window/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/window/../math/EquationSolver.hpp src/window/../components/Vec3.hpp src/window/../components/Ray.hpp src/window/../components/Matrix.hpp src/window/../components/Transform.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `window/Window'
-#  Last modified 2022-08-24 22:56:17
+#  Last modified 2022-08-24 23:19:18
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -908,7 +870,7 @@ build/window/Window.o: src/window/Window.cpp src/window/Window.cpp src/window/Wi
 
 src/parser/../objects/../objects/Object.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:59:35
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -918,7 +880,7 @@ src/parser/../objects/../objects/Object.hpp:
 build/objects/Object.o: src/objects/Object.cpp src/objects/Object.cpp src/objects/Object.hpp src/objects/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/objects/../math/EquationSolver.hpp src/objects/../components/Vec3.hpp src/objects/../components/Ray.hpp src/objects/../components/Matrix.hpp src/objects/../components/Transform.hpp src/objects/../materials/Material.hpp src/objects/../materials/../components/Vec3.hpp src/objects/../materials/../components/Ray.hpp src/objects/../textures/Texture.hpp src/objects/../textures/../global.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `objects/Object'
-#  Last modified 2022-08-24 22:55:48
+#  Last modified 2022-08-24 23:18:49
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -939,7 +901,7 @@ include/SDL2/SDL_endian.h:
 # Not a target:
 src/math/EquationSolver.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:46:05
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -947,7 +909,7 @@ src/math/EquationSolver.cpp:
 
 src/parser/../objects/Torus.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 21:11:34
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -956,7 +918,7 @@ src/parser/../objects/Torus.hpp:
 # Not a target:
 src/components/Transform.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:52
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -964,7 +926,7 @@ src/components/Transform.cpp:
 
 src/engine/../materials/Metal.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:44:54
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -972,7 +934,7 @@ src/engine/../materials/Metal.hpp:
 
 src/objects/../materials/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -980,7 +942,7 @@ src/objects/../materials/../components/Ray.hpp:
 
 src/parser/../objects/Sphere.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 16:04:58
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -988,7 +950,7 @@ src/parser/../objects/Sphere.hpp:
 
 src/engine/../parser/../objects/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -996,7 +958,7 @@ src/engine/../parser/../objects/../global.hpp:
 
 src/engine/../bmp/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1005,7 +967,7 @@ src/engine/../bmp/../components/Vec3.hpp:
 # Not a target:
 src/textures/FromFile.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:12
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1013,7 +975,7 @@ src/textures/FromFile.cpp:
 
 src/objects/MobiusTape.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 21:58:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1021,7 +983,7 @@ src/objects/MobiusTape.hpp:
 
 src/materials/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1029,7 +991,7 @@ src/materials/../components/Ray.hpp:
 
 src/engine/../parser/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1037,7 +999,7 @@ src/engine/../parser/../global.hpp:
 
 src/engine/../parser/../objects/../materials/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1053,7 +1015,7 @@ include/SDL2/SDL_pixels.h:
 
 src/bmp/../components/Matrix.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1061,7 +1023,7 @@ src/bmp/../components/Matrix.hpp:
 
 src/parser/../objects/../materials/Material.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:59:56
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1071,17 +1033,17 @@ src/parser/../objects/../materials/Material.hpp:
 build/math/EquationSolver.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:45
+#  Last modified 2022-08-24 23:18:45
 #  File has been updated.
- 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-build/materials/Metal.o: src/materials/Metal.cpp src/materials/Metal.cpp src/materials/Metal.hpp src/materials/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/materials/../math/EquationSolver.hpp src/materials/../components/Vec3.hpp src/materials/../components/Ray.hpp src/materials/../components/Matrix.hpp src/materials/../components/Transform.hpp src/materials/Material.hpp
+build/materials/Metal.o: src/materials/Metal.cpp src/materials/Metal.cpp src/materials/Metal.hpp src/materials/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h inclu 
+de/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/materials/../math/EquationSolver.hpp src/materials/../components/Vec3.hpp src/materials/../components/Ray.hpp src/materials/../components/Matrix.hpp src/materials/../components/Transform.hpp src/materials/Material.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `materials/Metal'
-#  Last modified 2022-08-24 22:55:43
+#  Last modified 2022-08-24 23:18:43
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1095,7 +1057,7 @@ build/materials/Metal.o: src/materials/Metal.cpp src/materials/Metal.cpp src/mat
 build/components/Transform.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:35
+#  Last modified 2022-08-24 23:18:35
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1103,7 +1065,7 @@ build/components/Transform.d:
 
 src/textures/../math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1113,7 +1075,7 @@ src/textures/../math/EquationSolver.hpp:
 build/engine/Engine.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:37
+#  Last modified 2022-08-24 23:18:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1121,7 +1083,7 @@ build/engine/Engine.d:
 
 src/textures/../components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1146,7 +1108,7 @@ include/SDL2/SDL_mouse.h:
 # Not a target:
 src/textures/Uniform.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:02:40
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1154,7 +1116,7 @@ src/textures/Uniform.cpp:
 
 src/parser/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1162,7 +1124,7 @@ src/parser/../components/Vec3.hpp:
 
 src/engine/../parser/../textures/Uniform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:02:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1189,7 +1151,7 @@ include/SDL2/SDL.h:
 
 src/engine/../camera/Camera.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 11:33:56
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1197,7 +1159,7 @@ src/engine/../camera/Camera.hpp:
 
 src/engine/../parser/../materials/Mirror.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:44:44
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1205,7 +1167,7 @@ src/engine/../parser/../materials/Mirror.hpp:
 
 src/window/../math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1213,7 +1175,8 @@ src/window/../math/EquationSolver.hpp:
 
 src/math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+ 
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1221,7 +1184,7 @@ src/math/EquationSolver.hpp:
 
 src/window/../components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1231,7 +1194,7 @@ src/window/../components/Transform.hpp:
 build/window/Window.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:56:17
+#  Last modified 2022-08-24 23:19:18
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1247,7 +1210,7 @@ include/SDL2/SDL_atomic.h:
 
 src/objects/../math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1257,16 +1220,15 @@ src/objects/../math/EquationSolver.hpp:
 build/textures/Uniform.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:56:15
+#  Last modified 2022-08-24 23:19:16
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
- 
 src/objects/../components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1274,7 +1236,7 @@ src/objects/../components/Transform.hpp:
 
 src/parser/../materials/Diffuse.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:42:01
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1290,7 +1252,7 @@ include/SDL2/SDL_filesystem.h:
 
 src/materials/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1298,7 +1260,7 @@ src/materials/../global.hpp:
 
 src/textures/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1314,16 +1276,17 @@ include/SDL2/SDL_audio.h:
 
 src/components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
+ 
 build/camera/Camera.o: src/camera/Camera.cpp src/camera/Camera.cpp src/camera/Camera.hpp src/camera/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/camera/../math/EquationSolver.hpp src/camera/../components/Vec3.hpp src/camera/../components/Ray.hpp src/camera/../components/Matrix.hpp src/camera/../components/Transform.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `camera/Camera'
-#  Last modified 2022-08-24 22:55:32
+#  Last modified 2022-08-24 23:18:33
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1335,7 +1298,7 @@ build/camera/Camera.o: src/camera/Camera.cpp src/camera/Camera.cpp src/camera/Ca
 
 src/camera/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1351,7 +1314,7 @@ include/SDL2/SDL_image.h:
 
 src/engine/../parser/../objects/Torus.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 21:11:34
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1359,7 +1322,7 @@ src/engine/../parser/../objects/Torus.hpp:
 
 src/engine/Engine.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 18:50:25
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1375,7 +1338,7 @@ include/SDL2/SDL_joystick.h:
 
 src/engine/../materials/Diffuse.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:42:01
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1383,7 +1346,7 @@ src/engine/../materials/Diffuse.hpp:
 
 src/parser/../textures/ChessBoard.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:36:49
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1391,7 +1354,7 @@ src/parser/../textures/ChessBoard.hpp:
 
 src/engine/../parser/../objects/Sphere.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 16:04:58
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1399,7 +1362,7 @@ src/engine/../parser/../objects/Sphere.hpp:
 
 src/engine/../objects/MobiusTape.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 21:58:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1417,7 +1380,7 @@ include/SDL2/SDL_power.h:
 build/objects/Plane.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:50
+#  Last modified 2022-08-24 23:18:51
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1425,15 +1388,16 @@ build/objects/Plane.d:
 
 src/window/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
+ 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 build/bin/rt: build/bmp/BMP.o build/camera/Camera.o build/components/Matrix.o build/components/Transform.o build/engine/Engine.o build/main.o build/materials/Diffuse.o build/materials/Metal.o build/materials/Mirror.o build/math/EquationSolver.o build/objects/MobiusTape.o build/objects/Object.o build/objects/Plane.o build/objects/Sphere.o build/objects/Torus.o build/parser/XmlSceneParser.o build/textures/ChessBoard.o build/textures/FromFile.o build/textures/Uniform.o build/window/Window.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-24 22:58:48
+#  Last modified 2022-08-25 00:08:16
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1445,7 +1409,7 @@ build/bin/rt: build/bmp/BMP.o build/camera/Camera.o build/components/Matrix.o bu
 
 src/engine/../parser/../objects/../materials/Material.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:59:56
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1453,17 +1417,16 @@ src/engine/../parser/../objects/../materials/Material.hpp:
 
 src/engine/../parser/../objects/Plane.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:59:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
- 
 build/materials/Diffuse.o: src/materials/Diffuse.cpp src/materials/Diffuse.cpp src/materials/Diffuse.hpp src/materials/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/materials/../math/EquationSolver.hpp src/materials/../components/Vec3.hpp src/materials/../components/Ray.hpp src/materials/../components/Matrix.hpp src/materials/../components/Transform.hpp src/materials/Material.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `materials/Diffuse'
-#  Last modified 2022-08-24 22:55:41
+#  Last modified 2022-08-24 23:18:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1483,7 +1446,7 @@ include/SDL2/SDL_mutex.h:
 
 src/objects/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1492,7 +1455,7 @@ src/objects/../components/Ray.hpp:
 build/objects/MobiusTape.o: src/objects/MobiusTape.cpp src/objects/MobiusTape.cpp src/objects/MobiusTape.hpp src/objects/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/objects/../math/EquationSolver.hpp src/objects/../components/Vec3.hpp src/objects/../components/Ray.hpp src/objects/../components/Matrix.hpp src/objects/../components/Transform.hpp src/objects/../materials/Material.hpp src/objects/../materials/../components/Vec3.hpp src/objects/../materials/../components/Ray.hpp src/objects/../textures/Texture.hpp src/objects/../textures/../global.hpp src/objects/../objects/Object.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `objects/MobiusTape'
-#  Last modified 2022-08-24 22:55:46
+#  Last modified 2022-08-24 23:18:47
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1504,7 +1467,7 @@ build/objects/MobiusTape.o: src/objects/MobiusTape.cpp src/objects/MobiusTape.cp
 
 src/components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1512,7 +1475,7 @@ src/components/Ray.hpp:
 
 src/textures/Uniform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:02:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1521,7 +1484,7 @@ src/textures/Uniform.hpp:
 # Not a target:
 src/bmp/BMP.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:50:35
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1529,7 +1492,7 @@ src/bmp/BMP.cpp:
 
 src/objects/../textures/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1537,7 +1500,8 @@ src/objects/../textures/../global.hpp:
 
 src/textures/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+ 
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1545,7 +1509,7 @@ src/textures/../global.hpp:
 
 src/parser/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1562,10 +1526,9 @@ include/SDL2/SDL_thread.h:
 build/materials/Mirror.o: src/materials/Mirror.cpp src/materials/Mirror.cpp src/materials/Mirror.hpp src/materials/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/materials/../math/EquationSolver.hpp src/materials/../components/Vec3.hpp src/materials/../components/Ray.hpp src/materials/../components/Matrix.hpp src/materials/../components/Transform.hpp src/materials/Material.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `materials/Mirror'
-#  Last modified 2022-08-24 22:55:44
+#  Last modified 2022-08-24 23:18:45
 #  File has been updated.
 #  Successfully updated.
- 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 72):
@@ -1596,7 +1559,7 @@ include/SDL2/SDL_render.h:
 
 src/parser/../components/Matrix.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1606,7 +1569,7 @@ src/parser/../components/Matrix.hpp:
 build/objects/Torus.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:53
+#  Last modified 2022-08-24 23:18:55
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1620,7 +1583,7 @@ build/objects/Torus.d:
 
 src/materials/Diffuse.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:42:01
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1629,7 +1592,7 @@ src/materials/Diffuse.hpp:
 # Not a target:
 src/materials/Mirror.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:46:28
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1645,15 +1608,16 @@ default_target: release
 build/bmp/BMP.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:31
+#  Last modified 2022-08-24 23:18:31
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 src/global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1661,7 +1625,7 @@ src/global.hpp:
 
 src/engine/../components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1685,7 +1649,7 @@ include/SDL2/SDL_gamecontroller.h:
 
 src/window/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1701,7 +1665,7 @@ include/SDL2/SDL_misc.h:
 
 src/engine/../parser/../camera/Camera.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 11:33:56
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1709,7 +1673,7 @@ src/engine/../parser/../camera/Camera.hpp:
 
 src/engine/../parser/../textures/ChessBoard.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:36:49
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1725,7 +1689,7 @@ include/SDL2/SDL_metal.h:
 
 src/parser/../camera/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1734,7 +1698,7 @@ src/parser/../camera/../components/Ray.hpp:
 # Not a target:
 src/objects/Torus.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:52:33
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1742,7 +1706,7 @@ src/objects/Torus.cpp:
 
 src/objects/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1750,7 +1714,7 @@ src/objects/../global.hpp:
 
 src/camera/../components/Matrix.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1760,7 +1724,7 @@ src/camera/../components/Matrix.hpp:
 build/materials/Mirror.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:44
+#  Last modified 2022-08-24 23:18:45
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1777,21 +1741,21 @@ include/SDL2/SDL_error.h:
 build/math/EquationSolver.o: src/math/EquationSolver.cpp src/math/EquationSolver.cpp src/math/EquationSolver.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `math/EquationSolver'
-#  Last modified 2022-08-24 22:55:45
+#  Last modified 2022-08-24 23:18:45
+ 
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 72):
 	@echo "Compiling: $< -> $@"
- 
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 	
 
 # Not a target:
 src/objects/Sphere.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:51:53
+#  Last modified 2022-08-25 00:08:13
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1800,7 +1764,7 @@ src/objects/Sphere.cpp:
 build/components/Transform.o: src/components/Transform.cpp src/components/Transform.cpp src/components/Transform.hpp src/components/Vec3.hpp src/components/Ray.hpp src/components/Matrix.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `components/Transform'
-#  Last modified 2022-08-24 22:55:35
+#  Last modified 2022-08-24 23:18:35
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1814,7 +1778,7 @@ build/components/Transform.o: src/components/Transform.cpp src/components/Transf
 build/textures/FromFile.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:56:13
+#  Last modified 2022-08-24 23:19:14
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1822,7 +1786,7 @@ build/textures/FromFile.d:
 
 src/objects/../materials/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1831,7 +1795,7 @@ src/objects/../materials/../components/Vec3.hpp:
 build/engine/Engine.o: src/engine/Engine.cpp src/engine/Engine.cpp src/engine/Engine.hpp src/engine/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/engine/../math/EquationSolver.hpp src/engine/../components/Vec3.hpp src/engine/../components/Ray.hpp src/engine/../components/Matrix.hpp src/engine/../components/Transform.hpp src/engine/../parser/XmlSceneParser.hpp src/engine/../parser/../global.hpp include/rapidxml/rapidxml.hpp src/engine/../parser/../camera/Camera.hpp src/engine/../parser/../camera/../global.hpp src/engine/../parser/../camera/../components/Vec3.hpp src/engine/../parser/../camera/../components/Ray.hpp src/engine/../parser/../objects/Sphere.hpp src/engine/../parser/../objects/../global.hpp src/engine/../parser/../objects/../materials/Material.hpp src/engine/../parser/../objects/../materials/../components/Vec3.hpp src/engine/../parser/../objects/../materials/../components/Ray.hpp src/engine/../parser/../objects/../textures/Texture.hpp src/engine/../parser/../objects/../textures/../global.hpp src/engine/../parser/../objects/../objects/Object.hpp src/engine/../parser/../objects/Torus.hpp src/engine/../parser/../objects/Plane.hpp src/engine/../parser/../objects/MobiusTape.hpp src/engine/../parser/../materials/Diffuse.hpp src/engine/../parser/../objects/../materials/../global.hpp src/engine/../parser/../materials/Metal.hpp src/engine/../parser/../materials/Mirror.hpp src/engine/../parser/../textures/Uniform.hpp src/engine/../parser/../textures/ChessBoard.hpp src/engine/../parser/../textures/FromFile.hpp src/engine/../bmp/BMP.hpp src/engine/../bmp/../global.hpp src/engine/../bmp/../components/Vec3.hpp src/engine/../window/Window.hpp src/engine/../window/../global.hpp src/engine/../camera/Camera.hpp src/engine/../objects/Sphere.hpp src/engine/../objects/Torus.hpp src/engine/../objects/Plane.hpp src/engine/../objects/MobiusTape.hpp src/engine/../materials/Diffuse.hpp src/engine/../materials/Metal.hpp src/engine/../materials/Mirror.hpp src/engine/../textures/Uniform.hpp src/engine/../textures/ChessBoard.hpp src/engine/../textures/FromFile.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `engine/Engine'
-#  Last modified 2022-08-24 22:55:37
+#  Last modified 2022-08-24 23:18:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1840,11 +1804,12 @@ build/engine/Engine.o: src/engine/Engine.cpp src/engine/Engine.cpp src/engine/En
 	@echo "Compiling: $< -> $@"
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 	
+ 
 
 build/textures/FromFile.o: src/textures/FromFile.cpp src/textures/FromFile.cpp src/textures/FromFile.hpp src/textures/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/textures/../math/EquationSolver.hpp src/textures/../components/Vec3.hpp src/textures/../components/Ray.hpp src/textures/../components/Matrix.hpp src/textures/../components/Transform.hpp src/textures/Texture.hpp src/textures/../../include/stb/stb_image.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `textures/FromFile'
-#  Last modified 2022-08-24 22:56:13
+#  Last modified 2022-08-24 23:19:14
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1869,7 +1834,7 @@ clean:
 
 src/materials/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1885,16 +1850,15 @@ include/SDL2/SDL_rect.h:
 
 src/parser/../materials/Metal.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:44:54
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
- 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 src/engine/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1903,10 +1867,11 @@ src/engine/../components/Ray.hpp:
 # Not a target:
 src/objects/Plane.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:33:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 include/SDL2/SDL_timer.h:
@@ -1927,7 +1892,7 @@ include/SDL2/SDL_shape.h:
 
 src/bmp/BMP.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 18:50:47
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1937,7 +1902,7 @@ src/bmp/BMP.hpp:
 build/objects/Sphere.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:52
+#  Last modified 2022-08-25 00:08:16
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1945,7 +1910,7 @@ build/objects/Sphere.d:
 
 src/parser/../objects/../textures/Texture.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:00:39
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1953,7 +1918,7 @@ src/parser/../objects/../textures/Texture.hpp:
 
 src/parser/../objects/Plane.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:59:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1970,7 +1935,7 @@ include/SDL2/begin_code.h:
 # Not a target:
 src/main.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 11:30:58
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1978,7 +1943,7 @@ src/main.cpp:
 
 src/window/../components/Matrix.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -1994,7 +1959,7 @@ include/SDL2/SDL_blendmode.h:
 
 src/parser/../textures/Uniform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:02:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2004,7 +1969,7 @@ src/parser/../textures/Uniform.hpp:
 build/textures/Uniform.o: src/textures/Uniform.cpp src/textures/Uniform.cpp src/textures/Uniform.hpp src/textures/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/textures/../math/EquationSolver.hpp src/textures/../components/Vec3.hpp src/textures/../components/Ray.hpp src/textures/../components/Matrix.hpp src/textures/../components/Transform.hpp src/textures/Texture.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `textures/Uniform'
-#  Last modified 2022-08-24 22:56:15
+#  Last modified 2022-08-24 23:19:16
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2016,7 +1981,7 @@ build/textures/Uniform.o: src/textures/Uniform.cpp src/textures/Uniform.cpp src/
 
 src/materials/Mirror.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:44:44
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2024,7 +1989,7 @@ src/materials/Mirror.hpp:
 
 src/bmp/../math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2032,7 +1997,7 @@ src/bmp/../math/EquationSolver.hpp:
 
 src/bmp/../components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2040,7 +2005,7 @@ src/bmp/../components/Transform.hpp:
 
 src/parser/../textures/FromFile.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2048,7 +2013,7 @@ src/parser/../textures/FromFile.hpp:
 
 src/parser/../camera/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2056,7 +2021,7 @@ src/parser/../camera/../global.hpp:
 
 src/engine/../parser/../objects/../objects/Object.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:59:35
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2066,7 +2031,7 @@ src/engine/../parser/../objects/../objects/Object.hpp:
 build/main.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:39
+#  Last modified 2022-08-24 23:18:39
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2074,7 +2039,8 @@ build/main.d:
 
 src/engine/../window/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+ 
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2082,7 +2048,7 @@ src/engine/../window/../global.hpp:
 
 src/parser/../camera/Camera.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 11:33:56
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2098,16 +2064,15 @@ include/SDL2/SDL_hints.h:
 
 src/objects/Torus.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 21:11:34
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
- 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 src/engine/../parser/../objects/../materials/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2115,7 +2080,7 @@ src/engine/../parser/../objects/../materials/../global.hpp:
 
 src/parser/../math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2123,7 +2088,7 @@ src/parser/../math/EquationSolver.hpp:
 
 src/textures/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2131,7 +2096,7 @@ src/textures/../components/Vec3.hpp:
 
 src/engine/../parser/../camera/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2139,8 +2104,9 @@ src/engine/../parser/../camera/../components/Ray.hpp:
 
 src/objects/Sphere.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 16:04:58
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
+ 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -2148,7 +2114,7 @@ src/objects/Sphere.hpp:
 # Not a target:
 src/textures/ChessBoard.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:58:13
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2156,7 +2122,7 @@ src/textures/ChessBoard.cpp:
 
 src/engine/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2165,7 +2131,7 @@ src/engine/../global.hpp:
 # Not a target:
 src/parser/XmlSceneParser.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:40:11
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2181,7 +2147,7 @@ include/SDL2/SDL_version.h:
 
 src/bmp/../components/Ray.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:09:09
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2189,7 +2155,7 @@ src/bmp/../components/Ray.hpp:
 
 src/camera/../math/EquationSolver.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 17:48:14
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2197,16 +2163,15 @@ src/camera/../math/EquationSolver.hpp:
 
 src/objects/../materials/Material.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:59:56
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
- 
 src/textures/../../include/stb/stb_image.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 16:52:36
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2214,7 +2179,8 @@ src/textures/../../include/stb/stb_image.h:
 
 src/objects/Plane.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:59:45
+ 
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2222,7 +2188,7 @@ src/objects/Plane.hpp:
 
 src/engine/../parser/../materials/Metal.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:44:54
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2230,7 +2196,7 @@ src/engine/../parser/../materials/Metal.hpp:
 
 src/materials/Material.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:59:56
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2246,7 +2212,7 @@ include/SDL2/SDL_locale.h:
 
 src/window/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2254,7 +2220,7 @@ src/window/../components/Vec3.hpp:
 
 src/parser/../objects/MobiusTape.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 21:58:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2262,7 +2228,7 @@ src/parser/../objects/MobiusTape.hpp:
 
 src/materials/../components/Matrix.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2270,7 +2236,7 @@ src/materials/../components/Matrix.hpp:
 
 src/engine/../bmp/BMP.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 18:50:47
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2278,16 +2244,16 @@ src/engine/../bmp/BMP.hpp:
 
 src/objects/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+ 
 
 src/engine/../parser/../objects/../textures/Texture.hpp:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-08-24 19:00:39
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2297,7 +2263,7 @@ src/engine/../parser/../objects/../textures/Texture.hpp:
 build/parser/XmlSceneParser.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:56:02
+#  Last modified 2022-08-24 23:19:03
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2305,7 +2271,7 @@ build/parser/XmlSceneParser.d:
 
 src/components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2313,7 +2279,7 @@ src/components/Vec3.hpp:
 
 src/engine/../materials/Mirror.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:44:44
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2321,7 +2287,7 @@ src/engine/../materials/Mirror.hpp:
 
 src/textures/FromFile.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2330,7 +2296,7 @@ src/textures/FromFile.hpp:
 build/bmp/BMP.o: src/bmp/BMP.cpp src/bmp/BMP.cpp src/bmp/BMP.hpp src/bmp/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/bmp/../math/EquationSolver.hpp src/bmp/../components/Vec3.hpp src/bmp/../components/Ray.hpp src/bmp/../components/Matrix.hpp src/bmp/../components/Transform.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `bmp/BMP'
-#  Last modified 2022-08-24 22:55:31
+#  Last modified 2022-08-24 23:18:31
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2343,8 +2309,7 @@ build/bmp/BMP.o: src/bmp/BMP.cpp src/bmp/BMP.cpp src/bmp/BMP.hpp src/bmp/../glob
 # Not a target:
 src/objects/Object.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 18:00:29
- 
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2359,9 +2324,10 @@ include/SDL2/SDL_platform.h:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
+ 
 src/components/Matrix.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 19:46:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2369,7 +2335,7 @@ src/components/Matrix.cpp:
 
 src/engine/../parser/../camera/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2393,7 +2359,7 @@ include/SDL2/SDL_gesture.h:
 
 src/engine/../objects/Torus.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 21:11:34
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2401,7 +2367,7 @@ src/engine/../objects/Torus.hpp:
 
 src/bmp/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2410,7 +2376,7 @@ src/bmp/../global.hpp:
 # Not a target:
 src/window/Window.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 17:54:52
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2418,16 +2384,15 @@ src/window/Window.cpp:
 
 src/engine/../textures/Uniform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:02:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
- 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 src/textures/ChessBoard.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:36:49
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2435,12 +2400,13 @@ src/textures/ChessBoard.hpp:
 
 src/engine/../objects/Sphere.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-17 16:04:58
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
+ 
 include/SDL2/SDL_scancode.h:
 #  Implicit rule search has been done.
 #  Last modified 2021-12-07 16:15:55
@@ -2451,7 +2417,7 @@ include/SDL2/SDL_scancode.h:
 
 src/parser/../objects/../materials/../global.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:21
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2459,7 +2425,7 @@ src/parser/../objects/../materials/../global.hpp:
 
 src/parser/XmlSceneParser.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:39:51
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2469,7 +2435,7 @@ src/parser/XmlSceneParser.hpp:
 build/components/Matrix.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:55:34
+#  Last modified 2022-08-24 23:18:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2477,16 +2443,15 @@ build/components/Matrix.d:
 
 src/engine/../textures/FromFile.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 22:38:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
- 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 src/textures/../components/Matrix.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-14 20:59:15
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2494,7 +2459,7 @@ src/textures/../components/Matrix.hpp:
 
 src/parser/../components/Transform.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 21:03:55
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2502,7 +2467,7 @@ src/parser/../components/Transform.hpp:
 
 src/parser/../camera/../components/Vec3.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-12 20:18:02
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2511,7 +2476,7 @@ src/parser/../camera/../components/Vec3.hpp:
 build/objects/Torus.o: src/objects/Torus.cpp src/objects/Torus.cpp src/objects/Torus.hpp src/objects/../global.hpp include/SDL2/SDL.h include/SDL2/SDL_main.h include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h include/SDL2/SDL_platform.h include/SDL2/begin_code.h include/SDL2/close_code.h include/SDL2/SDL_assert.h include/SDL2/SDL_atomic.h include/SDL2/SDL_audio.h include/SDL2/SDL_error.h include/SDL2/SDL_endian.h include/SDL2/SDL_mutex.h include/SDL2/SDL_thread.h include/SDL2/SDL_rwops.h include/SDL2/SDL_clipboard.h include/SDL2/SDL_cpuinfo.h include/SDL2/SDL_events.h include/SDL2/SDL_video.h include/SDL2/SDL_pixels.h include/SDL2/SDL_rect.h include/SDL2/SDL_surface.h include/SDL2/SDL_blendmode.h include/SDL2/SDL_keyboard.h include/SDL2/SDL_keycode.h include/SDL2/SDL_scancode.h include/SDL2/SDL_mouse.h include/SDL2/SDL_joystick.h include/SDL2/SDL_gamecontroller.h include/SDL2/SDL_sensor.h include/SDL2/SDL_quit.h include/SDL2/SDL_gesture.h include/SDL2/SDL_touch.h include/SDL2/SDL_filesystem.h include/SDL2/SDL_haptic.h include/SDL2/SDL_hints.h include/SDL2/SDL_loadso.h include/SDL2/SDL_log.h include/SDL2/SDL_messagebox.h include/SDL2/SDL_metal.h include/SDL2/SDL_power.h include/SDL2/SDL_render.h include/SDL2/SDL_shape.h include/SDL2/SDL_system.h include/SDL2/SDL_timer.h include/SDL2/SDL_version.h include/SDL2/SDL_locale.h include/SDL2/SDL_misc.h include/SDL2/SDL_image.h src/objects/../math/EquationSolver.hpp src/objects/../components/Vec3.hpp src/objects/../components/Ray.hpp src/objects/../components/Matrix.hpp src/objects/../components/Transform.hpp src/objects/../materials/Material.hpp src/objects/../materials/../components/Vec3.hpp src/objects/../materials/../components/Ray.hpp src/objects/../textures/Texture.hpp src/objects/../textures/../global.hpp src/objects/../objects/Object.hpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `objects/Torus'
-#  Last modified 2022-08-24 22:55:53
+#  Last modified 2022-08-24 23:18:55
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2523,7 +2488,7 @@ build/objects/Torus.o: src/objects/Torus.cpp src/objects/Torus.cpp src/objects/T
 
 src/engine/../objects/Plane.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-16 20:59:45
+#  Last modified 2022-08-24 23:11:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -2537,12 +2502,11 @@ src/engine/../objects/Plane.hpp:
 
 # No general (`VPATH' variable) search path.
 
- 
 # # of strings in strcache: 21
 # # of strcache buffers: 1
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 3608 / max = 3608 / min = 3608 / avg = 3608
 
-# Finished Make data base on Wed Aug 24 23:06:46 2022
+# Finished Make data base on Thu Aug 25 10:24:27 2022
 
  

@@ -9,7 +9,7 @@
   <precision>4</precision>
     
   <camera aperture="90">
-    <position x="4" y="0" z="0" />
+    <position x="3.5" y="0" z="0" />
     <direction x="-1" y="0" z="0" />
     <up x="0" y="0" z="1" />
   </camera>
@@ -19,36 +19,37 @@
 
   <objects>
     <!-- <sphere>
-      <translation x="0" y="0" z="1" />
-      <rotation x="0" y="0" z="0" />
-      <scale x="1.5" y="1.5" z="1.5" />
+      <translation x="0" y="0" z="0" />
+      <rotation x="0" y="30" z="0" />
+      <scale x="1" y="1" z="1" />
       <diffuse />
-      <texturefromfile filename="./textures/bricks2.jpg" />
-    </sphere>
-    <torus>
+      <chessboard color1="air_force_blue_raf" color2="air_force_blue_usaf" />
+      <texturefromfile filename="./textures/astronomy/2k_earth_daymap.jpg" />
+    </sphere> -->
+    <!-- <torus>
       <base>
-        <translation x="0" y="0" z="1" />
-        <rotation x="0" y="0" z="0" />
+        <translation x="0" y="0" z="0" />
+        <rotation x="0" y="45" z="0" />
         <scale x="1" y="1" z="1" />
         <diffuse />
-        <texturefromfile filename="./textures/bricks2.jpg" />
+      <texturefromfile filename="./textures/astronomy/2k_earth_daymap.jpg" />
       </base>
-      <R>3</R>
-      <r>0.5</r>
+      <R>2</R>
+      <r>1</r>
     </torus> -->
     <mobiustape>
       <translation x="0" y="0" z="0" />
-      <rotation x="0" y="45" z="0" />
+      <rotation x="0" y="90" z="-90" />
       <scale x="1" y="1" z="1" />
       <diffuse />
-      <texturefromfile filename="./textures/bricks2.jpg" />
+      <texturefromfile filename="./textures/astronomy/2k_earth_daymap.jpg" />
     </mobiustape>
     <plane>
       <translation x="-4" y="0" z="0" />
       <rotation x="0" y="0" z="0" />
       <scale x="1" y="1" z="1" />
       <diffuse />
-      <texturefromfile filename="./textures/bricks2.jpg" />
+      <texturefromfile filename="./textures/astronomy/2k_earth_daymap.jpg" />
     </plane>
   </objects>
 

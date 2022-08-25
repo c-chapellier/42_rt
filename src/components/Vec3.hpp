@@ -50,7 +50,7 @@ class Vec3
         bool near_zero() const { return (fabs(e[0]) < 1e-8) && (fabs(e[1]) < 1e-8) && (fabs(e[2]) < 1e-8); }
         double dot(const Vec3 &v) const { return this->e[0] * v[0] + this->e[1] * v[1] + this->e[2] * v[2]; }
         Vec3 reflect_on(const Vec3 &v) const { return *this - 2 * this->dot(v) * v; }
-        double angle_with(const Vec3 &v) const { return asin(this->dot(v) / (this->length() * v.length())); }
+        double angle_with(const Vec3 &v) const { return acos(this->dot(v) / (this->length() * v.length())); }
 
         double e[3];
 };

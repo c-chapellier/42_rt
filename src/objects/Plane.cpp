@@ -32,11 +32,12 @@ bool Plane::intersect(const Ray &ray, double min, hit_t &hit) const
     hit.is_front_face = ray.direction().dot(hit.normal) < 0;
     hit.normal = hit.is_front_face ? hit.normal : -hit.normal;
 
-    hit.u = a[2] + k[2] * t;
-    hit.u = hit.u - (int)hit.u;
-
-    hit.v = a[1] + k[1] * t;
-    hit.v = hit.v - (int)hit.v; 
+    hit.u = -(local_inter[2] <= 0 ?
+                (local_inter[2] - (int)local_inter[2]) * 2 + 1 :
+                (local_inter[2] - (int)local_inter[2]) * 2 - 1);
+    hit.v = local_inter[1] < 0 ?
+                (local_inter[1] - (int)local_inter[1]) * 2 + 1 :
+                (local_inter[1] - (int)local_inter[1]) * 2 - 1;
 
     return true;
 }

@@ -63,7 +63,7 @@ void Engine::threads(int n_thread)
 {
     for (int i = n_thread; i < this->height; i += this->n_threads)
     {
-        !(i % 10) && std::cerr << "i " << i << "\n\033[F";
+        // !(i % 10) && std::cerr << "i " << i << "\n\033[F";
         for (int j = 0; j < this->width; ++j)
         {
             this->pixels[i][j] = Vec3(0, 0, 0);

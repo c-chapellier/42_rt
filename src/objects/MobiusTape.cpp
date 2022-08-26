@@ -46,8 +46,10 @@ Vec3 MobiusTape::get_normal(const hit_t &hit) const
     return hit.global_inter - this->transform.apply_forward(hit.local_inter + n);
 }
 
-double MobiusTape::get_u(const hit_t &hit) const
+double MobiusTape::get_u(const hit_t &hit, const Ray &t_ray) const
 {
+    (void)t_ray;
+
     double theta = atan2(hit.local_inter[0], hit.local_inter[1]);
     Vec3 center = Vec3(-sin(theta), -cos(theta), 0);
     Vec3 dir = hit.local_inter + center;
@@ -58,8 +60,10 @@ double MobiusTape::get_u(const hit_t &hit) const
     return u;
 }
 
-double MobiusTape::get_v(const hit_t &hit) const
+double MobiusTape::get_v(const hit_t &hit, const Ray &t_ray) const
 {
+    (void)t_ray;
+
     double theta = atan2(hit.local_inter[0], hit.local_inter[1]);
 
     double v = -theta / M_PI;
@@ -67,20 +71,21 @@ double MobiusTape::get_v(const hit_t &hit) const
     return v;
 }
 
-int MobiusTape::filter_ts(int n, double *ts, const Ray &t_ray) const
+int MobiusTape::filter_ts(int n, t_t *ts, const Ray &t_ray) const
 {
     for (int i = 0; i < n; ++i)
     {
-        Vec3 local_inter = t_ray.point_at_parameter(ts[i]);
+        Vec3 local_inter = t_ray.point_at_parameter(ts[i].t);
         if (
-            ts[i] < EPSILON ||
+            ts[i].t < EPSILON ||
             (local_inter - Vec3(local_inter[0], local_inter[1], 0).unit_vector()).length() > this->r ||
             (local_inter[0] == 0 && local_inter[1] == 0)
         )
         {
             for (int j = i; j < n - 1; ++j)
             {
-                ts[j] = ts[j + 1];
+                ts[j].t = ts[j + 1].t;
+                ts[j].index = ts[j + 1].index;
             }
             --n;
             --i;

@@ -78,6 +78,14 @@ XmlSceneParser::XmlSceneParser(const std::string &file)
                 this->xml_to_texture(object)
             ));
         }
+        else if (std::string(object->name()) == "box")
+        {
+            this->objects.push_back(new Box(
+                this->xml_to_transform(object),
+                this->xml_to_material(object),
+                this->xml_to_texture(object)
+            ));
+        }
         else
         {
             throw "Bad object";

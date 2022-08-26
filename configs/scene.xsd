@@ -86,6 +86,7 @@
       <xs:element name="torus" type="torustype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="plane" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="mobiustape" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="box" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
     </xs:choice>
   </xs:complexType>
 

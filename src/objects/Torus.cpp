@@ -46,17 +46,20 @@ int Torus::get_ts(const Ray &t_ray, double *ts) const
 
 Vec3 Torus::get_normal(const hit_t &hit) const
 {
-    Vec3 t_inter = this->transform.apply_backward(hit.global_inter);
-    Vec3 q = Vec3(t_inter[0], t_inter[1], 0).unit_vector() * this->R;
+    Vec3 q = Vec3(hit.local_inter[0], hit.local_inter[1], 0).unit_vector() * this->R;
     return (hit.global_inter - this->transform.apply_forward(q)).unit_vector();
 }
 
-double Torus::get_u(const hit_t &hit) const
+double Torus::get_u(const hit_t &hit, const Ray &t_ray) const
 {
+    (void)t_ray;
+
     return -atan2(hit.local_inter[2], (sqrt(hit.local_inter[0]*hit.local_inter[0] + hit.local_inter[1]*hit.local_inter[1]) - this->R) / this->r) / M_PI;
 }
 
-double Torus::get_v(const hit_t &hit) const
+double Torus::get_v(const hit_t &hit, const Ray &t_ray) const
 {
+    (void)t_ray;
+    
     return -atan2(hit.local_inter[0], hit.local_inter[1]) / M_PI;
 }

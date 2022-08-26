@@ -47,7 +47,14 @@ class Object;
 struct hit_t
 {
     double t, u, v;
+    int t_index;
     Vec3 local_inter, global_inter, normal;
     bool is_front_face;
     Object *object;
+};
+
+struct t_t
+{
+    double t;
+    int index;
 };

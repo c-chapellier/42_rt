@@ -17,41 +17,53 @@ bool Object::intersect(const Ray &ray, double min, hit_t &hit) const
 {
     Ray t_ray = this->transform.apply_backward(ray).unit_ray();
 
-    double ts[10];
+    t_t ts[10];
+    double ts2[10];
 
-    int n = this->get_ts(t_ray, ts);
+    int n = this->get_ts(t_ray, ts2);
 
-    n = this->filter_ts(n, ts);
+    for (int i = 0; i < n; ++i)
+    {
+        ts[i].t = ts2[i];
+        ts[i].index = i;
+    }
+
+    n = this->filter_ts(n, ts, t_ray);
 
     if (n == 0) return false;
 
     Vec3 global_inter, local_inter;
-    double t = this->get_min_t(ray, t_ray, n, ts, global_inter, local_inter);
+    t_t t = this->get_min_t(ray, t_ray, n, ts, global_inter, local_inter);
 
-    if (t < min || t > hit.t) return false;
+    if (t.t < min || t.t > hit.t) return false;
 
-    hit.t = t;
+    hit.t = t.t;
+    hit.t_index = t.index;
     hit.local_inter = local_inter;
     hit.global_inter = global_inter;
     hit.normal = this->get_normal(hit);
     hit.is_front_face = ray.direction().dot(hit.normal) < 0;
     hit.normal = hit.is_front_face ? hit.normal : -hit.normal;
 
-    hit.u = this->get_u(hit);
-    hit.v = this->get_v(hit);
+    hit.u = this->get_u(hit, t_ray);
+    hit.v = this->get_v(hit, t_ray);
 
     return true;
 }
 
-int Object::filter_ts(int n, double *ts) const
+int Object::filter_ts(int n, t_t *ts, const Ray &t_ray) const
 {
+    (void)t_ray;
+    PRINT("Object::filter_ts");
+
     for (int i = 0; i < n; ++i)
     {
-        if (ts[i] < EPSILON)
+        if (ts[i].t < EPSILON)
         {
             for (int j = i; j < n - 1; ++j)
             {
-                ts[j] = ts[j + 1];
+                ts[j].t = ts[j + 1].t;
+                ts[j].index = ts[j + 1].index;
             }
             --n;
             --i;
@@ -60,19 +72,20 @@ int Object::filter_ts(int n, double *ts) const
     return n;
 }
 
-double Object::get_min_t(const Ray &ray, const Ray &t_ray, int n, double *ts, Vec3 &global_inter, Vec3 &local_inter) const
+t_t Object::get_min_t(const Ray &ray, const Ray &t_ray, int n, t_t *ts, Vec3 &global_inter, Vec3 &local_inter) const
 {
-    double t = INFINITY;
+    t_t t = { INFINITY, -1 };
 
     for (int i = 0; i < n; ++i)
     {
-        Vec3 local_inter_tmp = t_ray.point_at_parameter(ts[i]);
+        Vec3 local_inter_tmp = t_ray.point_at_parameter(ts[i].t);
         Vec3 global_inter_tmp = this->transform.apply_forward(local_inter_tmp);
         double t_tmp = ray.parameter_at_point(global_inter_tmp);
 
-        if (t_tmp < t)
+        if (t_tmp < t.t)
         {
-            t = t_tmp;
+            t.t = t_tmp;
+            t.index = ts[i].index;
             local_inter = local_inter_tmp;
             global_inter = global_inter_tmp;
         }

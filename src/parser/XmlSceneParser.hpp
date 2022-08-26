@@ -10,6 +10,7 @@
 #include "../objects/Torus.hpp"
 #include "../objects/Plane.hpp"
 #include "../objects/MobiusTape.hpp"
+#include "../objects/Box.hpp"
 
 #include "../materials/Diffuse.hpp"
 #include "../materials/Metal.hpp"

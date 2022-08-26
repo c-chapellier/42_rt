@@ -23,12 +23,16 @@ Vec3 Sphere::get_normal(const hit_t &hit) const
     return (hit.global_inter - this->transform.apply_forward(Vec3(0, 0, 0))).unit_vector();
 }
 
-double Sphere::get_u(const hit_t &hit) const
+double Sphere::get_u(const hit_t &hit, const Ray &t_ray) const
 {
+    (void)t_ray;
+
     return atan2(hit.local_inter[0]*hit.local_inter[0] + hit.local_inter[1]*hit.local_inter[1], hit.local_inter[2]) / M_PI_2 - 1;
 }
 
-double Sphere::get_v(const hit_t &hit) const
+double Sphere::get_v(const hit_t &hit, const Ray &t_ray) const
 {
+    (void)t_ray;
+    
     return atan2(hit.local_inter[1], hit.local_inter[0]) / M_PI;
 }

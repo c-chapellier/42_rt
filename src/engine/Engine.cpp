@@ -30,8 +30,6 @@ bool Engine::hit(const Ray &ray, hit_t &hit) const
         if (objects[i]->intersect(ray, EPSILON, hit))
         {
             hit.object = objects[i];
-            // printf("hit %p\n", hit.object);
-            // printf("hit %p\n", hit.object->texture);
         }
     }
 
@@ -46,8 +44,6 @@ Vec3 Engine::get_color(const Ray &ray, double refractiveIndex, int depth) const
 
     if (this->hit(ray, hit))
     {
-        // printf("IN2 %d 2 %p\n", depth, hit.object);
-        // printf("IN3 0 2 %p\n", hit.object->texture);
         Vec3 color = hit.object->texture->get_color(hit);
 
         PRINT("[" << depth << "]: color: " << color);

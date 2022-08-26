@@ -7,23 +7,21 @@
 
 class Object
 {
-protected:
+private:
     int filter_ts(int n, double *ts) const;
     double get_min_t(const Ray &ray, const Ray &t_ray, int n, double *ts, Vec3 &global_inter, Vec3 &local_inter) const;
 
+    virtual int get_ts(const Ray &t_ray, double *ts) const = 0;
+    virtual Vec3 get_normal(const hit_t &hit) const = 0;
+    virtual double get_u(const hit_t &hit) const = 0;
+    virtual double get_v(const hit_t &hit) const = 0;
+    
 public:
     Transform transform;
-    double refractiveIndex;
     Material *material;
     Texture *texture;
 
-    Object(Transform transform, double refractiveIndex, Material *material, Texture *texture);
-
-    virtual ~Object()
-    {
-        delete this->material;
-        delete this->texture;
-    };
-
-    virtual bool intersect(const Ray &ray, double min, hit_t &hit) const = 0;
+    Object(Transform transform, Material *material, Texture *texture);
+    ~Object();
+    bool intersect(const Ray &ray, double min, hit_t &hit) const;
 };

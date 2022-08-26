@@ -23,7 +23,7 @@
         <translation x="0" y="0" z="0" />
         <rotation x="0" y="25" z="0" />
         <scale x="1" y="1" z="1" />
-        <mirror />
+        <refractive n="2.4" />
         <uniform color="white" />
       </base>
       <R>3</R>

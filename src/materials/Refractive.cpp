@@ -1,13 +1,17 @@
 
 #include "Refractive.hpp"
 
-Refractive::Refractive() {}
+Refractive::Refractive(double n) 
+    : n(n)
+{
+
+}
 
 int Refractive::reflect(const Ray &ray, const hit_t &hit, double &refractiveIndex, Vec3 &color, Ray &reflected) const
 {
     (void)color;
 
-    double r = refractiveIndex / hit.object->refractiveIndex, c = abs(ray.direction().unit_vector().dot(hit.normal.unit_vector()));
+    double r = refractiveIndex / this->n, c = abs(ray.direction().unit_vector().dot(hit.normal.unit_vector()));
 
     // refracted
     reflected = Ray(
@@ -15,7 +19,7 @@ int Refractive::reflect(const Ray &ray, const hit_t &hit, double &refractiveInde
         hit.global_inter + ray.direction().unit_vector() * r + (r*c - sqrt(1 - r*r*(1-c*c))) * hit.normal.unit_vector()
     );
 
-    refractiveIndex = hit.object->refractiveIndex == refractiveIndex ? 1 : hit.object->refractiveIndex;
+    refractiveIndex = this->n == refractiveIndex ? 1 : this->n;
 
     return Material::REFLECTION_TOTAL;
 }

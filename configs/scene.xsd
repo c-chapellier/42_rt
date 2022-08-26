@@ -49,20 +49,20 @@
     <xs:attribute name="filename" type="xs:string" use="required"/>
   </xs:complexType>
 
-  <xs:complexType name="refractive_indextype">
+  <xs:complexType name="refractivetype">
     <xs:attribute name="n" type="xs:float" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="objecttype">
     <xs:sequence>
-      <xs:element name="translation" type="vec3type" use="required"/>
-      <xs:element name="rotation" type="vec3type" use="required"/>
-      <xs:element name="scale" type="vec3type" use="required"/>
-      <xs:element name="refractive_index" type="refractive_indextype" use="required"/>
+      <xs:element name="translation" type="vec3type"/>
+      <xs:element name="rotation" type="vec3type"/>
+      <xs:element name="scale" type="vec3type"/>
       <xs:choice>
         <xs:element name="diffuse" ><xs:complexType/></xs:element>
         <xs:element name="metal" ><xs:complexType/></xs:element>
         <xs:element name="mirror" ><xs:complexType/></xs:element>
+        <xs:element name="refractive" type="refractivetype"/>
       </xs:choice>
       <xs:choice>
         <xs:element name="uniform" type="uniformtype"/>
@@ -81,12 +81,12 @@
   </xs:complexType>
 
   <xs:complexType name="objectstype">
-    <xs:sequence>
+    <xs:choice maxOccurs="unbounded">
       <xs:element name="sphere" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="torus" type="torustype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="plane" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="mobiustape" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
+    </xs:choice>
   </xs:complexType>
 
   <xs:complexType name="scenetype">

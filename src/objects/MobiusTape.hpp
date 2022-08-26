@@ -12,9 +12,12 @@ private:
     double r;
     
     int filter_ts(int n, double *ts, const Ray &t_ray) const;
-    Vec3 normal(const Vec3 &p) const;
+    int get_ts(const Ray &t_ray, double *ts) const;
+    Vec3 get_normal(const hit_t &hit) const;
+    double get_u(const hit_t &hit) const;
+    double get_v(const hit_t &hit) const;
 
 public:
-    MobiusTape(Transform transform, double refractiveIndex, Material *material, Texture *texture);
-    bool intersect(const Ray &ray, double min, hit_t &hit) const;
+    MobiusTape(Transform transform, Material *material, Texture *texture);
+
 };

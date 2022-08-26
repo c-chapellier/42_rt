@@ -21,7 +21,7 @@ Engine::~Engine()
 
 bool Engine::hit(const Ray &ray, hit_t &hit) const
 {
-    hit.t = INFINITY;
+    hit.t.global = INFINITY;
 
     int n = this->objects.size();
 
@@ -33,7 +33,7 @@ bool Engine::hit(const Ray &ray, hit_t &hit) const
         }
     }
 
-    return hit.t != INFINITY;
+    return hit.t.global != INFINITY;
 }
 
 Vec3 Engine::get_color(const Ray &ray, double refractiveIndex, int depth) const

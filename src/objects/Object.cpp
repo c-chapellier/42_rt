@@ -24,7 +24,7 @@ bool Object::intersect(const Ray &ray, double min, hit_t &hit) const
 
     for (int i = 0; i < n; ++i)
     {
-        ts[i].t = ts2[i];
+        ts[i].local = ts2[i];
         ts[i].index = i;
     }
 
@@ -35,10 +35,9 @@ bool Object::intersect(const Ray &ray, double min, hit_t &hit) const
     Vec3 global_inter, local_inter;
     t_t t = this->get_min_t(ray, t_ray, n, ts, global_inter, local_inter);
 
-    if (t.t < min || t.t > hit.t) return false;
+    if (t.global < min || t.global > hit.t.global) return false;
 
-    hit.t = t.t;
-    hit.t_index = t.index;
+    hit.t = t;
     hit.local_inter = local_inter;
     hit.global_inter = global_inter;
     hit.normal = this->get_normal(hit);
@@ -54,15 +53,14 @@ bool Object::intersect(const Ray &ray, double min, hit_t &hit) const
 int Object::filter_ts(int n, t_t *ts, const Ray &t_ray) const
 {
     (void)t_ray;
-    PRINT("Object::filter_ts");
 
     for (int i = 0; i < n; ++i)
     {
-        if (ts[i].t < EPSILON)
+        if (ts[i].local < EPSILON)
         {
             for (int j = i; j < n - 1; ++j)
             {
-                ts[j].t = ts[j + 1].t;
+                ts[j].local = ts[j + 1].local;
                 ts[j].index = ts[j + 1].index;
             }
             --n;
@@ -74,17 +72,18 @@ int Object::filter_ts(int n, t_t *ts, const Ray &t_ray) const
 
 t_t Object::get_min_t(const Ray &ray, const Ray &t_ray, int n, t_t *ts, Vec3 &global_inter, Vec3 &local_inter) const
 {
-    t_t t = { INFINITY, -1 };
+    t_t t = { INFINITY, INFINITY, -1 };
 
     for (int i = 0; i < n; ++i)
     {
-        Vec3 local_inter_tmp = t_ray.point_at_parameter(ts[i].t);
+        Vec3 local_inter_tmp = t_ray.point_at_parameter(ts[i].local);
         Vec3 global_inter_tmp = this->transform.apply_forward(local_inter_tmp);
-        double t_tmp = ray.parameter_at_point(global_inter_tmp);
+        double global_t = ray.parameter_at_point(global_inter_tmp);
 
-        if (t_tmp < t.t)
+        if (global_t < t.global)
         {
-            t.t = t_tmp;
+            t.global = global_t;
+            t.local = ts[i].local;
             t.index = ts[i].index;
             local_inter = local_inter_tmp;
             global_inter = global_inter_tmp;

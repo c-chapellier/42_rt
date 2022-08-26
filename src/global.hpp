@@ -44,17 +44,17 @@ extern int debug;
 
 class Object;
 
+struct t_t
+{
+    double local, global;
+    int index;
+};
+
 struct hit_t
 {
-    double t, u, v;
-    int t_index;
+    double u, v;
+    t_t t;
     Vec3 local_inter, global_inter, normal;
     bool is_front_face;
     Object *object;
-};
-
-struct t_t
-{
-    double t;
-    int index;
 };

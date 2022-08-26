@@ -20,19 +20,10 @@ Vec3 Plane::get_normal(const hit_t &hit) const
 
 double Plane::get_u(const hit_t &hit, const Ray &t_ray) const
 {
-    (void)t_ray;
-
-    // return a[2] + k[2] * hit.t;
-    return -(hit.local_inter[2] <= 0 ?
-                (hit.local_inter[2] - (int)hit.local_inter[2]) * 2 + 1 :
-                (hit.local_inter[2] - (int)hit.local_inter[2]) * 2 - 1);
+    return t_ray.origin()[2] + t_ray.direction()[2] * hit.t.local;
 }
 
 double Plane::get_v(const hit_t &hit, const Ray &t_ray) const
 {
-    (void)t_ray;
-    
-    return hit.local_inter[1] < 0 ?
-                (hit.local_inter[1] - (int)hit.local_inter[1]) * 2 + 1 :
-                (hit.local_inter[1] - (int)hit.local_inter[1]) * 2 - 1;
+    return t_ray.origin()[1] + t_ray.direction()[1] * hit.t.local;
 }

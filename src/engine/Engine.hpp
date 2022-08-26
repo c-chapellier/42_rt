@@ -4,8 +4,6 @@
 
 #include "../parser/XmlSceneParser.hpp"
 
-#include "../bmp/BMP.hpp"
-
 #include "../window/Window.hpp"
 #include "../camera/Camera.hpp"
 
@@ -38,13 +36,15 @@ private:
     const int n_threads = std::thread::hardware_concurrency();
     // const int n_threads = 1;
 
+    void threads(int n_thread);
+    Vec3 get_color(const Ray &ray, double n, int depth) const;
+    bool hit(const Ray &ray, hit_t &hit) const;
+    void save() const;
+
 public:
     Engine(const std::string &scene, const std::string &saveFile);
     ~Engine();
 
     void run();
-    void threads(int n_thread);
-    Vec3 get_color(const Ray &ray, double n, int depth) const;
-    bool hit(const Ray &ray, hit_t &hit) const;
     Vec3 get_debug_pixel(int x, int y) const;
 };

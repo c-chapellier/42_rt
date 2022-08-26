@@ -33,6 +33,8 @@ Vec3 Box::get_normal(const hit_t &hit) const
         return this->transform.apply_forward(Vec3(0, 0, 0)) - this->transform.apply_forward(Vec3(0, 0, -1));
     case 5:
         return this->transform.apply_forward(Vec3(0, 0, 0)) - this->transform.apply_forward(Vec3(0, 0, 1));
+    default:
+        throw "Bad t.index";
     }
 }
 
@@ -52,6 +54,8 @@ double Box::get_u(const hit_t &hit, const Ray &t_ray) const
         return t_ray.origin()[0] + t_ray.direction()[0] * hit.t.local;
     case 5:
         return t_ray.origin()[0] + t_ray.direction()[0] * hit.t.local;
+    default:
+        throw "Bad t.index";
     }
 }
 
@@ -71,6 +75,8 @@ double Box::get_v(const hit_t &hit, const Ray &t_ray) const
         return t_ray.origin()[1] - t_ray.direction()[1] * hit.t.local;
     case 5:
         return t_ray.origin()[1] - t_ray.direction()[1] * hit.t.local;
+    default:
+        throw "Bad t.index";
     }
 }
 

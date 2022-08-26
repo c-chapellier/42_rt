@@ -19,6 +19,36 @@ Engine::~Engine()
 
 }
 
+void Engine::save() const
+{
+    uint8_t *data = (uint8_t *)malloc(this->height * this->width * 3);
+
+    for (int i = 0; i < this->height; ++i)
+    {
+        for (int j = 0; j < this->width; ++j)
+        {
+            data[(i*this->width + j) * 3] = 255.99 * this->pixels[this->height - 1 - i][j][0];
+            data[(i*this->width + j) * 3 + 1] = 255.99 * this->pixels[this->height - 1 - i][j][1];
+            data[(i*this->width + j) * 3 + 2] = 255.99 * this->pixels[this->height - 1 - i][j][2];
+        }
+    }
+
+    SDL_Surface *image = SDL_CreateRGBSurfaceFrom(
+        (void*)data, this->width, this->height, 24, 3*this->width,
+        255, 255, 255, 0
+    );
+
+    if (image == NULL) {
+        SDL_Log("Creating surface failed: %s", SDL_GetError());
+        exit(1);
+    }
+
+    SDL_SaveBMP(image, this->saveFile.c_str()) != 0 && printf("not saved\n");
+
+    SDL_FreeSurface(image);
+    free(data);
+}
+
 bool Engine::hit(const Ray &ray, hit_t &hit) const
 {
     hit.t.global = INFINITY;
@@ -103,7 +133,7 @@ void Engine::run()
     auto stop = std::chrono::high_resolution_clock::now();
     std::cerr << "Loaded: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds" << std::endl;
 
-    BMP::write(this->pixels, this->saveFile);
+    this->save();
     std::cerr << "Image saved: " << this->saveFile << std::endl;
 
     this->window.stream(this->pixels);

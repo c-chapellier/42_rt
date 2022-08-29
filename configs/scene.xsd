@@ -80,6 +80,25 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="fresnelsurfacetype">
+    <xs:sequence>
+      <xs:element name="base" type="objecttype"/>
+      <xs:element name="a" type="xs:float"/>
+      <xs:element name="b" type="xs:float"/>
+      <xs:element name="c" type="xs:float"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dupincyclidetype">
+    <xs:sequence>
+      <xs:element name="base" type="objecttype"/>
+      <xs:element name="a" type="xs:float"/>
+      <xs:element name="b" type="xs:float"/>
+      <xs:element name="c" type="xs:float"/>
+      <xs:element name="d" type="xs:float"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="objectstype">
     <xs:choice maxOccurs="unbounded">
       <xs:element name="sphere" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
@@ -87,6 +106,9 @@
       <xs:element name="plane" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="mobiustape" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="box" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="fresnelsurface" type="fresnelsurfacetype" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="dupincyclide" type="dupincyclidetype" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="tanglecube" type="objecttype" minOccurs="0" maxOccurs="unbounded"/>
     </xs:choice>
   </xs:complexType>
 

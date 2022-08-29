@@ -36,6 +36,7 @@
 extern int debug;
 
 #include "math/EquationSolver.hpp"
+#include "math/EquationFiller.hpp"
 
 #include "components/Vec3.hpp"
 #include "components/Ray.hpp"

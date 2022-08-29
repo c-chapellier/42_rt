@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<scene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="scene.xsd"
+>
+  <height>600</height>
+  <width>600</width>
+  <precision>4</precision>
+    
+  <camera aperture="90">
+    <position x="5" y="0" z="0" />
+    <direction x="-1" y="0" z="0" />
+    <up x="0" y="0" z="1" />
+  </camera>
+
+  <colors>
+  </colors>
+
+  <objects>
+    <fresnelsurface>
+      <base>
+        <translation x="0" y="0" z="0" />
+        <rotation x="0" y="20" z="60" />
+        <scale x="1" y="1" z="1" />
+        <diffuse />
+        <uniform color="red" />
+      </base>
+      <a>0.8</a>
+      <b>1.2</b>
+      <c>0.3</c>
+    </fresnelsurface>
+  </objects>
+
+</scene>

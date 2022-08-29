@@ -116,8 +116,8 @@ void Engine::threads(int n_thread)
 
 void Engine::run()
 {
-    std::cout << "press any key ..." << std::endl;
-    std::cin.get();
+    // std::cout << "press any key ..." << std::endl;
+    // std::cin.get();
 
     std::cerr << "run" << std::endl;
     auto start = std::chrono::high_resolution_clock::now();

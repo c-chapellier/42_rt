@@ -86,6 +86,37 @@ XmlSceneParser::XmlSceneParser(const std::string &file)
                 this->xml_to_texture(object)
             ));
         }
+        else if (std::string(object->name()) == "tanglecube")
+        {
+            this->objects.push_back(new TangleCube(
+                this->xml_to_transform(object),
+                this->xml_to_material(object),
+                this->xml_to_texture(object)
+            ));
+        }
+        else if (std::string(object->name()) == "fresnelsurface")
+        {
+            this->objects.push_back(new FresnelElasticitySurface(
+                this->xml_to_transform(object->first_node("base")),
+                this->xml_to_material(object->first_node("base")),
+                this->xml_to_texture(object->first_node("base")),
+                std::stod(object->first_node("a")->value()),
+                std::stod(object->first_node("b")->value()),
+                std::stod(object->first_node("c")->value())
+            ));
+        }
+        else if (std::string(object->name()) == "dupincyclide")
+        {
+            this->objects.push_back(new DupinCyclide(
+                this->xml_to_transform(object->first_node("base")),
+                this->xml_to_material(object->first_node("base")),
+                this->xml_to_texture(object->first_node("base")),
+                std::stod(object->first_node("a")->value()),
+                std::stod(object->first_node("b")->value()),
+                std::stod(object->first_node("c")->value()),
+                std::stod(object->first_node("d")->value())
+            ));
+        }
         else
         {
             throw "Bad object";

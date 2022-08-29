@@ -11,6 +11,9 @@
 #include "../objects/Plane.hpp"
 #include "../objects/MobiusTape.hpp"
 #include "../objects/Box.hpp"
+#include "../objects/FresnelElasticitySurface.hpp"
+#include "../objects/DupinCyclide.hpp"
+#include "../objects/TangleCube.hpp"
 
 #include "../materials/Diffuse.hpp"
 #include "../materials/Metal.hpp"

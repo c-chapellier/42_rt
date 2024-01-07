@@ -9,7 +9,7 @@
   <precision>4</precision>
     
   <camera aperture="90">
-    <position x="5" y="0" z="0" />
+    <position x="70" y="0" z="0" />
     <direction x="-1" y="0" z="0" />
     <up x="0" y="0" z="1" />
   </camera>
@@ -21,14 +21,14 @@
     <fresnelsurface>
       <base>
         <translation x="0" y="0" z="0" />
-        <rotation x="0" y="20" z="60" />
+        <rotation x="0" y="31" z="45" />
         <scale x="1" y="1" z="1" />
         <diffuse />
         <uniform color="red" />
       </base>
-      <a>0.8</a>
-      <b>1.2</b>
-      <c>0.3</c>
+      <a>10</a>
+      <b>5</b>
+      <c>20</c>
     </fresnelsurface>
   </objects>
 

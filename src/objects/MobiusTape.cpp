@@ -76,10 +76,18 @@ int MobiusTape::filter_ts(int n, t_t *ts, const Ray &t_ray) const
     for (int i = 0; i < n; ++i)
     {
         Vec3 local_inter = t_ray.point_at_parameter(ts[i].local);
+        // Vec3 p = local_inter;
+        // Vec3 normal(
+        //     2*p[0]*p[1] - 2*p[1] - 4*p[0]*p[2],
+        //     p[0]*p[0] + p[2]*p[2] + 3*p[1]*p[1] - 1 -4*p[1]*p[2],
+        //     2*p[1]*p[2] - 2*p[0] - 2*p[0]*p[0] - 2*p[1]*p[1]
+        // );
+
         if (
             ts[i].local < EPSILON ||
             (local_inter - Vec3(local_inter[0], local_inter[1], 0).unit_vector()).length() > this->r ||
             (local_inter[0] == 0 && local_inter[1] == 0)
+            // || (fabs(local_inter[1] - local_inter[2]) < 0.1 && fabs(normal[2]) < 0.3)
         )
         {
             for (int j = i; j < n - 1; ++j)

@@ -136,8 +136,8 @@ void Engine::run()
     this->save();
     std::cerr << "Image saved: " << this->saveFile << std::endl;
 
-    this->window.stream(this->pixels);
-    this->window.pause(this);
+    // this->window.stream(this->pixels);
+    // this->window.pause(this);
 }
 
 Vec3 Engine::get_debug_pixel(int x, int y) const

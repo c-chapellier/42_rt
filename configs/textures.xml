@@ -44,13 +44,13 @@
       <diffuse />
       <texturefromfile filename="./textures/astronomy/2k_earth_daymap.jpg" />
     </mobiustape>
-    <plane>
+    <!-- <plane>
       <translation x="-4" y="0" z="0" />
       <rotation x="0" y="0" z="0" />
       <scale x="1" y="1" z="1" />
       <diffuse />
       <texturefromfile filename="./textures/astronomy/2k_earth_daymap.jpg" />
-    </plane>
+    </plane> -->
   </objects>
 
 </scene>
